@@ -1,0 +1,95 @@
+{
+    "PLAYER_ACTION": {
+        "GiveItems": {
+            "path": [
+                "§6Item Management",
+                "§6Give Items"
+            ]
+        },
+        "SetItems": {
+            "path": [
+                "§6Item Management",
+                "§5Set Items"
+            ]
+        },
+        "SetArmor": {
+            "path": [
+                "§6Item Management",
+                "§6Set Armor"
+            ]
+        },
+        "SetOffHand": {
+            "path": [
+                "§6Item Management",
+                "§cSet Item In Off Hand"
+            ]
+        },
+        "RemoveItem": {
+            "path": [
+                "§6Item Management",
+                "§eRemove Items"
+            ]
+        },
+        "ClearInv": {
+            "path": [
+                "§6Item Management",
+                "§eClear Inventory"
+            ]
+        },
+        "ShowInv": {
+            "path": [
+                "§6Item Management",
+                "§eShow Inventory Menu"
+            ]
+        },
+        "CloseInv": {
+            "path": [
+                "§6Item Management",
+                "§aClose All Inventory Menus"
+            ]
+        },
+        "ExpandInv": {
+            "path": [
+                "§6Item Management",
+                "§bExpand Inventory Menu"
+            ]
+        },
+        "SaveInv": {
+            "path": [
+                "§6Item Management",
+                "§aSave Current Inventory"
+            ]
+        },
+        "LoadInv": {
+            "path": [
+                "§6Item Management",
+                "§eLoad Saved Inventory"
+            ]
+        },
+        "SetSlot": {
+            "path": [
+                "§6Item Management",
+                "§9Set Hotbar Slot"
+            ]
+        },
+        "GiveRngItem": {
+            "path": [
+                "§6Item Management",
+                "§6Give Random Item"
+            ]
+        }
+    },
+
+    "PLAYER_EVENT": {
+        "Join": {
+            "path": [
+                "§aPlayer Join Game Event"
+            ]
+        },
+        "Quit": {
+            "path": [
+                "§cPlayer Quit Game Event"
+            ]
+        }
+    }
+}
