@@ -1,0 +1,96 @@
+package dfutils.commands.itemcontrol.attributes;
+
+import dfutils.commands.CommandUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+import static dfutils.commands.MessageUtils.*;
+
+class CommandAttributeRemove {
+    
+    private static Minecraft minecraft = Minecraft.getMinecraft();
+    
+    static void executeRemoveAttribute(ICommandSender sender, String[] commandArgs) {
+    
+        //Checks if command format is valid.
+        if (!checkFormat(sender, commandArgs)) return;
+    
+        ItemStack itemStack = minecraft.player.getHeldItemMainhand();
+    
+        //Checks if item stack is not air.
+        if (itemStack.isEmpty()) {
+            commandError("Invalid item!");
+            return;
+        }
+    
+        //Checks if item has attributes.
+        if (!itemStack.hasTagCompound()) {
+            commandError("This item does not contain any attributes!");
+            return;
+        }
+    
+        //Checks if item has attributes.
+        if (!itemStack.getTagCompound().hasKey("AttributeModifiers", 9)) {
+            commandError("This item does not contain any attributes!");
+            return;
+        }
+    
+        NBTTagList nbtTagList = itemStack.getTagCompound().getTagList("AttributeModifiers", 10);
+    
+        //Iterates through item attributes.
+        for (int i = 0; i < nbtTagList.tagCount(); i++) {
+        
+            NBTTagCompound checkAttribute = nbtTagList.getCompoundTagAt(i);
+            
+            //Checks if attribute is the correct attribute, and if so, removes it.
+            if (checkAttribute.getTag("Name").toString().equals("\"" + commandArgs[1] + "\"")) {
+                if (commandArgs.length == 3) {
+                    try {
+                        if (checkAttribute.getTag("Slot").toString().equals("\"" + CommandUtils.parseSlotText(commandArgs[2]).getName() + "\"")) {
+    
+                            nbtTagList.removeTag(i);
+                            
+                            //Sends updated item to the server.
+                            minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+        
+                            commandAction("Removed attribute from item.");
+                            return;
+                        }
+                    } catch (NullPointerException exception) {}
+                } else {
+    
+                    nbtTagList.removeTag(i);
+                    
+                    //Sends updated item to the server.
+                    minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+    
+                    commandAction("Removed attribute from item.");
+                    return;
+                }
+            }
+        }
+        
+        commandError("Could not find specified attribute.");
+    }
+    
+    private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
+        if (commandArgs.length >= 2 && commandArgs.length <= 3) {
+            
+            if (commandArgs.length == 3) {
+                if (CommandUtils.parseSlotText(commandArgs[2]) == null) {
+                    commandError("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
+                    return false;
+                }
+            }
+            
+            return true;
+            
+        } else {
+            commandError("Usage:\n" + new CommandAttributeBase().getUsage(sender));
+            return false;
+        }
+    }
+}
