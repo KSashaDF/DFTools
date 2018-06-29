@@ -1,32 +1,31 @@
-package dfutils.commands.itemcontrol;
+package dfutils.commands.itemcontrol.canplace;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.commandAction;
 import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.commands.MessageUtils.commandInfo;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CommandBreakable extends CommandBase implements IClientCommand {
+public class CommandCanPlaceBase extends CommandBase implements IClientCommand {
     
     private final Minecraft minecraft = Minecraft.getMinecraft();
     
     public String getName() {
-        return "breakable";
+        return "canplace";
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/breakable";
+        return "§e/canplace add <block>\n" +
+                "§e/canplace remove <block>\n" +
+                "§e/canplace clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -45,25 +44,26 @@ public class CommandBreakable extends CommandBase implements IClientCommand {
             return;
         }
         
-        ItemStack itemStack = minecraft.player.getHeldItemMainhand();
-        
-        //Checks if item is not air.
-        if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+        if (commandArgs.length == 0) {
+            commandInfo("Usage:\n" + getUsage(sender));
             return;
         }
         
-        //Checks if item has NBT tag, if not, adds NBT tag.
-        if (itemStack.getTagCompound() == null) {
-            itemStack.setTagCompound(new NBTTagCompound());
+        switch (commandArgs[0]) {
+            case "add":
+                CommandCanPlaceAdd.executeAddCanPlace(sender, commandArgs);
+                return;
+            
+            case "remove":
+                CommandCanPlaceRemove.executeRemoveCanPlace(sender, commandArgs);
+                return;
+            
+            case "clear":
+                CommandCanPlaceClear.executeClearCanPlace(sender, commandArgs);
+                return;
+            
+            default:
+                commandInfo("Usage:\n" + getUsage(sender));
         }
-        
-        //Makes item breakable.
-        itemStack.getTagCompound().setTag("Unbreakable", new NBTTagByte((byte) 0));
-        
-        //Sends updated item to the server.
-        minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
-        
-        commandAction("Item is no longer unbreakable.");
     }
 }

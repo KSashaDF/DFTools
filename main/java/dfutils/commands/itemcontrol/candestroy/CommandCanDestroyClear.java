@@ -1,16 +1,18 @@
-package dfutils.commands.itemcontrol.attributes;
+package dfutils.commands.itemcontrol.candestroy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.commands.MessageUtils.commandAction;
+import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.commands.MessageUtils.commandInfo;
 
-class CommandAttributeClear {
+class CommandCanDestroyClear {
     
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
-    static void executeClearAttributes(ICommandSender sender, String[] commandArgs) {
+    static void executeClearCanDestroy(ICommandSender sender, String[] commandArgs) {
     
         //Checks if command format is valid.
         if (!checkFormat(sender, commandArgs)) return;
@@ -22,25 +24,25 @@ class CommandAttributeClear {
             commandError("Invalid item!");
             return;
         }
-        
-        //Checks if item has attributes.
+    
+        //Checks if item has an NBT tag.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any attributes!");
+            commandError("This item does not contain any CanDestroy tags!");
             return;
         }
     
-        //Checks if item has attributes.
-        if (!itemStack.getTagCompound().hasKey("AttributeModifiers", 9)) {
-            commandError("This item does not contain any attributes!");
+        //Checks if item has a CanDestroy tag.
+        if (!itemStack.getTagCompound().hasKey("CanDestroy", 9)) {
+            commandError("This item does not contain any CanDestroy tags!");
             return;
         }
-        
-        itemStack.getTagCompound().removeTag("AttributeModifiers");
-        
+    
+        itemStack.getTagCompound().removeTag("CanDestroy");
+    
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-        commandAction("Cleared attributes from item.");
+        commandAction("Cleared all CanDestroy tags.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -48,7 +50,7 @@ class CommandAttributeClear {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandAttributeBase().getUsage(sender));
+            commandInfo("Usage:\n" + new CommandCanDestroyBase().getUsage(sender));
             return false;
         }
     }

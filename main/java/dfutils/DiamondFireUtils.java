@@ -8,6 +8,11 @@ import dfutils.codetools.selection.SelectionEventHandler;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
 import dfutils.commands.itemcontrol.CommandGive;
+import dfutils.commands.itemcontrol.candestroy.CommandCanDestroyBase;
+import dfutils.commands.itemcontrol.canplace.CommandCanPlaceBase;
+import dfutils.commands.itemcontrol.flags.CommandHideFlags;
+import dfutils.commands.itemcontrol.flags.CommandSetFlags;
+import dfutils.commands.itemcontrol.flags.CommandShowFlags;
 import dfutils.commands.shortcuts.ShortcutLastMsg;
 import dfutils.commands.shortcuts.ShortcutSupportChat;
 import dfutils.commands.itemcontrol.CommandBreakable;
@@ -43,11 +48,16 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandGive());
         commandHandler.registerCommand(new CommandAttributeBase());
         commandHandler.registerCommand(new CommandLoreBase());
+        commandHandler.registerCommand(new CommandCanDestroyBase());
+        commandHandler.registerCommand(new CommandCanPlaceBase());
         commandHandler.registerCommand(new CommandRenameAnvil());
         commandHandler.registerCommand(new CommandRename());
         commandHandler.registerCommand(new CommandUnbreakable());
         commandHandler.registerCommand(new CommandBreakable());
         commandHandler.registerCommand(new CommandDurability());
+        commandHandler.registerCommand(new CommandHideFlags());
+        commandHandler.registerCommand(new CommandShowFlags());
+        commandHandler.registerCommand(new CommandSetFlags());
         
         commandHandler.registerCommand(new CommandCodeBase());
         

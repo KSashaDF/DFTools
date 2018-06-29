@@ -21,11 +21,11 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§c/lore add <lore> \n" +
-                "§c/lore set <line> <lore> \n" +
-                "§c/lore insert <line> <lore> \n" +
-                "§c/lore remove <line> \n" +
-                "§c/lore clear";
+        return "§e/lore add <lore> \n" +
+                "§e/lore set <line> <lore> \n" +
+                "§e/lore insert <line> <lore> \n" +
+                "§e/lore remove <line> \n" +
+                "§e/lore clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -45,7 +45,7 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
         }
         
         if (commandArgs.length == 0) {
-            commandError("Usage:\n" + getUsage(sender));
+            commandInfo("Usage:\n" + getUsage(sender));
             return;
         }
         
@@ -71,7 +71,7 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
                 return;
                 
             default:
-                commandError("Usage:\n" + getUsage(sender));
+                commandInfo("Usage:\n" + getUsage(sender));
         }
     }
 }

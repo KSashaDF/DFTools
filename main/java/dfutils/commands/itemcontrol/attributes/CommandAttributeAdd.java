@@ -78,7 +78,7 @@ class CommandAttributeAdd {
             return true;
             
         } else {
-            commandError("Usage:\n" + new CommandAttributeBase().getUsage(sender));
+            commandInfo("Usage:\n" + new CommandAttributeBase().getUsage(sender));
             return false;
         }
     }

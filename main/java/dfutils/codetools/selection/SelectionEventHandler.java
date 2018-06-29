@@ -59,21 +59,40 @@ public class SelectionEventHandler {
     }
     
     private void incrementState() {
+        SelectionState nextSelectionState = SelectionState.NULL;
+        
         switch (SelectionController.selectionState) {
             case NULL:
-                SelectionController.selectionState = SelectionState.CODEBLOCK;
-                return;
+                nextSelectionState= SelectionState.CODEBLOCK;
+                break;
             
             case CODEBLOCK:
-                SelectionController.selectionState = SelectionState.LOCAL_SCOPE;
-                return;
+                nextSelectionState = SelectionState.LOCAL_SCOPE;
+                break;
                 
             case LOCAL_SCOPE:
-                SelectionController.selectionState = SelectionState.CODE_LINE;
-                return;
+                nextSelectionState = SelectionState.CODE_LINE;
+                break;
                 
             case CODE_LINE:
                 SelectionController.resetSelection();
+                return;
+        }
+        
+        try {
+            BlockPos[] selectionEdges = SelectionController.getSelectionEdges();
+            SelectionController.selectionState = nextSelectionState;
+            BlockPos[] newSelectionEdges = SelectionController.getSelectionEdges();
+            
+            if (SelectionController.selectionState != SelectionState.NULL) {
+                if (selectionEdges[0].equals(newSelectionEdges[0]) && selectionEdges[1].equals(newSelectionEdges[0])) {
+                    incrementState();
+                }
+            }
+            
+        } catch (CodeFormatException exception) {
+            SelectionController.resetSelection();
+            exception.printError();
         }
     }
 }

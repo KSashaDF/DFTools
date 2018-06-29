@@ -95,7 +95,7 @@ class CommandLoreSet {
             }
             
         } else {
-            commandError("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }

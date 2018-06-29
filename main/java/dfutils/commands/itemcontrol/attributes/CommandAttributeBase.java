@@ -22,9 +22,9 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§c/attribute add <attribute name> <amount> [operation] [slot] \n" +
-                "§c/attribute remove <attribute name> [slot] \n" +
-                "§c/attribute clear";
+        return "§e/attribute add <attribute name> <amount> [operation] [slot] \n" +
+                "§e/attribute remove <attribute name> [slot] \n" +
+                "§e/attribute clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -44,7 +44,7 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
         }
     
         if (commandArgs.length == 0) {
-            commandError("Usage:\n" + getUsage(sender));
+            commandInfo("Usage:\n" + getUsage(sender));
             return;
         }
         
@@ -62,7 +62,7 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
                 return;
                 
             default:
-                commandError("Usage:\n" + getUsage(sender));
+                commandInfo("Usage:\n" + getUsage(sender));
         }
     }
 }

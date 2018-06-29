@@ -18,6 +18,7 @@ import net.minecraftforge.client.IClientCommand;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.commands.MessageUtils.commandInfo;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -30,7 +31,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§c/give <item> [amount] [metadata] [NBT]";
+        return "§e/give <item> [amount] [metadata] [NBT]";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -92,7 +93,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
         }
         
         if (commandArgs.length < 1) {
-            commandError("Usage:\n" + getUsage(sender));
+            commandInfo("Usage:\n" + getUsage(sender));
             return false;
         }
         

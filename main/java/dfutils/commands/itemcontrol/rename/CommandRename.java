@@ -26,7 +26,7 @@ public class CommandRename extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§c/rename <name>";
+        return "§e/rename <name>";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -46,7 +46,7 @@ public class CommandRename extends CommandBase implements IClientCommand {
         }
         
         if (commandArgs.length == 0) {
-            commandError("Usage:\n" + getUsage(sender));
+            commandInfo("Usage:\n" + getUsage(sender));
             return;
         }
         

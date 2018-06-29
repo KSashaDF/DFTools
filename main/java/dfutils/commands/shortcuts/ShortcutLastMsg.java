@@ -1,12 +1,13 @@
 package dfutils.commands.shortcuts;
 
-import dfutils.commands.CommandData;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class ShortcutLastMsg {
+    
+    private static String lastPersonMessaged = "";
     
     @SubscribeEvent
     public void onClientSendMessage(ClientChatEvent event) {
@@ -21,7 +22,7 @@ public class ShortcutLastMsg {
                 if (message.charAt(i) == ' ') {
                     char[] charArray = new char[i];
                     message.getChars(0, i, charArray, 0);
-                    CommandData.lastPersonMessaged = String.valueOf(charArray);
+                    lastPersonMessaged = String.valueOf(charArray);
                     break;
                 }
             }
@@ -31,7 +32,7 @@ public class ShortcutLastMsg {
         if (event.getMessage().startsWith("/l ")) {
             char[] charArray = new char[event.getMessage().length() - 3];
             event.getMessage().getChars(3, event.getMessage().length(), charArray, 0);
-            event.setMessage("/msg " + CommandData.lastPersonMessaged + " " + String.valueOf(charArray));
+            event.setMessage("/msg " + lastPersonMessaged + " " + String.valueOf(charArray));
         }
     }
 }

@@ -1,31 +1,32 @@
-package dfutils.commands.itemcontrol;
+package dfutils.commands.itemcontrol.flags;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.command.NumberInvalidException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.commands.MessageUtils.commandAction;
+import static dfutils.commands.MessageUtils.commandError;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CommandDurability extends CommandBase implements IClientCommand {
+public class CommandShowFlags extends CommandBase implements IClientCommand {
     
     private final Minecraft minecraft = Minecraft.getMinecraft();
     
     public String getName() {
-        return "durability";
+        return "showflags";
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/durability <number>";
+        return "§e/showflags";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -43,11 +44,6 @@ public class CommandDurability extends CommandBase implements IClientCommand {
             commandError("You need to be in build mode or dev mode to do this!");
             return;
         }
-    
-        if (commandArgs.length != 1) {
-            commandInfo("Usage:\n" + getUsage(sender));
-            return;
-        }
         
         ItemStack itemStack = minecraft.player.getHeldItemMainhand();
         
@@ -57,26 +53,24 @@ public class CommandDurability extends CommandBase implements IClientCommand {
             return;
         }
         
-        //Checks if item has NBT tag, if not, adds NBT tag.
+        //Checks if item has NBT tag.
         if (itemStack.getTagCompound() == null) {
-            itemStack.setTagCompound(new NBTTagCompound());
-        }
-        
-        //Sets item durability.
-        try {
-            int itemDurability = itemStack.getMaxDamage() - CommandBase.parseInt(commandArgs[0]);
-    
-            if (itemDurability < 0) itemDurability = 0;
-            
-            itemStack.setItemDamage(itemDurability);
-        } catch (NumberInvalidException exception) {
-            commandError("Invalid number argument.");
+            commandError("Flags are already shown for this item!");
             return;
         }
+        
+        //Checks if item has HideFlags tag.
+        if (!itemStack.getTagCompound().hasKey("HideFlags")) {
+            commandError("Flags are already shown for this item!");
+            return;
+        }
+        
+        //Removes HideFlags tag.
+        itemStack.getTagCompound().removeTag("HideFlags");
         
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Item durability set.");
+        commandAction("Flags are now shown for this item.");
     }
 }

@@ -1,4 +1,4 @@
-package dfutils.commands.itemcontrol;
+package dfutils.commands.itemcontrol.flags;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
@@ -7,25 +7,28 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.commands.MessageUtils.commandAction;
+import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.commands.MessageUtils.commandInfo;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CommandDurability extends CommandBase implements IClientCommand {
+public class CommandSetFlags extends CommandBase implements IClientCommand {
     
     private final Minecraft minecraft = Minecraft.getMinecraft();
     
     public String getName() {
-        return "durability";
+        return "setflags";
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/durability <number>";
+        return "§e/setflags <number>";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -43,7 +46,7 @@ public class CommandDurability extends CommandBase implements IClientCommand {
             commandError("You need to be in build mode or dev mode to do this!");
             return;
         }
-    
+        
         if (commandArgs.length != 1) {
             commandInfo("Usage:\n" + getUsage(sender));
             return;
@@ -62,13 +65,9 @@ public class CommandDurability extends CommandBase implements IClientCommand {
             itemStack.setTagCompound(new NBTTagCompound());
         }
         
-        //Sets item durability.
         try {
-            int itemDurability = itemStack.getMaxDamage() - CommandBase.parseInt(commandArgs[0]);
-    
-            if (itemDurability < 0) itemDurability = 0;
-            
-            itemStack.setItemDamage(itemDurability);
+            //Sets item flags.
+            itemStack.getTagCompound().setTag("HideFlags", new NBTTagInt(parseInt(commandArgs[0], 0, 63)));
         } catch (NumberInvalidException exception) {
             commandError("Invalid number argument.");
             return;
@@ -77,6 +76,6 @@ public class CommandDurability extends CommandBase implements IClientCommand {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Item durability set.");
+        commandAction("Set flags for this item.");
     }
 }

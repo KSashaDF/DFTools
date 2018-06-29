@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagString;
 
 import static dfutils.commands.MessageUtils.commandAction;
 import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.commands.MessageUtils.commandInfo;
 
 public class CommandLoreInsert {
     
@@ -106,7 +107,7 @@ public class CommandLoreInsert {
             }
             
         } else {
-            commandError("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }
