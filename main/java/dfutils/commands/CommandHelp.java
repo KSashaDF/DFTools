@@ -43,6 +43,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                 "  §7/give command is cheaty, the /give command (and all",
                 "  §7other item commands) only work in creative mode!",
                 "",
+                "§6> §e/itemdata",
                 "§6> §e/attribute",
                 "§6> §e/lore",
                 "§6> §e/candestroy",

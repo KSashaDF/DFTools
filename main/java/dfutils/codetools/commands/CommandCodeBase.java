@@ -1,5 +1,6 @@
 package dfutils.codetools.commands;
 
+import dfutils.codetools.codecopying.CopyController;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -53,6 +54,7 @@ public class CommandCodeBase extends CommandBase implements IClientCommand {
                 return;
                 
             case "copy":
+                CopyController.initializeCopy();
         }
     }
 }

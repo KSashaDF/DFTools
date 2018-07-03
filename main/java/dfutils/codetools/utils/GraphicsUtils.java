@@ -23,8 +23,8 @@ public class GraphicsUtils {
     }
     
     public static void drawBlock(Tessellator tessellator, float partialTicks, BlockPos blockPos, ColorReference color) {
-        drawCube(tessellator, partialTicks, blockPos.getX() - 0.0001, blockPos.getY() - 0.0001, blockPos.getZ() - 0.0001,
-                blockPos.getX() + 1.0001, blockPos.getY() + 1.0001, blockPos.getZ() + 1.0001, color);
+        drawCube(tessellator, partialTicks, blockPos.getX() - 0.0005, blockPos.getY() - 0.0005, blockPos.getZ() - 0.0005,
+                blockPos.getX() + 1.0005, blockPos.getY() + 1.0005, blockPos.getZ() + 1.0005, color);
     }
     
     

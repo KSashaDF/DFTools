@@ -14,7 +14,7 @@ public enum CodeBlockName {
     IF_ENTITY(true, true, "Piston", CodeBlockType.CONDITIONAL),
     IF_VARIABLE(true, true, "Piston", CodeBlockType.CONDITIONAL),
     ELSE(false, false, true, "Piston", CodeBlockType.SPECIAL),
-    REPEAT(false, true, "Sticky Piston", CodeBlockType.SPECIAL),
+    REPEAT(true, true, "Sticky Piston", CodeBlockType.SPECIAL),
     
     PLAYER_EVENT(false, false, "Stone", CodeBlockType.EVENT),
     ENTITY_EVENT(false, false, "Stone", CodeBlockType.EVENT),

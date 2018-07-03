@@ -12,9 +12,9 @@ import net.minecraft.util.math.BlockPos;
 
 public class SelectionController {
     
-    static boolean selectionActive = false;
+    public static boolean selectionActive = false;
     static BlockPos selectionPos;
-    static SelectionState selectionState = SelectionState.NULL;
+    public static SelectionState selectionState = SelectionState.NULL;
     
     static void renderSelection(Tessellator tessellator, float partialTicks) {
     
