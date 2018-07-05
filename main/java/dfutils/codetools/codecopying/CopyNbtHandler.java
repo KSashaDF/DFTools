@@ -1,9 +1,7 @@
 package dfutils.codetools.codecopying;
 
 import dfutils.codetools.classification.CodeBlockName;
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
@@ -87,7 +85,7 @@ class CopyNbtHandler {
             if (!itemStack.isEmpty()) {
                 itemNbt.setTag("Count", new NBTTagByte((byte) itemStack.getCount()));
                 itemNbt.setTag("Damage", new NBTTagShort((short) itemStack.getMetadata()));
-                itemNbt.setTag("id", new NBTTagString("" + Item.getIdFromItem(itemStack.getItem())));
+                itemNbt.setTag("id", new NBTTagInt(Item.getIdFromItem(itemStack.getItem())));
                 
                 if (itemStack.hasTagCompound()) {
                     itemNbt.setTag("tag", itemStack.getTagCompound());

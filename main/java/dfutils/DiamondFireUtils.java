@@ -3,6 +3,7 @@ package dfutils;
 import dfutils.codetools.CodeData;
 import dfutils.codetools.codecopying.CopyController;
 import dfutils.codetools.codecopying.CopyEventHandler;
+import dfutils.codetools.codeprinting.PrintEventHandler;
 import dfutils.codetools.misctools.LocationSetter;
 import dfutils.codetools.misctools.PistonHighlighting;
 import dfutils.codetools.commands.CommandCodeBase;
@@ -65,6 +66,7 @@ public class DiamondFireUtils {
         
         MinecraftForge.EVENT_BUS.register(new CopyController());
         MinecraftForge.EVENT_BUS.register(new CopyEventHandler());
+        MinecraftForge.EVENT_BUS.register(new PrintEventHandler());
         
         new CodeData();
         MinecraftForge.EVENT_BUS.register(new SelectionEventHandler());

@@ -1,6 +1,8 @@
 package dfutils.codetools.misctools;
 
+import dfutils.codetools.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
@@ -13,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class LocationSetter {
     
-    Minecraft minecraft = Minecraft.getMinecraft();
+    private Minecraft minecraft = Minecraft.getMinecraft();
     
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {

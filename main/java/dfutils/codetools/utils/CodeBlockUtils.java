@@ -38,6 +38,32 @@ public class CodeBlockUtils {
         }
     }
     
+    public static CodeBlockName stringToBlock(String blockName) {
+        switch (blockName) {
+            case "PLAYER_ACTION": return CodeBlockName.PLAYER_ACTION;
+            case "GAME_ACTION": return CodeBlockName.GAME_ACTION;
+            case "ENTITY_ACTION": return CodeBlockName.ENTITY_ACTION;
+            case "SET_VARIABLE": return CodeBlockName.SET_VARIABLE;
+            case "SELECT_OBJECT": return CodeBlockName.SELECT_OBJECT;
+            case "CALL_FUNCTION": return CodeBlockName.CALL_FUNCTION;
+            case "CONTROL": return CodeBlockName.CONTROL;
+        
+            case "IF_PLAYER": return CodeBlockName.IF_PLAYER;
+            case "IF_GAME": return CodeBlockName.IF_GAME;
+            case "IF_ENTITY": return CodeBlockName.IF_ENTITY;
+            case "IF_VARIABLE": return CodeBlockName.IF_VARIABLE;
+            case "ELSE": return CodeBlockName.ELSE;
+            case "REPEAT": return CodeBlockName.REPEAT;
+        
+            case "PLAYER_EVENT": return CodeBlockName.PLAYER_EVENT;
+            case "ENTITY_EVENT": return CodeBlockName.ENTITY_EVENT;
+            case "FUNCTION": return CodeBlockName.FUNCTION;
+            case "LOOP": return CodeBlockName.LOOP;
+        
+            default: return CodeBlockName.PLAYER_ACTION;
+        }
+    }
+    
     public static boolean isValidCore(BlockPos corePos) {
         
         String blockName = minecraft.world.getBlockState(corePos).getBlock().getLocalizedName();

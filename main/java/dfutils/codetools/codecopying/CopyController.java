@@ -39,9 +39,6 @@ public class CopyController {
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void initializeCopy() {
-        System.out.println(CodeBlockName.ELSE.hasPistonBrackets);
-        System.out.println(CodeBlockName.REPEAT.hasPistonBrackets);
-        
         if (SelectionController.selectionActive && SelectionController.selectionState != SelectionState.NULL) {
             try {
                 
