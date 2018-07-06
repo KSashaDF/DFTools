@@ -1,6 +1,5 @@
 package dfutils.codetools.codeprinting;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -95,11 +94,13 @@ class PrintNbtHandler {
         NBTTagCompound itemNbt = selectedBlock.getTagList("ChestItems", 10).getCompoundTagAt(slot);
         
         if (itemNbt.hasKey("id")) {
-            return new ItemStack(
+            ItemStack itemStack = new ItemStack(
                     Item.getItemById(itemNbt.getInteger("id")),
                     itemNbt.getByte("Count"),
-                    itemNbt.getShort("Damage"),
-                    itemNbt.getCompoundTag("tag"));
+                    itemNbt.getShort("Damage"));
+            itemStack.setTagCompound(itemNbt.getCompoundTag("tag"));
+            
+            return itemStack;
         } else {
             return new ItemStack(Item.getItemById(0));
         }

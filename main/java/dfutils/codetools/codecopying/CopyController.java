@@ -206,7 +206,7 @@ public class CopyController {
             if (!container.getSlot(slot).getStack().isEmpty())
                 return false;
         }
-        
+
         return true;
     }
 }

@@ -123,4 +123,24 @@ public class CodeItems {
         itemStack.setTagCompound(itemNbt);
         return itemStack;
     }
+
+    public static ItemStack getTextBook(String text) {
+        ItemStack itemStack = new ItemStack(Item.getItemById(340), 1, 0);
+
+        try {
+            itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + text + "\"}}"));
+        } catch (NBTException exception) {}
+
+        return itemStack;
+    }
+
+    public static ItemStack getNumberSlimeball(int number) {
+        ItemStack itemStack = new ItemStack(Item.getItemById(341), 1, 0);
+
+        try {
+            itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"§c" + number + "\"}}"));
+        } catch (NBTException exception) {}
+
+        return itemStack;
+    }
 }

@@ -1,5 +1,17 @@
 {
     "PLAYER_ACTION": {
+
+        "CodeTarget": {
+            "Selection": "§aCurrent Selection",
+            "Default": "§aDefault Player",
+            "Random": "§eRandom Player",
+            "All": "§bAll Players",
+            "Killer": "§cKiller",
+            "Damager": "§cDamager",
+            "Shooter": "§eShooter",
+            "Victim": "§9Victim"
+        },
+
         "GiveItems": {
             "path": [
                 "§6Item Management",
@@ -77,7 +89,93 @@
                 "§6Item Management",
                 "§6Give Random Item"
             ]
-        }
+        },
+
+
+        "SendMessage": {
+            "path": [
+                "§cCommunication",
+                "§eSend Message"
+            ]
+        },
+        "SendDialogue": {
+            "path": [
+                "§cCommunication",
+                "§bSend Dialogue"
+            ]
+        },
+        "SendHover": {
+            "path": [
+                "§cCommunication",
+                "§dSend Message w/ Hover"
+            ]
+        },
+        "ClearChat": {
+            "path": [
+                "§cCommunication",
+                "§cClear Chat"
+            ]
+        },
+        "PlaySound": {
+            "path": [
+                "§cCommunication",
+                "§9Play Sound Effect"
+            ]
+        },
+        "PlaySoundSeq": {
+            "path": [
+                "§cCommunication",
+                "§bPlay Sound Sequence"
+            ]
+        },
+        "StopSound": {
+            "path": [
+                "§cCommunication",
+                "§cStop Sound Effects"
+            ]
+        },
+        "PlayEffect": {
+            "path": [
+                "§cCommunication",
+                "§9Play Particle Effect"
+            ]
+        },
+        "SendTitle": {
+            "path": [
+                "§cCommunication",
+                "§eSend Title"
+            ]
+        },
+        "SetChatTag": {
+            "path": [
+                "§cCommunication",
+                "§bSet Chat Tag"
+            ]
+        },
+        "BossBar": {
+            "path": [
+                "§cCommunication",
+                "§dSet Bossbar"
+            ]
+        },
+        "ClearBars": {
+            "path": [
+                "§cCommunication",
+                "§5Remove Bossbar"
+            ]
+        },
+        "ActionBar": {
+            "path": [
+                "§cCommunication",
+                "§eSend Action Bar Message"
+            ]
+        },
+        "ChatColor": {
+            "path": [
+                "§cCommunication",
+                "§bSet Chat Color"
+            ]
+        },
     },
 
     "PLAYER_EVENT": {

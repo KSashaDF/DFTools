@@ -1,15 +1,21 @@
 package dfutils.codetools.codeprinting;
 
+import dfutils.codetools.CodeData;
 import dfutils.codetools.CodeItems;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.codetools.utils.MathUtils;
 import dfutils.codetools.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.NumberInvalidException;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.client.CPacketClickWindow;
+import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -28,8 +34,11 @@ class PrintController {
     
     private static int codeChestSlot;
     private static PrintChestStage codeChestStage;
-    private static short actionNumber;
-    
+
+    private static PrintSignStage codeSignStage;
+    private static NBTTagList functionPath;
+    private static int functionPathPos;
+
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
     
@@ -95,9 +104,8 @@ class PrintController {
                     printSubState = PrintSubState.NULL;
                 } else {
                     if (CodeBlockUtils.stringToBlock(printNbtHandler.selectedBlock.getString("Name")).hasCodeSign) {
-                        
-                        //NOTE - Change the printState to PrintState.SIGN
-                        printState = PrintState.NULL;
+
+                        printState = PrintState.SIGN;
                         printSubState = PrintSubState.NULL;
                     } else {
                         nextCodeBlock();
@@ -115,24 +123,15 @@ class PrintController {
             if (printSubState == PrintSubState.MOVEMENT_WAIT) {
                 if (MathUtils.distance(minecraft.player.getPosition(), printPos) < 5) {
                     minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.up(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
-                    
-                    printSubState = PrintSubState.ACTION_WAIT;
-                    actionWaitTicks = 5;
+
+                    printSubState = PrintSubState.EVENT_WAIT;
+                    codeChestSlot = 0;
+                    codeChestStage = PrintChestStage.CREATE_ITEM;
                 }
             }
             
-            if (printSubState == PrintSubState.ACTION_WAIT_FINISH) {
-                printSubState = PrintSubState.EVENT_WAIT;
-                codeChestSlot = 0;
-                codeChestStage = PrintChestStage.CREATE_ITEM;
-            }
-            
             if (printSubState == PrintSubState.EVENT_WAIT_FINISH) {
-    
-                nextCodeBlock();
-                printState = PrintState.NULL;
-                
-                /*
+
                 if (CodeBlockUtils.stringToBlock(printNbtHandler.selectedBlock.getString("Name")).hasCodeSign) {
                     printState = PrintState.SIGN;
                     printSubState = PrintSubState.NULL;
@@ -140,7 +139,84 @@ class PrintController {
                     nextCodeBlock();
                     printState = PrintState.NULL;
                 }
-                */
+            }
+        }
+
+        if (printState == PrintState.SIGN) {
+            if (printSubState == PrintSubState.NULL) {
+
+                if (printNbtHandler.selectedBlock.hasKey("Function")) {
+                    printSubState = PrintSubState.MOVEMENT_WAIT;
+                    codeSignStage = PrintSignStage.FUNCTION;
+                } else if (printNbtHandler.selectedBlock.hasKey("DynamicFunction")) {
+                    printSubState = PrintSubState.MOVEMENT_WAIT;
+                    codeSignStage = PrintSignStage.DYNAMIC_FUNCTION;
+                } else if (printNbtHandler.selectedBlock.hasKey("Target")) {
+                    printSubState = PrintSubState.MOVEMENT_WAIT;
+                    codeSignStage = PrintSignStage.TARGET;
+                } else if (printNbtHandler.selectedBlock.hasKey("ConditionalNot")) {
+                    printSubState = PrintSubState.MOVEMENT_WAIT;
+                    codeSignStage = PrintSignStage.CONDITIONAL_NOT;
+                } else {
+                    nextCodeBlock();
+                    printState = PrintState.NULL;
+                }
+            }
+
+            if (printSubState == PrintSubState.MOVEMENT_WAIT) {
+                if (MathUtils.distance(minecraft.player.getPosition().up(), printPos.west()) < 5) {
+
+                    if (codeSignStage == PrintSignStage.FUNCTION) {
+
+                        if (!CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
+                            MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
+                            printState = PrintState.NULL;
+                            nextCodeBlock();
+                            return;
+                        }
+
+                        functionPathPos = 0;
+                        functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                                getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
+                                getTagList("path", 8);
+
+                        minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
+                        printSubState = PrintSubState.EVENT_WAIT;
+                    }
+
+                    if (codeSignStage == PrintSignStage.DYNAMIC_FUNCTION) {
+                        if (printNbtHandler.selectedBlock.getString("Name").equals("LOOP")) {
+                            try {
+                                minecraft.playerController.sendSlotPacket(CodeItems.getNumberSlimeball(CommandBase.parseInt(printNbtHandler.selectedBlock.getString("DynamicFunction"))), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+                            } catch (NumberInvalidException exception) {
+                                MessageUtils.errorMessage("Hey! You edited the the NBT and made the number for the loop delay invalid. D:<");
+                            }
+                        } else {
+                            minecraft.playerController.sendSlotPacket(CodeItems.getTextBook(printNbtHandler.selectedBlock.getString("DynamicFunction")), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+                        }
+
+                        minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
+
+                        printState = PrintState.NULL;
+                        nextCodeBlock();
+                    }
+
+                    if (codeSignStage == PrintSignStage.TARGET) {
+                        minecraft.player.connection.sendPacket(new CPacketEntityAction(minecraft.player, CPacketEntityAction.Action.START_SNEAKING));
+                        minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
+                        minecraft.player.connection.sendPacket(new CPacketEntityAction(minecraft.player, CPacketEntityAction.Action.STOP_SNEAKING));
+
+                        printSubState = PrintSubState.EVENT_WAIT;
+                    }
+
+                    if (codeSignStage == PrintSignStage.CONDITIONAL_NOT) {
+                        minecraft.playerController.sendSlotPacket(CodeItems.getNotArrow(), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+                        minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
+
+                        printState = PrintState.NULL;
+                        nextCodeBlock();
+                    }
+                }
             }
         }
     }
@@ -148,26 +224,30 @@ class PrintController {
     static void openedCodeChest(Container codeChest) {
         if (!printNbtHandler.getChestItem(codeChestSlot).isEmpty()) {
             switch (codeChestStage) {
-                case NULL:
-                    codeChestStage = PrintChestStage.CREATE_ITEM;
-                    break;
-                
                 case CREATE_ITEM:
                     minecraft.playerController.sendSlotPacket(printNbtHandler.getChestItem(codeChestSlot), minecraft.player.inventoryContainer.inventorySlots.size() - 10);
-                    codeChestStage = PrintChestStage.PICKUP_ITEM;
+                    codeChestStage = PrintChestStage.MOVE_ITEM;
                     break;
         
-                case PICKUP_ITEM:
-                    actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, 54, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
-                    codeChestStage = PrintChestStage.PLACE_ITEM;
+                case MOVE_ITEM:
+    
+                    //If item was correctly placed in chest, continue on to next slot.
+                    if (codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {
+                        short actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
+                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, 54, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
+                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
+                    }
+                    
+                    codeChestStage = PrintChestStage.CHECK_ITEM;
                     break;
-        
-                case PLACE_ITEM:
-                    System.out.println(codeChestSlot);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
+                    
+                case CHECK_ITEM:
+                    //If item was correctly placed in chest, continue on to next slot.
+                    if (!codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {
+                        codeChestSlot++;
+                    }
+    
                     codeChestStage = PrintChestStage.CREATE_ITEM;
-                    codeChestSlot++;
             }
         } else {
             codeChestSlot++;
@@ -185,7 +265,64 @@ class PrintController {
     }
     
     static void openedCodeGui(Container codeGui) {
-    
+
+        if (!isContainerEmpty(codeGui)) {
+            if (codeSignStage == PrintSignStage.FUNCTION) {
+                //Tries to find the specified item within the code GUI, returns item slot number.
+                int itemSlot = findContainerItem(codeGui, functionPath.getStringTagAt(functionPathPos));
+
+                //Tests if the item actually exists within the GUI.
+                if (itemSlot != -1) {
+                    short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                    functionPathPos++;
+
+                    //If reached end of code function path, move onto next sign element or next code block.
+                    if (functionPathPos >= functionPath.tagCount()) {
+                        if (printNbtHandler.selectedBlock.hasKey("Target")) {
+                            printSubState = PrintSubState.MOVEMENT_WAIT;
+                            codeSignStage = PrintSignStage.TARGET;
+                        } else if (printNbtHandler.selectedBlock.hasKey("ConditionalNot")) {
+                            printSubState = PrintSubState.MOVEMENT_WAIT;
+                            codeSignStage = PrintSignStage.CONDITIONAL_NOT;
+                        } else {
+                            printState = PrintState.NULL;
+                            nextCodeBlock();
+                        }
+
+                        //Speeds up the process of closing the GUI screen.
+                        minecraft.player.closeScreen();
+                        return;
+                    }
+                }
+            }
+
+            if (codeSignStage == PrintSignStage.TARGET) {
+                //Tries to find the specified item within the code GUI, returns item slot number.
+                int itemSlot = findContainerItem(codeGui,
+                        CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                                getCompoundTag("CodeTarget").
+                                getString(printNbtHandler.selectedBlock.getString("Target")));
+
+                //Tests if the item actually exists within the GUI.
+                if (itemSlot != -1) {
+                    short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+
+                    //Checks if the code block has the NOT tag, if not, continues onto the next code block.
+                    if (printNbtHandler.selectedBlock.hasKey("ConditionalNot")) {
+                        printSubState = PrintSubState.MOVEMENT_WAIT;
+                        codeSignStage = PrintSignStage.CONDITIONAL_NOT;
+                    } else {
+                        printState = PrintState.NULL;
+                        nextCodeBlock();
+                    }
+
+                    //Speeds up the process of closing the GUI screen.
+                    minecraft.player.closeScreen();
+                }
+            }
+        }
     }
     
     static int getCodeLength(NBTTagList codeData) {
@@ -235,13 +372,22 @@ class PrintController {
             finishPrint();
         }
     }
-    
-    private static boolean isContainerEmpty(Container container, int startPos) {
-        for (int slot = startPos; slot < minecraft.player.inventoryContainer.inventorySlots.size() - 36; slot++) {
+
+    private static boolean isContainerEmpty(Container container) {
+        for (int slot = 0; slot < container.inventorySlots.size() - 36; slot++) {
             if (!container.getSlot(slot).getStack().isEmpty())
                 return false;
         }
-        
+
         return true;
+    }
+
+    private static int findContainerItem(Container container, String itemName) {
+        for (int slot = 0; slot < container.inventorySlots.size() - 36; slot++) {
+            if (container.getSlot(slot).getStack().getDisplayName().equals(itemName))
+                return slot;
+        }
+
+        return -1;
     }
 }
