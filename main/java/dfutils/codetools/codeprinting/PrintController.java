@@ -168,6 +168,7 @@ class PrintController {
 
                     if (codeSignStage == PrintSignStage.FUNCTION) {
 
+                        //Tests if code function exists within code reference data.
                         if (!CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
                             MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
                             printState = PrintState.NULL;
@@ -176,9 +177,17 @@ class PrintController {
                         }
 
                         functionPathPos = 0;
-                        functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
-                                getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
-                                getTagList("path", 8);
+
+                        if (printNbtHandler.selectedBlock.hasKey("SubFunction")) {
+                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                                    getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
+                                    getCompoundTag(printNbtHandler.selectedBlock.getString("SubFunction")).
+                                    getTagList("path", 8);
+                        } else {
+                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                                    getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
+                                    getTagList("path", 8);
+                        }
 
                         minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
                         printSubState = PrintSubState.EVENT_WAIT;

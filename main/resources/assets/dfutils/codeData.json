@@ -176,6 +176,2218 @@
                 "§bSet Chat Color"
             ]
         },
+
+
+        "Teleport": {
+            "path": [
+                "§3Movement",
+                "§5Teleport"
+            ]
+        },
+        "RngTeleport": {
+            "path": [
+                "§3Movement",
+                "§5Randomized Teleport"
+            ]
+        },
+        "TpSequence": {
+            "path": [
+                "§3Movement",
+                "§dTeleport Sequence"
+            ]
+        },
+        "LaunchUp": {
+            "path": [
+                "§3Movement",
+                "§bLaunch Up/Down"
+            ]
+        },
+        "LaunchFwd": {
+            "path": [
+                "§3Movement",
+                "§bLaunch Forward/Backward"
+            ]
+        },
+        "LaunchToward": {
+            "path": [
+                "§3Movement",
+                "§bLaunch Toward/Away From Location"
+            ]
+        },
+        "RideEntity": {
+            "path": [
+                "§3Movement",
+                "§aRide Entity"
+            ]
+        },
+
+        "Damage": {
+            "path": [
+                "§aStatistics",
+                "§cDamage"
+            ]
+        },
+        "Heal": {
+            "path": [
+                "§aStatistics",
+                "§dHeal"
+            ]
+        },
+        "GiveEffect": {
+            "path": [
+                "§aStatistics",
+                "§aGive Potion Effect"
+            ]
+        },
+        "ClearEffects": {
+            "path": [
+                "§aStatistics",
+                "§bClear All Potion Effects"
+            ]
+        },
+        "RemoveEffect": {
+            "path": [
+                "§aStatistics",
+                "§cRemove Potion Effect"
+            ]
+        },
+        "SetXPLvl": {
+            "path": [
+                "§aStatistics",
+                "§5Set XP Level"
+            ]
+        },
+        "SetXPProg": {
+            "path": [
+                "§aStatistics",
+                "§2Set XP Progress"
+            ]
+        },
+        "SetFoodLevel": {
+            "path": [
+                "§aStatistics",
+                "§6Set Food Level"
+            ]
+        },
+        "SetSaturation": {
+            "path": [
+                "§aStatistics",
+                "§eSet Saturation Level"
+            ]
+        },
+        "SetMaxHealth": {
+            "path": [
+                "§aStatistics",
+                "§dSet Maximum Health"
+            ]
+        },
+        "SetAtkSpeed": {
+            "path": [
+                "§aStatistics",
+                "§cSet Attack Speed"
+            ]
+        },
+        "SetFire": {
+            "path": [
+                "§aStatistics",
+                "§6Set On Fire"
+            ]
+        },
+        "FlightSpeed": {
+            "path": [
+                "§aStatistics",
+                "§eSet Flight Speed"
+            ]
+        },
+        "WalkSpeed": {
+            "path": [
+                "§aStatistics",
+                "§bSet Walk Speed"
+            ]
+        },
+
+
+        "LaunchProj": {
+            "path": [
+                "§4Projectiles",
+                "§bLaunch Projectile"
+            ]
+        },
+        "RmArrows": {
+            "path": [
+                "§4Projectiles",
+                "§6Remove Arrows In Body"
+            ]
+        },
+
+
+        "MobDisguise": {
+            "path": [
+                "§eDisguises",
+                "§2Disguise As Mob"
+            ]
+        },
+        "PlayerDisguise": {
+            "path": [
+                "§eDisguises",
+                "§bDisguise As Player"
+            ]
+        },
+        "BlockDisguise": {
+            "path": [
+                "§eDisguises",
+                "§eDisguise As Block"
+            ]
+        },
+        "Undisguise": {
+            "path": [
+                "§eDisguises",
+                "§4Undisguise"
+            ]
+        },
+        "HideDisguise": {
+            "path": [
+                "§eDisguises",
+                "§cHide Own Disguise"
+            ]
+        },
+
+
+        "EnablePVP": {
+            "path": [
+                "§dSettings",
+                "§aEnable PVP"
+            ]
+        },
+        "DisablePVP": {
+            "path": [
+                "§dSettings",
+                "§cDisable PVP"
+            ]
+        },
+        "SetTime": {
+            "path": [
+                "§dSettings",
+                "§eSet Time"
+            ]
+        },
+        "EnableFlight": {
+            "path": [
+                "§dSettings",
+                "§aEnable Flight"
+            ]
+        },
+        "DisableFlight": {
+            "path": [
+                "§dSettings",
+                "§cDisable Flight"
+            ]
+        },
+        "AllowDrops": {
+            "path": [
+                "§dSettings",
+                "§aAllow Item Dropping"
+            ]
+        },
+        "DisableDrops": {
+            "path": [
+                "§dSettings",
+                "§cDisable Item Dropping"
+            ]
+        },
+        "KeepInv": {
+            "path": [
+                "§dSettings",
+                "§aKeep Items on Death"
+            ]
+        },
+        "NoKeepInv": {
+            "path": [
+                "§dSettings",
+                "§cLose Items on Death"
+            ]
+        },
+        "WeatherClear": {
+            "path": [
+                "§dSettings",
+                "§aSet Weather: Clear"
+            ]
+        },
+        "WeatherDown": {
+            "path": [
+                "§dSettings",
+                "§aSet Weather: Downfall"
+            ]
+        },
+        "ProjColl": {
+            "path": [
+                "§dSettings",
+                "§2Enable Projectile Collisions"
+            ]
+        },
+        "NoProjColl": {
+            "path": [
+                "§dSettings",
+                "§6Disable Projectile Collisions"
+            ]
+        },
+        "NatRegen": {
+            "path": [
+                "§dSettings",
+                "§dEnable Natural Regeneration"
+            ]
+        },
+        "NoNatRegen": {
+            "path": [
+                "§dSettings",
+                "§6Disable Natural Regeneration"
+            ]
+        },
+        "EnableBlocks": {
+            "path": [
+                "§dSettings",
+                "§aAllow Placing/Breaking Blocks"
+            ]
+        },
+        "DisableBlocks": {
+            "path": [
+                "§dSettings",
+                "§cDisallow Placing/Breaking Blocks"
+            ]
+        },
+        "DeathDrops": {
+            "path": [
+                "§dSettings",
+                "§cEnable Death Drops"
+            ]
+        },
+        "NoDeathDrops": {
+            "path": [
+                "§dSettings",
+                "§3Disable Death Drops"
+            ]
+        },
+        "GmAdventure": {
+            "path": [
+                "§dSettings",
+                "§eSet to Adventure Mode"
+            ]
+        },
+        "GmSurvival": {
+            "path": [
+                "§dSettings",
+                "§cSet to Survival Mode"
+            ]
+        },
+
+
+        "Rollback": {
+            "path": [
+                "§5Other",
+                "§eRoll Back Block Changes"
+            ]
+        },
+        "Respawn": {
+            "path": [
+                "§5Other",
+                "§aRespawn"
+            ]
+        },
+        "Kick": {
+            "path": [
+                "§5Other",
+                "§cKick"
+            ]
+        },
+        "RewardCredits": {
+            "path": [
+                "§5Other",
+                "§aReward with DiamondFire Credits"
+            ]
+        },
+    },
+
+    "GAME_ACTION": {
+        "SpawnMob": {
+            "path": [
+                "§dEntity Spawning",
+                "§aSpawn Mob"
+            ]
+        },
+        "SpawnItem": {
+            "path": [
+                "§dEntity Spawning",
+                "§6Spawn Item"
+            ]
+        },
+        "Firework": {
+            "path": [
+                "§dEntity Spawning",
+                "§bLaunch Firework"
+            ]
+        },
+        "SpawnTNT": {
+            "path": [
+                "§dEntity Spawning",
+                "§4Spawn Primed TNT"
+            ]
+        },
+        "SpawnVehicle": {
+            "path": [
+                "§dEntity Spawning",
+                "§9Spawn Vehicle"
+            ]
+        },
+        "SpawnExpOrb": {
+            "path": [
+                "§dEntity Spawning",
+                "§eSpawn XP Orb"
+            ]
+        },
+
+
+        "Wait": {
+            "path": [
+                "§cCode Utility",
+                "§9Wait"
+            ]
+        },
+        "StartLoop": {
+            "path": [
+                "§cCode Utility",
+                "§aStart Loop"
+            ]
+        },
+        "StopLoop": {
+            "path": [
+                "§cCode Utility",
+                "§cStop Loop"
+            ]
+        },
+        "CancelEvent": {
+            "path": [
+                "§cCode Utility",
+                "§eCancel Event"
+            ]
+        },
+
+
+        "SetBlock": {
+            "path": [
+                "§aBlock Manipulation",
+                "§cSet Block/Region"
+            ]
+        },
+        "BreakBlock": {
+            "path": [
+                "§aBlock Manipulation",
+                "§6Break Block"
+            ]
+        },
+        "CopyBlocks": {
+            "path": [
+                "§aBlock Manipulation",
+                "§eCopy Blocks"
+            ]
+        },
+        "FillHolder": {
+            "path": [
+                "§aBlock Manipulation",
+                "§6Fill Holder"
+            ]
+        },
+        "EmptyHolder": {
+            "path": [
+                "§aBlock Manipulation",
+                "§3Empty Holder"
+            ]
+        },
+        "ChangeSign": {
+            "path": [
+                "§aBlock Manipulation",
+                "§6Change Sign"
+            ]
+        },
+
+
+        "BlockDropsOn": {
+            "path": [
+                "§dSettings",
+                "§aEnable Block Drops"
+            ]
+        },
+        "BlockDropsOff": {
+            "path": [
+                "§dSettings",
+                "§cDisable Block Drops"
+            ]
+        },
+
+
+        "ShowSidebar": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§6Show Scoreboard Sidebar"
+            ]
+        },
+        "HideSidebar": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§cHide Scoreboard Sidebar"
+            ]
+        },
+        "SetScObj": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§bSet Scoreboard Objective Name"
+            ]
+        },
+        "SetScore": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§6Set Scoreboard Score"
+            ]
+        },
+        "RemoveScore": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§cRemove Scoreboard Score"
+            ]
+        },
+        "ClearScBoard": {
+            "path": [
+                "§bScoreboard Manipulation",
+                "§cClear Scoreboard"
+            ]
+        },
+
+
+        "CreateHologram": {
+            "path": [
+                "§3Holograms",
+                "§bCreate Hologram"
+            ]
+        },
+        "RemoveHologram": {
+            "path": [
+                "§3Holograms",
+                "§cRemove Hologram"
+            ]
+        },
+
+
+        "Explosion": {
+            "path": [
+                "§eSpecial Effects",
+                "§cCreate Explosion"
+            ]
+        },
+        "FireworkEffect": {
+            "path": [
+                "§eSpecial Effects",
+                "§bPlay Firework Explosion"
+            ]
+        },
+        "Particle FX": {
+            "path": [
+                "§eSpecial Effects",
+                "§6Play Particle Effect"
+            ]
+        },
+        "PFX Line": {
+            "path": [
+                "§eSpecial Effects",
+                "§aCreate Particle Line"
+            ]
+        },
+        "PFX Ray": {
+            "path": [
+                "§eSpecial Effects",
+                "§aCreate Particle Ray"
+            ]
+        },
+        "PFX Path": {
+            "path": [
+                "§eSpecial Effects",
+                "§aCreate Particle Path"
+            ]
+        },
+        "PFX Circle": {
+            "path": [
+                "§eSpecial Effects",
+                "§aCreate Particle Circle"
+            ]
+        },
+        "PFX Sphere": {
+            "path": [
+                "§eSpecial Effects",
+                "§bCreate Particle Sphere"
+            ]
+        },
+        "PFX Cluster": {
+            "path": [
+                "§eSpecial Effects",
+                "§bCreate Particle Cluster"
+            ]
+        },
+        "PFX Spiral": {
+            "path": [
+                "§eSpecial Effects",
+                "§bCreate Particle Spiral"
+            ]
+        },
+        "PFX Line [A]": {
+            "path": [
+                "§eSpecial Effects",
+                "§6Create Animated Particle Line"
+            ]
+        },
+        "PFX Circle [A]": {
+            "path": [
+                "§eSpecial Effects",
+                "§6Create Animated Particle Circle"
+            ]
+        },
+        "PFX Spiral [A]": {
+            "path": [
+                "§eSpecial Effects",
+                "§6Create Animated Particle Spiral"
+            ]
+        },
+    },
+
+    "ENTITY_ACTION": {
+
+        "CodeTarget": {
+            "Selection": "§aCurrent Selection",
+            "Default": "§cDefault Entity",
+            "Killer": "§cKiller",
+            "Victim": "§9Victim",
+            "Damager": "§cDamager",
+            "Shooter": "§eShooter",
+            "Projectile": "§bProjectile",
+            "Name": "§aMob with name in chest",
+            "EntityName": "§2Entity with name in chest",
+            "Random": "§eRandom Mob",
+            "EntityRdm": "§6Random Entity",
+            "All": "§bAll Mobs",
+            "AllEntities": "§9All Entities",
+            "LastSpawned": "§5The last mob spawned"
+        },
+
+        "SetArmor": {
+            "path": [
+                "§6Set Items"
+            ]
+        },
+        "LaunchProj": {
+            "path": [
+                "§bLaunch Projectile"
+            ]
+        },
+        "Teleport": {
+            "path": [
+                "§5Teleport"
+            ]
+        },
+        "TpSequence": {
+            "path": [
+                "§dTeleport Sequence"
+            ]
+        },
+        "Remove": {
+            "path": [
+                "§cRemove"
+            ]
+        },
+        "SetName": {
+            "path": [
+                "§aSet Custom Name"
+            ]
+        },
+        "HideName": {
+            "path": [
+                "§6Hide Name Tag"
+            ]
+        },
+        "ShowName": {
+            "path": [
+                "§eShow Name Tag"
+            ]
+        },
+        "Damage": {
+            "path": [
+                "§cDamage"
+            ]
+        },
+        "Heal": {
+            "path": [
+                "§dHeal"
+            ]
+        },
+        "GiveEffect": {
+            "path": [
+                "§aGive Potion Effect"
+            ]
+        },
+        "RemoveEffect": {
+            "path": [
+                "§cRemove Potion Effect"
+            ]
+        },
+        "LaunchUp": {
+            "path": [
+                "§bLaunch Up/Down"
+            ]
+        },
+        "LaunchFwd": {
+            "path": [
+                "§bLaunch Forward/Backward"
+            ]
+        },
+        "LaunchToward": {
+            "path": [
+                "§bLaunch Toward/Away From Location"
+            ]
+        },
+        "MobDisguise": {
+            "path": [
+                "§2Disguise As Mob"
+            ]
+        },
+        "PlayerDisguise": {
+            "path": [
+                "§bDisguise As Player"
+            ]
+        },
+        "BlockDisguise": {
+            "path": [
+                "§eDisguise As Block"
+            ]
+        },
+        "Undisguise": {
+            "path": [
+                "§4Undisguise"
+            ]
+        },
+        "DropItems": {
+            "path": [
+                "§aEnable Death Drops"
+            ]
+        },
+        "NoDrops": {
+            "path": [
+                "§cDisable Death Drops"
+            ]
+        },
+        "SetMaxHealth": {
+            "path": [
+                "§dSet Max Health"
+            ]
+        },
+        "ProjColl": {
+            "path": [
+                "§2Enable Projectile Collisions"
+            ]
+        },
+        "NoProjColl": {
+            "path": [
+                "§6Disable Projectile Collisions"
+            ]
+        },
+        "EnableAI": {
+            "path": [
+                "§aEnable AI"
+            ]
+        },
+        "NoAI": {
+            "path": [
+                "§cDisable AI"
+            ]
+        },
+        "SetFire": {
+            "path": [
+                "§6Set On Fire"
+            ]
+        },
+        "SetAge/Size": {
+            "path": [
+                "§2Set Age / Size"
+            ]
+        },
+        "Silence": {
+            "path": [
+                "§4Silence"
+            ]
+        },
+        "Unsilence": {
+            "path": [
+                "§6Unsilence"
+            ]
+        },
+        "NoGravity": {
+            "path": [
+                "§cDisable Gravity"
+            ]
+        },
+        "Gravity": {
+            "path": [
+                "§aEnable Gravity"
+            ]
+        },
+        "SetTarget": {
+            "path": [
+                "§eSet Target"
+            ]
+        },
+        "RideEntity": {
+            "path": [
+                "§aRide Entity"
+            ]
+        },
+        "MoveTo": {
+            "path": [
+                "§6Move To Location"
+            ]
+        },
+    },
+
+    "SET_VARIABLE": {
+
+        "=": {
+            "path": [
+                "§6Set (=)"
+            ]
+        },
+        "+": {
+            "path": [
+                "§6Set to Sum (+)"
+            ]
+        },
+        "-": {
+            "path": [
+                "§6Set to Difference (-)"
+            ]
+        },
+        "*": {
+            "path": [
+                "§6Set to Product (*)"
+            ]
+        },
+        "/": {
+            "path": [
+                "§6Set to Quotient (÷)"
+            ]
+        },
+        "%": {
+            "path": [
+                "§6Set to Remainder (%)"
+            ]
+        },
+        "+=": {
+            "path": [
+                "§6Increment (+=)"
+            ]
+        },
+        "-=": {
+            "path": [
+                "§6Decrement (-=)"
+            ]
+        },
+        "ParseInt": {
+            "path": [
+                "§6Parse Number"
+            ]
+        },
+        "Random": {
+            "path": [
+                "§6Set to Random Number"
+            ]
+        },
+        "CmbText": {
+            "path": [
+                "§eCombine Text"
+            ]
+        },
+        "RmText": {
+            "path": [
+                "§eRemove Text"
+            ]
+        },
+        "TrimText": {
+            "path": [
+                "§eTrim Text"
+            ]
+        },
+        "TextLength": {
+            "path": [
+                "§eGet Text Length"
+            ]
+        },
+        "RandomObj": {
+            "path": [
+                "§cSet to Random Object"
+            ]
+        },
+        "SetX": {
+            "path": [
+                "§aSet X-Coordinate"
+            ]
+        },
+        "SetY": {
+            "path": [
+                "§aSet Y-Coordinate"
+            ]
+        },
+        "SetZ": {
+            "path": [
+                "§aSet Z-Coordinate"
+            ]
+        },
+        "SetPitch": {
+            "path": [
+                "§aSet Pitch"
+            ]
+        },
+        "SetYaw": {
+            "path": [
+                "§aSet Yaw"
+            ]
+        },
+        "SetCoords": {
+            "path": [
+                "§aSet to Coordinates"
+            ]
+        },
+        "ParseX": {
+            "path": [
+                "§aParse X-Coordinate"
+            ]
+        },
+        "ParseY": {
+            "path": [
+                "§aParse Y-Coordinate"
+            ]
+        },
+        "ParseZ": {
+            "path": [
+                "§aParse Z-Coordinate"
+            ]
+        },
+        "ParsePitch": {
+            "path": [
+                "§aParse Pitch"
+            ]
+        },
+        "ParseYaw": {
+            "path": [
+                "§aParse Yaw"
+            ]
+        },
+        "Distance": {
+            "path": [
+                "§aSet to Distance"
+            ]
+        }
+    },
+
+    "SELECT_OBJECT": {
+
+        "DefaultPlayer": {
+            "path": [
+                "§aSelect Default Player"
+            ]
+        },
+        "DefaultEntity": {
+            "path": [
+                "§cSelect Default Entity"
+            ]
+        },
+        "RandomPlayer": {
+            "path": [
+                "§eSelect Random Player"
+            ]
+        },
+        "RandomMob": {
+            "path": [
+                "§eSelect Random Mob"
+            ]
+        },
+        "RandomEntity": {
+            "path": [
+                "§eSelect Random Entity"
+            ]
+        },
+        "AllPlayers": {
+            "path": [
+                "§bSelect All Players"
+            ]
+        },
+        "AllMobs": {
+            "path": [
+                "§bSelect All Mobs"
+            ]
+        },
+        "AllEntities": {
+            "path": [
+                "§bSelect All Entities"
+            ]
+        },
+        "LastMob": {
+            "path": [
+                "§eSelect Last-Spawned Mob"
+            ]
+        },
+        "Killer": {
+            "path": [
+                "§cSelect Killer"
+            ]
+        },
+        "Damager": {
+            "path": [
+                "§cSelect Damager"
+            ]
+        },
+        "Shooter": {
+            "path": [
+                "§eSelect Shooter"
+            ]
+        },
+        "Projectile": {
+            "path": [
+                "§bSelect Projectile"
+            ]
+        },
+        "Victim": {
+            "path": [
+                "§9Select Victim"
+            ]
+        },
+        "PlayerName": {
+            "path": [
+                "§aSelect Player by Name"
+            ]
+        },
+        "MobName": {
+            "path": [
+                "§aSelect Mobs by Name"
+            ]
+        },
+        "EntityName": {
+            "path": [
+                "§aSelect Entities by Name"
+            ]
+        },
+        "PlayersCond": {
+            "path": [
+                "§dSelect Players by Condition"
+            ],
+
+            "IsSneaking": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§5Is Sneaking"
+                ]
+            },
+            "IsHolding": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item"
+                ]
+            },
+            "IsHoldingMain": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item in Main Hand"
+                ]
+            },
+            "IsHoldingOff": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item in Off Hand"
+                ]
+            },
+            "HasItem": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eHas Item"
+                ]
+            },
+            "HasAllItems": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eHas All Items"
+                ]
+            },
+            "IsLookingAt": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§aIs Looking At Block"
+                ]
+            },
+            "StandingOn": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "IsNear": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§bIs Near Location"
+                ]
+            },
+            "IsWearing": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§6Is Wearing Item"
+                ]
+            },
+            "NameEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§aName Equals"
+                ]
+            },
+            "IsBlocking": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§2Is Blocking"
+                ]
+            },
+            "CmdEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eCommand Equals"
+                ]
+            },
+            "CmdArgEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eCommand Argument Equals"
+                ]
+            },
+            "ItemEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§bItem Equals"
+                ]
+            },
+            "BlockEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§6Block Equals"
+                ]
+            },
+            "SlotEquals": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§9Hotbar Slot Equals"
+                ]
+            },
+            "IsGliding": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§aIs Gliding"
+                ]
+            },
+            "IsSprinting": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eIs Sprinting"
+                ]
+            },
+            "IsFlying": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§eIs Flying"
+                ]
+            },
+            "IsSwimming": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§9Is Swimming"
+                ]
+            },
+            "CursorItem": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Player",
+                    "§aCursor Item Equals"
+                ]
+            },
+
+
+            "=": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bVariable ="
+                ]
+            },
+            "!=": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bVariable !="
+                ]
+            },
+            ">": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bNumber >"
+                ]
+            },
+            ">=": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bNumber ≥"
+                ]
+            },
+            "<": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bNumber <"
+                ]
+            },
+            "<=": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bNumber ≤"
+                ]
+            },
+            "InRange": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§bVariable Is Within Range"
+                ]
+            },
+            "EqIgnoreCase": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§eText Equals (Not Case-Sensitive)"
+                ]
+            },
+            "Contains": {
+                "path": [
+                    "§dSelect Players by Condition",
+                    "§6If Variable",
+                    "§eText Contains"
+                ]
+            }
+        },
+        "MobsCond": {
+            "path": [
+                "§dSelect Mobs by Condition"
+            ],
+
+            "IsType": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§5Is Type"
+                ]
+            },
+            "NameEquals": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§aName Equals"
+                ]
+            },
+            "StandingOn": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "IsNear": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§bIs Near Location"
+                ]
+            },
+            "IsMob": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§2Is Mob"
+                ]
+            },
+            "IsProj": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§2If Entity",
+                    "§9Is Projectile"
+                ]
+            },
+            "=": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bVariable ="
+                ]
+            },
+            "!=": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bVariable !="
+                ]
+            },
+            ">": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bNumber >"
+                ]
+            },
+            ">=": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bNumber ≥"
+                ]
+            },
+            "<": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bNumber <"
+                ]
+            },
+            "<=": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bNumber ≤"
+                ]
+            },
+            "InRange": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§bVariable Is Within Range"
+                ]
+            },
+            "EqIgnoreCase": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§eText Equals (Not Case-Sensitive)"
+                ]
+            },
+            "Contains": {
+                "path": [
+                    "§dSelect Mobs by Condition",
+                    "§6If Variable",
+                    "§eText Contains"
+                ]
+            }
+        },
+        "EntitiesCond": {
+            "path": [
+                "§dSelect Entities by Condition"
+            ],
+
+            "IsType": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§5Is Type"
+                ]
+            },
+            "NameEquals": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§aName Equals"
+                ]
+            },
+            "StandingOn": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "IsNear": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§bIs Near Location"
+                ]
+            },
+            "IsMob": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§2Is Mob"
+                ]
+            },
+            "IsProj": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§2If Entity",
+                    "§9Is Projectile"
+                ]
+            },
+            "=": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bVariable ="
+                ]
+            },
+            "!=": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bVariable !="
+                ]
+            },
+            ">": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bNumber >"
+                ]
+            },
+            ">=": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bNumber ≥"
+                ]
+            },
+            "<": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bNumber <"
+                ]
+            },
+            "<=": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bNumber ≤"
+                ]
+            },
+            "InRange": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§bVariable Is Within Range"
+                ]
+            },
+            "EqIgnoreCase": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§eText Equals (Not Case-Sensitive)"
+                ]
+            },
+            "Contains": {
+                "path": [
+                    "§dSelect Entities by Condition",
+                    "§6If Variable",
+                    "§eText Contains"
+                ]
+            }
+        },
+        "RandomSelected": {
+            "path": [
+                "§6Filter Selection Randomly"
+            ]
+        },
+        "FilterSelect": {
+            "path": [
+                "§eFilter Selection by Condition"
+            ],
+
+            "IsSneaking": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§5Is Sneaking"
+                ]
+            },
+            "IsHolding": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item"
+                ]
+            },
+            "IsHoldingMain": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item in Main Hand"
+                ]
+            },
+            "IsHoldingOff": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§6Is Holding Item in Off Hand"
+                ]
+            },
+            "HasItem": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eHas Item"
+                ]
+            },
+            "HasAllItems": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eHas All Items"
+                ]
+            },
+            "IsLookingAt": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§aIs Looking At Block"
+                ]
+            },
+            "IsWearing": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§6Is Wearing Item"
+                ]
+            },
+            "IsBlocking": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§2Is Blocking"
+                ]
+            },
+            "CmdEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eCommand Equals"
+                ]
+            },
+            "CmdArgEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eCommand Argument Equals"
+                ]
+            },
+            "ItemEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§bItem Equals"
+                ]
+            },
+            "BlockEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§6Block Equals"
+                ]
+            },
+            "SlotEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§9Hotbar Slot Equals"
+                ]
+            },
+            "IsGliding": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§aIs Gliding"
+                ]
+            },
+            "IsSprinting": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eIs Sprinting"
+                ]
+            },
+            "IsFlying": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§eIs Flying"
+                ]
+            },
+            "IsSwimming": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§9Is Swimming"
+                ]
+            },
+            "CursorItem": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§aCursor Item Equals"
+                ]
+            },
+
+
+            "=": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bVariable ="
+                ]
+            },
+            "!=": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bVariable !="
+                ]
+            },
+            ">": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bNumber >"
+                ]
+            },
+            ">=": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bNumber ≥"
+                ]
+            },
+            "<": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bNumber <"
+                ]
+            },
+            "<=": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bNumber ≤"
+                ]
+            },
+            "InRange": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§bVariable Is Within Range"
+                ]
+            },
+            "EqIgnoreCase": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§eText Equals (Not Case-Sensitive)"
+                ]
+            },
+            "Contains": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Variable",
+                    "§eText Contains"
+                ]
+            },
+
+
+            "IsType": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§5Is Type"
+                ]
+            },
+            "IsMob": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§2Is Mob"
+                ]
+            },
+            "IsProj": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§9Is Projectile"
+                ]
+            }
+        },
+        "None": {
+            "path": [
+                "§cSelect Nothing"
+            ]
+        }
+    },
+
+    "CONTROL": {
+        "StopRepeat": {
+            "path": [
+                "§dStop Repeating"
+            ]
+        },
+        "Skip": {
+            "path": [
+                "§eSkip"
+            ]
+        },
+        "Return": {
+            "path": [
+                "§aReturn"
+            ]
+        },
+        "End": {
+            "path": [
+                "§cEnd Sequence"
+            ]
+        }
+    },
+
+    "IF_PLAYER": {
+
+        "CodeTarget": {
+            "Selection": "§aCurrent Selection",
+            "Default": "§Default Player",
+            "Random": "§eRandom Player",
+            "All": "§bAll Players",
+            "Killer": "§cKiller",
+            "Damager": "§cDamager",
+            "Shooter": "§eShooter",
+            "Victim": "§9Victim",
+        },
+
+        "IsSneaking": {
+            "path": [
+                "§5Is Sneaking"
+            ]
+        },
+        "IsHolding": {
+            "path": [
+                "§6Is Holding Item"
+            ]
+        },
+        "IsHoldingMain": {
+            "path": [
+                "§6Is Holding Item in Main Hand"
+            ]
+        },
+        "IsHoldingOff": {
+            "path": [
+                "§6Is Holding Item in Off Hand"
+            ]
+        },
+        "HasItem": {
+            "path": [
+                "§eHas Item"
+            ]
+        },
+        "HasAllItems": {
+            "path": [
+                "§eHas All Items"
+            ]
+        },
+        "IsLookingAt": {
+            "path": [
+                "§aIs Looking At Block"
+            ]
+        },
+        "StandingOn": {
+            "path": [
+                "§aIs Standing On Block"
+            ]
+        },
+        "IsNear": {
+            "path": [
+                "§bIs Near Location"
+            ]
+        },
+        "IsWearing": {
+            "path": [
+                "§6Is Wearing Item"
+            ]
+        },
+        "NameEquals": {
+            "path": [
+                "§aName Equals"
+            ]
+        },
+        "IsBlocking": {
+            "path": [
+                "§2Is Blocking"
+            ]
+        },
+        "CmdEquals": {
+            "path": [
+                "§eCommand Equals"
+            ]
+        },
+        "CmdArgEquals": {
+            "path": [
+                "§eCommand Argument Equals"
+            ]
+        },
+        "ItemEquals": {
+            "path": [
+                "§bItem Equals"
+            ]
+        },
+        "BlockEquals": {
+            "path": [
+                "§6Block Equals"
+            ]
+        },
+        "SlotEquals": {
+            "path": [
+                "§9Hotbar Slot Equals"
+            ]
+        },
+        "IsGliding": {
+            "path": [
+                "§aIs Gliding"
+            ]
+        },
+        "IsSprinting": {
+            "path": [
+                "§eIs Sprinting"
+            ]
+        },
+        "IsFlying": {
+            "path": [
+                "§eIs Flying"
+            ]
+        },
+        "IsSwimming": {
+            "path": [
+                "§9Is Swimming"
+            ]
+        },
+        "CursorItem": {
+            "path": [
+                "§aCursor Item Equals"
+            ]
+        }
+    },
+
+    "IF_GAME": {
+
+        "BlockEq": {
+            "path": [
+                "§bBlock Equals"
+            ]
+        },
+        "ContainerHas": {
+            "path": [
+                "§aContainer Has Item"
+            ]
+        },
+        "ContainerHasAll": {
+            "path": [
+                "§dContainer Has All Items"
+            ]
+        },
+        "SignHasTxt": {
+            "path": [
+                "§eSign Containes Text"
+            ]
+        }
+    },
+
+    "IF_ENTITY": {
+
+        "IsType": {
+            "path": [
+                "§5Is Type"
+            ]
+        },
+        "NameEquals": {
+            "path": [
+                "§aName Equals"
+            ]
+        },
+        "StandingOn": {
+            "path": [
+                "§aIs Standing On Block"
+            ]
+        },
+        "IsNear": {
+            "path": [
+                "§bIs Near Location"
+            ]
+        },
+        "IsMob": {
+            "path": [
+                "§2Is Mob"
+            ]
+        },
+        "IsProj": {
+            "path": [
+                "§9Is Projectile"
+            ]
+        }
+    },
+
+    "IF_VARIABLE": {
+
+        "=": {
+            "path": [
+                "§bVariable ="
+            ]
+        },
+        "!=": {
+            "path": [
+                "§bVariable !="
+            ]
+        },
+        ">": {
+            "path": [
+                "§bNumber >"
+            ]
+        },
+        ">=": {
+            "path": [
+                "§bNumber ≥"
+            ]
+        },
+        "<": {
+            "path": [
+                "§bNumber <"
+            ]
+        },
+        "<=": {
+            "path": [
+                "§bNumber ≤"
+            ]
+        },
+        "InRange": {
+            "path": [
+                "§bVariable Is Within Range"
+            ]
+        },
+        "EqIgnoreCase": {
+            "path": [
+                "§eText Equals (Not Case-Sensitive)"
+            ]
+        },
+        "Contains": {
+            "path": [
+                "§eText Contains"
+            ]
+        }
+    },
+
+    "REPEAT": {
+
+        "N Times": {
+            "path": [
+                "§aRepeat Multiple Times"
+            ]
+        },
+        "Forever": {
+            "path": [
+                "§cRepeat Forever"
+            ]
+        },
+        "WhileCond": {
+            "path": [
+                "§6Repeat While Condition is True"
+            ],
+
+            "IsSneaking": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§5Is Sneaking"
+                ]
+            },
+            "IsHolding": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§6Is Holding Item"
+                ]
+            },
+            "IsHoldingMain": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§6Is Holding Item in Main Hand"
+                ]
+            },
+            "IsHoldingOff": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§6Is Holding Item in Off Hand"
+                ]
+            },
+            "HasItem": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eHas Item"
+                ]
+            },
+            "HasAllItems": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eHas All Items"
+                ]
+            },
+            "IsLookingAt": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§aIs Looking At Block"
+                ]
+            },
+            "IsWearing": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§6Is Wearing Item"
+                ]
+            },
+            "IsBlocking": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§2Is Blocking"
+                ]
+            },
+            "CmdEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eCommand Equals"
+                ]
+            },
+            "CmdArgEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eCommand Argument Equals"
+                ]
+            },
+            "ItemEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§bItem Equals"
+                ]
+            },
+            "BlockEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§6Block Equals"
+                ]
+            },
+            "SlotEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§9Hotbar Slot Equals"
+                ]
+            },
+            "IsGliding": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§aIs Gliding"
+                ]
+            },
+            "IsSprinting": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eIs Sprinting"
+                ]
+            },
+            "IsFlying": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§eIs Flying"
+                ]
+            },
+            "IsSwimming": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§9Is Swimming"
+                ]
+            },
+            "CursorItem": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§aCursor Item Equals"
+                ]
+            },
+
+
+            "=": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bVariable ="
+                ]
+            },
+            "!=": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bVariable !="
+                ]
+            },
+            ">": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bNumber >"
+                ]
+            },
+            ">=": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bNumber ≥"
+                ]
+            },
+            "<": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bNumber <"
+                ]
+            },
+            "<=": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bNumber ≤"
+                ]
+            },
+            "InRange": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§bVariable Is Within Range"
+                ]
+            },
+            "EqIgnoreCase": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§eText Equals (Not Case-Sensitive)"
+                ]
+            },
+            "Contains": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Variable",
+                    "§eText Contains"
+                ]
+            },
+
+
+            "IsType": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§5Is Type"
+                ]
+            },
+            "IsMob": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§2Is Mob"
+                ]
+            },
+            "IsProj": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§9Is Projectile"
+                ]
+            },
+
+
+            "BlockEq": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§cIf Game",
+                    "§bBlock Equals"
+                ]
+            },
+            "ContainerHas": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§cIf Game",
+                    "§aContainer Has Item"
+                ]
+            },
+            "ContainerHasAll": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§cIf Game",
+                    "§dContainer Has All Items"
+                ]
+            },
+            "SignHasTxt": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§cIf Game",
+                    "§eSign Containes Text"
+                ]
+            }
+        }
     },
 
     "PLAYER_EVENT": {
@@ -187,6 +2399,190 @@
         "Quit": {
             "path": [
                 "§cPlayer Quit Game Event"
+            ]
+        },
+        "Right Click": {
+            "path": [
+                "§bPlayer Right Click Event"
+            ]
+        },
+        "Left Click": {
+            "path": [
+                "§3Player Left Click Event"
+            ]
+        },
+        "Respawn": {
+            "path": [
+                "§2Player Respawn Event"
+            ]
+        },
+        "Kill Player": {
+            "path": [
+                "§cPlayer Kill Player Event"
+            ]
+        },
+        "Death": {
+            "path": [
+                "§cPlayer Death Event"
+            ]
+        },
+        "Sneak": {
+            "path": [
+                "§5Player Sneak Event"
+            ]
+        },
+        "Unsneak": {
+            "path": [
+                "§5Player Unsneak Event"
+            ]
+        },
+        "PlayerDmgPlayer": {
+            "path": [
+                "§6Player Damage Player Event"
+            ]
+        },
+        "ProjDmgPlayer": {
+            "path": [
+                "§bProjectile Damage Player Event"
+            ]
+        },
+        "PlayerTakeDmg": {
+            "path": [
+                "§cPlayer Take Damage Event"
+            ]
+        },
+        "KillMob": {
+            "path": [
+                "§5Player Kill Mob Event"
+            ]
+        },
+        "MobKillPlayer": {
+            "path": [
+                "§6Mob Kill Player Event"
+            ]
+        },
+        "DamageMob": {
+            "path": [
+                "§cPlayer Damage Mob Event"
+            ]
+        },
+        "MobDmgPlayer": {
+            "path": [
+                "§cMob Damage Player Event"
+            ]
+        },
+        "ProjHit": {
+            "path": [
+                "§cPlayer Projectile Hit Event"
+            ]
+        },
+        "Command": {
+            "path": [
+                "§ePlayer Command Event"
+            ]
+        },
+        "ClickItem": {
+            "path": [
+                "§aPlayer Click Item Event"
+            ]
+        },
+        "ClickOwnInv": {
+            "path": [
+                "§aPlayer Click Item In Own Inventory Event"
+            ]
+        },
+        "Click Entity": {
+            "path": [
+                "§dPlayer Right Click Entity Event"
+            ]
+        },
+        "Place Block": {
+            "path": [
+                "§bPlayer Place Block Event"
+            ]
+        },
+        "Break Block": {
+            "path": [
+                "§6Player Break Block Event"
+            ]
+        },
+        "Pickup Item": {
+            "path": [
+                "§dPlayer Pickup Item Event"
+            ]
+        },
+        "Drop Item": {
+            "path": [
+                "§2Player Drop Item Event"
+            ]
+        },
+        "Consume": {
+            "path": [
+                "§ePlayer Consume Item Event"
+            ]
+        },
+        "Swap Hands": {
+            "path": [
+                "§2Player Swap Hands Event"
+            ]
+        },
+        "Change Slot": {
+            "path": [
+                "§aPlayer Change Slot Event"
+            ]
+        },
+        "Sprint": {
+            "path": [
+                "§dPlayer Sprint Event"
+            ]
+        },
+        "StopSprint": {
+            "path": [
+                "§dPlayer Stop Sprinting Event"
+            ]
+        },
+        "Walk": {
+            "path": [
+                "§bPlayer Walk Event"
+            ]
+        },
+        "FallDamage": {
+            "path": [
+                "§cPlayer Take Fall Damage Event"
+            ]
+        }
+    },
+
+    "ENTITY_EVENT": {
+
+        "MobDmgMob": {
+            "path": [
+                "§cMob Damage Mob Event"
+            ]
+        },
+        "ProjDmgMob": {
+            "path": [
+                "§bProjectile Damage Mob Event"
+            ]
+        },
+        "MobKillMob": {
+            "path": [
+                "§4Mob Kill Mob Event"
+            ]
+        },
+        "ProjKillMob": {
+            "path": [
+                "§9Projectile Kill Mob Event"
+            ]
+        },
+        "MobDmg": {
+            "path": [
+                "§cMob Take Damage Event"
+            ]
+        },
+        "MobDeath": {
+            "path": [
+                "§4Mob Death Event"
             ]
         }
     }

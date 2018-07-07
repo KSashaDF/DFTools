@@ -2,11 +2,10 @@ package dfutils.codetools.utils;
 
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 
 public class BlockUtils {
     
@@ -24,19 +23,21 @@ public class BlockUtils {
         String[] signText = new String[4];
         NBTTagCompound signNbt = minecraft.world.getTileEntity(signPos).getUpdatePacket().getNbtCompound();
         
-        try {
-            if (JsonToNBT.getTagFromJson(signNbt.getString("Text1")).hasKey("extra"))
-                signText[0] = JsonToNBT.getTagFromJson(signNbt.getString("Text1")).getTagList("extra", 10).getCompoundTagAt(0).getString("text");
-    
-            if (JsonToNBT.getTagFromJson(signNbt.getString("Text2")).hasKey("extra"))
-                signText[1] = JsonToNBT.getTagFromJson(signNbt.getString("Text2")).getTagList("extra", 10).getCompoundTagAt(0).getString("text");
-    
-            if (JsonToNBT.getTagFromJson(signNbt.getString("Text3")).hasKey("extra"))
-                signText[2] = JsonToNBT.getTagFromJson(signNbt.getString("Text3")).getTagList("extra", 10).getCompoundTagAt(0).getString("text");
-    
-            if (JsonToNBT.getTagFromJson(signNbt.getString("Text4")).hasKey("extra"))
-                signText[3] = JsonToNBT.getTagFromJson(signNbt.getString("Text4")).getTagList("extra", 10).getCompoundTagAt(0).getString("text");
-        } catch (NBTException exception) {}
+        signText[0] = ITextComponent.Serializer.jsonToComponent(signNbt.getString("Text1")).getUnformattedText();
+        if (signText[0].equals(""))
+            signText[0] = null;
+
+        signText[1] = ITextComponent.Serializer.jsonToComponent(signNbt.getString("Text2")).getUnformattedText();
+        if (signText[1].equals(""))
+            signText[1] = null;
+
+        signText[2] = ITextComponent.Serializer.jsonToComponent(signNbt.getString("Text3")).getUnformattedText();
+        if (signText[2].equals(""))
+            signText[2] = null;
+
+        signText[3] = ITextComponent.Serializer.jsonToComponent(signNbt.getString("Text4")).getUnformattedText();
+        if (signText[3].equals(""))
+            signText[3] = null;
         
         return signText;
     }

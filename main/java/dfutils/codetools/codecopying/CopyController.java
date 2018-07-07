@@ -101,7 +101,7 @@ public class CopyController {
                             CopyNbtHandler.setCodeFunction(signText[1]);
                         }
                         
-                        if (blockName == CodeBlockName.SELECT_OBJECT) {
+                        if (blockName == CodeBlockName.SELECT_OBJECT || blockName == CodeBlockName.REPEAT) {
                             if (signText[2] != null) {
                                 CopyNbtHandler.setCodeSubFunction(signText[2]);
                             }

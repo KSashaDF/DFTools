@@ -8,6 +8,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
 
@@ -43,15 +45,15 @@ public class CommandTest extends CommandBase implements IClientCommand {
     
         ItemStack oldItemStack = minecraft.player.getActiveItemStack();
         ItemStack newItemStack = new ItemStack(Item.getItemById(1), 1, 0);
-    
+
         TextComponentString[] signText = {
                 new TextComponentString("Test String"),
                 new TextComponentString(""),
                 new TextComponentString(""),
                 new TextComponentString("")};
-    
+
         minecraft.player.sendMessage(new TextComponentString(CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) + ""));
-        
+
         //minecraft.player.connection.sendPacket(new CPacketPlayer.PositionRotation(1, 0, 0, 0, 0, true));
         
         //minecraft.playerController.sendSlotPacket(newItemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
