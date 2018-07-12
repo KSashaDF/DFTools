@@ -1,7 +1,6 @@
 package dfutils.codetools.codeprinting;
 
-enum PrintSignStage {
-    NULL,
+public enum PrintSignStage {
     FUNCTION,
     DYNAMIC_FUNCTION,
     TARGET,

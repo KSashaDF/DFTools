@@ -1,6 +1,5 @@
 package dfutils.commands.itemcontrol.lore;
 
-import static dfutils.commands.MessageUtils.*;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -9,6 +8,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -40,12 +42,12 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
         
         //Checks if player should be able to execute command.
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return;
         }
         
         if (commandArgs.length == 0) {
-            commandInfo("Usage:\n" + getUsage(sender));
+            infoMessage("Usage:\n" + getUsage(sender));
             return;
         }
         
@@ -71,7 +73,7 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
                 return;
                 
             default:
-                commandInfo("Usage:\n" + getUsage(sender));
+                infoMessage("Usage:\n" + getUsage(sender));
         }
     }
 }

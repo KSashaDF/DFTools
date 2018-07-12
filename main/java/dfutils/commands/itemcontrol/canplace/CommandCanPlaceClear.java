@@ -4,11 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
-public class CommandCanPlaceClear {
+class CommandCanPlaceClear {
     
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
@@ -21,19 +21,19 @@ public class CommandCanPlaceClear {
         
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
         //Checks if item has an NBT tag.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any CanPlaceOn tags!");
+            errorMessage("This item does not contain any CanPlaceOn tags!");
             return;
         }
         
         //Checks if item has a CanPlaceOn tag.
         if (!itemStack.getTagCompound().hasKey("CanPlaceOn", 9)) {
-            commandError("This item does not contain any CanPlaceOn tags!");
+            errorMessage("This item does not contain any CanPlaceOn tags!");
             return;
         }
         
@@ -42,7 +42,7 @@ public class CommandCanPlaceClear {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Cleared all CanPlaceOn tags.");
+        actionMessage("Cleared all CanPlaceOn tags.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -50,7 +50,7 @@ public class CommandCanPlaceClear {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
             return false;
         }
     }

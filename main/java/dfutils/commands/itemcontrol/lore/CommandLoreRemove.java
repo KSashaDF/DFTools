@@ -8,7 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreRemove {
     
@@ -23,19 +25,19 @@ class CommandLoreRemove {
         
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
         //Checks if item has NBT tag.
         if (itemStack.getTagCompound() == null) {
-            commandError("Invalid item! Item does not contain any lore.");
+            errorMessage("Invalid item! Item does not contain any lore.");
             return;
         }
         
         //Checks if item has display tag.
         if (!itemStack.getTagCompound().hasKey("display", 10)) {
-            commandError("Invalid item! Item does not contain any lore.");
+            errorMessage("Invalid item! Item does not contain any lore.");
             return;
         }
         
@@ -43,7 +45,7 @@ class CommandLoreRemove {
         
         //Checks if item has Lore tag.
         if (!nbtTag.hasKey("Lore", 9)) {
-            commandError("Invalid item! Item does not contain any lore.");
+            errorMessage("Invalid item! Item does not contain any lore.");
             return;
         }
         
@@ -55,13 +57,13 @@ class CommandLoreRemove {
             lineNumber = CommandBase.parseInt(commandArgs[1]);
             
         } catch (NumberInvalidException exception) {
-            commandError("Invalid line number.");
+            errorMessage("Invalid line number.");
             return;
         }
         
         //Checks if specified lore line is valid.
         if (lineNumber > loreList.tagCount()) {
-            commandError("Invalid line number! This item only contains " + loreList.tagCount() + " lines of lore.");
+            errorMessage("Invalid line number! This item only contains " + loreList.tagCount() + " lines of lore.");
             return;
         }
     
@@ -76,7 +78,7 @@ class CommandLoreRemove {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Removed lore line.");
+        actionMessage("Removed lore line.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -87,17 +89,17 @@ class CommandLoreRemove {
                     return true;
                     
                 } else {
-                    commandError("Line number must be greater than 0.");
+                    errorMessage("Line number must be greater than 0.");
                     return false;
                 }
                 
             } catch (NumberInvalidException exception) {
-                commandError("Invalid line number.");
+                errorMessage("Invalid line number.");
                 return false;
             }
             
         } else {
-            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }

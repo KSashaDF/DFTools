@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanDestroyClear {
     
@@ -21,19 +21,19 @@ class CommandCanDestroyClear {
     
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
         //Checks if item has an NBT tag.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any CanDestroy tags!");
+            errorMessage("This item does not contain any CanDestroy tags!");
             return;
         }
     
         //Checks if item has a CanDestroy tag.
         if (!itemStack.getTagCompound().hasKey("CanDestroy", 9)) {
-            commandError("This item does not contain any CanDestroy tags!");
+            errorMessage("This item does not contain any CanDestroy tags!");
             return;
         }
     
@@ -42,7 +42,7 @@ class CommandCanDestroyClear {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-        commandAction("Cleared all CanDestroy tags.");
+        actionMessage("Cleared all CanDestroy tags.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -50,7 +50,7 @@ class CommandCanDestroyClear {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandCanDestroyBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandCanDestroyBase().getUsage(sender));
             return false;
         }
     }

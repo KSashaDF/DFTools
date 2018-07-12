@@ -2,6 +2,7 @@ package dfutils;
 
 public enum ColorReference {
     HIGHLIGHT_CODE(70, 100, 200, 250),
+    HIGHLIGHT_LOCATION(90, 150, 0, 150),
     DULL_COPY_CODE(60, 40, 150, 50),
     BRIGHT_COPY_CODE(80, 40, 200, 50),
     DULL_PASTE_CODE(60, 255, 210, 0),

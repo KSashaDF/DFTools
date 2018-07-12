@@ -5,11 +5,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -24,7 +26,8 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
     public String getUsage(ICommandSender sender) {
         return "§e/attribute add <attribute name> <amount> [operation] [slot] \n" +
                 "§e/attribute remove <attribute name> [slot] \n" +
-                "§e/attribute clear";
+                "§e/attribute clear \n" +
+                "§e/attribute list";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -39,12 +42,12 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
     
         //Checks if player should be able to execute command.
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return;
         }
     
         if (commandArgs.length == 0) {
-            commandInfo("Usage:\n" + getUsage(sender));
+            infoMessage("Usage:\n" + getUsage(sender));
             return;
         }
         
@@ -60,9 +63,35 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
             case "clear":
                 CommandAttributeClear.executeClearAttributes(sender, commandArgs);
                 return;
+
+            case "list":
+                listAttributes();
+                return;
                 
             default:
-                commandInfo("Usage:\n" + getUsage(sender));
+                infoMessage("Usage:\n" + getUsage(sender));
+        }
+    }
+
+    private void listAttributes() {
+        String[] attributeList = {
+                "§5§m    §5[§dAttributes§5]§m    ",
+                "",
+                "§5>§d generic.maxHealth",
+                "§5>§d generic.followRange",
+                "§5>§d generic.knockbackResistance",
+                "§5>§d generic.movementSpeed",
+                "§5>§d generic.attackDamage",
+                "§5>§d generic.armor",
+                "§5>§d generic.armorToughness",
+                "§5>§d generic.attackSpeed",
+                "§5>§d generic.luck",
+                "§5>§d generic.flyingSpeed",
+                ""
+        };
+
+        for (String messageLine : attributeList) {
+            minecraft.player.sendMessage(new TextComponentString(messageLine));
         }
     }
 }

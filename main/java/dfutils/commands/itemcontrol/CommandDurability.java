@@ -12,7 +12,9 @@ import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -40,12 +42,12 @@ public class CommandDurability extends CommandBase implements IClientCommand {
         
         //Checks if player should be able to execute command.
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return;
         }
     
         if (commandArgs.length != 1) {
-            commandInfo("Usage:\n" + getUsage(sender));
+            infoMessage("Usage:\n" + getUsage(sender));
             return;
         }
         
@@ -53,7 +55,7 @@ public class CommandDurability extends CommandBase implements IClientCommand {
         
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
@@ -70,13 +72,13 @@ public class CommandDurability extends CommandBase implements IClientCommand {
             
             itemStack.setItemDamage(itemDurability);
         } catch (NumberInvalidException exception) {
-            commandError("Invalid number argument.");
+            errorMessage("Invalid number argument.");
             return;
         }
         
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Item durability set.");
+        actionMessage("Item durability set.");
     }
 }

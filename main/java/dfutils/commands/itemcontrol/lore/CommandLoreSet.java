@@ -10,7 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreSet {
     
@@ -26,7 +28,7 @@ class CommandLoreSet {
     
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
@@ -55,7 +57,7 @@ class CommandLoreSet {
             lineNumber = CommandBase.parseInt(commandArgs[1]);
             
         } catch (NumberInvalidException exception) {
-            commandError("Invalid line number.");
+            errorMessage("Invalid line number.");
             return;
         }
     
@@ -74,7 +76,7 @@ class CommandLoreSet {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-        commandAction("Set item lore.");
+        actionMessage("Set item lore.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -85,17 +87,17 @@ class CommandLoreSet {
                     return true;
                     
                 } else {
-                    commandError("Line number must be greater than 0.");
+                    errorMessage("Line number must be greater than 0.");
                     return false;
                 }
                 
             } catch (NumberInvalidException exception) {
-                commandError("Invalid line number.");
+                errorMessage("Invalid line number.");
                 return false;
             }
             
         } else {
-            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }

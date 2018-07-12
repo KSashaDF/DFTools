@@ -12,8 +12,8 @@ import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -41,7 +41,7 @@ public class CommandHideFlags extends CommandBase implements IClientCommand {
         
         //Checks if player should be able to execute command.
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return;
         }
         
@@ -49,7 +49,7 @@ public class CommandHideFlags extends CommandBase implements IClientCommand {
         
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
@@ -64,6 +64,6 @@ public class CommandHideFlags extends CommandBase implements IClientCommand {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Flags are now hidden for this item.");
+        actionMessage("Flags are now hidden for this item.");
     }
 }

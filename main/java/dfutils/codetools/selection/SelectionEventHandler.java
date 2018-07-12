@@ -22,7 +22,7 @@ public class SelectionEventHandler {
         if (rightClickCooldown - 3 > minecraft.player.ticksExisted) rightClickCooldown = 0;
         
         if (minecraft.player.isCreative() && minecraft.player.ticksExisted > rightClickCooldown) {
-            if (minecraft.player.getHeldItemMainhand().getDisplayName().equals("§eCode Selection Stick")) {
+            if (minecraft.player.getHeldItemMainhand().getDisplayName().equals("§6* §eCode Selection Stick §6*")) {
                 if (CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos())) {
                     
                     rightClickCooldown = minecraft.player.ticksExisted + 2;
@@ -50,7 +50,7 @@ public class SelectionEventHandler {
     @SubscribeEvent
     public void onRenderWorldLast(RenderWorldLastEvent event) {
         if (SelectionController.selectionActive) {
-            SelectionController.renderSelection(Tessellator.getInstance(), event.getPartialTicks());
+            SelectionController.renderSelection(event.getPartialTicks());
             
             if (!minecraft.player.isCreative()) {
                 SelectionController.resetSelection();

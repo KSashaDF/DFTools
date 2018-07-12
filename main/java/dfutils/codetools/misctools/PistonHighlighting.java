@@ -6,7 +6,7 @@ import dfutils.codetools.utils.GraphicsUtils;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -75,18 +75,19 @@ public class PistonHighlighting {
         
         if (doPistonHighlight) {
             
-            Tessellator tessellator = Tessellator.getInstance();
+            GlStateManager.disableDepth();
             
-            GraphicsUtils.drawCube(tessellator, event.getPartialTicks(), openingPistonPos.getX() - 0.01, openingPistonPos.getY() - 0.01, openingPistonPos.getZ() - 0.01,
+            GraphicsUtils.drawCube(event.getPartialTicks(), openingPistonPos.getX() - 0.01, openingPistonPos.getY() - 0.01, openingPistonPos.getZ() - 0.01,
                     openingPistonPos.getX() + 1.01, openingPistonPos.getY() + 1.01, openingPistonPos.getZ() + 1.01,
                     ColorReference.HIGHLIGHT_CODE);
     
-            GraphicsUtils.drawCube(tessellator, event.getPartialTicks(), closingPistonPos.getX() - 0.01, closingPistonPos.getY() - 0.01, closingPistonPos.getZ() - 0.01,
+            GraphicsUtils.drawCube(event.getPartialTicks(), closingPistonPos.getX() - 0.01, closingPistonPos.getY() - 0.01, closingPistonPos.getZ() - 0.01,
                     closingPistonPos.getX() + 1.01, closingPistonPos.getY() + 1.01, closingPistonPos.getZ() + 1.01,
                     ColorReference.HIGHLIGHT_CODE);
-            
+
+            GlStateManager.enableDepth();
+
             if (!minecraft.player.isCreative()) {
-                
                 clearHighlight();
                 return;
             }
@@ -102,9 +103,7 @@ public class PistonHighlighting {
                     minecraft.world.getBlockState(closingPistonPos).getBlock().getLocalizedName().equals("Sticky Piston"))) {
                 
                 if (CodeBlockUtils.hasOppositePiston(openingPistonPos)) {
-                    
                     closingPistonPos = CodeBlockUtils.getOppositePiston(openingPistonPos);
-                    
                 } else {
                     clearHighlight();
                 }

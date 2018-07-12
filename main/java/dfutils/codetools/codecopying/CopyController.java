@@ -7,7 +7,8 @@ import dfutils.codetools.selection.SelectionState;
 import dfutils.codetools.utils.BlockUtils;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.codetools.utils.CodeFormatException;
-import dfutils.codetools.utils.MathUtils;
+import dfutils.utils.ItemUtils;
+import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
@@ -15,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -23,9 +25,9 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static dfutils.codetools.utils.MessageUtils.actionMessage;
-import static dfutils.codetools.utils.MessageUtils.errorMessage;
-import static dfutils.codetools.utils.MessageUtils.infoMessage;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 @Mod.EventBusSubscriber
 public class CopyController {
@@ -166,14 +168,52 @@ public class CopyController {
     }
     
     private static void finishCodeCopy() {
+        //Creates code template item.
         ItemStack itemStack = new ItemStack(Item.getItemById(130), 1, 0);
         itemStack.setTagCompound(new NBTTagCompound());
-        itemStack.getTagCompound().setTag("CodeData", new NBTTagList());
         itemStack.getTagCompound().setTag("CodeData", CopyNbtHandler.copyData);
-    
+        itemStack.getTagCompound().setTag("display", new NBTTagCompound());
+
+        //The following code sets the code template item name.
+        CodeBlockName codeLineHeader = CodeBlockUtils.stringToBlock(CopyNbtHandler.copyData.getCompoundTagAt(0).getString("Name"));
+
+        if (codeLineHeader.codeBlockType == CodeBlockType.EVENT &&
+                (CopyNbtHandler.copyData.getCompoundTagAt(0).hasKey("Function") || CopyNbtHandler.copyData.getCompoundTagAt(0).hasKey("DynamicFunction"))) {
+
+            if (codeLineHeader == CodeBlockName.PLAYER_EVENT || codeLineHeader == CodeBlockName.ENTITY_EVENT) {
+                itemStack.getTagCompound().getCompoundTag("display").
+                        setTag("Name", new NBTTagString("§3§l[ §bEvent §3| §b" + CopyNbtHandler.copyData.getCompoundTagAt(0).getString("Function") + " §3§l]"));
+            } else if (codeLineHeader == CodeBlockName.LOOP) {
+                itemStack.getTagCompound().getCompoundTag("display").
+                        setTag("Name", new NBTTagString("§3§l[ §bEvent §3| §bLoop §3§l]"));
+            } else {
+                itemStack.getTagCompound().getCompoundTag("display").
+                        setTag("Name", new NBTTagString("§3§l{ §bFunction §3| §b" + CopyNbtHandler.copyData.getCompoundTagAt(0).getString("DynamicFunction") + " §3§l}"));
+            }
+
+        } else {
+            itemStack.getTagCompound().getCompoundTag("display").
+                    setTag("Name", new NBTTagString("§3§l( §bCode Template §3§l)"));
+        }
+
+        //The following sets the lore for the code template item.
+        NBTTagList itemLore = new NBTTagList();
+        itemStack.getSubCompound("display").setTag("Lore", itemLore);
+
+        itemLore.appendTag(new NBTTagString("§8§m                          "));
+        itemLore.appendTag(new NBTTagString("§7Copied By: §c" + minecraft.player.getName()));
+        itemLore.appendTag(new NBTTagString(""));
+        itemLore.appendTag(new NBTTagString("§c§nNote§c: §7Place this block down"));
+        itemLore.appendTag(new NBTTagString("§7to print the copied code."));
+        itemLore.appendTag(new NBTTagString("§7You can also take this block"));
+        itemLore.appendTag(new NBTTagString("§7to another node or even"));
+        itemLore.appendTag(new NBTTagString("§7give it to another player and"));
+        itemLore.appendTag(new NBTTagString("§7it will still work correctly."));
+        itemLore.appendTag(new NBTTagString("§8§m                          "));
+
         //Sends updated item to the server.
-        minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
-    
+        ItemUtils.setItemInHotbar(itemStack, true);
+
         minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
         infoMessage("Finished code copying! Place the template item down to paste the copied code. Note that the code data is stored on the template item itself.");
         resetCopy();

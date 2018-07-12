@@ -389,7 +389,7 @@
                 "§aAllow Item Dropping"
             ]
         },
-        "DisableDrops": {
+        "DisallowDrops": {
             "path": [
                 "§dSettings",
                 "§cDisable Item Dropping"
@@ -504,7 +504,7 @@
                 "§5Other",
                 "§aReward with DiamondFire Credits"
             ]
-        },
+        }
     },
 
     "GAME_ACTION": {
@@ -753,7 +753,7 @@
                 "§eSpecial Effects",
                 "§6Create Animated Particle Spiral"
             ]
-        },
+        }
     },
 
     "ENTITY_ACTION": {
@@ -949,7 +949,7 @@
             "path": [
                 "§6Move To Location"
             ]
-        },
+        }
     },
 
     "SET_VARIABLE": {
@@ -1897,7 +1897,7 @@
             "Killer": "§cKiller",
             "Damager": "§cDamager",
             "Shooter": "§eShooter",
-            "Victim": "§9Victim",
+            "Victim": "§9Victim"
         },
 
         "IsSneaking": {

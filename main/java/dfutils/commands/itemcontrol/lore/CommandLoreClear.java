@@ -5,7 +5,9 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreClear {
     
@@ -28,10 +30,10 @@ class CommandLoreClear {
             //Sends updated item to the server.
             minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-            commandAction("Cleared lore from item.");
+            actionMessage("Cleared lore from item.");
         
         } else {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
         }
     }
     
@@ -40,7 +42,7 @@ class CommandLoreClear {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }

@@ -9,11 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
-public class CommandCanPlaceAdd {
+class CommandCanPlaceAdd {
     
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
@@ -26,7 +26,7 @@ public class CommandCanPlaceAdd {
         
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
@@ -45,20 +45,20 @@ public class CommandCanPlaceAdd {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Added CanPlaceOn tag.");
+        actionMessage("Added CanPlaceOn tag.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
         
         if (commandArgs.length != 2) {
-            commandInfo("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
             return false;
         }
         
         try {
             CommandBase.getBlockByText(sender, commandArgs[1]);
         } catch (NumberInvalidException exception) {
-            commandError("Invalid block name.");
+            errorMessage("Invalid block name.");
             return false;
         }
         

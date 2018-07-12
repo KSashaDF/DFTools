@@ -3,7 +3,6 @@ package dfutils.codetools.codeprinting;
 import dfutils.ColorReference;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.codetools.utils.GraphicsUtils;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.math.BlockPos;
 
 class PrintRenderer {
@@ -13,7 +12,6 @@ class PrintRenderer {
         PrintNbtHandler renderNbtReader = new PrintNbtHandler();
         renderNbtReader.initializePrintData(PrintController.printNbtHandler.printData);
         
-        Tessellator tessellator = Tessellator.getInstance();
         BlockPos renderPos = PrintController.printSelection[0];
         ColorReference drawColor;
         
@@ -26,20 +24,20 @@ class PrintRenderer {
             }
             
             //Draws the code block core and the code block connector.
-            GraphicsUtils.drawBlock(tessellator, partialTicks, renderPos, drawColor);
-            GraphicsUtils.drawBlock(tessellator, partialTicks, renderPos.south(), drawColor);
+            GraphicsUtils.drawBlock(partialTicks, renderPos, drawColor);
+            GraphicsUtils.drawBlock(partialTicks, renderPos.south(), drawColor);
             
             //Draws code block sign.
             if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasCodeSign)
-                GraphicsUtils.drawSign(tessellator, partialTicks, renderPos.west(), drawColor);
+                GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
             
             //Draws code chest.
             if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasCodeChest)
-                GraphicsUtils.drawChest(tessellator, partialTicks, renderPos.up(), drawColor);
+                GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
             
             //Draws opposite piston. (the closing piston)
             if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasPistonBrackets)
-                GraphicsUtils.drawBlock(tessellator, partialTicks,
+                GraphicsUtils.drawBlock(partialTicks,
                         renderPos.south(PrintController.getCodeLength(renderNbtReader.selectedBlock.getTagList("CodeData", 10)) + 3), drawColor);
             
             //Checks if the selected code block is before a closing piston, if so, skip ahead 2 blocks.

@@ -124,22 +124,38 @@ public class CodeItems {
         return itemStack;
     }
 
-    public static ItemStack getTextBook(String text) {
-        ItemStack itemStack = new ItemStack(Item.getItemById(340), 1, 0);
+    public static ItemStack getTextBook(String text, int stackSize) {
+        ItemStack itemStack = new ItemStack(Item.getItemById(340), stackSize, 0);
 
         try {
             itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + text + "\"}}"));
-        } catch (NBTException exception) {}
+        } catch (NBTException exception) {
+            //Impossible condition! Exception never thrown.
+        }
 
         return itemStack;
     }
 
-    public static ItemStack getNumberSlimeball(int number) {
-        ItemStack itemStack = new ItemStack(Item.getItemById(341), 1, 0);
+    public static ItemStack getVarItem(String name, int stackSize) {
+        ItemStack itemStack = new ItemStack(Item.getItemById(378), stackSize, 0);
+
+        try {
+            itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + name + "\"}}"));
+        } catch (NBTException exception) {
+            //Impossible condition! Exception never thrown.
+        }
+
+        return itemStack;
+    }
+
+    public static ItemStack getNumberSlimeball(int number, int stackSize) {
+        ItemStack itemStack = new ItemStack(Item.getItemById(341), stackSize, 0);
 
         try {
             itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"§c" + number + "\"}}"));
-        } catch (NBTException exception) {}
+        } catch (NBTException exception) {
+            //Impossible condition! Exception never thrown.
+        }
 
         return itemStack;
     }

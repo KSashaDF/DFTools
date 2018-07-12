@@ -7,9 +7,9 @@ import net.minecraft.command.NumberInvalidException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanDestroyRemove {
     
@@ -24,25 +24,25 @@ class CommandCanDestroyRemove {
         
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
         //Checks if item has an NBT tag.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any CanDestroy tags!");
+            errorMessage("This item does not contain any CanDestroy tags!");
             return;
         }
     
         //Checks if item has a CanDestroy tag.
         if (!itemStack.getTagCompound().hasKey("CanDestroy", 9)) {
-            commandError("This item does not contain any CanDestroy tags!");
+            errorMessage("This item does not contain any CanDestroy tags!");
             return;
         }
         
         if (itemStack.getTagCompound().getTagList("CanDestroy", 8).tagCount() == 0) {
             itemStack.getTagCompound().removeTag("CanDestroy");
-            commandError("This item does not contain any CanDestroy tags!");
+            errorMessage("This item does not contain any CanDestroy tags!");
             return;
         }
     
@@ -58,25 +58,25 @@ class CommandCanDestroyRemove {
                 //Sends updated item to the server.
                 minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-                commandAction("Removed CanDestroy tag.");
+                actionMessage("Removed CanDestroy tag.");
                 return;
             }
         }
     
-        commandError("Could not find specified CanDestroy tag.");
+        errorMessage("Could not find specified CanDestroy tag.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
         
         if (commandArgs.length != 2) {
-            commandInfo("Usage:\n" + new CommandCanDestroyBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandCanDestroyBase().getUsage(sender));
             return false;
         }
         
         try {
             CommandBase.getBlockByText(sender, commandArgs[1]);
         } catch (NumberInvalidException exception) {
-            commandError("Invalid block name.");
+            errorMessage("Invalid block name.");
             return false;
         }
         

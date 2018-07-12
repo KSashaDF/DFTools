@@ -6,7 +6,6 @@ import dfutils.codetools.utils.BlockUtils;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.codetools.utils.CodeFormatException;
 import dfutils.codetools.utils.GraphicsUtils;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -16,7 +15,7 @@ public class SelectionController {
     static BlockPos selectionPos;
     public static SelectionState selectionState = SelectionState.NULL;
     
-    static void renderSelection(Tessellator tessellator, float partialTicks) {
+    static void renderSelection(float partialTicks) {
     
         BlockPos[] selectionEdges;
         
@@ -38,20 +37,20 @@ public class SelectionController {
             if (BlockUtils.getName(renderPos).equals("Air"))
                 renderPos = renderPos.south();
     
-            GraphicsUtils.drawBlock(tessellator, partialTicks, renderPos, drawColor);
+            GraphicsUtils.drawBlock(partialTicks, renderPos, drawColor);
             
             if (BlockUtils.getName(renderPos.west()).equals("Sign"))
-                GraphicsUtils.drawSign(tessellator, partialTicks, renderPos.west(), drawColor);
+                GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
             
             if (BlockUtils.getName(renderPos.up()).equals("Chest"))
-                GraphicsUtils.drawChest(tessellator, partialTicks, renderPos.up(), drawColor);
+                GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
             
             renderPos = renderPos.south();
             
         } while (BlockUtils.isWithinRegion(CodeBlockUtils.getBlockCore(renderPos), selectionEdges[0], selectionEdges[1]));
     }
     
-    public static boolean isWithinSelection(BlockPos checkPos) throws CodeFormatException {
+    static boolean isWithinSelection(BlockPos checkPos) throws CodeFormatException {
         if (selectionPos == null) return false;
         
         checkPos = CodeBlockUtils.getBlockCore(checkPos);

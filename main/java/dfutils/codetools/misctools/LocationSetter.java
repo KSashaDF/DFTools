@@ -1,11 +1,8 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codetools.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -26,7 +23,7 @@ public class LocationSetter {
             if (itemStack.getDisplayName().equals("§aLocation")) {
                 try {
                     
-                    if (itemStack.getTagCompound().getTag("HideFlags").equals(new NBTTagInt(63))) {
+                    if (itemStack.getTagCompound().getInteger("HideFlags") == 63) {
                         
                         NBTTagCompound displayTag = itemStack.getSubCompound("display");
                         NBTTagList loreTag = new NBTTagList();
@@ -43,7 +40,9 @@ public class LocationSetter {
                         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
                     }
                     
-                } catch (NullPointerException exception) {}
+                } catch (NullPointerException exception) {
+                    //Looks like the item didn't have a certain NBT tag, continue on.
+                }
             }
         }
     }

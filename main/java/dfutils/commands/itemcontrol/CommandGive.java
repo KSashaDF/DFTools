@@ -1,5 +1,6 @@
 package dfutils.commands.itemcontrol;
 
+import dfutils.utils.ItemUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -14,20 +15,25 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
+import net.minecraftforge.client.event.ClientChatEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
+@Mod.EventBusSubscriber
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class CommandGive extends CommandBase implements IClientCommand {
     
     private final Minecraft minecraft = Minecraft.getMinecraft();
-    
+
+    //Note that this name is changed from /give to /dfGive so it can be disabled in singleplayer.
     public String getName() {
-        return "give";
+        return "give";
     }
     
     public String getUsage(ICommandSender sender) {
@@ -43,7 +49,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
     }
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
-    
+
         //Checks if player should be able to execute command.
         if (!checkFormat(sender, commandArgs)) {
             return;
@@ -61,7 +67,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
             itemStack = new ItemStack(item, amount, metadata);
             
         } catch (NumberInvalidException exception) {
-            commandError("Invalid argument!");
+            errorMessage("Invalid argument!");
             return;
         }
     
@@ -73,38 +79,38 @@ public class CommandGive extends CommandBase implements IClientCommand {
     
                 itemNbt = JsonToNBT.getTagFromJson(itemNbtString);
             } catch (NBTException exception) {
-                commandError("Invalid NBT format! " + exception.getMessage());
+                errorMessage("Invalid NBT format! " + exception.getMessage());
                 return;
             }
         }
         
         itemStack.setTagCompound(itemNbt);
         
-        //Sends updated item to the server.
-        minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
-        
+        //Sends item to the server.
+        ItemUtils.setItemInHotbar(itemStack, false);
+
         player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
     }
     
     private boolean checkFormat(ICommandSender sender, String[] commandArgs) {
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return false;
         }
         
         if (commandArgs.length < 1) {
-            commandInfo("Usage:\n" + getUsage(sender));
+            infoMessage("Usage:\n" + getUsage(sender));
             return false;
         }
         
         if (commandArgs.length >= 2) {
             try {
                 if (parseInt(commandArgs[1]) < 1 || parseInt(commandArgs[1]) > 64) {
-                    commandError("Invalid stack size.");
+                    errorMessage("Invalid stack size.");
                     return false;
                 }
             } catch (NumberInvalidException exception) {
-                commandError("Invalid stack size number argument.");
+                errorMessage("Invalid stack size number argument.");
                 return false;
             }
         }
@@ -112,15 +118,32 @@ public class CommandGive extends CommandBase implements IClientCommand {
         if (commandArgs.length >= 3) {
             try {
                 if (parseInt(commandArgs[2]) < 0) {
-                    commandError("Invalid metadata number.");
+                    errorMessage("Invalid metadata number.");
                     return false;
                 }
             } catch (NumberInvalidException exception) {
-                commandError("Invalid metadata number argument.");
+                errorMessage("Invalid metadata number argument.");
                 return false;
             }
         }
-        
+
         return true;
+    }
+
+    //This code is used for making sure this command only works in multiplayer.
+    @SubscribeEvent
+    public void onClientSendMessage(ClientChatEvent event) {
+
+        if (event.getMessage().startsWith("/give ")) {
+            if (!minecraft.isSingleplayer()) {
+                char[] charArray = new char[event.getMessage().length() - 6];
+                event.getMessage().getChars(6, event.getMessage().length(), charArray, 0);
+                event.setMessage("/give " + String.valueOf(charArray));
+            }
+        } else if (event.getMessage().equals("/give")) {
+            if (!minecraft.isSingleplayer()) {
+                event.setMessage("/give");
+            }
+        }
     }
 }

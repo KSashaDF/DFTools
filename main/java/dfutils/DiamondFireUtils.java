@@ -4,6 +4,11 @@ import dfutils.codetools.CodeData;
 import dfutils.codetools.codecopying.CopyController;
 import dfutils.codetools.codecopying.CopyEventHandler;
 import dfutils.codetools.codeprinting.PrintEventHandler;
+import dfutils.codetools.commands.CommandNumberRange;
+import dfutils.codetools.commands.CommandTextItem;
+import dfutils.codetools.commands.CommandVarItem;
+import dfutils.codetools.misctools.CodeQuickSelection;
+import dfutils.codetools.misctools.LocationHighlighting;
 import dfutils.codetools.misctools.LocationSetter;
 import dfutils.codetools.misctools.PistonHighlighting;
 import dfutils.codetools.commands.CommandCodeBase;
@@ -22,6 +27,7 @@ import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
+import dfutils.utils.ItemUtils;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -35,15 +41,15 @@ public class DiamondFireUtils {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        
-        //Shortcut initialization.
-        MinecraftForge.EVENT_BUS.register(new ShortcutLastMsg());
-        MinecraftForge.EVENT_BUS.register(new ShortcutSupportChat());
-        
+
+        registerCommands();
+        registerEvents();
+        initializeData();
+    }
+
+    private void registerCommands() {
         ClientCommandHandler commandHandler = ClientCommandHandler.instance;
-        
-        commandHandler.registerCommand(new CommandHelp());
-        
+
         //Item control command initialization.
         commandHandler.registerCommand(new CommandGive());
         commandHandler.registerCommand(new CommandItemData());
@@ -59,18 +65,43 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandHideFlags());
         commandHandler.registerCommand(new CommandShowFlags());
         commandHandler.registerCommand(new CommandSetFlags());
-        
+
+        //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());
-        
+        commandHandler.registerCommand(new CommandNumberRange());
+        commandHandler.registerCommand(new CommandTextItem());
+        commandHandler.registerCommand(new CommandVarItem());
+
+
+        //Misc commands.
+        commandHandler.registerCommand(new CommandHelp());
         commandHandler.registerCommand(new CommandTest());
-        
+    }
+
+    private void registerEvents() {
+
+        //Shortcut initialization.
+        MinecraftForge.EVENT_BUS.register(new ShortcutLastMsg());
+        MinecraftForge.EVENT_BUS.register(new ShortcutSupportChat());
+
+        MinecraftForge.EVENT_BUS.register(new CommandGive());
+
+        //Code tool event initialization.
+        MinecraftForge.EVENT_BUS.register(new SelectionEventHandler());
         MinecraftForge.EVENT_BUS.register(new CopyController());
         MinecraftForge.EVENT_BUS.register(new CopyEventHandler());
         MinecraftForge.EVENT_BUS.register(new PrintEventHandler());
-        
-        new CodeData();
-        MinecraftForge.EVENT_BUS.register(new SelectionEventHandler());
         MinecraftForge.EVENT_BUS.register(new PistonHighlighting());
         MinecraftForge.EVENT_BUS.register(new LocationSetter());
+        MinecraftForge.EVENT_BUS.register(new LocationHighlighting());
+        MinecraftForge.EVENT_BUS.register(new CodeQuickSelection());
+
+        //Input event initialization.
+        MinecraftForge.EVENT_BUS.register(new InputHandler());
+    }
+
+    private void initializeData() {
+        new CodeData();
+        InputHandler.initializeKeys();
     }
 }

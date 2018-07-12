@@ -1,7 +1,5 @@
 package dfutils.commands.itemcontrol.lore;
 
-import static dfutils.commands.MessageUtils.*;
-
 import dfutils.commands.CommandUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -10,6 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreAdd {
     
@@ -25,7 +27,7 @@ class CommandLoreAdd {
         
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
@@ -54,7 +56,7 @@ class CommandLoreAdd {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-        commandAction("Added lore to item.");
+        actionMessage("Added lore to item.");
     
     }
     
@@ -63,7 +65,7 @@ class CommandLoreAdd {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandLoreBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandLoreBase().getUsage(sender));
             return false;
         }
     }

@@ -5,15 +5,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -41,7 +39,7 @@ public class CommandShowFlags extends CommandBase implements IClientCommand {
         
         //Checks if player should be able to execute command.
         if (!minecraft.player.isCreative()) {
-            commandError("You need to be in build mode or dev mode to do this!");
+            errorMessage("You need to be in build mode or dev mode to do this!");
             return;
         }
         
@@ -49,19 +47,19 @@ public class CommandShowFlags extends CommandBase implements IClientCommand {
         
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
         //Checks if item has NBT tag.
         if (itemStack.getTagCompound() == null) {
-            commandError("Flags are already shown for this item!");
+            errorMessage("Flags are already shown for this item!");
             return;
         }
         
         //Checks if item has HideFlags tag.
         if (!itemStack.getTagCompound().hasKey("HideFlags")) {
-            commandError("Flags are already shown for this item!");
+            errorMessage("Flags are already shown for this item!");
             return;
         }
         
@@ -71,6 +69,6 @@ public class CommandShowFlags extends CommandBase implements IClientCommand {
         //Sends updated item to the server.
         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-        commandAction("Flags are now shown for this item.");
+        actionMessage("Flags are now shown for this item.");
     }
 }

@@ -8,7 +8,9 @@ import net.minecraft.command.NumberInvalidException;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandAttributeAdd {
     
@@ -22,7 +24,7 @@ class CommandAttributeAdd {
         ItemStack itemStack = minecraft.player.getHeldItemMainhand();
         
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
@@ -46,10 +48,10 @@ class CommandAttributeAdd {
             //Sends attribute item to server.
             minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
             
-            commandAction("Added attribute to item.");
+            actionMessage("Added attribute to item.");
         
         } catch (NumberInvalidException exception) {
-            commandError("Invalid number argument.");
+            errorMessage("Invalid number argument.");
         }
     }
     
@@ -59,18 +61,18 @@ class CommandAttributeAdd {
             if (commandArgs.length >= 4) {
                 try {
                     if (CommandBase.parseInt(commandArgs[3]) < 0 || CommandBase.parseInt(commandArgs[3]) > 2) {
-                        commandError("Operation argument must be equal to either 0, 1, or 2.");
+                        errorMessage("Operation argument must be equal to either 0, 1, or 2.");
                         return false;
                     }
                 } catch (NumberInvalidException exception) {
-                    commandError("Operation argument must be a valid number.");
+                    errorMessage("Operation argument must be a valid number.");
                     return false;
                 }
             }
             
             if (commandArgs.length == 5) {
                 if (CommandUtils.parseSlotText(commandArgs[4]) == null) {
-                    commandError("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
+                    errorMessage("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
                     return false;
                 }
             }
@@ -78,7 +80,7 @@ class CommandAttributeAdd {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandAttributeBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandAttributeBase().getUsage(sender));
             return false;
         }
     }

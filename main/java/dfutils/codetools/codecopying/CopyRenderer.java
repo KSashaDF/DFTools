@@ -4,14 +4,12 @@ import dfutils.ColorReference;
 import dfutils.codetools.utils.BlockUtils;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.codetools.utils.GraphicsUtils;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.math.BlockPos;
 
 class CopyRenderer {
     
     static void renderCopySelection(float partialTicks) {
     
-        Tessellator tessellator = Tessellator.getInstance();
         BlockPos renderPos = CopyController.copySelection[0];
         ColorReference drawColor;
     
@@ -26,13 +24,13 @@ class CopyRenderer {
             if (BlockUtils.getName(renderPos).equals("Air"))
                 renderPos = renderPos.south();
         
-            GraphicsUtils.drawBlock(tessellator, partialTicks, renderPos, drawColor);
+            GraphicsUtils.drawBlock(partialTicks, renderPos, drawColor);
         
             if (BlockUtils.getName(renderPos.west()).equals("Sign"))
-                GraphicsUtils.drawSign(tessellator, partialTicks, renderPos.west(), drawColor);
+                GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
         
             if (BlockUtils.getName(renderPos.up()).equals("Chest"))
-                GraphicsUtils.drawChest(tessellator, partialTicks, renderPos.up(), drawColor);
+                GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
         
             renderPos = renderPos.south();
         

@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.IClientCommand;
 
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 public class CommandItemData extends CommandBase implements IClientCommand {
     private final Minecraft minecraft = Minecraft.getMinecraft();
@@ -35,16 +35,16 @@ public class CommandItemData extends CommandBase implements IClientCommand {
     
         //Checks if item is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
         //Checks if item has NBT tag.
         if (itemStack.getTagCompound() == null) {
-            commandError("This item does not have any NBT.");
+            errorMessage("This item does not have any NBT.");
             return;
         }
         
-        commandInfo("Item NBT: \n§6" + itemStack.getTagCompound().toString());
+        infoMessage("Item NBT: \n§6" + itemStack.getTagCompound().toString());
     }
 }

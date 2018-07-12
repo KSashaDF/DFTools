@@ -7,11 +7,11 @@ import net.minecraft.command.NumberInvalidException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 
-import static dfutils.commands.MessageUtils.commandAction;
-import static dfutils.commands.MessageUtils.commandError;
-import static dfutils.commands.MessageUtils.commandInfo;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
-public class CommandCanPlaceRemove {
+class CommandCanPlaceRemove {
     
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
@@ -24,25 +24,25 @@ public class CommandCanPlaceRemove {
         
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
         
         //Checks if item has an NBT tag.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any CanPlaceOn tags!");
+            errorMessage("This item does not contain any CanPlaceOn tags!");
             return;
         }
         
         //Checks if item has a CanPlaceOn tag.
         if (!itemStack.getTagCompound().hasKey("CanPlaceOn", 9)) {
-            commandError("This item does not contain any CanPlaceOn tags!");
+            errorMessage("This item does not contain any CanPlaceOn tags!");
             return;
         }
         
         if (itemStack.getTagCompound().getTagList("CanPlaceOn", 8).tagCount() == 0) {
             itemStack.getTagCompound().removeTag("CanPlaceOn");
-            commandError("This item does not contain any CanPlaceOn tags!");
+            errorMessage("This item does not contain any CanPlaceOn tags!");
             return;
         }
         
@@ -58,25 +58,25 @@ public class CommandCanPlaceRemove {
                 //Sends updated item to the server.
                 minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
                 
-                commandAction("Removed CanPlaceOn tag.");
+                actionMessage("Removed CanPlaceOn tag.");
                 return;
             }
         }
         
-        commandError("Could not find specified CanPlaceOn tag.");
+        errorMessage("Could not find specified CanPlaceOn tag.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
         
         if (commandArgs.length != 2) {
-            commandInfo("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandCanPlaceBase().getUsage(sender));
             return false;
         }
         
         try {
             CommandBase.getBlockByText(sender, commandArgs[1]);
         } catch (NumberInvalidException exception) {
-            commandError("Invalid block name.");
+            errorMessage("Invalid block name.");
             return false;
         }
         

@@ -7,7 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import static dfutils.commands.MessageUtils.*;
+import static dfutils.utils.MessageUtils.actionMessage;
+import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandAttributeRemove {
     
@@ -22,19 +24,19 @@ class CommandAttributeRemove {
     
         //Checks if item stack is not air.
         if (itemStack.isEmpty()) {
-            commandError("Invalid item!");
+            errorMessage("Invalid item!");
             return;
         }
     
         //Checks if item has attributes.
         if (!itemStack.hasTagCompound()) {
-            commandError("This item does not contain any attributes!");
+            errorMessage("This item does not contain any attributes!");
             return;
         }
     
         //Checks if item has attributes.
         if (!itemStack.getTagCompound().hasKey("AttributeModifiers", 9)) {
-            commandError("This item does not contain any attributes!");
+            errorMessage("This item does not contain any attributes!");
             return;
         }
     
@@ -56,24 +58,26 @@ class CommandAttributeRemove {
                             //Sends updated item to the server.
                             minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
         
-                            commandAction("Removed attribute from item.");
+                            actionMessage("Removed attribute from item.");
                             return;
                         }
-                    } catch (NullPointerException exception) {}
+                    } catch (NullPointerException exception) {
+                        //If attribute has no name, just move on.
+                    }
                 } else {
-    
+
                     nbtTagList.removeTag(i);
                     
                     //Sends updated item to the server.
                     minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
     
-                    commandAction("Removed attribute from item.");
+                    actionMessage("Removed attribute from item.");
                     return;
                 }
             }
         }
         
-        commandError("Could not find specified attribute.");
+        errorMessage("Could not find specified attribute.");
     }
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
@@ -81,7 +85,7 @@ class CommandAttributeRemove {
             
             if (commandArgs.length == 3) {
                 if (CommandUtils.parseSlotText(commandArgs[2]) == null) {
-                    commandError("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
+                    errorMessage("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
                     return false;
                 }
             }
@@ -89,7 +93,7 @@ class CommandAttributeRemove {
             return true;
             
         } else {
-            commandInfo("Usage:\n" + new CommandAttributeBase().getUsage(sender));
+            infoMessage("Usage:\n" + new CommandAttributeBase().getUsage(sender));
             return false;
         }
     }

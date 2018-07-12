@@ -3,8 +3,8 @@ package dfutils.codetools.codeprinting;
 import dfutils.codetools.CodeData;
 import dfutils.codetools.CodeItems;
 import dfutils.codetools.utils.CodeBlockUtils;
-import dfutils.codetools.utils.MathUtils;
-import dfutils.codetools.utils.MessageUtils;
+import dfutils.utils.MathUtils;
+import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
@@ -196,12 +196,12 @@ class PrintController {
                     if (codeSignStage == PrintSignStage.DYNAMIC_FUNCTION) {
                         if (printNbtHandler.selectedBlock.getString("Name").equals("LOOP")) {
                             try {
-                                minecraft.playerController.sendSlotPacket(CodeItems.getNumberSlimeball(CommandBase.parseInt(printNbtHandler.selectedBlock.getString("DynamicFunction"))), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+                                minecraft.playerController.sendSlotPacket(CodeItems.getNumberSlimeball(CommandBase.parseInt(printNbtHandler.selectedBlock.getString("DynamicFunction")), 1), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
                             } catch (NumberInvalidException exception) {
                                 MessageUtils.errorMessage("Hey! You edited the the NBT and made the number for the loop delay invalid. D:<");
                             }
                         } else {
-                            minecraft.playerController.sendSlotPacket(CodeItems.getTextBook(printNbtHandler.selectedBlock.getString("DynamicFunction")), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+                            minecraft.playerController.sendSlotPacket(CodeItems.getTextBook(printNbtHandler.selectedBlock.getString("DynamicFunction"), 1), minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
                         }
 
                         minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(printPos.west(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
@@ -231,6 +231,8 @@ class PrintController {
     }
     
     static void openedCodeChest(Container codeChest) {
+        minecraft.playerController.sendSlotPacket(new ItemStack(Item.getItemById(1)), 1);
+
         if (!printNbtHandler.getChestItem(codeChestSlot).isEmpty()) {
             switch (codeChestStage) {
                 case CREATE_ITEM:
