@@ -7,11 +7,12 @@ import dfutils.codetools.codeprinting.PrintEventHandler;
 import dfutils.codetools.commands.CommandNumberRange;
 import dfutils.codetools.commands.CommandTextItem;
 import dfutils.codetools.commands.CommandVarItem;
+import dfutils.codetools.commands.locations.CommandLocBase;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.misctools.LocationHighlighting;
 import dfutils.codetools.misctools.LocationSetter;
 import dfutils.codetools.misctools.PistonHighlighting;
-import dfutils.codetools.commands.CommandCodeBase;
+import dfutils.codetools.commands.code.CommandCodeBase;
 import dfutils.codetools.selection.SelectionEventHandler;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
@@ -27,7 +28,6 @@ import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
-import dfutils.utils.ItemUtils;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -68,6 +68,7 @@ public class DiamondFireUtils {
 
         //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());
+        commandHandler.registerCommand(new CommandLocBase());
         commandHandler.registerCommand(new CommandNumberRange());
         commandHandler.registerCommand(new CommandTextItem());
         commandHandler.registerCommand(new CommandVarItem());

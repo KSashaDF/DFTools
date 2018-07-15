@@ -8,7 +8,6 @@ import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
-import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -365,10 +364,6 @@ class PrintController {
     }
     
     private static void nextCodeBlock() {
-        // Automatically move player along code line
-        minecraft.player.capabilities.isFlying = true;
-        minecraft.player.setPosition(minecraft.player.getPosition().getX(), minecraft.player.getPosition().getY(), minecraft.player.getPosition().getZ() + 2);
-
         //Checks if the selected code block is before a closing piston, if so, skip ahead 2 blocks.
         if (printNbtHandler.shouldExitScope())
             printPos = printPos.south(2);

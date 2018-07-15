@@ -1,4 +1,4 @@
-package dfutils.codetools.commands;
+package dfutils.codetools.commands.code;
 
 import dfutils.codetools.classification.CodeBlockName;
 import dfutils.codetools.classification.CodeBlockType;
@@ -10,6 +10,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import org.apache.commons.compress.utils.Charsets;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -34,7 +35,7 @@ class CommandLoadTemplate {
             if (codeDataFile.exists() && codeDataFile.length() != 0) {
 
                 //Reads codedata.nbt and converts the file into an NBT tag.
-                NBTTagCompound rawCodeData = JsonToNBT.getTagFromJson(IOUtils.toString(new InputStreamReader(new FileInputStream(codeDataFile))));
+                NBTTagCompound rawCodeData = JsonToNBT.getTagFromJson(IOUtils.toString(new FileInputStream(codeDataFile), Charsets.UTF_8));
 
                 //This simply gets the actual code data tag from the compound item data tag that the codedata.nbt file comes in.
                 NBTTagList codeData = rawCodeData.getTagList("CodeData", 10);

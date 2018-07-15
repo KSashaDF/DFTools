@@ -1,4 +1,4 @@
-package dfutils.codetools.commands;
+package dfutils.codetools.commands.code;
 
 import dfutils.codetools.codecopying.CopyController;
 import mcp.MethodsReturnNonnullByDefault;
@@ -26,7 +26,9 @@ public class CommandCodeBase extends CommandBase implements IClientCommand {
     public String getUsage(ICommandSender sender) {
         return "§e/code select \n" +
                 "§e/code copy \n" +
-                "§e/code load §7To be used with the text parser.";
+                "§e/code load §7To be used with the text parser. \n" +
+                "§e/code export <file name> §7Exports the currently held code template. \n" +
+                "§e/code import <file name> §7Imports the specified code template file.";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -61,6 +63,14 @@ public class CommandCodeBase extends CommandBase implements IClientCommand {
 
             case "load":
                 CommandLoadTemplate.executeLoadTemplate(sender, commandArgs);
+                break;
+
+            case "export":
+                CommandExportTemplate.executeExportTemplate(sender, commandArgs);
+                break;
+
+            case "import":
+                CommandImportTemplate.executeImportTemplate(sender, commandArgs);
                 break;
         }
     }

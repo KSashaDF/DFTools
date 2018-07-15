@@ -10,7 +10,6 @@ import dfutils.codetools.utils.CodeFormatException;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -154,7 +153,6 @@ public class CopyController {
     
     private static void getNextBlock() {
         do {
-
             copyPos = copyPos.south();
             
             if (!BlockUtils.isWithinRegion(copyPos, copySelection[0], copySelection[1]))
@@ -165,10 +163,7 @@ public class CopyController {
                     CopyNbtHandler.exitCodeScope();
                 }
             }
-
-            // Automatically move player along code line
-            minecraft.player.capabilities.isFlying = true;
-            minecraft.player.setPosition(minecraft.player.getPosition().getX(), minecraft.player.getPosition().getY(), minecraft.player.getPosition().getZ() + 1);
+            
         } while (!CodeBlockUtils.isValidCore(copyPos));
     }
     

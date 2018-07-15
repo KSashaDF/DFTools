@@ -122,6 +122,7 @@ public class CodeQuickSelection {
 
             if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("SelectionData")) {
                 if (itemStack.getSubCompound("SelectionData").getString("Name").equals(CodeBlockUtils.getBlockName(CodeBlockUtils.getBlockCore(minecraft.objectMouseOver.getBlockPos())).name())) {
+
                     isPrintingSign = true;
                     resetItem = false;
                     eventWait = false;

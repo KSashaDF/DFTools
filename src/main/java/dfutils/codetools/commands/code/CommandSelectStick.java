@@ -1,20 +1,18 @@
-package dfutils.codetools.commands;
+package dfutils.codetools.commands.code;
 
 import dfutils.utils.ItemUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandSelectStick {
-    
-    private static Minecraft minecraft = Minecraft.getMinecraft();
-    
+
     static void executeSelectStick(ICommandSender sender, String[] commandArgs) {
+
         if (!checkFormat(sender, commandArgs)) {
             return;
         }
@@ -46,7 +44,7 @@ class CommandSelectStick {
     
     private static boolean checkFormat(ICommandSender sender, String[] commandArgs) {
         if (commandArgs.length != 1) {
-            errorMessage("Usage: \n" + new CommandCodeBase().getUsage(sender));
+            infoMessage("Usage: \n" + new CommandCodeBase().getUsage(sender));
             return false;
         }
         
