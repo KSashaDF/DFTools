@@ -25,7 +25,7 @@ public class CommandLocBase extends CommandBase implements IClientCommand {
     public String getUsage(ICommandSender sender) {
         return "§e/loc align \n" +
                 "§e/loc center \n" +
-                "§e/loc move ";
+                "§e/loc move <x> <y> <z> [pitch] [yaw]";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -51,13 +51,15 @@ public class CommandLocBase extends CommandBase implements IClientCommand {
 
         switch (commandArgs[0]) {
             case "align":
-                CommandLocAlign.executeExportTemplate(sender, commandArgs);
+                CommandLocAlign.executeAlignLoc(sender, commandArgs);
                 break;
 
             case "center":
+                CommandLocCenter.executeCenterLoc(sender, commandArgs);
                 break;
 
             case "move":
+                CommandLocMove.executeMoveLoc(sender, commandArgs);
                 break;
         }
     }

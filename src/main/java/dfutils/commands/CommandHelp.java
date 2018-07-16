@@ -92,6 +92,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                 "§6> §e/code §7Used for code copy pasting.",
                 "§6> §e/num §7Gives you the specified range of number items.",
                 "§6> §e/txt §7Gives you a text book item.",
+                "§6> §e/loc §7Contains various location manipulation commands.",
                 "§6> §e/var §7Gives you a variable item.",
                 ""
         };
