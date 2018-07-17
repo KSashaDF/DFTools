@@ -1,7 +1,7 @@
 package dfutils.codetools.codecopying;
 
-import dfutils.codetools.classification.CodeBlockName;
-import dfutils.codetools.classification.CodeBlockType;
+import dfutils.codetools.utils.CodeBlockName;
+import dfutils.codetools.utils.CodeBlockType;
 import dfutils.codetools.selection.SelectionController;
 import dfutils.codetools.selection.SelectionState;
 import dfutils.codetools.utils.BlockUtils;

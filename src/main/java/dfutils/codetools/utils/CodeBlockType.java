@@ -1,4 +1,4 @@
-package dfutils.codetools.classification;
+package dfutils.codetools.utils;
 
 public enum CodeBlockType {
     REGULAR,

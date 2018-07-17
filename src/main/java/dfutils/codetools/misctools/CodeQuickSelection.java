@@ -2,8 +2,8 @@ package dfutils.codetools.misctools;
 
 import dfutils.codetools.CodeData;
 import dfutils.codetools.CodeItems;
-import dfutils.codetools.classification.CodeBlockName;
-import dfutils.codetools.classification.CodeBlockType;
+import dfutils.codetools.utils.CodeBlockName;
+import dfutils.codetools.utils.CodeBlockType;
 import dfutils.codetools.codeprinting.PrintSignStage;
 import dfutils.codetools.utils.BlockUtils;
 import dfutils.codetools.utils.CodeBlockUtils;
