@@ -21,7 +21,7 @@ class InputHandler {
 
     static void initializeKeys() {
 
-        ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
+        //ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
         ClientRegistry.registerKeyBinding(CODE_QUICK_SELECT);
     }
 
