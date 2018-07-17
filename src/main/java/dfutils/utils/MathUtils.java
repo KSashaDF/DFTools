@@ -36,4 +36,21 @@ public class MathUtils {
 
         return number;
     }
+
+    public static BlockPos[] getCorners(BlockPos corner1, BlockPos corner2) {
+        BlockPos[] cornerPositions = new BlockPos[2];
+
+        cornerPositions[0] = new BlockPos(
+                corner1.getX() < corner2.getX() ? corner1.getX() : corner2.getX(),
+                corner1.getY() < corner2.getY() ? corner1.getY() : corner2.getY(),
+                corner1.getZ() < corner2.getZ() ? corner1.getZ() : corner2.getZ());
+
+        cornerPositions[1] = new BlockPos(
+                corner1.getX() > corner2.getX() ? corner1.getX() : corner2.getX(),
+                corner1.getY() > corner2.getY() ? corner1.getY() : corner2.getY(),
+                corner1.getZ() > corner2.getZ() ? corner1.getZ() : corner2.getZ());
+
+        return cornerPositions;
+
+    }
 }
