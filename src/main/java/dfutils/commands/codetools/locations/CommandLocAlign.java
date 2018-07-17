@@ -1,4 +1,4 @@
-package dfutils.codetools.commands.locations;
+package dfutils.commands.codetools.locations;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -11,11 +11,11 @@ import net.minecraft.nbt.NBTTagString;
 import static dfutils.utils.MessageUtils.errorMessage;
 import static dfutils.utils.MessageUtils.infoMessage;
 
-class CommandLocCenter {
+class CommandLocAlign {
 
     private static Minecraft minecraft = Minecraft.getMinecraft();
 
-    static void executeCenterLoc(ICommandSender sender, String[] commandArgs) {
+    static void executeAlignLoc(ICommandSender sender, String[] commandArgs) {
 
         if (!checkFormat(sender, commandArgs)) {
             return;
@@ -39,15 +39,15 @@ class CommandLocCenter {
         }
 
         try {
-            //Gets the location lore, sets the decimal, and sets the location lore again.
+            //Gets the location lore, removes the decimal, and sets the location lore again.
             NBTTagList itemLore = itemStack.getSubCompound("display").getTagList("Lore", 8);
             double locationX = CommandBase.parseDouble(itemLore.getStringTagAt(0));
             double locationY = CommandBase.parseDouble(itemLore.getStringTagAt(1));
             double locationZ = CommandBase.parseDouble(itemLore.getStringTagAt(2));
 
-            itemLore.set(0, new NBTTagString(((int) locationX) + ".5"));
-            itemLore.set(1, new NBTTagString(((int) locationY) + ".5"));
-            itemLore.set(2, new NBTTagString(((int) locationZ) + ".5"));
+            itemLore.set(0, new NBTTagString(((int) locationX) + ".0"));
+            itemLore.set(1, new NBTTagString(((int) locationY) + ".0"));
+            itemLore.set(2, new NBTTagString(((int) locationZ) + ".0"));
 
             //Sends the updated location item to the server.
             minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);

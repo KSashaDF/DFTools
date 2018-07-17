@@ -1,4 +1,4 @@
-package dfutils.codetools.commands;
+package dfutils.commands.codetools;
 
 import dfutils.codetools.CodeItems;
 import dfutils.commands.CommandUtils;

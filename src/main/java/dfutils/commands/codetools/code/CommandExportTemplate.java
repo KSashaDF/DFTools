@@ -1,4 +1,4 @@
-package dfutils.codetools.commands.code;
+package dfutils.commands.codetools.code;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;

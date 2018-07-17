@@ -1,4 +1,4 @@
-package dfutils.codetools.commands.locations;
+package dfutils.commands.codetools.locations;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;

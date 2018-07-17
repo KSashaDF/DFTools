@@ -1,4 +1,4 @@
-package dfutils.codetools.commands.code;
+package dfutils.commands.codetools.code;
 
 import dfutils.codetools.codecopying.CopyController;
 import mcp.MethodsReturnNonnullByDefault;
