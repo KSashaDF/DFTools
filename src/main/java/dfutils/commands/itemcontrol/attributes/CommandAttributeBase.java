@@ -77,16 +77,15 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
         String[] attributeList = {
                 "§5§m    §5[§dAttributes§5]§m    ",
                 "",
-                "§5>§d generic.maxHealth",
-                "§5>§d generic.followRange",
-                "§5>§d generic.knockbackResistance",
-                "§5>§d generic.movementSpeed",
-                "§5>§d generic.attackDamage",
-                "§5>§d generic.armor",
-                "§5>§d generic.armorToughness",
-                "§5>§d generic.attackSpeed",
-                "§5>§d generic.luck",
-                "§5>§d generic.flyingSpeed",
+                "§5>§d maxHealth",
+                "§5>§d followRange",
+                "§5>§d knockbackResistance",
+                "§5>§d movementSpeed",
+                "§5>§d attackDamage",
+                "§5>§d armor",
+                "§5>§d armorToughness",
+                "§5>§d attackSpeed",
+                "§5>§d luck",
                 ""
         };
 
