@@ -1,4 +1,4 @@
-package dfutils.codetools.codecopying;
+package dfutils.codetools.copying;
 
 public enum CopyState {
     NULL,

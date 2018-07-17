@@ -1,4 +1,4 @@
-package dfutils.codetools.codecopying;
+package dfutils.codetools.copying;
 
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;

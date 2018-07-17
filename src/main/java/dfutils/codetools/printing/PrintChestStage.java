@@ -1,4 +1,4 @@
-package dfutils.codetools.codeprinting;
+package dfutils.codetools.printing;
 
 public enum PrintChestStage {
     CREATE_ITEM,

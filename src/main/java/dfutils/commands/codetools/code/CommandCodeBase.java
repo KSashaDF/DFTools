@@ -1,6 +1,6 @@
 package dfutils.commands.codetools.code;
 
-import dfutils.codetools.codecopying.CopyController;
+import dfutils.codetools.copying.CopyController;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

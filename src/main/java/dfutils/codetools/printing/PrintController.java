@@ -1,4 +1,4 @@
-package dfutils.codetools.codeprinting;
+package dfutils.codetools.printing;
 
 import dfutils.codetools.CodeData;
 import dfutils.codetools.CodeItems;

@@ -1,4 +1,4 @@
-package dfutils.codetools.codecopying;
+package dfutils.codetools.copying;
 
 import dfutils.ColorReference;
 import dfutils.codetools.utils.BlockUtils;

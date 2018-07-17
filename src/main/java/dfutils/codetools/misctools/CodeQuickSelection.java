@@ -4,7 +4,7 @@ import dfutils.codetools.CodeData;
 import dfutils.codetools.CodeItems;
 import dfutils.codetools.utils.CodeBlockName;
 import dfutils.codetools.utils.CodeBlockType;
-import dfutils.codetools.codeprinting.PrintSignStage;
+import dfutils.codetools.printing.PrintSignStage;
 import dfutils.codetools.utils.BlockUtils;
 import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.utils.ItemUtils;

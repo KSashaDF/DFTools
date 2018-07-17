@@ -1,9 +1,9 @@
 package dfutils;
 
 import dfutils.codetools.CodeData;
-import dfutils.codetools.codecopying.CopyController;
-import dfutils.codetools.codecopying.CopyEventHandler;
-import dfutils.codetools.codeprinting.PrintEventHandler;
+import dfutils.codetools.copying.CopyController;
+import dfutils.codetools.copying.CopyEventHandler;
+import dfutils.codetools.printing.PrintEventHandler;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;

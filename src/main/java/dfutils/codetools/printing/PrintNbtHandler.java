@@ -1,4 +1,4 @@
-package dfutils.codetools.codeprinting;
+package dfutils.codetools.printing;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

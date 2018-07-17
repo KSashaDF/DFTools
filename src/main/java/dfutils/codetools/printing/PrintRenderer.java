@@ -1,4 +1,4 @@
-package dfutils.codetools.codeprinting;
+package dfutils.codetools.printing;
 
 import dfutils.ColorReference;
 import dfutils.codetools.utils.CodeBlockUtils;

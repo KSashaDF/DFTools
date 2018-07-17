@@ -1,4 +1,4 @@
-package dfutils.codetools.codeprinting;
+package dfutils.codetools.printing;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.GuiContainerEvent;

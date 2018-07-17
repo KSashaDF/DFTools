@@ -1,4 +1,4 @@
-package dfutils.codetools.codecopying;
+package dfutils.codetools.copying;
 
 import dfutils.codetools.utils.CodeBlockName;
 import net.minecraft.inventory.Container;
