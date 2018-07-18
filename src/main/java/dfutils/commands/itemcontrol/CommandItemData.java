@@ -1,17 +1,28 @@
 package dfutils.commands.itemcontrol;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraftforge.client.IClientCommand;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import static dfutils.utils.MessageUtils.errorMessage;
 import static dfutils.utils.MessageUtils.infoMessage;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class CommandItemData extends CommandBase implements IClientCommand {
-    private final Minecraft minecraft = Minecraft.getMinecraft();
+
+    private static Minecraft minecraft = Minecraft.getMinecraft();
     
     public String getName() {
         return "itemdata";
@@ -44,7 +55,18 @@ public class CommandItemData extends CommandBase implements IClientCommand {
             errorMessage("This item does not have any NBT.");
             return;
         }
-        
-        infoMessage("Item NBT: \n§6" + itemStack.getTagCompound().toString());
+
+        //Creates the click and hover events for the message.
+        Style messageStyle = new Style();
+        messageStyle.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/internal-set_clipboard true " + itemStack.getTagCompound().toString().replaceAll("§", "&")));
+        messageStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§dClick here to copy the\n§dNBT to your clipboard.")));
+
+        //Creates the actual message text component.
+        TextComponentString messageComponent = new TextComponentString("§6" + itemStack.getTagCompound().toString());
+        messageComponent.setStyle(messageStyle);
+
+        //Sends the message.
+        infoMessage("Item NBT:");
+        minecraft.player.sendMessage(messageComponent);
     }
 }
