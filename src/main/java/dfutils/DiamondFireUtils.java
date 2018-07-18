@@ -17,6 +17,9 @@ import dfutils.commands.internal.CommandClipboard;
 import dfutils.commands.itemcontrol.*;
 import dfutils.commands.itemcontrol.candestroy.CommandCanDestroyBase;
 import dfutils.commands.itemcontrol.canplace.CommandCanPlaceBase;
+import dfutils.commands.itemcontrol.enchant.CommandClearEnch;
+import dfutils.commands.itemcontrol.enchant.CommandDisenchant;
+import dfutils.commands.itemcontrol.enchant.CommandEnchant;
 import dfutils.commands.itemcontrol.flags.CommandHideFlags;
 import dfutils.commands.itemcontrol.flags.CommandSetFlags;
 import dfutils.commands.itemcontrol.flags.CommandShowFlags;
@@ -63,6 +66,9 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandHideFlags());
         commandHandler.registerCommand(new CommandShowFlags());
         commandHandler.registerCommand(new CommandSetFlags());
+        commandHandler.registerCommand(new CommandEnchant());
+        commandHandler.registerCommand(new CommandDisenchant());
+        commandHandler.registerCommand(new CommandClearEnch());
 
         //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());

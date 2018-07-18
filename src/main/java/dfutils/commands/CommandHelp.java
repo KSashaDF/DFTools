@@ -88,6 +88,8 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                 "§6> §e/breakable",
                 "§6> §e/showflags",
                 "§6> §e/setflags",
+                "§6> §e/disenchant",
+                "§6> §e/clearenchants",
                 "",
                 "§6> §e/code §7Used for code copy pasting.",
                 "§6> §e/num §7Gives you the specified range of number items.",

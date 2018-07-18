@@ -60,7 +60,7 @@ public class CommandDurability extends CommandBase implements IClientCommand {
         }
         
         //Checks if item has NBT tag, if not, adds NBT tag.
-        if (itemStack.getTagCompound() == null) {
+        if (!itemStack.hasTagCompound()) {
             itemStack.setTagCompound(new NBTTagCompound());
         }
         
