@@ -2,7 +2,8 @@
     {
         "modid": "dfutils",
         "name": "DiamondFire Utilities",
-        "description": "This mod offers several handy utilities to use while on mcdiamondfire.com, do /dfutils for more info.",
+        "description": "This mod offers several handy utilities to use while on mcdiamondfire.com, do /dfutils for more info.
+        Also join this discord server to receive updates about the mod: https://discord.gg/rysCetS",
         "version": "1.1.3",
         "mcversion": "1.12",
         "url": "",
