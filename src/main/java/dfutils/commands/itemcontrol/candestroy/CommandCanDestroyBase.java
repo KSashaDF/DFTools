@@ -23,9 +23,9 @@ public class CommandCanDestroyBase extends CommandBase implements IClientCommand
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/candestroy add <block>\n" +
-                "§e/candestroy remove <block>\n" +
-                "§e/candestroy clear";
+        return "§b/candestroy add <block>\n" +
+                "§b/candestroy remove <block>\n" +
+                "§b/candestroy clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

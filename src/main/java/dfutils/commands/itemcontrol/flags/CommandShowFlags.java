@@ -24,7 +24,7 @@ public class CommandShowFlags extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/showflags";
+        return "§b/showflags";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

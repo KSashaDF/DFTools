@@ -28,7 +28,7 @@ public class CommandSetFlags extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/setflags <number> \n" +
+        return "§b/setflags <number> \n" +
                 "\n" +
                 "§cNote: §7For those wondering what this command \n" +
                 "§7does, here is an explanation. Each item has a HideFlags \n" +

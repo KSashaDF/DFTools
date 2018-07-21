@@ -25,7 +25,7 @@ public class CommandClearEnch extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/clearenchants";
+        return "§b/clearenchants";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

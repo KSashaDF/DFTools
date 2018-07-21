@@ -28,7 +28,7 @@ public class CommandEnchant extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/enchant <enchantment> <level>";
+        return "§b/enchant <enchantment> <level>";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

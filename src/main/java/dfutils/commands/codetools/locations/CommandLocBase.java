@@ -23,9 +23,9 @@ public class CommandLocBase extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/loc align \n" +
-                "§e/loc center \n" +
-                "§e/loc move <x> <y> <z> [pitch] [yaw]";
+        return "§b/loc align \n" +
+                "§b/loc center \n" +
+                "§b/loc move <x> <y> <z> [pitch] [yaw]";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

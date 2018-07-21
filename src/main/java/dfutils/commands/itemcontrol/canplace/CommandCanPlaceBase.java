@@ -23,9 +23,9 @@ public class CommandCanPlaceBase extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/canplace add <block>\n" +
-                "§e/canplace remove <block>\n" +
-                "§e/canplace clear";
+        return "§b/canplace add <block>\n" +
+                "§b/canplace remove <block>\n" +
+                "§b/canplace clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

@@ -1,6 +1,7 @@
 package dfutils.commands.codetools;
 
 import dfutils.codetools.CodeItems;
+import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
@@ -27,7 +28,7 @@ public class CommandNumberRange extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/num <number 1> <number 2> [stack size]";
+        return "§b/num <number 1> [number 2] [stack size]";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -46,9 +47,21 @@ public class CommandNumberRange extends CommandBase implements IClientCommand {
             return;
         }
 
-        if (commandArgs.length != 2 && commandArgs.length != 3) {
+        if (commandArgs.length < 1 || commandArgs.length > 3) {
             infoMessage("Usage: " + getUsage(sender));
             return;
+        }
+
+        if (commandArgs.length == 1) {
+            try {
+                ItemUtils.setItemInHotbar(CodeItems.getNumberSlimeball(CommandBase.parseInt(commandArgs[0]), 1), false);
+
+                minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.5F, 1.5F);
+                return;
+            } catch(NumberInvalidException exception) {
+                errorMessage("Invalid number argument! Number must be an integer.");
+                return;
+            }
         }
 
         int numRangeLower;
@@ -82,7 +95,7 @@ public class CommandNumberRange extends CommandBase implements IClientCommand {
 
         int slot = 0;
         int number = numRangeLower;
-        minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
+        minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.5F);
 
         do {
 

@@ -26,7 +26,7 @@ public class CommandHideFlags extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/hideflags";
+        return "§b/hideflags";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

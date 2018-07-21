@@ -22,7 +22,7 @@ class InputHandler {
 
     static void initializeKeys() {
 
-        //ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
+        ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
         //ClientRegistry.registerKeyBinding(TEMPLATE_EXPLORER);
         ClientRegistry.registerKeyBinding(CODE_QUICK_SELECT);
     }
@@ -34,7 +34,7 @@ class InputHandler {
         if (minecraft.currentScreen == null) {
             if (BETTER_TOOLBARS_MENU.isPressed()) {
                 if (minecraft.player.isCreative()) {
-                    //minecraft.displayGuiScreen(new MainToolbarGui());
+                    minecraft.displayGuiScreen(new MainToolbarGui());
                 }
             }
 

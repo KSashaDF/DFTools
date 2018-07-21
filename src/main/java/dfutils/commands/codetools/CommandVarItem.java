@@ -26,7 +26,7 @@ public class CommandVarItem extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/var <name>";
+        return "§b/var <name>";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

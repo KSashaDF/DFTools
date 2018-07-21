@@ -5,6 +5,7 @@ import dfutils.codetools.copying.CopyController;
 import dfutils.codetools.copying.CopyEventHandler;
 import dfutils.codetools.misctools.*;
 import dfutils.codetools.printing.PrintEventHandler;
+import dfutils.commands.CommandHotbarTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
@@ -46,6 +47,8 @@ public class DiamondFireUtils {
         registerCommands();
         registerEvents();
         initializeData();
+
+        ConfigHandler.init(event);
     }
 
     private void registerCommands() {
@@ -81,6 +84,7 @@ public class DiamondFireUtils {
         //Misc commands.
         commandHandler.registerCommand(new CommandHelp());
         commandHandler.registerCommand(new CommandTest());
+        commandHandler.registerCommand(new CommandHotbarTest());
 
         //Internal commands.
         commandHandler.registerCommand(new CommandClipboard());

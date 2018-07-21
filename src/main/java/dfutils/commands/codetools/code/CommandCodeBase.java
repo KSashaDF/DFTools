@@ -24,11 +24,11 @@ public class CommandCodeBase extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/code select \n" +
-                "§e/code copy \n" +
-                "§e/code load §7To be used with the text parser. \n" +
-                "§e/code export <file name> §7Exports the currently held code template. \n" +
-                "§e/code import <file name> §7Imports the specified code template file.";
+        return "§b/code select \n" +
+                "§b/code copy \n" +
+                "§b/code load §7To be used with the text parser. \n" +
+                "§b/code export <file name> §7Exports the currently held code template. \n" +
+                "§b/code import <file name> §7Imports the specified code template file.";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

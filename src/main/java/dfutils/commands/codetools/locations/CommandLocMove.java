@@ -57,7 +57,7 @@ class CommandLocMove {
 
                 locationPitch = MathUtils.clamp(locationPitch, -90, 90);
 
-                itemLore.set(0, new NBTTagString(locationPitch + ""));
+                itemLore.set(3, new NBTTagString(locationPitch + ""));
             }
 
             //If the command contains a yaw value, increment and set the location yaw.
@@ -71,7 +71,7 @@ class CommandLocMove {
                 locationYaw = (locationYaw + 180) % 360;
                 locationYaw = ((locationYaw - 360) % 360) + 180;
 
-                itemLore.set(0, new NBTTagString(locationYaw + ""));
+                itemLore.set(4, new NBTTagString(locationYaw + ""));
             }
 
             //Sends the updated location item to the server.

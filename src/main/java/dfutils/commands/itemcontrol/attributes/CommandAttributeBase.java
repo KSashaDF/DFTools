@@ -24,10 +24,10 @@ public class CommandAttributeBase extends CommandBase implements IClientCommand 
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/attribute add <attribute name> <amount> [operation] [slot] \n" +
-                "§e/attribute remove <attribute name> [slot] \n" +
-                "§e/attribute clear \n" +
-                "§e/attribute list";
+        return "§b/attribute add <attribute name> <amount> [operation] [slot] \n" +
+                "§b/attribute remove <attribute name> [slot] \n" +
+                "§b/attribute clear \n" +
+                "§b/attribute list";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

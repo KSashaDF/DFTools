@@ -27,7 +27,7 @@ public class CommandDurability extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/durability <number>";
+        return "§b/durability <number>";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
