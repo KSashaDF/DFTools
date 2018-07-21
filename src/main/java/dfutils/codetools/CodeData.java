@@ -3,7 +3,6 @@ package dfutils.codetools;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-
 import org.apache.commons.compress.utils.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
