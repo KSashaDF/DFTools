@@ -27,7 +27,11 @@ class CommandAttributeAdd {
             errorMessage("Invalid item!");
             return;
         }
-        
+
+        //If the attribute name does not already have a "generic." prefix, add it on.
+        if (!commandArgs[1].contains("."))
+            commandArgs[1] = "generic." + commandArgs[1];
+
         try {
     
             //Gets operation argument.

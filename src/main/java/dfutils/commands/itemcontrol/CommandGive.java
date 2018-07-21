@@ -39,7 +39,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
     public String getUsage(ICommandSender sender) {
         return "§e/give <item> [amount] [metadata] [NBT]";
     }
-    
+
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         return true;
     }
@@ -54,7 +54,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
         if (!checkFormat(sender, commandArgs)) {
             return;
         }
-        
+
         ItemStack itemStack;
         EntityPlayer player = minecraft.player;
         

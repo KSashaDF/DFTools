@@ -1,6 +1,5 @@
 package dfutils.codetools.utils;
 
-import dfutils.codetools.classification.CodeBlockName;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumFacing;

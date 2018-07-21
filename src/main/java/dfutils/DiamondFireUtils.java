@@ -1,24 +1,25 @@
 package dfutils;
 
 import dfutils.codetools.CodeData;
-import dfutils.codetools.codecopying.CopyController;
-import dfutils.codetools.codecopying.CopyEventHandler;
-import dfutils.codetools.codeprinting.PrintEventHandler;
-import dfutils.codetools.commands.CommandNumberRange;
-import dfutils.codetools.commands.CommandTextItem;
-import dfutils.codetools.commands.CommandVarItem;
-import dfutils.codetools.commands.locations.CommandLocBase;
-import dfutils.codetools.misctools.CodeQuickSelection;
-import dfutils.codetools.misctools.LocationHighlighting;
-import dfutils.codetools.misctools.LocationSetter;
-import dfutils.codetools.misctools.PistonHighlighting;
-import dfutils.codetools.commands.code.CommandCodeBase;
+import dfutils.codetools.copying.CopyController;
+import dfutils.codetools.copying.CopyEventHandler;
+import dfutils.codetools.misctools.*;
+import dfutils.codetools.printing.PrintEventHandler;
+import dfutils.commands.codetools.CommandNumberRange;
+import dfutils.commands.codetools.CommandTextItem;
+import dfutils.commands.codetools.CommandVarItem;
+import dfutils.commands.codetools.locations.CommandLocBase;
+import dfutils.commands.codetools.code.CommandCodeBase;
 import dfutils.codetools.selection.SelectionEventHandler;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
+import dfutils.commands.internal.CommandClipboard;
 import dfutils.commands.itemcontrol.*;
 import dfutils.commands.itemcontrol.candestroy.CommandCanDestroyBase;
 import dfutils.commands.itemcontrol.canplace.CommandCanPlaceBase;
+import dfutils.commands.itemcontrol.enchant.CommandClearEnch;
+import dfutils.commands.itemcontrol.enchant.CommandDisenchant;
+import dfutils.commands.itemcontrol.enchant.CommandEnchant;
 import dfutils.commands.itemcontrol.flags.CommandHideFlags;
 import dfutils.commands.itemcontrol.flags.CommandSetFlags;
 import dfutils.commands.itemcontrol.flags.CommandShowFlags;
@@ -65,6 +66,9 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandHideFlags());
         commandHandler.registerCommand(new CommandShowFlags());
         commandHandler.registerCommand(new CommandSetFlags());
+        commandHandler.registerCommand(new CommandEnchant());
+        commandHandler.registerCommand(new CommandDisenchant());
+        commandHandler.registerCommand(new CommandClearEnch());
 
         //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());
@@ -77,6 +81,9 @@ public class DiamondFireUtils {
         //Misc commands.
         commandHandler.registerCommand(new CommandHelp());
         commandHandler.registerCommand(new CommandTest());
+
+        //Internal commands.
+        commandHandler.registerCommand(new CommandClipboard());
     }
 
     private void registerEvents() {
@@ -96,6 +103,7 @@ public class DiamondFireUtils {
         MinecraftForge.EVENT_BUS.register(new LocationSetter());
         MinecraftForge.EVENT_BUS.register(new LocationHighlighting());
         MinecraftForge.EVENT_BUS.register(new CodeQuickSelection());
+        MinecraftForge.EVENT_BUS.register(new QuickItemRename());
 
         //Input event initialization.
         MinecraftForge.EVENT_BUS.register(new InputHandler());

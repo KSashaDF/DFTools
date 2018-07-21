@@ -39,7 +39,11 @@ class CommandAttributeRemove {
             errorMessage("This item does not contain any attributes!");
             return;
         }
-    
+
+        //If the attribute name does not already have a "generic." prefix, add it on.
+        if (!commandArgs[1].contains("."))
+            commandArgs[1] = "generic." + commandArgs[1];
+
         NBTTagList nbtTagList = itemStack.getTagCompound().getTagList("AttributeModifiers", 10);
     
         //Iterates through item attributes.
