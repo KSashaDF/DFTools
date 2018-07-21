@@ -2,14 +2,13 @@
     {
         "modid": "dfutils",
         "name": "DiamondFire Utilities",
-        "description": "This mod offers several handy utilities to use while on mcdiamondfire.com, do /dfutils for more info.
-        Also join this discord server to receive updates about the mod: https://discord.gg/rysCetS",
-        "version": "1.1.3",
+        "description": "DiamondFire Utils adds a lot of new features to use on DiamondFire. The biggest one being code copying and pasting. Use /dfutils to show the help menu.",
+        "version": "1.1.2",
         "mcversion": "1.12",
-        "url": "",
-        "updateUrl": "",
-        "authorList": ["K_Sasha"],
-        "logoFile": "",
+        "url": "https://github.com/KSashaDF/DiamondFireUtilities/",
+        "updateUrl": "https://github.com/KSashaDF/DiamondFireUtilities/releases/latest",
+        "authorList": ["K_Sasha", "Timeraa"],
+        "logoFile": "logo.png",
         "screenshots": [],
         "dependencies": []
     }

@@ -36,12 +36,12 @@ class CommandExportTemplate {
         }
 
         if (!itemStack.hasTagCompound()) {
-            errorMessage("Invalid item! Does not contain and code data.");
+            errorMessage("Invalid item! Item does not contain any code data.");
             return;
         }
 
         if (!itemStack.getTagCompound().hasKey("CodeData")) {
-            errorMessage("Invalid item! Does not contain and code data.");
+            errorMessage("Invalid item! Item does not contain any code data.");
             return;
         }
 
@@ -58,7 +58,7 @@ class CommandExportTemplate {
             IOUtils.write("{CodeData:" + itemStack.getTagCompound().getTagList("CodeData", 10).toString() + ",Author:\"" + minecraft.player.getName() + "\"}", new FileOutputStream(codeTemplateFile), Charsets.UTF_8);
 
             //Sends confirmation to the player.
-            actionMessage("Saved code template to the " + commandArgs[1] + ".dfcode file located in the codetemplates folder! (the codetemplates folder is in your Minecraft folder)");
+            actionMessage("Saved code template \"" + commandArgs[1] + ".dfcode\" to your codetemplates folder. (in your .minecraft folder)");
             minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_CLOSE, 1.0F, 1.0F);
         } catch (IOException exception) {
             errorMessage("Uh oh! An IO Exception occurred while trying to export code data.");

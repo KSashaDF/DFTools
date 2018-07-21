@@ -40,7 +40,7 @@ class InputHandler {
 
             if (TEMPLATE_EXPLORER.isPressed()) {
                 if (minecraft.player.isCreative()) {
-                    //minecraft.displayGuiScreen(new MainExplorerGui());
+                    minecraft.displayGuiScreen(new MainExplorerGui());
                 }
             }
 
