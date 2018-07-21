@@ -1,109 +1,138 @@
 package dfutils.codetools.templateexplorer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraftforge.fml.client.GuiScrollingList;
 
 import java.io.IOException;
 
 public class MainExplorerGui extends GuiScreen {
 
+    private GuiButton searchButton;
+    private GuiTextField searchField;
+    private GuiScrollingList templateList;
+
+
+    private final int SEARCHBUTTON = 1;
+    private final int SEARCHTEXTINPUT = 0;
+    private boolean searchButtonSearching = false;
+    private int searchButtonSearchingCount = 0;
+
+
     public MainExplorerGui() {
 
     }
 
-
-    private ResourceLocation tutguiback = new ResourceLocation("dfutils:textures/gui/tutgui.png");
-
-    private String hallowelt;
-
-    private int closebutton;
-
-    private int actionbutton;
-
-    private GuiTextField textbox;
-
-    private int textboxid;
-
-	/*public TUTGuiScreen() {
-
-	}*/
-
     @Override
-    public void initGui() {
-        hallowelt = "Hallo Welt!";
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if(searchButtonSearching) {
+            searchButton.enabled = false;
+            searchField.setEnabled(false);
+            if(searchButtonSearchingCount < 20) {
+                searchButton.displayString = "Searching";
+            } else if(searchButtonSearchingCount > 20 && searchButtonSearchingCount < 50) {
+                searchButton.displayString = "Searching.";
+            } else if(searchButtonSearchingCount > 50 && searchButtonSearchingCount < 80) {
+                searchButton.displayString = "Searching..";
+            } else if(searchButtonSearchingCount > 80 && searchButtonSearchingCount < 110) {
+                searchButton.displayString = "Searching...";
+            } else if(searchButtonSearchingCount > 110) {
+                searchButtonSearchingCount = 0;
+            }
+            searchButtonSearchingCount++;
+        } else {
+            searchButton.enabled = true;
+            searchField.setEnabled(true);
+        }
 
-        closebutton = 0;
+        int centerX = (width / 2) - 256 / 2;
+        int centerY = (height / 2) - 256 / 2;
 
-        actionbutton = 1;
+        drawDefaultBackground();
+        drawString(fontRenderer, "Select Code Template", (width / 2) - fontRenderer.getStringWidth("Select Code Template") / 2, centerY + 15, 0xFFFFFF);
 
-        textboxid = 0;
+        searchField.drawTextBox();
 
-        textbox = new GuiTextField(textboxid, fontRenderer, width / 2 - 32, 130, 64, 20);
-
-        textbox.setFocused(true);
-
-        Keyboard.enableRepeatEvents(true);
-
-        this.buttonList.add(new GuiButton(closebutton, width - 20, height - height, 20, 20, "x"));
-
-        this.buttonList.add(new GuiButton(actionbutton, width / 2 - 32, 100, 64, 20, "Klick Mich"));
-
-        super.initGui();
+        super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    public void initGui() {
+        searchField = new GuiTextField(SEARCHTEXTINPUT, fontRenderer, (width / 2) - 80 / 2 - 65, (height / 2) - 20 / 2 - 80, 150, 20);
+        searchField.setMaxStringLength(25);
+        searchField.setFocused(true);
 
-        textbox.textboxKeyTyped(typedChar, keyCode);
+        templateList = new GuiScrollingList(Minecraft.getMinecraft(), width, height, 0, 0, 0, 24, width, height) {
+            String[] strings = new String[]{"one", "two", "three"};
 
-        super.keyTyped(typedChar, keyCode);
+            @Override
+            protected int getSize() {
+                return 5;
+            }
+
+            @Override
+            protected void elementClicked(int index, boolean doubleClick) {
+
+            }
+
+            @Override
+            protected boolean isSelected(int index) {
+                return false;
+            }
+
+            @Override
+            protected void drawBackground() {
+
+            }
+
+            @Override
+            protected void drawSlot(int slotIdx, int entryRight, int slotTop, int slotBuffer, Tessellator tess) {
+                drawString(fontRenderer, "hi", width / 3, height, 0xFFFFFF);
+            }
+        };
+
+        buttonList.clear();
+        buttonList.add(searchButton = new GuiButton(SEARCHBUTTON, (width / 2) - 70 / 2 + 90, (height / 2) - 20 / 2 - 80, 70, 20, "Search"));
+        super.initGui();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         switch(button.id) {
-            case 0:
-                this.mc.player.closeScreen();
-                break;
-            case 1:
-                hallowelt = textbox.getText();
-            default:
+            case SEARCHBUTTON:
+                searchCodeTemplates();
                 break;
         }
+        updateButtons();
         super.actionPerformed(button);
     }
 
     @Override
-    public void updateScreen() {
-
-        textbox.updateCursorCounter();
-
-        super.updateScreen();
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+        if(searchField.isFocused()) {
+            searchField.textboxKeyTyped(typedChar, keyCode);
+        }
     }
 
-    int c = 0;
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void onGuiClosed() {
+        super.onGuiClosed();
+    }
 
-        this.drawDefaultBackground();
+    public void updateButtons() {
 
-        mc.getTextureManager().bindTexture(tutguiback);
+    }
 
-        this.drawTexturedModalRect(this.width / 2 - 128, this.height / 2 - 128, 0, 0, 256, 256);
-
-        textbox.drawTextBox();
-        textbox.setFocused(true);
-
-        this.fontRenderer.drawString(hallowelt, width / 2 - 27, 50, 0xFF8000);
-
-        this.fontRenderer.drawString(String.valueOf(c), width / 2 - 100, 70, 0x0000FF);
-
-        c++;
-
-        super.drawScreen(mouseX, mouseY, partialTicks);
+    private void searchCodeTemplates() {
+        searchButtonSearching = true;
     }
 }
