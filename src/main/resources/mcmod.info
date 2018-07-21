@@ -8,7 +8,7 @@
         "url": "https://github.com/KSashaDF/DiamondFireUtilities/",
         "updateUrl": "https://github.com/KSashaDF/DiamondFireUtilities/releases/latest",
         "authorList": ["K_Sasha", "Timeraa"],
-        "logoFile": "",
+        "logoFile": "logo.png",
         "screenshots": [],
         "dependencies": []
     }
