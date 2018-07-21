@@ -28,7 +28,7 @@ public class CommandNumberRange extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/num <number 1> [number 2] [stack size]";
+        return "§b/num <number 1> [number 2] [stack size]";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

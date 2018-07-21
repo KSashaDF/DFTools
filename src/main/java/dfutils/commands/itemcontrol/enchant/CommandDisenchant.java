@@ -28,7 +28,7 @@ public class CommandDisenchant extends CommandBase implements IClientCommand {
     }
 
     public String getUsage(ICommandSender sender) {
-        return "§e/disenchant <enchantment>";
+        return "§b/disenchant <enchantment>";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

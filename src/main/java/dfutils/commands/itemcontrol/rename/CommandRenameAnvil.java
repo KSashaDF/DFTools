@@ -28,7 +28,7 @@ public class CommandRenameAnvil extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/renameanvil <name>";
+        return "§b/renameanvil <name>";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

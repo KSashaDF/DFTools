@@ -27,7 +27,7 @@ public class CommandRename extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/rename <name>";
+        return "§b/rename <name>";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

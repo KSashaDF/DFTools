@@ -37,7 +37,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/give <item> [amount] [metadata] [NBT]";
+        return "§b/give <item> [amount] [metadata] [NBT]";
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

@@ -28,7 +28,7 @@ public class CommandItemData extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/itemdata";
+        return "§b/itemdata";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -61,7 +61,7 @@ public class CommandItemData extends CommandBase implements IClientCommand {
         messageStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§dClick here to copy the\n§dNBT to your clipboard.")));
 
         //Creates the actual message text component.
-        TextComponentString messageComponent = new TextComponentString("§6" + itemStack.getTagCompound().toString());
+        TextComponentString messageComponent = new TextComponentString("§b" + itemStack.getTagCompound().toString());
         messageComponent.setStyle(messageStyle);
 
         //Sends the message.

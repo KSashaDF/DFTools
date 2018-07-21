@@ -16,8 +16,8 @@ public class MainExplorerGui extends GuiScreen {
     private GuiScrollingList templateList;
 
 
-    private final int SEARCHBUTTON = 1;
-    private final int SEARCHTEXTINPUT = 0;
+    private final int SEARCH_BUTTON = 1;
+    private final int SEARCH_TEXT_INPUT = 0;
     private boolean searchButtonSearching = false;
     private int searchButtonSearchingCount = 0;
 
@@ -61,7 +61,7 @@ public class MainExplorerGui extends GuiScreen {
 
     @Override
     public void initGui() {
-        searchField = new GuiTextField(SEARCHTEXTINPUT, fontRenderer, (width / 2) - 80 / 2 - 65, (height / 2) - 20 / 2 - 80, 150, 20);
+        searchField = new GuiTextField(SEARCH_TEXT_INPUT, fontRenderer, (width / 2) - 80 / 2 - 65, (height / 2) - 20 / 2 - 80, 150, 20);
         searchField.setMaxStringLength(25);
         searchField.setFocused(true);
 
@@ -95,14 +95,14 @@ public class MainExplorerGui extends GuiScreen {
         };
 
         buttonList.clear();
-        buttonList.add(searchButton = new GuiButton(SEARCHBUTTON, (width / 2) - 70 / 2 + 90, (height / 2) - 20 / 2 - 80, 70, 20, "Search"));
+        buttonList.add(searchButton = new GuiButton(SEARCH_BUTTON, (width / 2) - 70 / 2 + 90, (height / 2) - 20 / 2 - 80, 70, 20, "Search"));
         super.initGui();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         switch(button.id) {
-            case SEARCHBUTTON:
+            case SEARCH_BUTTON:
                 searchCodeTemplates();
                 break;
         }
@@ -128,7 +128,7 @@ public class MainExplorerGui extends GuiScreen {
         super.onGuiClosed();
     }
 
-    public void updateButtons() {
+    private void updateButtons() {
 
     }
 

@@ -26,7 +26,7 @@ public class CommandUnbreakable extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/unbreakable";
+        return "§b/unbreakable";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {

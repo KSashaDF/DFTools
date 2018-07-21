@@ -23,11 +23,11 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
     }
     
     public String getUsage(ICommandSender sender) {
-        return "§e/lore add <lore> \n" +
-                "§e/lore set <line> <lore> \n" +
-                "§e/lore insert <line> <lore> \n" +
-                "§e/lore remove <line> \n" +
-                "§e/lore clear";
+        return "§b/lore add <lore> \n" +
+                "§b/lore set <line> <lore> \n" +
+                "§b/lore insert <line> <lore> \n" +
+                "§b/lore remove <line> \n" +
+                "§b/lore clear";
     }
     
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
