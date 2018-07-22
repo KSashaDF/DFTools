@@ -2,10 +2,10 @@ package dfutils.codetools.selection;
 
 import dfutils.ColorReference;
 import dfutils.codetools.utils.CodeBlockType;
-import dfutils.codetools.utils.BlockUtils;
-import dfutils.codetools.utils.CodeBlockUtils;
-import dfutils.codetools.utils.CodeFormatException;
-import dfutils.codetools.utils.GraphicsUtils;
+import dfutils.utils.BlockUtils;
+import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.utils.CodeFormatException;
+import dfutils.utils.GraphicsUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 

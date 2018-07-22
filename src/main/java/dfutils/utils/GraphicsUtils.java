@@ -1,4 +1,4 @@
-package dfutils.codetools.utils;
+package dfutils.utils;
 
 import dfutils.ColorReference;
 import net.minecraft.client.Minecraft;

@@ -1,9 +1,11 @@
 package dfutils.bettertoolbars;
 
-import dfutils.utils.MessageUtils;
+import dfutils.utils.ItemUtils;
+import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -74,21 +76,61 @@ public class MainToolbarGui extends GuiContainer {
         if (clickType == ClickType.PICKUP_ALL)
             clickType = ClickType.PICKUP;
 
+        InventoryPlayer playerInventory = minecraft.player.inventory;
+
         switch (clickType) {
             case PICKUP:
 
                 //If the slot index is -999, it means the player clicked outside the GUI.
                 if (slotIndex == -999) {
                     if (mouseButton == 0) {
-                        minecraft.player.inventory.setItemStack(ItemStack.EMPTY);
+                        playerInventory.setItemStack(ItemStack.EMPTY);
                     } else if (mouseButton == 1) {
-                        minecraft.player.inventory.setItemStack(incrementStackSize(minecraft.player.inventory.getItemStack(), -1));
+                        playerInventory.setItemStack(incrementStackSize(playerInventory.getItemStack(), -1));
                     }
                 } else if (slot != null) {
-
                     //Sets the icon slot to the currently dragged item.
                     if (isIconSlot(slotIndex)) {
-                        inventorySlots.getSlot(0).putStack(minecraft.player.inventory.getItemStack());
+                        if (mouseButton == 0) {
+                            slot.putStack(playerInventory.getItemStack().copy());
+                        } else if (mouseButton == 1) {
+                            ItemStack itemStack = playerInventory.getItemStack().copy();
+                            itemStack.setCount(1);
+                            slot.putStack(itemStack);
+                        }
+                    } else if (isToolbarSlot(slotIndex)) {
+
+                        if (slot.getHasStack()) {
+                            if (ItemUtils.areItemsStackable(slot.getStack(), playerInventory.getItemStack())) {
+                                playerInventory.setItemStack(incrementStackSize(playerInventory.getItemStack(), slot.getStack().getCount()));
+                            } else {
+                                playerInventory.setItemStack(slot.getStack().copy());
+                            }
+                        } else {
+                            slot.putStack(playerInventory.getItemStack());
+                            playerInventory.setItemStack(ItemStack.EMPTY);
+                        }
+                    } else if (isHotbarSlot(slotIndex)) {
+                        if (slot.getHasStack()) {
+                            if (playerInventory.getItemStack().isEmpty()) {
+                                if (mouseButton == 0) {
+                                    playerInventory.setItemStack(slot.getStack());
+                                    slot.putStack(ItemStack.EMPTY);
+                                } else if (mouseButton == 1) {
+                                    playerInventory.setItemStack(slot.getStack().splitStack(
+                                            MathUtils.isOdd(slot.getStack().getCount() / 2) ? (slot.getStack().getCount() / 2) + 1 : slot.getStack().getCount() / 2));
+                                }
+                            }
+                        } else {
+                            if (!playerInventory.getItemStack().isEmpty()) {
+                                if (mouseButton == 0) {
+                                    slot.putStack(playerInventory.getItemStack());
+                                    playerInventory.setItemStack(ItemStack.EMPTY);
+                                } else if (mouseButton == 1) {
+                                    slot.putStack(playerInventory.getItemStack().splitStack(1));
+                                }
+                            }
+                        }
                     }
                 }
                 break;
@@ -105,15 +147,15 @@ public class MainToolbarGui extends GuiContainer {
                 //Otherwise, if the player already has an item on their cursor, increment that item's
                 //stack size.
 
-                if (minecraft.player.inventory.getItemStack().isEmpty()) {
+                if (playerInventory.getItemStack().isEmpty() || (slot != null && slot.getHasStack() && !ItemUtils.areItemsStackable(playerInventory.getItemStack(), slot.getStack()))) {
                     if (slot != null && slot.getHasStack()) {
                         ItemStack newDraggedItem = slot.getStack().copy();
                         newDraggedItem.setCount(newDraggedItem.getMaxStackSize());
 
-                        minecraft.player.inventory.setItemStack(newDraggedItem);
+                        playerInventory.setItemStack(newDraggedItem);
                     }
                 } else {
-                    minecraft.player.inventory.setItemStack(incrementStackSize(minecraft.player.inventory.getItemStack(), 1));
+                    playerInventory.setItemStack(incrementStackSize(playerInventory.getItemStack(), 1));
                 }
                 break;
 
@@ -138,8 +180,13 @@ public class MainToolbarGui extends GuiContainer {
 
         //Syncs the players hotbar with the hotbar in the toolbar menu.
         detectAndSendHotbarChanges();
+    }
 
-        minecraft.player.inventoryContainer.detectAndSendChanges();
+    @Override
+    public void onGuiClosed() {
+        if (!minecraft.player.inventory.getItemStack().isEmpty()) {
+            minecraft.player.inventory.setItemStack(ItemStack.EMPTY);
+        }
     }
 
     private void detectAndSendHotbarChanges() {

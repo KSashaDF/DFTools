@@ -53,4 +53,8 @@ public class MathUtils {
         return cornerPositions;
 
     }
+
+    public static boolean isOdd(int number) {
+        return number % 2 == 1;
+    }
 }

@@ -29,4 +29,11 @@ public class ItemUtils {
             }
         }
     }
+
+    public static boolean areItemsStackable(ItemStack itemStack1, ItemStack itemStack2) {
+        itemStack1.setCount(1);
+        itemStack2.setCount(1);
+
+        return ItemStack.areItemStacksEqual(itemStack1, itemStack2);
+    }
 }

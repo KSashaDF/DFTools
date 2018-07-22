@@ -22,7 +22,7 @@ public class InputHandler {
     static void initializeKeys() {
 
         ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
-        //ClientRegistry.registerKeyBinding(TEMPLATE_EXPLORER);
+        ClientRegistry.registerKeyBinding(TEMPLATE_EXPLORER);
         ClientRegistry.registerKeyBinding(CODE_QUICK_SELECT);
     }
 

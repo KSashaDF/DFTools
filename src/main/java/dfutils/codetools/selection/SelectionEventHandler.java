@@ -1,7 +1,7 @@
 package dfutils.codetools.selection;
 
-import dfutils.codetools.utils.CodeBlockUtils;
-import dfutils.codetools.utils.CodeFormatException;
+import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.utils.CodeFormatException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;

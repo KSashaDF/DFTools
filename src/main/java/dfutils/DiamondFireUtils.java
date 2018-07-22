@@ -1,17 +1,12 @@
 package dfutils;
 
 import dfutils.codetools.CodeData;
-import dfutils.codetools.copying.CopyController;
-import dfutils.codetools.copying.CopyEventHandler;
-import dfutils.codetools.misctools.*;
-import dfutils.codetools.printing.PrintEventHandler;
 import dfutils.commands.CommandHotbarTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
 import dfutils.commands.codetools.locations.CommandLocBase;
 import dfutils.commands.codetools.code.CommandCodeBase;
-import dfutils.codetools.selection.SelectionEventHandler;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
 import dfutils.commands.internal.CommandClipboard;
@@ -24,8 +19,6 @@ import dfutils.commands.itemcontrol.enchant.CommandEnchant;
 import dfutils.commands.itemcontrol.flags.CommandHideFlags;
 import dfutils.commands.itemcontrol.flags.CommandSetFlags;
 import dfutils.commands.itemcontrol.flags.CommandShowFlags;
-import dfutils.commands.shortcuts.ShortcutLastMsg;
-import dfutils.commands.shortcuts.ShortcutSupportChat;
 import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
@@ -92,7 +85,8 @@ public class DiamondFireUtils {
     }
 
     private void registerEvents() {
-        // Event Classes
+
+        //Registers all the event classes.
         MinecraftForge.EVENT_BUS.register(new ClientChatEvent());
         MinecraftForge.EVENT_BUS.register(new GuiContainerEvent());
         MinecraftForge.EVENT_BUS.register(new InputEvent());
