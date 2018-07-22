@@ -14,13 +14,11 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class LocationHighlighting {
 
     private static Minecraft minecraft = Minecraft.getMinecraft();
 
-    @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
+    public static void locationHighlightingRenderWorldLast(RenderWorldLastEvent event) {
 
         if (minecraft.player.isCreative()) {
             try {

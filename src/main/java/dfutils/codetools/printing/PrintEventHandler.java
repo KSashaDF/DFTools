@@ -14,8 +14,7 @@ public class PrintEventHandler {
     private static boolean skipGuiEvent = false;
     private static Minecraft minecraft = Minecraft.getMinecraft();
     
-    @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void printEventHandlerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         
         if (minecraft.player.isCreative()) {
             if (minecraft.player.getHeldItemMainhand().hasTagCompound()) {
@@ -27,15 +26,13 @@ public class PrintEventHandler {
         }
     }
     
-    @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
+    public static void printEventHandlerRenderWorldLast(RenderWorldLastEvent event) {
         if (PrintController.isPrinting) {
             PrintRenderer.renderPrintSelection(event.getPartialTicks());
         }
     }
     
-    @SubscribeEvent
-    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void printEventHandlerLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (PrintController.isPrinting) {
             if (minecraft.player.isCreative()) {
                 PrintController.updatePrint();
@@ -45,8 +42,7 @@ public class PrintEventHandler {
         }
     }
     
-    @SubscribeEvent
-    public void onPlayerContainerEvent(GuiContainerEvent event) {
+    public static void printEventHandlerPlayerContainerEvent(GuiContainerEvent event) {
         if (PrintController.isPrinting && PrintController.printSubState == PrintSubState.EVENT_WAIT) {
             
             if (skipGuiEvent) {

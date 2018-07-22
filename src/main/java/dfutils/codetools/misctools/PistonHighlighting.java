@@ -14,19 +14,17 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class PistonHighlighting {
     
-    private final Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    private boolean doPistonHighlight = false;
-    private int highlightCooldown = 0;
+    private static boolean doPistonHighlight = false;
+    private static int highlightCooldown = 0;
     
-    private BlockPos openingPistonPos;
-    private BlockPos closingPistonPos;
+    private static BlockPos openingPistonPos;
+    private static BlockPos closingPistonPos;
     
-    @SubscribeEvent
-    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+    public static void pistonHighlightingLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         
         if (highlightCooldown - 3 > minecraft.player.ticksExisted) highlightCooldown = 0;
         
@@ -70,8 +68,7 @@ public class PistonHighlighting {
         }
     }
     
-    @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
+    public static void pistonHighlightingRenderWorldLast(RenderWorldLastEvent event) {
         
         if (doPistonHighlight) {
             
@@ -111,7 +108,7 @@ public class PistonHighlighting {
         }
     }
     
-    private void clearHighlight() {
+    private static void clearHighlight() {
         doPistonHighlight = false;
         openingPistonPos = null;
         closingPistonPos = null;

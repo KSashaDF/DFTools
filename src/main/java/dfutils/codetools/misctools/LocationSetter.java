@@ -9,13 +9,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class LocationSetter {
     
-    private Minecraft minecraft = Minecraft.getMinecraft();
+    private static Minecraft minecraft = Minecraft.getMinecraft();
     
-    @SubscribeEvent
-    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+    public static void locationSetterLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         
         if (minecraft.player.isCreative()) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();

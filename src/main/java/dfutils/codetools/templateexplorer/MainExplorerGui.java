@@ -15,7 +15,6 @@ public class MainExplorerGui extends GuiScreen {
     private GuiTextField searchField;
     private GuiScrollingList templateList;
 
-
     private final int SEARCH_BUTTON = 1;
     private final int SEARCH_TEXT_INPUT = 0;
     private boolean searchButtonSearching = false;

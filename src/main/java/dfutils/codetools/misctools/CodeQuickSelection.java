@@ -32,7 +32,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class CodeQuickSelection {
 
     private static boolean isPrintingSign = false;
@@ -115,8 +114,7 @@ public class CodeQuickSelection {
         }
     }
 
-    @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void codeQuickSelectionRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("Chest")) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();
 
@@ -150,8 +148,7 @@ public class CodeQuickSelection {
         }
     }
 
-    @SubscribeEvent
-    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void codeQuickSelectionLivingUpdate(LivingEvent.LivingUpdateEvent event) {
 
         if (isPrintingSign) {
             if (!eventWait) {
@@ -237,8 +234,7 @@ public class CodeQuickSelection {
         }
     }
 
-    @SubscribeEvent
-    public void onPlayerContainerEvent(GuiContainerEvent event) {
+    public static void codeQuickSelectionPlayerContainerEvent(GuiContainerEvent event) {
         if (isPrintingSign) {
             if (eventWait) {
                 Container codeGui = event.getGuiContainer().inventorySlots;

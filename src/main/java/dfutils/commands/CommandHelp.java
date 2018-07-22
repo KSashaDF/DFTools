@@ -2,8 +2,10 @@ package dfutils.commands;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
@@ -35,6 +37,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
     }
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
+        minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.5F, 1.5F);
 
         //Displays default help message.
         if (commandArgs.length == 0) {

@@ -6,18 +6,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class SelectionEventHandler {
     
     private static Minecraft minecraft = Minecraft.getMinecraft();
     private static int rightClickCooldown = 0;
     
-    @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        
+    public static void selectionEventHandlerRightClickBlockSelectionStick(PlayerInteractEvent.RightClickBlock event) {
+
         if (rightClickCooldown - 3 > minecraft.player.ticksExisted) rightClickCooldown = 0;
         
         if (minecraft.player.isCreative() && minecraft.player.ticksExisted > rightClickCooldown) {
@@ -46,8 +42,7 @@ public class SelectionEventHandler {
         }
     }
     
-    @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
+    public static void selectionEventHandlerRenderWorldLastEvent(RenderWorldLastEvent event) {
         if (SelectionController.selectionActive) {
             SelectionController.renderSelection(event.getPartialTicks());
             
@@ -57,7 +52,7 @@ public class SelectionEventHandler {
         }
     }
     
-    private void incrementState() {
+    private static void incrementState() {
         SelectionState nextSelectionState = SelectionState.NULL;
         
         switch (SelectionController.selectionState) {

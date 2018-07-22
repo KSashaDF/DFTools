@@ -11,10 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
-@Mod.EventBusSubscriber
-class InputHandler {
+public class InputHandler {
 
-    private Minecraft minecraft = Minecraft.getMinecraft();
+    private static Minecraft minecraft = Minecraft.getMinecraft();
 
     private static final KeyBinding BETTER_TOOLBARS_MENU = new KeyBinding("Better Toolbars (WIP)", Keyboard.KEY_GRAVE, "DiamondFire Utilities");
     private static final KeyBinding TEMPLATE_EXPLORER = new KeyBinding("Code Template Viewer", Keyboard.KEY_BACKSLASH, "DiamondFire Utilities");
@@ -27,8 +26,7 @@ class InputHandler {
         ClientRegistry.registerKeyBinding(CODE_QUICK_SELECT);
     }
 
-    @SubscribeEvent
-    public void onKeyInput(InputEvent event) {
+    public static void inputHandlerKeyInput(InputEvent event) {
 
         //Makes sure there is no GUI currently open.
         if (minecraft.currentScreen == null) {
