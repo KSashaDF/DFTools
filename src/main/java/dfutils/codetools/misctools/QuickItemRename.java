@@ -38,7 +38,7 @@ public class QuickItemRename {
                         itemName = "";
 
                     //If the item is a variable item and has the default name, set the chat box text to null.
-                    if (itemId == 378 && itemName.equals("&cVariable"))
+                    if (itemId == 378 && (itemName.equals("&cVariable") || itemName.equals("§cDynamic Variable")))
                         itemName = "";
 
                     //If the item is a number slimeball, get rid of the color code at the start.

@@ -86,7 +86,7 @@ public class DiamondFireUtils {
 
     private void registerEvents() {
 
-        //Registers all the event Classes
+        //Registers all the event classes.
         MinecraftForge.EVENT_BUS.register(new ClientChatEvent());
         MinecraftForge.EVENT_BUS.register(new GuiContainerEvent());
         MinecraftForge.EVENT_BUS.register(new InputEvent());
