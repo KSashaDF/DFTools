@@ -1,7 +1,7 @@
 package dfutils.codetools.misctools;
 
 import dfutils.ColorReference;
-import dfutils.codetools.utils.GraphicsUtils;
+import dfutils.utils.GraphicsUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

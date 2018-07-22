@@ -1,4 +1,4 @@
-package dfutils.codetools.utils;
+package dfutils.utils;
 
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,7 @@ public class BlockUtils {
     public static String[] getSignText(BlockPos signPos) {
         String[] signText = new String[4];
         NBTTagCompound signNbt = minecraft.world.getTileEntity(signPos).getUpdatePacket().getNbtCompound();
-        
+
         signText[0] = ITextComponent.Serializer.jsonToComponent(signNbt.getString("Text1")).getUnformattedText();
         if (signText[0].equals(""))
             signText[0] = null;

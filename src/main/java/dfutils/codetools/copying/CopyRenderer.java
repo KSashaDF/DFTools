@@ -1,9 +1,9 @@
 package dfutils.codetools.copying;
 
 import dfutils.ColorReference;
-import dfutils.codetools.utils.BlockUtils;
-import dfutils.codetools.utils.CodeBlockUtils;
-import dfutils.codetools.utils.GraphicsUtils;
+import dfutils.utils.BlockUtils;
+import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.utils.GraphicsUtils;
 import net.minecraft.util.math.BlockPos;
 
 class CopyRenderer {

@@ -27,7 +27,7 @@ public class ShortcutLastMsg {
                 }
             }
         }
-    
+
         //Last person messaged shortcut. (/l <message>)
         if (event.getMessage().startsWith("/l ")) {
             char[] charArray = new char[event.getMessage().length() - 3];
