@@ -8,6 +8,7 @@ import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
+import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -381,6 +382,9 @@ class PrintController {
         
         if (printNbtHandler.reachedCodeEnd) {
             finishPrint();
+        } else {
+            // Automatic movement to next code block
+            minecraft.player.move(MoverType.SELF, 0, 0, 2);
         }
     }
 

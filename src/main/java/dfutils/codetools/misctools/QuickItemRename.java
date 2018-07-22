@@ -13,8 +13,7 @@ public class QuickItemRename {
 
     private static Minecraft minecraft = Minecraft.getMinecraft();
 
-    @SubscribeEvent
-    public void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+    public static void quickItemRenameLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
 
         if (minecraft.player.isCreative() && minecraft.player.isSneaking()) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();

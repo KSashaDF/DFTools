@@ -24,12 +24,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static dfutils.utils.MessageUtils.errorMessage;
 import static dfutils.utils.MessageUtils.infoMessage;
 
-@Mod.EventBusSubscriber
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class CommandGive extends CommandBase implements IClientCommand {
     
-    private final Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     //Note that this name is changed from /give to /dfGive so it can be disabled in singleplayer.
     public String getName() {
@@ -131,8 +130,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
     }
 
     //This code is used for making sure this command only works in multiplayer.
-    @SubscribeEvent
-    public void onClientSendMessage(ClientChatEvent event) {
+    public static void commandGiveClientSendMessage(ClientChatEvent event) {
 
         if (event.getMessage().startsWith("/give ")) {
             if (!minecraft.isSingleplayer()) {

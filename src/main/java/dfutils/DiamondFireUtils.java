@@ -30,6 +30,7 @@ import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
+import dfutils.events.*;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -91,26 +92,15 @@ public class DiamondFireUtils {
     }
 
     private void registerEvents() {
-
-        //Shortcut initialization.
-        MinecraftForge.EVENT_BUS.register(new ShortcutLastMsg());
-        MinecraftForge.EVENT_BUS.register(new ShortcutSupportChat());
-
-        MinecraftForge.EVENT_BUS.register(new CommandGive());
-
-        //Code tool event initialization.
-        MinecraftForge.EVENT_BUS.register(new SelectionEventHandler());
-        MinecraftForge.EVENT_BUS.register(new CopyController());
-        MinecraftForge.EVENT_BUS.register(new CopyEventHandler());
-        MinecraftForge.EVENT_BUS.register(new PrintEventHandler());
-        MinecraftForge.EVENT_BUS.register(new PistonHighlighting());
-        MinecraftForge.EVENT_BUS.register(new LocationSetter());
-        MinecraftForge.EVENT_BUS.register(new LocationHighlighting());
-        MinecraftForge.EVENT_BUS.register(new CodeQuickSelection());
-        MinecraftForge.EVENT_BUS.register(new QuickItemRename());
-
-        //Input event initialization.
-        MinecraftForge.EVENT_BUS.register(new InputHandler());
+        // Event Classes
+        MinecraftForge.EVENT_BUS.register(new ClientChatEvent());
+        MinecraftForge.EVENT_BUS.register(new GuiContainerEvent());
+        MinecraftForge.EVENT_BUS.register(new InputEvent());
+        MinecraftForge.EVENT_BUS.register(new LeftClickBlockEvent());
+        MinecraftForge.EVENT_BUS.register(new LeftClickEmpty());
+        MinecraftForge.EVENT_BUS.register(new LivingUpdateEvent());
+        MinecraftForge.EVENT_BUS.register(new RenderWorldLastEvent());
+        MinecraftForge.EVENT_BUS.register(new RightClickBlockEvent());
     }
 
     private void initializeData() {

@@ -10,6 +10,7 @@ import dfutils.codetools.utils.CodeFormatException;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -22,14 +23,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static dfutils.utils.MessageUtils.actionMessage;
 import static dfutils.utils.MessageUtils.errorMessage;
 import static dfutils.utils.MessageUtils.infoMessage;
+import static dfutils.utils.MessageUtils.noteMessage;
 
-@Mod.EventBusSubscriber
 public class CopyController {
     
     static boolean isCopying = false;
@@ -49,7 +48,7 @@ public class CopyController {
                 copySelection = SelectionController.getSelectionEdges();
                 copyPos = copySelection[0];
                 
-                actionMessage("Starting code copy.");
+                actionMessage("Starting code copy...");
                 SelectionController.resetSelection();
                 
             } catch (CodeFormatException exception) {
@@ -72,12 +71,11 @@ public class CopyController {
         CopyNbtHandler.resetCopyData();
     }
     
-    @SubscribeEvent
-    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void copyControllerLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (isCopying) {
             if (!minecraft.player.isCreative()) {
                 resetCopy();
-                errorMessage("Cancelled copying! You are no longer in creative mode.");
+                errorMessage("Cancelled copying! You are no longer in dev mode.");
                 return;
             }
             
@@ -92,6 +90,7 @@ public class CopyController {
                 CopyNbtHandler.nextCodeBlock(blockName);
                 
                 if (blockName.hasCodeSign) {
+
                     String[] signText = BlockUtils.getSignText(copyPos.west());
                     
                     if (blockName == CodeBlockName.FUNCTION || blockName == CodeBlockName.CALL_FUNCTION || blockName == CodeBlockName.LOOP) {
@@ -125,16 +124,26 @@ public class CopyController {
                             CopyNbtHandler.setCodeTarget(signText[2]);
                         }
                     }
+
+                    // Automatic movement to next code block
+                    minecraft.player.move(MoverType.SELF, 0, 0, 2);
+                } else {
+                    // Automatic movement to next code block
+                    minecraft.player.move(MoverType.SELF, 0, 0, 5);
+                    noteMessage("No code Sign");
                 }
                 
                 if (blockName.hasCodeChest) {
                     copyState = CopyState.MOVEMENT_WAIT;
                 } else {
-                    if (CodeBlockUtils.getBlockName(copyPos).hasPistonBrackets)
+                    if (CodeBlockUtils.getBlockName(copyPos).hasPistonBrackets) {
                         CopyNbtHandler.addCodeScope();
+                        // Automatic movement to next code block
+                        noteMessage("Found brackets");
+                        //minecraft.player.move(MoverType.SELF, 0, 0, 2);
+                    }
                     getNextBlock();
                 }
-                
             }
             
             if (copyState == CopyState.MOVEMENT_WAIT) {
@@ -154,16 +163,13 @@ public class CopyController {
     private static void getNextBlock() {
         do {
             copyPos = copyPos.south();
-            
             if (!BlockUtils.isWithinRegion(copyPos, copySelection[0], copySelection[1]))
                 return;
-            
             if (BlockUtils.getName(copyPos).equals("Piston") || BlockUtils.getName(copyPos).equals("Sticky Piston")) {
                 if (BlockUtils.getFacing(copyPos) == EnumFacing.NORTH) {
                     CopyNbtHandler.exitCodeScope();
                 }
             }
-            
         } while (!CodeBlockUtils.isValidCore(copyPos));
     }
     
@@ -215,7 +221,8 @@ public class CopyController {
         ItemUtils.setItemInHotbar(itemStack, true);
 
         minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-        infoMessage("Finished code copying! Place the template item down to paste the copied code. Note that the code data is stored on the template item itself.");
+        infoMessage("Finished code copying! Place the template to paste the copied code.");
+        noteMessage("Code data is stored on the template item itself!");
         resetCopy();
     }
     

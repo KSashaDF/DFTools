@@ -4,13 +4,11 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class ShortcutLastMsg {
     
     private static String lastPersonMessaged = "";
     
-    @SubscribeEvent
-    public void onClientSendMessage(ClientChatEvent event) {
+    public static void shortcutLastMsgClientSendMessage(ClientChatEvent event) {
     
         //Stores the last person messaged.
         if (event.getMessage().startsWith("/msg ")) {

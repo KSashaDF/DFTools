@@ -4,11 +4,9 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class ShortcutSupportChat {
     
-    @SubscribeEvent
-    public void onClientSendMessage(ClientChatEvent event) {
+    public static void shortcutSupportChatClientSendMessage(ClientChatEvent event) {
         
         //Support chat shortcut (/sb <message>)
         if (event.getMessage().startsWith("/sb ")) {
