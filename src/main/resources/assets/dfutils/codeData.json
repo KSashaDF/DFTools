@@ -49,30 +49,35 @@
             ]
         },
         "ShowInv": {
+            "Rank": "Emperor",
             "path": [
                 "§6Item Management",
                 "§eShow Inventory Menu"
             ]
         },
         "CloseInv": {
+            "Rank": "Emperor",
             "path": [
                 "§6Item Management",
                 "§aClose All Inventory Menus"
             ]
         },
         "ExpandInv": {
+            "Rank": "Emperor",
             "path": [
                 "§6Item Management",
                 "§bExpand Inventory Menu"
             ]
         },
         "SaveInv": {
+            "Rank": "Noble",
             "path": [
                 "§6Item Management",
                 "§aSave Current Inventory"
             ]
         },
         "LoadInv": {
+            "Rank": "Noble",
             "path": [
                 "§6Item Management",
                 "§eLoad Saved Inventory"
@@ -85,6 +90,7 @@
             ]
         },
         "GiveRngItem": {
+            "Rank": "Credits",
             "path": [
                 "§6Item Management",
                 "§6Give Random Item"
@@ -99,18 +105,21 @@
             ]
         },
         "SendDialogue": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§bSend Dialogue"
             ]
         },
         "SendHover": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§dSend Message w/ Hover"
             ]
         },
         "ClearChat": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§cClear Chat"
@@ -123,6 +132,7 @@
             ]
         },
         "PlaySoundSeq": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§bPlay Sound Sequence"
@@ -141,36 +151,42 @@
             ]
         },
         "SendTitle": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§eSend Title"
             ]
         },
         "SetChatTag": {
+            "Rank": "Mythic",
             "path": [
                 "§cCommunication",
                 "§bSet Chat Tag"
             ]
         },
         "BossBar": {
+            "Rank": "Mythic",
             "path": [
                 "§cCommunication",
                 "§dSet Bossbar"
             ]
         },
         "ClearBars": {
+            "Rank": "Mythic",
             "path": [
                 "§cCommunication",
                 "§5Remove Bossbar"
             ]
         },
         "ActionBar": {
+            "Rank": "Credits",
             "path": [
                 "§cCommunication",
                 "§eSend Action Bar Message"
             ]
         },
         "ChatColor": {
+            "Rank": "Overlord",
             "path": [
                 "§cCommunication",
                 "§bSet Chat Color"
@@ -185,12 +201,14 @@
             ]
         },
         "RngTeleport": {
+            "Rank": "Credits",
             "path": [
                 "§3Movement",
                 "§5Randomized Teleport"
             ]
         },
         "TpSequence": {
+            "Rank": "Noble",
             "path": [
                 "§3Movement",
                 "§dTeleport Sequence"
@@ -215,6 +233,7 @@
             ]
         },
         "RideEntity": {
+            "Rank": "Noble",
             "path": [
                 "§3Movement",
                 "§aRide Entity"
@@ -282,6 +301,7 @@
             ]
         },
         "SetAtkSpeed": {
+            "Rank": "Credits",
             "path": [
                 "§aStatistics",
                 "§cSet Attack Speed"
@@ -294,12 +314,14 @@
             ]
         },
         "FlightSpeed": {
+            "Rank": "Noble",
             "path": [
                 "§aStatistics",
                 "§eSet Flight Speed"
             ]
         },
         "WalkSpeed": {
+            "Rank": "Noble",
             "path": [
                 "§aStatistics",
                 "§bSet Walk Speed"
@@ -322,30 +344,35 @@
 
 
         "MobDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguises",
                 "§2Disguise As Mob"
             ]
         },
         "PlayerDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguises",
                 "§bDisguise As Player"
             ]
         },
         "BlockDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguises",
                 "§eDisguise As Block"
             ]
         },
         "Undisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguises",
                 "§4Undisguise"
             ]
         },
         "HideDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguises",
                 "§cHide Own Disguise"
@@ -444,12 +471,14 @@
             ]
         },
         "EnableBlocks": {
+            "Rank": "Noble",
             "path": [
                 "§dSettings",
                 "§aAllow Placing/Breaking Blocks"
             ]
         },
         "DisableBlocks": {
+            "Rank": "Noble",
             "path": [
                 "§dSettings",
                 "§cDisallow Placing/Breaking Blocks"
@@ -482,18 +511,21 @@
 
 
         "Rollback": {
+            "Rank": "Overlord",
             "path": [
                 "§5Other",
                 "§eRoll Back Block Changes"
             ]
         },
         "Respawn": {
+            "Rank": "Mythic",
             "path": [
                 "§5Other",
                 "§aRespawn"
             ]
         },
         "Kick": {
+            "Rank": "Noble",
             "path": [
                 "§5Other",
                 "§cKick"
@@ -585,6 +617,7 @@
             ]
         },
         "CopyBlocks": {
+            "Rank": "Overlord",
             "path": [
                 "§aBlock Manipulation",
                 "§eCopy Blocks"
@@ -603,6 +636,7 @@
             ]
         },
         "ChangeSign": {
+            "Rank": "Mythic",
             "path": [
                 "§aBlock Manipulation",
                 "§6Change Sign"
@@ -611,12 +645,14 @@
 
 
         "BlockDropsOn": {
+            "Rank": "Mythic",
             "path": [
                 "§dSettings",
                 "§aEnable Block Drops"
             ]
         },
         "BlockDropsOff": {
+            "Rank": "Mythic",
             "path": [
                 "§dSettings",
                 "§cDisable Block Drops"
@@ -663,12 +699,14 @@
 
 
         "CreateHologram": {
+            "Rank": "Mythic",
             "path": [
                 "§3Holograms",
                 "§bCreate Hologram"
             ]
         },
         "RemoveHologram": {
+            "Rank": "Mythic",
             "path": [
                 "§3Holograms",
                 "§cRemove Hologram"
@@ -713,42 +751,49 @@
             ]
         },
         "PFX Circle": {
+            "Rank": "Noble",
             "path": [
                 "§eSpecial Effects",
                 "§aCreate Particle Circle"
             ]
         },
         "PFX Sphere": {
+            "Rank": "Noble",
             "path": [
                 "§eSpecial Effects",
                 "§bCreate Particle Sphere"
             ]
         },
         "PFX Cluster": {
+            "Rank": "Noble",
             "path": [
                 "§eSpecial Effects",
                 "§bCreate Particle Cluster"
             ]
         },
         "PFX Spiral": {
+            "Rank": "Noble",
             "path": [
                 "§eSpecial Effects",
                 "§bCreate Particle Spiral"
             ]
         },
         "PFX Line [A]": {
+            "Rank": "Mythic",
             "path": [
                 "§eSpecial Effects",
                 "§6Create Animated Particle Line"
             ]
         },
         "PFX Circle [A]": {
+            "Rank": "Mythic",
             "path": [
                 "§eSpecial Effects",
                 "§6Create Animated Particle Circle"
             ]
         },
         "PFX Spiral [A]": {
+            "Rank": "Mythic",
             "path": [
                 "§eSpecial Effects",
                 "§6Create Animated Particle Spiral"
@@ -791,6 +836,7 @@
             ]
         },
         "TpSequence": {
+            "Rank": "Noble",
             "path": [
                 "§dTeleport Sequence"
             ]
@@ -851,21 +897,25 @@
             ]
         },
         "MobDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§2Disguise As Mob"
             ]
         },
         "PlayerDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§bDisguise As Player"
             ]
         },
         "BlockDisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§eDisguise As Block"
             ]
         },
         "Undisguise": {
+            "Rank": "Overlord",
             "path": [
                 "§4Undisguise"
             ]
@@ -896,11 +946,13 @@
             ]
         },
         "EnableAI": {
+            "Rank": "Noble",
             "path": [
                 "§aEnable AI"
             ]
         },
         "NoAI": {
+            "Rank": "Noble",
             "path": [
                 "§cDisable AI"
             ]
@@ -916,36 +968,43 @@
             ]
         },
         "Silence": {
+            "Rank": "Noble",
             "path": [
                 "§4Silence"
             ]
         },
         "Unsilence": {
+            "Rank": "Noble",
             "path": [
                 "§6Unsilence"
             ]
         },
         "NoGravity": {
+            "Rank": "Overlord",
             "path": [
                 "§cDisable Gravity"
             ]
         },
         "Gravity": {
+            "Rank": "Overlord",
             "path": [
                 "§aEnable Gravity"
             ]
         },
         "SetTarget": {
+            "Rank": "Overlord",
             "path": [
                 "§eSet Target"
             ]
         },
         "RideEntity": {
+            "Rank": "Noble",
             "path": [
                 "§aRide Entity"
             ]
         },
         "MoveTo": {
+            "Rank": "Overlord",
             "path": [
                 "§6Move To Location"
             ]
@@ -1268,6 +1327,7 @@
                 ]
             },
             "CmdEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§dSelect Players by Condition",
                     "§6If Player",
@@ -1275,6 +1335,7 @@
                 ]
             },
             "CmdArgEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§dSelect Players by Condition",
                     "§6If Player",
@@ -1289,6 +1350,7 @@
                 ]
             },
             "BlockEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§dSelect Players by Condition",
                     "§6If Player",
@@ -1699,6 +1761,7 @@
                 ]
             },
             "CmdEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§eFilter Selection by Condition",
                     "§6If Player",
@@ -1706,6 +1769,7 @@
                 ]
             },
             "CmdArgEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§eFilter Selection by Condition",
                     "§6If Player",
@@ -1720,6 +1784,7 @@
                 ]
             },
             "BlockEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§eFilter Selection by Condition",
                     "§6If Player",
@@ -1961,11 +2026,13 @@
             ]
         },
         "CmdEquals": {
+            "Rank": "Emperor",
             "path": [
                 "§eCommand Equals"
             ]
         },
         "CmdArgEquals": {
+            "Rank": "Emperor",
             "path": [
                 "§eCommand Argument Equals"
             ]
@@ -1976,6 +2043,7 @@
             ]
         },
         "BlockEquals": {
+            "Rank": "Emperor",
             "path": [
                 "§6Block Equals"
             ]
@@ -2200,6 +2268,7 @@
                 ]
             },
             "CmdEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§6Repeat While Condition is True",
                     "§6If Player",
@@ -2207,6 +2276,7 @@
                 ]
             },
             "CmdArgEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§6Repeat While Condition is True",
                     "§6If Player",
@@ -2221,6 +2291,7 @@
                 ]
             },
             "BlockEquals": {
+                "Rank": "Emperor",
                 "path": [
                     "§6Repeat While Condition is True",
                     "§6If Player",
@@ -2477,16 +2548,19 @@
             ]
         },
         "Command": {
+            "Rank": "Emperor",
             "path": [
                 "§ePlayer Command Event"
             ]
         },
         "ClickItem": {
+            "Rank": "Emperor",
             "path": [
                 "§aPlayer Click Item Event"
             ]
         },
         "ClickOwnInv": {
+            "Rank": "Emperor",
             "path": [
                 "§aPlayer Click Item In Own Inventory Event"
             ]
@@ -2497,11 +2571,13 @@
             ]
         },
         "Place Block": {
+            "Rank": "Emperor",
             "path": [
                 "§bPlayer Place Block Event"
             ]
         },
         "Break Block": {
+            "Rank": "Emperor",
             "path": [
                 "§6Player Break Block Event"
             ]
