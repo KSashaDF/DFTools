@@ -37,7 +37,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
     }
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
-        minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.5F, 1.5F);
+        minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.5F, 1.5F);
 
         //Displays default help message.
         if (commandArgs.length == 0) {
