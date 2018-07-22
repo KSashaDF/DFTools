@@ -2,13 +2,11 @@ package dfutils.codetools.misctools;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class QuickItemRename {
 
     private static Minecraft minecraft = Minecraft.getMinecraft();
@@ -35,10 +33,15 @@ public class QuickItemRename {
 
                     //If the item is a number item and has the default name, set the chat box text to null.
                     if (itemId == 341 && itemName.equals("&cNumber"))
+                        itemName = "0";
+
+                    //DEPRECATED
+                    //If the item is a variable item and has the default name, set the chat box text to null.
+                    if (itemId == 378 && itemName.equals("&cVariable"))
                         itemName = "";
 
                     //If the item is a variable item and has the default name, set the chat box text to null.
-                    if (itemId == 378 && itemName.equals("&cVariable"))
+                    if (itemId == 378 && itemName.equals("&cDynamic Variable"))
                         itemName = "";
 
                     //If the item is a number slimeball, get rid of the color code at the start.
@@ -46,6 +49,7 @@ public class QuickItemRename {
                         itemName = itemName.replaceFirst("&c", "");
                     }
 
+                    minecraft.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.75F, 1.5F);
                     minecraft.displayGuiScreen(new GuiChat(itemName));
                 }
             }
