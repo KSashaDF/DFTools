@@ -109,7 +109,7 @@ class CommandLoreEdit {
 
         @Override
         public void run() {
-
+            //Waits one tick.
             try {
                 Thread.sleep(50);
             } catch (InterruptedException exception) {

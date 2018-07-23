@@ -15,7 +15,7 @@ public class InputHandler {
 
     private static Minecraft minecraft = Minecraft.getMinecraft();
 
-    private static final KeyBinding BETTER_TOOLBARS_MENU = new KeyBinding("Better Toolbars (WIP)", Keyboard.KEY_GRAVE, "DiamondFire Utilities");
+    private static final KeyBinding BETTER_TOOLBARS_MENU = new KeyBinding("Better Toolbars", Keyboard.KEY_GRAVE, "DiamondFire Utilities");
     private static final KeyBinding TEMPLATE_EXPLORER = new KeyBinding("Code Template Viewer", Keyboard.KEY_BACKSLASH, "DiamondFire Utilities");
     private static final KeyBinding CODE_QUICK_SELECT = new KeyBinding("Quick Codeblock Selection", Keyboard.KEY_V, "DiamondFire Utilities");
 
