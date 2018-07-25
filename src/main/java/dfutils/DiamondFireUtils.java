@@ -1,7 +1,6 @@
 package dfutils;
 
 import dfutils.codetools.CodeData;
-import dfutils.commands.CommandHotbarTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
@@ -78,7 +77,6 @@ public class DiamondFireUtils {
         //Misc commands.
         commandHandler.registerCommand(new CommandHelp());
         commandHandler.registerCommand(new CommandTest());
-        commandHandler.registerCommand(new CommandHotbarTest());
 
         //Internal commands.
         commandHandler.registerCommand(new CommandClipboard());

@@ -9,6 +9,10 @@ class ToolbarTab {
     ItemStack tabIcon;
     ItemStack[] tabItems;
 
+    //Stores the last time that the toolbar tab file was reloaded, used to determine if
+    //the toolbar tab file needs to be reloaded.
+    long lastReloadedTabTime = 0;
+
     ToolbarTab() {
 
     }
