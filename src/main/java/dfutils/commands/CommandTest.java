@@ -53,8 +53,6 @@ public class CommandTest extends CommandBase implements IClientCommand {
                 new TextComponentString(""),
                 new TextComponentString("")};
 
-        MessageUtils.infoMessage(Item.REGISTRY.getNameForObject(minecraft.player.getHeldItemMainhand().getItem()).toString());
-
         //minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(minecraft.objectMouseOver.getBlockPos(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
         //minecraft.playerController.sendSlotPacket(new ItemStack(Item.getItemById(1)), 0);
 
