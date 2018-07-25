@@ -3,10 +3,7 @@ package dfutils.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagShort;
+import net.minecraft.nbt.*;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 public class ItemUtils {
@@ -48,7 +45,7 @@ public class ItemUtils {
         if (!itemStack.isEmpty()) {
             itemNbt.setTag("Count", new NBTTagByte((byte) itemStack.getCount()));
             itemNbt.setTag("Damage", new NBTTagShort((short) itemStack.getMetadata()));
-            itemNbt.setTag("id", new NBTTagInt(Item.getIdFromItem(itemStack.getItem())));
+            itemNbt.setTag("id", new NBTTagString(Item.REGISTRY.getNameForObject(itemStack.getItem()).toString()));
 
             if (itemStack.hasTagCompound()) {
                 itemNbt.setTag("tag", itemStack.getTagCompound());
