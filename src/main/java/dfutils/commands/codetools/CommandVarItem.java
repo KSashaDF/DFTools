@@ -50,7 +50,12 @@ public class CommandVarItem extends CommandBase implements IClientCommand {
             return;
         }
 
-        //Sends item to the server.
-        ItemUtils.setItemInHotbar(CodeItems.getVarItem(CommandUtils.parseColorCodes(CommandBase.buildString(commandArgs, 0)), 1), false);
+        String variableName = CommandBase.buildString(commandArgs, 0);
+        if (variableName.endsWith(" -s")) {
+            variableName = variableName.substring(0, variableName.length() - 3);
+            ItemUtils.setItemInHotbar(CodeItems.getVarItem(CommandUtils.parseColorCodes(variableName), 1, true), false);
+        } else {
+            ItemUtils.setItemInHotbar(CodeItems.getVarItem(CommandUtils.parseColorCodes(variableName), 1, false), false);
+        }
     }
 }

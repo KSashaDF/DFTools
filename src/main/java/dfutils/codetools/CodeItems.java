@@ -136,11 +136,15 @@ public class CodeItems {
         return itemStack;
     }
 
-    public static ItemStack getVarItem(String name, int stackSize) {
+    public static ItemStack getVarItem(String name, int stackSize, boolean isSaved) {
         ItemStack itemStack = new ItemStack(Item.getItemById(378), stackSize, 0);
 
         try {
-            itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + name + "\"}}"));
+            if (isSaved) {
+                itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + name + "\",Lore:[\"SAVE\"]}}"));
+            } else {
+                itemStack.setTagCompound(JsonToNBT.getTagFromJson("{HideFlags:63,display:{Name:\"" + name + "\"}}"));
+            }
         } catch (NBTException exception) {
             //Impossible condition! Exception never thrown.
         }
