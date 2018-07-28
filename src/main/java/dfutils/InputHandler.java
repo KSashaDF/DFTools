@@ -1,15 +1,17 @@
 package dfutils;
 
 import dfutils.bettertoolbars.MainToolbarGui;
+import dfutils.bettertoolbars.ToolbarTabHandler;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.templateexplorer.MainExplorerGui;
+import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
 
 public class InputHandler {
 
@@ -32,7 +34,13 @@ public class InputHandler {
         if (minecraft.currentScreen == null) {
             if (BETTER_TOOLBARS_MENU.isPressed()) {
                 if (minecraft.player.isCreative()) {
-                    minecraft.displayGuiScreen(new MainToolbarGui());
+                    try {
+                        ToolbarTabHandler.loadToolbarTabs();
+
+                        minecraft.displayGuiScreen(new MainToolbarGui());
+                    } catch (IOException exception) {
+                        MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to load toolbar tab data.");
+                    }
                 }
             }
 

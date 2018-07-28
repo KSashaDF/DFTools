@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
+import net.minecraft.util.ResourceLocation;
 
 public class ItemUtils {
 
@@ -39,15 +40,18 @@ public class ItemUtils {
         return ItemStack.areItemStacksEqual(itemStack1, itemStack2);
     }
 
-    public NBTTagCompound toNbt(ItemStack itemStack) {
+    //This method converts an item stack into NBT.
+    public static NBTTagCompound toNbt(ItemStack itemStack) {
         NBTTagCompound itemNbt = new NBTTagCompound();
 
         if (!itemStack.isEmpty()) {
             itemNbt.setTag("Count", new NBTTagByte((byte) itemStack.getCount()));
             itemNbt.setTag("Damage", new NBTTagShort((short) itemStack.getMetadata()));
-            itemNbt.setTag("id", new NBTTagString(Item.REGISTRY.getNameForObject(itemStack.getItem()).toString()));
 
-            if (itemStack.hasTagCompound()) {
+            ResourceLocation itemName = Item.REGISTRY.getNameForObject(itemStack.getItem());
+            itemNbt.setString("id", itemName == null ? "minecraft:air" : itemName.toString());
+
+            if (itemStack.getTagCompound() != null) {
                 itemNbt.setTag("tag", itemStack.getTagCompound());
             } else {
                 itemNbt.setTag("tag", new NBTTagCompound());
