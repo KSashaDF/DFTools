@@ -22,7 +22,7 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static dfutils.utils.MessageUtils.actionMessage;
 import static dfutils.utils.MessageUtils.errorMessage;
@@ -71,7 +71,7 @@ public class CopyController {
         CopyNbtHandler.resetCopyData();
     }
     
-    public static void copyControllerLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void copyControllerTickEvent(TickEvent.ClientTickEvent event) {
         if (isCopying) {
             if (!minecraft.player.isCreative()) {
                 resetCopy();
