@@ -2,6 +2,7 @@ package dfutils.bettertoolbars;
 
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
+import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,9 +21,41 @@ public class MainToolbarGui extends GuiContainer {
 
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab.png");
     private Slot hoveredSlot;
+    private int selectedTabIndex = 0;
+    private int scrollPosition = 0;
 
     public MainToolbarGui() {
         super(new MainToolbarContainer());
+
+        //If there are no toolbar tabs created yet, create a new one.
+        if (ToolbarTabHandler.toolbarTabs == null) {
+            ToolbarTabHandler.createToolbarTab();
+        }
+
+        updateToolbarSlots();
+    }
+
+    private void updateToolbarSlots() {
+        try {
+            ItemStack[] tabItems = ToolbarTabHandler.toolbarTabs[selectedTabIndex].getTabItems();
+
+            for (int slotIndex = 1; slotIndex < 46; slotIndex++) {
+                int tabSlotIndex = (scrollPosition * 9) + (slotIndex - 1);
+
+                //If tabSlotIndex is outside the bounds of the tabItems array,
+                //just put an air item into the selected toolbar slot.
+                if (tabSlotIndex < tabItems.length) {
+                    inventorySlots.getSlot(slotIndex).putStack(tabItems[tabSlotIndex]);
+                } else {
+                    inventorySlots.getSlot(slotIndex).putStack(ItemStack.EMPTY);
+                }
+            }
+
+            //Sets the icon slot to the tabs icon slot item.
+            inventorySlots.getSlot(0).putStack(ToolbarTabHandler.toolbarTabs[selectedTabIndex].tabIcon);
+        } catch (NullPointerException exception) {
+            //Uh oh! An NPE, continue on.
+        }
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -66,6 +99,8 @@ public class MainToolbarGui extends GuiContainer {
         return isPointInRegion(slot.xPos, slot.yPos, 16, 16, mouseX, mouseY);
     }
 
+    //This method overrides the default Minecraft item manipulation behaviour,
+    //basically this is a rewrite of Minecraft's entire item manipulation code.
     @Override
     protected void handleMouseClick(Slot slot, int slotIndex, int mouseButton, ClickType clickType) {
 
@@ -187,6 +222,8 @@ public class MainToolbarGui extends GuiContainer {
         if (!minecraft.player.inventory.getItemStack().isEmpty()) {
             minecraft.player.inventory.setItemStack(ItemStack.EMPTY);
         }
+
+        ToolbarTabHandler.saveTabs();
     }
 
     private void detectAndSendHotbarChanges() {

@@ -25,6 +25,7 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
     public String getUsage(ICommandSender sender) {
         return "§b/lore add <lore> \n" +
                 "§b/lore set <line> <lore> \n" +
+                "§b/lore edit <line> \n" +
                 "§b/lore insert <line> <lore> \n" +
                 "§b/lore remove <line> \n" +
                 "§b/lore clear";
@@ -59,7 +60,11 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
             case "set":
                 CommandLoreSet.executeSetLore(sender, commandArgs);
                 return;
-            
+
+            case "edit":
+                CommandLoreEdit.executeEditLore(sender, commandArgs);
+                return;
+
             case "insert":
                 CommandLoreInsert.executeInsertLore(sender, commandArgs);
                 return;

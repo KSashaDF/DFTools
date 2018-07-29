@@ -1,5 +1,6 @@
 package dfutils.commands.itemcontrol;
 
+import dfutils.commands.CommandUtils;
 import dfutils.utils.ItemUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
@@ -75,6 +76,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
         if (commandArgs.length >= 4) {
             try {
                 String itemNbtString = buildString(commandArgs, 3);
+                itemNbtString = CommandUtils.parseColorCodes(itemNbtString);
     
                 itemNbt = JsonToNBT.getTagFromJson(itemNbtString);
             } catch (NBTException exception) {
@@ -129,17 +131,14 @@ public class CommandGive extends CommandBase implements IClientCommand {
         return true;
     }
 
-    //This code is used for making sure this command only works in multiplayer.
+    //This code is used for making sure this command only works if
+    //the player does not have permission to use the regular /give command.
     public static void commandGiveClientSendMessage(ClientChatEvent event) {
 
-        if (event.getMessage().startsWith("/give ")) {
-            if (!minecraft.isSingleplayer()) {
-                char[] charArray = new char[event.getMessage().length() - 6];
-                event.getMessage().getChars(6, event.getMessage().length(), charArray, 0);
-                event.setMessage("/give " + String.valueOf(charArray));
-            }
-        } else if (event.getMessage().equals("/give")) {
-            if (!minecraft.isSingleplayer()) {
+        if (!(minecraft.player.getPermissionLevel() >= new net.minecraft.command.CommandGive().getRequiredPermissionLevel())) {
+            if (event.getMessage().startsWith("/give ")) {
+                event.setMessage(event.getMessage().replaceFirst("/give ", "/give "));
+            } else if (event.getMessage().equals("/give")) {
                 event.setMessage("/give");
             }
         }

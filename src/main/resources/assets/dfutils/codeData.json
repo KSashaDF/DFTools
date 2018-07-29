@@ -461,7 +461,7 @@
         "NatRegen": {
             "path": [
                 "§dSettings",
-                "§dEnable Natural Regeneration"
+                "§dEnable Natural Regenation"
             ]
         },
         "NoNatRegen": {
@@ -561,7 +561,7 @@
         "SpawnTNT": {
             "path": [
                 "§dEntity Spawning",
-                "§4Spawn Primed TNT"
+                "§4Spawn Primed Tnt"
             ]
         },
         "SpawnVehicle": {
@@ -1956,7 +1956,7 @@
 
         "CodeTarget": {
             "Selection": "§aCurrent Selection",
-            "Default": "§Default Player",
+            "Default": "§aDefault Player",
             "Random": "§eRandom Player",
             "All": "§bAll Players",
             "Killer": "§cKiller",
@@ -2099,7 +2099,7 @@
         },
         "SignHasTxt": {
             "path": [
-                "§eSign Containes Text"
+                "§eSign Contains Text"
             ]
         }
     },
@@ -2455,7 +2455,7 @@
                 "path": [
                     "§6Repeat While Condition is True",
                     "§cIf Game",
-                    "§eSign Containes Text"
+                    "§eSign Contains Text"
                 ]
             }
         }
