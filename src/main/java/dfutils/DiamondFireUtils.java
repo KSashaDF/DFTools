@@ -22,13 +22,18 @@ import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
+import dfutils.config.ConfigHandler;
 import dfutils.events.*;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS, updateJSON = "https://df.pocketclass.net/dfutils_update_log.json")
+@Mod(modid = Reference.MOD_ID,
+        name = Reference.NAME,
+        version = Reference.VERSION,
+        acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
+        updateJSON = "https://df.pocketclass.net/dfutils_update_log.json", guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
     
     @Mod.Instance

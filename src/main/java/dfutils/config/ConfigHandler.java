@@ -1,5 +1,6 @@
-package dfutils;
+package dfutils.config;
 
+import dfutils.Reference;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -10,11 +11,11 @@ import java.io.File;
 @Mod.EventBusSubscriber
 public class ConfigHandler {
 
-    private static Configuration config;
+    static Configuration config;
 
     public static boolean DO_QUICK_ITEM_RENAME = false;
 
-    static void init(File configFile) {
+    public static void init(File configFile) {
 
         //Creates configuration file.
         config = new Configuration(configFile);
