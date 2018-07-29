@@ -27,10 +27,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.GuiContainerEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CodeQuickSelection {
 
@@ -148,7 +146,7 @@ public class CodeQuickSelection {
         }
     }
 
-    public static void codeQuickSelectionLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void codeQuickSelectionTickEvent(TickEvent.ClientTickEvent event) {
 
         if (isPrintingSign) {
             if (!eventWait) {

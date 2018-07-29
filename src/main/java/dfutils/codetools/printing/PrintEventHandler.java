@@ -3,12 +3,9 @@ package dfutils.codetools.printing;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber
 public class PrintEventHandler {
     
     private static boolean skipGuiEvent = false;
@@ -32,7 +29,7 @@ public class PrintEventHandler {
         }
     }
     
-    public static void printEventHandlerLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void printEventHandlerTickEvent(TickEvent.ClientTickEvent event) {
         if (PrintController.isPrinting) {
             if (minecraft.player.isCreative()) {
                 PrintController.updatePrint();
