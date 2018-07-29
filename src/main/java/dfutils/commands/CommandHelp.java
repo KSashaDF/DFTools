@@ -13,6 +13,7 @@ import net.minecraftforge.client.IClientCommand;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static dfutils.utils.MessageUtils.errorMessage;
+import static dfutils.utils.MessageUtils.infoMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -35,14 +36,14 @@ public class CommandHelp extends CommandBase implements IClientCommand {
     public boolean allowUsageWithoutPrefix(ICommandSender sender, String message) {
         return false;
     }
-    
+
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
-        minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.5F, 1.5F);
+        minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.75F, 2F);
 
         //Displays default help message.
         if (commandArgs.length == 0) {
             String[] helpMessage = {
-                    "§3§m    §3[§bHelp Categories§3]§m    ",
+                    "§3§l<«§b §nDF Utilities§3 §l»>",
                     "",
                     "§3> §b/dfutils commands",
                     "§3> §b/dfutils shortcuts",
@@ -56,7 +57,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
         } else {
             switch (commandArgs[0]) {
                 case "commands":
-                    commandHelp();
+                    commandHelp(commandArgs);
                     break;
 
                 case "shortcuts":
@@ -68,39 +69,64 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                     break;
 
                 default:
-                    errorMessage("Unable to find help category!");
+                    errorMessage("Category \"" + commandArgs[0] + "\" not found.");
             }
         }
     }
 
-    private void commandHelp() {
-        String[] helpMessage = {
-                "§6§m    §6[§eCommands§6]§m    ",
-                "",
-                "  §cNote: §7Type the a command into chat",
-                "  §7(for example, /give) to get the command's",
-                "  §7arguments and sometimes some extra information.",
-                "",
-                "§6> §e/give §7Similar to the default /give command.",
-                "§6> §e/itemdata §7Displays the NBT for the currently held item.",
-                "§6> §e/attribute",
-                "§6> §e/lore",
-                "§6> §e/candestroy",
-                "§6> §e/canplace",
-                "§6> §e/renameanvil §7Renames the item as if it were renamed in an anvil.",
-                "§6> §e/breakable",
-                "§6> §e/showflags",
-                "§6> §e/setflags",
-                "§6> §e/disenchant",
-                "§6> §e/clearenchants",
-                "",
-                "§6> §e/code §7Used for code copy pasting.",
-                "§6> §e/num §7Gives you the specified range of number items.",
-                "§6> §e/txt §7Gives you a text book item.",
-                "§6> §e/loc §7Contains various location manipulation commands.",
-                "§6> §e/var §7Gives you a variable item.",
-                ""
-        };
+    private void commandHelp(String[] commandArgs) {
+        String[] helpMessage;
+        if(commandArgs.length >= 2) {
+            switch(commandArgs[1]) {
+                case "1":
+                    helpMessage = new String[] {
+                        "§6§l<« §eCommands §6- §eItems §6§l»>",
+                        "§6> §e/give",
+                        "§9> §7Similar to the default command.",
+                        "§6> §e/itemdata",
+                        "§9> §7Displays the NBT for the held item.",
+                        "",
+                        "§7Page: §61§7/§64",
+                    };
+                    break;
+                default:
+                    helpMessage = new String[] {
+                        "§6§m    §6[§eCommands§6]§m    ",
+                        "",
+                        "  §cNote: §7Type the a command into chat",
+                        "  §7(for example, /give) to get the command's",
+                        "  §7arguments and sometimes some extra information.",
+                        "",
+                        "§6> §e/give §7Similar to the default /give command.",
+                        "§6> §e/itemdata §7Displays the NBT for the currently held item.",
+                        "§6> §e/attribute",
+                        "§6> §e/lore",
+                        "§6> §e/candestroy",
+                        "§6> §e/canplace",
+                        "§6> §e/renameanvil §7Renames the item as if it were renamed in an anvil.",
+                        "§6> §e/breakable",
+                        "§6> §e/showflags",
+                        "§6> §e/setflags",
+                        "§6> §e/disenchant",
+                        "§6> §e/clearenchants",
+                        "",
+                        "§6> §e/code §7Used for code copy pasting.",
+                        "§6> §e/num §7Gives you the specified range of number items.",
+                        "§6> §e/txt §7Gives you a text book item.",
+                        "§6> §e/loc §7Contains various location manipulation commands.",
+                        "§6> §e/var §7Gives you a variable item.",
+                        ""
+                };
+                break;
+            }
+
+        } else {
+            helpMessage = new String[] {
+                    "§6§m    §6[§eCommands§6]§m    ",
+                    "",
+                    "§6> §71 §6- §7Item manipulation"
+            };
+        }
 
         for (String messageLine : helpMessage) {
             minecraft.player.sendMessage(new TextComponentString(messageLine));
