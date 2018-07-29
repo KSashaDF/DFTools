@@ -41,7 +41,7 @@ public class DiamondFireUtils {
         registerEvents();
         initializeData();
 
-        ConfigHandler.init(event);
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
     }
 
     private void registerCommands() {
@@ -90,9 +90,11 @@ public class DiamondFireUtils {
         MinecraftForge.EVENT_BUS.register(new InputEvent());
         MinecraftForge.EVENT_BUS.register(new LeftClickBlockEvent());
         MinecraftForge.EVENT_BUS.register(new LeftClickEmpty());
-        MinecraftForge.EVENT_BUS.register(new LivingUpdateEvent());
+        MinecraftForge.EVENT_BUS.register(new ClientTickEvent());
         MinecraftForge.EVENT_BUS.register(new RenderWorldLastEvent());
         MinecraftForge.EVENT_BUS.register(new RightClickBlockEvent());
+
+        MinecraftForge.EVENT_BUS.register(new ConfigHandler());
     }
 
     private void initializeData() {

@@ -1,24 +1,23 @@
 package dfutils;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 
+@Mod.EventBusSubscriber
 public class ConfigHandler {
 
     private static Configuration config;
 
     public static boolean DO_QUICK_ITEM_RENAME = false;
 
-    static void init(FMLPreInitializationEvent event) {
-
-        //Creates the mod configuration directory.
-        File configDir = new File(event.getModConfigurationDirectory() + "/" + Reference.MOD_ID);
-        configDir.mkdirs();
+    static void init(File configFile) {
 
         //Creates configuration file.
-        config = new Configuration(new File(configDir, Reference.MOD_ID + ".cfg"));
+        config = new Configuration(configFile);
 
         //Creates configuration elements.
         config.addCustomCategoryComment("Settings", "Enable or disable various features here.");
@@ -26,5 +25,21 @@ public class ConfigHandler {
         DO_QUICK_ITEM_RENAME = config.getBoolean("Do Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click items to quickly rename them.");
 
         config.save();
+    }
+
+    private static void reloadConfig() {
+        DO_QUICK_ITEM_RENAME = config.getBoolean("Do Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click items to quickly rename them.");
+
+        if (config.hasChanged()) {
+            config.save();
+        }
+    }
+
+    @SubscribeEvent
+    public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
+
+        if (event.getModID().equalsIgnoreCase(Reference.MOD_ID)) {
+            reloadConfig();
+        }
     }
 }
