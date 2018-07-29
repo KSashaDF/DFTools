@@ -2510,42 +2510,42 @@
 
             "IsType": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§5Is Type"
                 ]
             },
             "ENameEquals": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§aName Equals"
                 ]
             },
             "EStandingOn": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§aIs Standing On Block"
                 ]
             },
             "EIsNear": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§bIs Near Location"
                 ]
             },
             "IsMob": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§2Is Mob"
                 ]
             },
             "IsProj": {
                 "path": [
-                    "§eFilter Selection by Condition",
+                    "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§9Is Projectile"
                 ]
