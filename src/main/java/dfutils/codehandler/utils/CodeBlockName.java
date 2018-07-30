@@ -1,4 +1,4 @@
-package dfutils.codetools.utils;
+package dfutils.codehandler.utils;
 
 public enum CodeBlockName {
     PLAYER_ACTION(true, false, "Stone", CodeBlockType.REGULAR),

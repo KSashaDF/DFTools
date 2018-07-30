@@ -1,9 +1,9 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
-import dfutils.codetools.utils.CodeBlockName;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.codetools.printing.PrintSignStage;
 import dfutils.utils.BlockUtils;
 import dfutils.codehandler.utils.CodeBlockUtils;
@@ -160,7 +160,7 @@ public class CodeQuickSelection {
                 if (signStage == PrintSignStage.FUNCTION) {
 
                     //Tests if code function exists within code reference data.
-                    if (!CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
+                    if (!CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
                         MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
                         isPrintingSign = false;
                         return;
@@ -169,12 +169,12 @@ public class CodeQuickSelection {
                     functionPathPos = 0;
 
                     if (signData.hasKey("SubFunction")) {
-                        functionPath = CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                        functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                 getCompoundTag(signData.getString("Function")).
                                 getCompoundTag(signData.getString("SubFunction")).
                                 getTagList("path", 8);
                     } else {
-                        functionPath = CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                        functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                 getCompoundTag(signData.getString("Function")).
                                 getTagList("path", 8);
                     }
@@ -270,7 +270,7 @@ public class CodeQuickSelection {
                     if (signStage == PrintSignStage.TARGET) {
                         //Tries to find the specified item within the code GUI, returns item slot number.
                         int itemSlot = findContainerItem(codeGui,
-                                CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                                CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                         getCompoundTag("CodeTarget").
                                         getString(signData.getString("Target")));
 

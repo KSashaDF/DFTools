@@ -1,6 +1,5 @@
 package dfutils.codehandler.utils;
 
-import dfutils.codetools.utils.CodeBlockName;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumFacing;
@@ -144,25 +143,35 @@ public class CodeBlockUtils {
     }
     
     public static boolean hasOppositePiston(BlockPos pistonPos) {
-        EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
-        BlockPos oppositePistonPos = pistonPos;
-        
-        if (pistonDirection == EnumFacing.SOUTH) {
-            oppositePistonPos = getClosingPiston(pistonPos);
-        } else if (pistonDirection == EnumFacing.NORTH) {
-            oppositePistonPos =  getOpeningPiston(pistonPos);
+        try {
+            EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
+            BlockPos oppositePistonPos = pistonPos;
+
+            if (pistonDirection == EnumFacing.SOUTH) {
+                oppositePistonPos = getClosingPiston(pistonPos);
+            } else if (pistonDirection == EnumFacing.NORTH) {
+                oppositePistonPos = getOpeningPiston(pistonPos);
+            }
+
+            return !oppositePistonPos.equals(pistonPos);
+
+            //If an NPE is thrown, it means there is probably a missing piston.
+        } catch (NullPointerException exception) {
+            return false;
         }
-        
-        return !oppositePistonPos.equals(pistonPos);
     }
     
     public static BlockPos getOppositePiston(BlockPos pistonPos) {
-        EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
-        
-        if (pistonDirection == EnumFacing.SOUTH) {
-            pistonPos = getClosingPiston(pistonPos);
-        } else if (pistonDirection == EnumFacing.NORTH) {
-            pistonPos =  getOpeningPiston(pistonPos);
+        try {
+            EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
+
+            if (pistonDirection == EnumFacing.SOUTH) {
+                pistonPos = getClosingPiston(pistonPos);
+            } else if (pistonDirection == EnumFacing.NORTH) {
+                pistonPos = getOpeningPiston(pistonPos);
+            }
+        } catch (NullPointerException exception) {
+            //If an NPE is thrown, it means there is probably a missing piston.
         }
         
         return pistonPos;

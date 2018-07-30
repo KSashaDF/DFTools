@@ -20,16 +20,14 @@ public class ConfigHandler {
         //Creates configuration file.
         config = new Configuration(configFile);
 
-        //Creates configuration elements.
+        //Creates configuration categories.
         config.addCustomCategoryComment("Settings", "Enable or disable various features here.");
 
-        DO_QUICK_ITEM_RENAME = config.getBoolean("Do Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click items to quickly rename them.");
-
-        config.save();
+        reloadConfig();
     }
 
     private static void reloadConfig() {
-        DO_QUICK_ITEM_RENAME = config.getBoolean("Do Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click items to quickly rename them.");
+        DO_QUICK_ITEM_RENAME = config.getBoolean("Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click any item to quickly rename it.");
 
         if (config.hasChanged()) {
             config.save();

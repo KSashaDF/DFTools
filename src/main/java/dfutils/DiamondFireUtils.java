@@ -1,6 +1,6 @@
 package dfutils;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
@@ -103,7 +103,7 @@ public class DiamondFireUtils {
     }
 
     private void initializeData() {
-        new CodeData();
+        new CodeBlockData();
         InputHandler.initializeKeys();
     }
 }

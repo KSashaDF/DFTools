@@ -1,7 +1,7 @@
 package dfutils.commands.codetools.code;
 
-import dfutils.codetools.utils.CodeBlockName;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;

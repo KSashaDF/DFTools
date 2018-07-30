@@ -1,4 +1,4 @@
-package dfutils.codetools;
+package dfutils.codehandler.utils;
 
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -9,14 +9,13 @@ import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 
-public class CodeData {
+public class CodeBlockData {
     
     public static NBTTagCompound codeReferenceData;
     
-    public CodeData() {
+    public CodeBlockData() {
 
         try {
-
             //Reads codeData.json and converts it into an NBT tag.
             codeReferenceData = JsonToNBT.getTagFromJson(IOUtils.toString(this.getClass().getResourceAsStream("/assets/dfutils/codeData.json"), Charsets.UTF_8));
         } catch (IOException exception) {

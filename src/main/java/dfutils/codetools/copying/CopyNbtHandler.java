@@ -1,6 +1,6 @@
 package dfutils.codetools.copying;
 
-import dfutils.codetools.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockName;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,7 @@
 package dfutils.codetools.selection;
 
 import dfutils.ColorReference;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.utils.BlockUtils;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;

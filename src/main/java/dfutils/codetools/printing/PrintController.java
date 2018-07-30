@@ -1,6 +1,6 @@
 package dfutils.codetools.printing;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.MathUtils;
@@ -170,7 +170,7 @@ class PrintController {
                     if (codeSignStage == PrintSignStage.FUNCTION) {
 
                         //Tests if code function exists within code reference data.
-                        if (!CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
+                        if (!CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
                             MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
                             printState = PrintState.NULL;
                             nextCodeBlock();
@@ -180,12 +180,12 @@ class PrintController {
                         functionPathPos = 0;
 
                         if (printNbtHandler.selectedBlock.hasKey("SubFunction")) {
-                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                            functionPath = CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("SubFunction")).
                                     getTagList("path", 8);
                         } else {
-                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                            functionPath = CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
                                     getTagList("path", 8);
                         }
@@ -312,7 +312,7 @@ class PrintController {
             if (codeSignStage == PrintSignStage.TARGET) {
                 //Tries to find the specified item within the code GUI, returns item slot number.
                 int itemSlot = findContainerItem(codeGui,
-                        CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                        CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                 getCompoundTag("CodeTarget").
                                 getString(printNbtHandler.selectedBlock.getString("Target")));
 
