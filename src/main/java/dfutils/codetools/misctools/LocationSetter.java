@@ -34,6 +34,9 @@ public class LocationSetter {
     
                         //Sends updated item to the server.
                         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+
+                        //Cancels the left click event.
+                        event.setCanceled(true);
                     }
                     
                 } catch (NullPointerException exception) {
