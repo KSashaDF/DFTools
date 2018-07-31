@@ -1,16 +1,13 @@
 package dfutils.codehandler.utils;
 
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.client.Minecraft;
+import dfutils.utils.BlockUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class CodeBlockUtils {
-    
-    private static Minecraft minecraft = Minecraft.getMinecraft();
-    
+
     public static CodeBlockName getBlockName(BlockPos corePos) {
-        String blockName = minecraft.world.getBlockState(corePos).getBlock().getLocalizedName();
+        String blockName = BlockUtils.getName(corePos);
         
         switch (blockName) {
             case "Cobblestone": return CodeBlockName.PLAYER_ACTION;
@@ -65,7 +62,7 @@ public class CodeBlockUtils {
     
     public static boolean isValidCore(BlockPos corePos) {
         
-        String blockName = minecraft.world.getBlockState(corePos).getBlock().getLocalizedName();
+        String blockName = BlockUtils.getName(corePos);
         
         return blockName.equals("Cobblestone") ||
                 blockName.equals("Netherrack") ||
@@ -96,17 +93,17 @@ public class CodeBlockUtils {
         if (!isValidCore(blockPos)) return false;
         
         //Checks if the code block has a valid connector.
-        if (!minecraft.world.getBlockState(blockPos.south()).getBlock().getLocalizedName().equals(codeBlockName.connectorBlockName)) return false;
+        if (!BlockUtils.getName(blockPos.south()).equals(codeBlockName.connectorBlockName)) return false;
         
         //Checks if the code block has a sign.
         if (codeBlockName.hasCodeSign) {
-            if (!minecraft.world.getBlockState(blockPos.west()).getBlock().getLocalizedName().equals("Sign"))
+            if (!BlockUtils.getName(blockPos.west()).equals("Sign"))
                 return false;
         }
         
         //Checks if the code block has a chest.
         if (codeBlockName.hasCodeChest) {
-            if (!minecraft.world.getBlockState(blockPos.up()).getBlock().getLocalizedName().equals("Chest"))
+            if (!BlockUtils.getName(blockPos.up()).equals("Chest"))
                 return false;
         }
         
@@ -115,7 +112,7 @@ public class CodeBlockUtils {
     
     public static BlockPos getBlockCore(BlockPos blockPos) {
     
-        String blockName = minecraft.world.getBlockState(blockPos).getBlock().getLocalizedName();
+        String blockName = BlockUtils.getName(blockPos);
         
         if (blockName.equals("Stone")) blockPos = blockPos.north();
         if (blockName.equals("Sign")) blockPos = blockPos.east();
@@ -123,7 +120,7 @@ public class CodeBlockUtils {
     
         if (blockName.equals("Piston") || blockName.equals("Sticky Piston")) {
             
-            EnumFacing pistonDirection = minecraft.world.getBlockState(blockPos).getValue(PropertyDirection.create("facing"));
+            EnumFacing pistonDirection = BlockUtils.getFacing(blockPos);
             
             //Checks if piston is a closing or an opening piston.
             if (pistonDirection == EnumFacing.NORTH) {
@@ -144,7 +141,7 @@ public class CodeBlockUtils {
     
     public static boolean hasOppositePiston(BlockPos pistonPos) {
         try {
-            EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
+            EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos);
             BlockPos oppositePistonPos = pistonPos;
 
             if (pistonDirection == EnumFacing.SOUTH) {
@@ -155,23 +152,23 @@ public class CodeBlockUtils {
 
             return !oppositePistonPos.equals(pistonPos);
 
-            //If an NPE is thrown, it means there is probably a missing piston.
-        } catch (NullPointerException exception) {
+            //If an Exception is thrown, it means there is probably a missing piston.
+        } catch (IllegalArgumentException exception) {
             return false;
         }
     }
     
     public static BlockPos getOppositePiston(BlockPos pistonPos) {
         try {
-            EnumFacing pistonDirection = minecraft.world.getBlockState(pistonPos).getValue(PropertyDirection.create("facing"));
+            EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos);
 
             if (pistonDirection == EnumFacing.SOUTH) {
                 pistonPos = getClosingPiston(pistonPos);
             } else if (pistonDirection == EnumFacing.NORTH) {
                 pistonPos = getOpeningPiston(pistonPos);
             }
-        } catch (NullPointerException exception) {
-            //If an NPE is thrown, it means there is probably a missing piston.
+        } catch (IllegalArgumentException exception) {
+            //If an Exception is thrown, it means there is probably a missing piston.
         }
         
         return pistonPos;
@@ -182,7 +179,7 @@ public class CodeBlockUtils {
         int iterations = 0;
         BlockPos checkPos = pistonPos;
         
-        String pistonVariant = minecraft.world.getBlockState(pistonPos).getBlock().getLocalizedName();
+        String pistonVariant = BlockUtils.getName(pistonPos);
         
         do {
             iterations++;
@@ -190,10 +187,10 @@ public class CodeBlockUtils {
             
             checkPos = checkPos.north();
             
-            if (minecraft.world.getBlockState(checkPos).getBlock().getLocalizedName().equals(pistonVariant)) {
-                if (minecraft.world.getBlockState(checkPos).getValue(PropertyDirection.create("facing")) == EnumFacing.SOUTH) {
+            if (BlockUtils.getName(checkPos).equals(pistonVariant)) {
+                if (BlockUtils.getFacing(checkPos) == EnumFacing.SOUTH) {
                     scopeLevel--;
-                } else if (minecraft.world.getBlockState(checkPos).getValue(PropertyDirection.create("facing")) == EnumFacing.NORTH) {
+                } else if (BlockUtils.getFacing(checkPos) == EnumFacing.NORTH) {
                     scopeLevel++;
                 }
             }
@@ -208,7 +205,7 @@ public class CodeBlockUtils {
         int iterations = 0;
         BlockPos checkPos = pistonPos;
     
-        String pistonVariant = minecraft.world.getBlockState(pistonPos).getBlock().getLocalizedName();
+        String pistonVariant = BlockUtils.getName(pistonPos);
     
         do {
             iterations++;
@@ -216,10 +213,10 @@ public class CodeBlockUtils {
         
             checkPos = checkPos.south();
         
-            if (minecraft.world.getBlockState(checkPos).getBlock().getLocalizedName().equals(pistonVariant)) {
-                if (minecraft.world.getBlockState(checkPos).getValue(PropertyDirection.create("facing")) == EnumFacing.NORTH) {
+            if (BlockUtils.getName(checkPos).equals(pistonVariant)) {
+                if (BlockUtils.getFacing(checkPos) == EnumFacing.NORTH) {
                     scopeLevel--;
-                } else if (minecraft.world.getBlockState(checkPos).getValue(PropertyDirection.create("facing")) == EnumFacing.SOUTH) {
+                } else if (BlockUtils.getFacing(checkPos) == EnumFacing.SOUTH) {
                     scopeLevel++;
                 }
             }

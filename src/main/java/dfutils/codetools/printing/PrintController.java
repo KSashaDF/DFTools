@@ -238,21 +238,13 @@ class PrintController {
             switch (codeChestStage) {
                 case CREATE_ITEM:
                     minecraft.playerController.sendSlotPacket(printNbtHandler.getChestItem(codeChestSlot), minecraft.player.inventoryContainer.inventorySlots.size() - 10);
-                    codeChestStage = PrintChestStage.MOVE_ITEM;
-                    break;
-        
-                case MOVE_ITEM:
-    
-                    //If item was correctly placed in chest, continue on to next slot.
-                    if (codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {
-                        short actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
-                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, 54, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
-                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
-                    }
-                    
+
+                    short actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.SWAP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
+
                     codeChestStage = PrintChestStage.CHECK_ITEM;
                     break;
-                    
+
                 case CHECK_ITEM:
                     //If item was correctly placed in chest, continue on to next slot.
                     if (!codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {

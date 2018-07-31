@@ -15,6 +15,8 @@ public enum CodeBlockName {
     IF_VARIABLE(true, true, "Piston", CodeBlockType.CONDITIONAL),
     ELSE(false, false, true, "Piston", CodeBlockType.SPECIAL),
     REPEAT(true, true, "Sticky Piston", CodeBlockType.SPECIAL),
+
+    END_BRACKET(),
     
     PLAYER_EVENT(false, false, "Stone", CodeBlockType.EVENT),
     ENTITY_EVENT(false, false, "Stone", CodeBlockType.EVENT),
@@ -26,6 +28,14 @@ public enum CodeBlockName {
     public final boolean hasPistonBrackets;
     public final String connectorBlockName;
     public final CodeBlockType codeBlockType;
+
+    CodeBlockName() {
+        hasCodeChest = false;
+        hasCodeSign = false;
+        hasPistonBrackets = false;
+        connectorBlockName = "";
+        codeBlockType = CodeBlockType.SPECIAL;
+    }
     
     CodeBlockName(boolean hasChest, boolean hasBrackets, String connectorName, CodeBlockType blockType) {
         hasCodeChest = hasChest;

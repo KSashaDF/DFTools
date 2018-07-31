@@ -18,7 +18,6 @@ public class CodeBlock {
     public boolean conditionalNot = false;
 
     public ItemStack[] chestItems;
-    public CodeBlock[] subCodeBlocks;
 
     public CodeBlock(CodeBlockName codeBlockName) {
         this.codeBlockName = codeBlockName;
@@ -53,15 +52,6 @@ public class CodeBlock {
             }
         }
 
-        if (subCodeBlocks != null) {
-            NBTTagList subCodeBlockNbt = new NBTTagList();
-            codeBlockNbt.setTag("CodeData", subCodeBlockNbt);
-
-            for (CodeBlock subCodeBlock : subCodeBlocks) {
-                subCodeBlockNbt.appendTag(subCodeBlock.toNbt());
-            }
-        }
-
         return codeBlockNbt;
     }
 
@@ -75,7 +65,6 @@ public class CodeBlock {
         conditionalNot = false;
 
         chestItems = null;
-        subCodeBlocks = null;
 
         //Reads the code block NBT data and inputs it.
         codeBlockName = CodeBlockUtils.stringToBlock(codeBlockNbt.getString("Name"));
@@ -97,15 +86,6 @@ public class CodeBlock {
 
             for (int i = 0; i < chestItemNbt.tagCount(); i++) {
                 chestItems[i] = new ItemStack(chestItemNbt.getCompoundTagAt(i));
-            }
-        }
-
-        if (codeBlockNbt.hasKey("CodeData")) {
-            NBTTagList subCodeBlockNbt = codeBlockNbt.getTagList("CodeData", 10);
-            subCodeBlocks = new CodeBlock[subCodeBlockNbt.tagCount()];
-
-            for (int i = 0; i < subCodeBlockNbt.tagCount(); i++) {
-                subCodeBlocks[i] = new CodeBlock(subCodeBlockNbt.getCompoundTagAt(i));
             }
         }
     }
@@ -261,15 +241,5 @@ public class CodeBlock {
         System.arraycopy(chestItems, 0, newChestItems, 0, chestItems.length);
 
         newChestItems[newChestItems.length - 1] = chestItem;
-    }
-
-    public boolean hasSubCodeBlocks() {
-        return subCodeBlocks != null;
-    }
-    public void appendSubCodeBlock(CodeBlock codeBlock) {
-        CodeBlock[] newSubCodeBlocks = new CodeBlock[subCodeBlocks.length + 1];
-        System.arraycopy(subCodeBlocks, 0, newSubCodeBlocks, 0, subCodeBlocks.length);
-
-        newSubCodeBlocks[newSubCodeBlocks.length - 1] = codeBlock;
     }
 }
