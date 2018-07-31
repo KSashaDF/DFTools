@@ -12,7 +12,7 @@ public class SelectionEventHandler {
     private static Minecraft minecraft = Minecraft.getMinecraft();
     private static int rightClickCooldown = 0;
     
-    public static void selectionEventHandlerRightClickBlockSelectionStick(PlayerInteractEvent.RightClickBlock event) {
+    public static void selectionEventRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
 
         if (rightClickCooldown - 3 > minecraft.player.ticksExisted) rightClickCooldown = 0;
         

@@ -96,7 +96,6 @@ public class DiamondFireUtils {
         MinecraftForge.EVENT_BUS.register(new LeftClickEmpty());
         MinecraftForge.EVENT_BUS.register(new ClientTickEvent());
         MinecraftForge.EVENT_BUS.register(new RenderWorldLastEvent());
-        MinecraftForge.EVENT_BUS.register(new RightClickBlockEvent());
 
         MinecraftForge.EVENT_BUS.register(new ConfigHandler());
     }
