@@ -1,4 +1,4 @@
-# Planned Features:
+# Planned Future Features:
 - Add a function auto-set feature. When you set a call function and get a "This function does not exist!" message the next 
 function block you place down will be named after that call function. **Note that this should also be toggleable inside a 
 configuration file.**
