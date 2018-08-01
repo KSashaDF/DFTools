@@ -51,14 +51,14 @@ location value inside it, the given location will be highlighted.
 	- When doing this, the code block will also be highlighted. Click the code block again to turn the highlighting off.
 
 	- If the selected code block is a setblock action, and if the setblock action has two locations inside it, the 
-	area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000 blocks` 
+	area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000` blocks 
 	the highlighting will turn orange.
 
 	- If the selected code block is an If Variable: Is Within Range code block, the region between the two specified 
 	locations will be highlighted.
 
 	- If the selected code block is a copyblocks action, the region that is being copied from will be a bluish color, and 
-	the region being copied to will be the default green color. **And** if the selected region is larger than `50,000 blocks` 
+	the region being copied to will be the default green color. **And** if the selected region is larger than `50,000` blocks 
 	the region being copied to will turn orange.
 
 	**Note that this might not be easily possible to display with OpenGL and therefor might not be implemented.**
