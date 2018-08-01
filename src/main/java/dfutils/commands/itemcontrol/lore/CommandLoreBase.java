@@ -27,6 +27,8 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
                 "§b/lore set <line> <lore> \n" +
                 "§b/lore edit <line> \n" +
                 "§b/lore insert <line> <lore> \n" +
+                "§b/lore copy \n" +
+                "§b/lore paste [history index]" +
                 "§b/lore remove <line> \n" +
                 "§b/lore clear";
     }
@@ -67,6 +69,14 @@ public class CommandLoreBase extends CommandBase implements IClientCommand {
 
             case "insert":
                 CommandLoreInsert.executeInsertLore(sender, commandArgs);
+                return;
+
+            case "copy":
+                CommandLoreCopy.executeCopyLore(sender, commandArgs);
+                return;
+
+            case "paste":
+                CommandLorePaste.executePasteLore(sender, commandArgs);
                 return;
                 
             case "remove":
