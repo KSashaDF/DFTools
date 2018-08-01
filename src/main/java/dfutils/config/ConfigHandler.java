@@ -14,6 +14,8 @@ public class ConfigHandler {
     static Configuration config;
 
     public static boolean DO_QUICK_ITEM_RENAME = false;
+    public static boolean DO_VARPURGE_CONFIRM = false;
+    public static boolean DO_PLOTCLEAR_CONFIRM = true;
 
     public static void init(File configFile) {
 
@@ -28,6 +30,8 @@ public class ConfigHandler {
 
     private static void reloadConfig() {
         DO_QUICK_ITEM_RENAME = config.getBoolean("Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click any item to quickly rename it.");
+        DO_VARPURGE_CONFIRM = config.getBoolean("/plot varpurge confirm", "Settings", false, "Enable this to make it so you need to type an extra confirmation command to varpurge.");
+        DO_PLOTCLEAR_CONFIRM = config.getBoolean("/plot clear confirm", "Settings", true, "Disable this to make it so you do not need to type an extra confirmation command to clear a plot.");
 
         if (config.hasChanged()) {
             config.save();
