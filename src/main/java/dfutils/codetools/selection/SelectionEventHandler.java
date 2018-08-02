@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class SelectionEventHandler {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static int rightClickCooldown = 0;
     
     public static void selectionEventRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

@@ -16,7 +16,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreSet {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeSetLore(ICommandSender sender, String[] commandArgs) {
     

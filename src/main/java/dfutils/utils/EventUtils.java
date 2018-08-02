@@ -6,7 +6,7 @@ import net.minecraft.util.EnumHand;
 
 public class EventUtils {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     //Simply prevents the left click even from being fired.
     //NOTE: This can only be called on the InputEvent!

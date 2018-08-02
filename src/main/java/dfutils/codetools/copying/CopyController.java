@@ -37,7 +37,7 @@ public class CopyController {
     static BlockPos[] copySelection = new BlockPos[2];
     private static int chestLoadTimer = 0;
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void initializeCopy() {
         if (SelectionController.selectionActive && SelectionController.selectionState != SelectionState.NULL) {

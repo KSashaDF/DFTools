@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ItemUtils {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void setItemInHotbar(ItemStack itemStack, boolean selectSlot) {
 

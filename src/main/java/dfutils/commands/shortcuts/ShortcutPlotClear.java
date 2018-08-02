@@ -7,7 +7,7 @@ import static dfutils.utils.MessageUtils.actionMessage;
 
 public class ShortcutPlotClear {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void shortcutPlotClearClientSendMessage(ClientChatEvent event) {
 

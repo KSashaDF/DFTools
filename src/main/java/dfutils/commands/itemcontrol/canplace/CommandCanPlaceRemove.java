@@ -13,7 +13,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanPlaceRemove {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeRemoveCanPlace(ICommandSender sender, String[] commandArgs) {
         

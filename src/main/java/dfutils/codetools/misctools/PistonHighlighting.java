@@ -1,6 +1,6 @@
 package dfutils.codetools.misctools;
 
-import dfutils.ColorReference;
+import dfutils.utils.ColorReference;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.block.properties.PropertyDirection;

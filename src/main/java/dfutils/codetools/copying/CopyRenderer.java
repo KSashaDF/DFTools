@@ -1,6 +1,6 @@
 package dfutils.codetools.copying;
 
-import dfutils.ColorReference;
+import dfutils.utils.ColorReference;
 import dfutils.utils.BlockUtils;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;

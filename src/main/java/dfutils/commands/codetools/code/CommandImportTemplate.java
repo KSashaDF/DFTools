@@ -22,7 +22,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandImportTemplate {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static void executeImportTemplate(ICommandSender sender, String[] commandArgs) {
 

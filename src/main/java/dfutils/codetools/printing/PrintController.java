@@ -40,7 +40,7 @@ class PrintController {
     private static NBTTagList functionPath;
     private static int functionPathPos;
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     
     //TODO - Finish print init and add proper checks

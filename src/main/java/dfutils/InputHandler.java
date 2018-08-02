@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class InputHandler {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     private static final KeyBinding BETTER_TOOLBARS_MENU = new KeyBinding("Better Toolbars", Keyboard.KEY_GRAVE, "DiamondFire Utilities");
     private static final KeyBinding TEMPLATE_EXPLORER = new KeyBinding("Code Template Viewer", Keyboard.KEY_BACKSLASH, "DiamondFire Utilities");

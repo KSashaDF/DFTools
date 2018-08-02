@@ -8,7 +8,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 public class ShortcutVarpurge {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static long commandTypedTime = 0;
 
     public static void shortcutVarpurgeClientSendMessage(ClientChatEvent event) {

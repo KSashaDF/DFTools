@@ -13,7 +13,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLocCenter {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static void executeCenterLoc(ICommandSender sender, String[] commandArgs) {
 

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ClientChatEvent {
 
     @SubscribeEvent
-    public void onClientSendMessage(net.minecraftforge.client.event.ClientChatEvent event) {
+    public void onClientSendMessage(final net.minecraftforge.client.event.ClientChatEvent event) {
         CommandGive.commandGiveClientSendMessage(event);
         ShortcutLastMsg.shortcutLastMsgClientSendMessage(event);
         ShortcutSupportChat.shortcutSupportChatClientSendMessage(event);

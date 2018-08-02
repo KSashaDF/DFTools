@@ -47,7 +47,7 @@ public class CodeQuickSelection {
     private static NBTTagList functionPath;
     private static int functionPathPos;
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void getSelectionItem() {
         if (minecraft.player.isCreative()) {

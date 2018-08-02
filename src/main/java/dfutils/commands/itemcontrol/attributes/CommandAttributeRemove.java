@@ -13,7 +13,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandAttributeRemove {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeRemoveAttribute(ICommandSender sender, String[] commandArgs) {
     

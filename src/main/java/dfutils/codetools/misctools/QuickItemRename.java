@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class QuickItemRename {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void quickItemRenameLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
 

@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class LocationSetter {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void locationSetterLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         

@@ -14,7 +14,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandAttributeAdd {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeAddAttribute(ICommandSender sender, String[] commandArgs) {
     

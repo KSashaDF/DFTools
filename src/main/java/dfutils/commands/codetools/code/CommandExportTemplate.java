@@ -17,7 +17,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandExportTemplate {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static void executeExportTemplate(ICommandSender sender, String[] commandArgs) {
 

@@ -5,7 +5,7 @@ import net.minecraft.util.text.TextComponentString;
 
 public class MessageUtils {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     private static final String ERROR_PREFIX = "§4\u258E §cERROR §4» §c";
     private static final String INFO_PREFIX = "§9\u258E §3INFO §9» §3";

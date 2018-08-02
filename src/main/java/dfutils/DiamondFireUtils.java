@@ -28,6 +28,7 @@ import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 @Mod(modid = Reference.MOD_ID,
         name = Reference.NAME,
@@ -35,9 +36,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
         acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
         updateJSON = "https://df.pocketclass.net/dfutils_update_log.json", guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
-    
-    @Mod.Instance
-    public static DiamondFireUtils instance;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -50,7 +48,7 @@ public class DiamondFireUtils {
     }
 
     private void registerCommands() {
-        ClientCommandHandler commandHandler = ClientCommandHandler.instance;
+        final ClientCommandHandler commandHandler = ClientCommandHandler.instance;
 
         //Item control command initialization.
         commandHandler.registerCommand(new CommandGive());
@@ -88,16 +86,18 @@ public class DiamondFireUtils {
     }
 
     private void registerEvents() {
+        final EventBus eventBus = MinecraftForge.EVENT_BUS;
 
         //Registers all the event classes.
-        MinecraftForge.EVENT_BUS.register(new ClientChatEvent());
-        MinecraftForge.EVENT_BUS.register(new GuiContainerEvent());
-        MinecraftForge.EVENT_BUS.register(new InputEvent());
-        MinecraftForge.EVENT_BUS.register(new LeftClickEmpty());
-        MinecraftForge.EVENT_BUS.register(new ClientTickEvent());
-        MinecraftForge.EVENT_BUS.register(new RenderWorldLastEvent());
+        eventBus.register(new ClientChatEvent());
+        eventBus.register(new ChatReceivedEvent());
+        eventBus.register(new GuiContainerEvent());
+        eventBus.register(new InputEvent());
+        eventBus.register(new LeftClickEmpty());
+        eventBus.register(new ClientTickEvent());
+        eventBus.register(new RenderWorldLastEvent());
 
-        MinecraftForge.EVENT_BUS.register(new ConfigHandler());
+        eventBus.register(new ConfigHandler());
     }
 
     private void initializeData() {

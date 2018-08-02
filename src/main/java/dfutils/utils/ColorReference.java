@@ -1,4 +1,4 @@
-package dfutils;
+package dfutils.utils;
 
 public enum ColorReference {
     HIGHLIGHT_CODE(70, 100, 200, 250),

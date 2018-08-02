@@ -15,7 +15,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreCopy {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static List<NBTTagList> loreHistory = new ArrayList<>();
 

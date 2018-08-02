@@ -15,7 +15,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanPlaceAdd {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeAddCanPlace(ICommandSender sender, String[] commandArgs) {
         

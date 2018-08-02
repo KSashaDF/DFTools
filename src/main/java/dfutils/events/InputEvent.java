@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class InputEvent {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
-    private static GameSettings gameSettings = minecraft.gameSettings;
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+    private static final GameSettings gameSettings = minecraft.gameSettings;
 
     @SubscribeEvent
     public void onKeyInput(net.minecraftforge.fml.common.gameevent.InputEvent event) {

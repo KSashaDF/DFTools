@@ -19,7 +19,7 @@ import static dfutils.utils.MessageUtils.errorMessage;
 
 class CommandLoadTemplate {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static void executeLoadTemplate(ICommandSender sender, String[] commandArgs) {
 

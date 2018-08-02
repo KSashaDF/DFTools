@@ -9,7 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class BlockUtils {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static String getName(BlockPos blockPos) {
         return minecraft.world.getBlockState(blockPos).getBlock().getLocalizedName();

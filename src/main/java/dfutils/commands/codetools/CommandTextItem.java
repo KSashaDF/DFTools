@@ -19,7 +19,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 @ParametersAreNonnullByDefault
 public class CommandTextItem extends CommandBase implements IClientCommand {
 
-    private final Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public String getName() {
         return "txt";
