@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.commands.itemcontrol.CommandGive;
 import dfutils.commands.shortcuts.ShortcutLastMsg;

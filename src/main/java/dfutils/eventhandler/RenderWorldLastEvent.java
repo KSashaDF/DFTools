@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.codetools.copying.CopyEventHandler;
 import dfutils.codetools.misctools.LocationHighlighting;

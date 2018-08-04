@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.utils.playerdata.PlayerDataUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;

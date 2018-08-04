@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.codetools.misctools.LocationSetter;
 import dfutils.codetools.misctools.PistonHighlighting;

@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.printing.PrintEventHandler;

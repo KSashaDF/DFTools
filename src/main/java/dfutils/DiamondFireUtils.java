@@ -23,7 +23,7 @@ import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
 import dfutils.config.ConfigHandler;
-import dfutils.events.*;
+import dfutils.eventhandler.*;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -93,6 +93,7 @@ public class DiamondFireUtils {
         eventBus.register(new ChatReceivedEvent());
         eventBus.register(new GuiContainerEvent());
         eventBus.register(new InputEvent());
+        eventBus.register(new MouseEvent());
         eventBus.register(new LeftClickEmpty());
         eventBus.register(new ClientTickEvent());
         eventBus.register(new RenderWorldLastEvent());

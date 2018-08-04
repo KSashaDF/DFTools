@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.InputHandler;
 import dfutils.utils.EventUtils;

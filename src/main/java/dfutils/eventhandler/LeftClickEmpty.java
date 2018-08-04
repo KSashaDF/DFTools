@@ -1,4 +1,4 @@
-package dfutils.events;
+package dfutils.eventhandler;
 
 import dfutils.codetools.misctools.QuickItemRename;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
