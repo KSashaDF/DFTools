@@ -1,0 +1,14 @@
+{
+  "homepage":
+    "https://github.com/KSashaDF/DiamondFireUtilities/releases/latest",
+  "promos": {
+    "1.12.2-latest": "1.1.3",
+    "1.12.2-recommended": "1.1.3",
+    "1.12.2": "1.1.2"
+  },
+  "1.12.2": {
+    "1.1.3":
+      "+ /loc align\n+ /disenchant <enchantment>\n+ /clearenchants\n+ /enchant\n* Two held locations now show the area between the locations.\n* /itemdata now copies the output to your clipboard.\n* \"generic\" is now automatically added when using /attribute add/remove\n* sneak + left click (while looking into air) with either a text item or variable item now automatically put the item name into your chat box.",
+    "1.1.2": "+ /code export <file name>\n+ /code import <file name>"
+  }
+}
