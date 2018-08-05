@@ -3,15 +3,15 @@ package dfutils.eventhandler;
 import dfutils.customevents.ClickItemEvent;
 import dfutils.network.NetworkEncoderOverride;
 import io.netty.channel.Channel;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.EnumPacketDirection;
 import net.minecraft.network.play.client.CPacketClickWindow;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 public class SendPacketEvent {
     
     //Overrides the default packet encoder. (NettyPacketEncoder)
-    static void initializeEvent() {
-        Channel channel = Minecraft.getMinecraft().player.connection.getNetworkManager().channel;
+    static void initializeEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+        Channel channel = event.getManager().channel;
         channel.pipeline().replace(channel.pipeline().get("encoder"), "encoder", new NetworkEncoderOverride(EnumPacketDirection.SERVERBOUND));
     }
     
@@ -26,4 +26,5 @@ public class SendPacketEvent {
             event.setCancelled(clickItemEvent.isCancelled());
         }
     }
+    
 }

@@ -34,7 +34,8 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         name = Reference.NAME,
         version = Reference.VERSION,
         acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
-        updateJSON = "https://df.pocketclass.net/dfutils_update_log.json", guiFactory = Reference.GUI_FACTORY)
+        updateJSON = "https://raw.githubusercontent.com/MCDiamondFire/DiamondFireUtilities/master/changelog.json",
+        guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
 
     @Mod.EventHandler
@@ -89,11 +90,11 @@ public class DiamondFireUtils {
         final EventBus eventBus = MinecraftForge.EVENT_BUS;
 
         //Registers all the event classes.
+        eventBus.register(new PlayerJoinEvent());
         eventBus.register(new ClientChatEvent());
         eventBus.register(new ChatReceivedEvent());
         eventBus.register(new GuiContainerEvent());
         eventBus.register(new InputEvent());
-        eventBus.register(new MouseEvent());
         eventBus.register(new LeftClickEmpty());
         eventBus.register(new ClientTickEvent());
         eventBus.register(new RenderWorldLastEvent());

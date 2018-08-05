@@ -2,6 +2,7 @@ package dfutils.network;
 
 import dfutils.eventhandler.SendPacketEvent;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import net.minecraft.network.*;
@@ -18,6 +19,7 @@ import java.io.IOException;
 //mod's event handler class.
 
 @ParametersAreNonnullByDefault
+@ChannelHandler.Sharable //Added Sharable annotation so that Minecraft can reset the PacketEncoder when the player disconnects.
 public class NetworkEncoderOverride extends MessageToByteEncoder <Packet<?>> {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT", NetworkManager.NETWORK_PACKETS_MARKER);
@@ -29,7 +31,7 @@ public class NetworkEncoderOverride extends MessageToByteEncoder <Packet<?>> {
     
     protected void encode(ChannelHandlerContext handlerContext, Packet<?> packet, ByteBuf byteBuf) throws Exception {
     
-        // ----- Event code start. -----
+        // ----- DFUtils code start. -----
         
         dfutils.customevents.SendPacketEvent packetEvent = new dfutils.customevents.SendPacketEvent(packet);
         SendPacketEvent.onSendPacketEvent(packetEvent);
@@ -38,7 +40,7 @@ public class NetworkEncoderOverride extends MessageToByteEncoder <Packet<?>> {
             return;
         }
     
-        // ----- Event code end. -----
+        // ----- DFUtils code end. -----
         
         EnumConnectionState connectionState = handlerContext.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get();
         
