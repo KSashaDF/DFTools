@@ -10,7 +10,11 @@ import net.minecraft.util.ResourceLocation;
 public class ItemUtils {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
-
+    
+    public static String getName(ItemStack itemStack) {
+        return getName(itemStack.getItem());
+    }
+    
     public static String getName(Item item) {
         return Item.REGISTRY.getNameForObject(item).toString();
     }

@@ -1,6 +1,8 @@
 package dfutils.codetools.copying;
 
 import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeItemUtils;
+import dfutils.utils.ItemUtils;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -83,14 +85,10 @@ class CopyNbtHandler {
             ItemStack itemStack = chestItems.getSlot(slot).getStack();
             
             if (!itemStack.isEmpty()) {
-                itemNbt.setTag("Count", new NBTTagByte((byte) itemStack.getCount()));
-                itemNbt.setTag("Damage", new NBTTagShort((short) itemStack.getMetadata()));
-                itemNbt.setTag("id", new NBTTagInt(Item.getIdFromItem(itemStack.getItem())));
-                
-                if (itemStack.hasTagCompound()) {
-                    itemNbt.setTag("tag", itemStack.getTagCompound());
+                if (CodeItemUtils.isLocation(itemStack)) {
+                    itemNbt = CodeItemUtils.writeLocationNbt(itemStack);
                 } else {
-                    itemNbt.setTag("tag", new NBTTagCompound());
+                    itemNbt = ItemUtils.toNbt(itemStack);
                 }
                 
                 chestItemNbt.set(slot, itemNbt);
