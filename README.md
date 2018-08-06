@@ -86,9 +86,6 @@ items inside of these toolbar tabs.
 	- Remove a row from a toolbar tab by clicking the remove row button to the left of the row.
 	- Insert a row in a toolbar tab by clicking the add row button to the left of the row.
 	
-- Add a feature that improves code printing so that locations get properly transfered between plots. When copying, a 
-location item will be converted into a "location offset", then, when printing, that "location offset" will be applied to 
-the plot corner location. This means that locations will not break when being transferred between plots.
 - Add a feature that improves code printing so that if there is not enough space on the current code line for the 
 printed code, the printed code will roll over to the next line or codespace.
 - Add a StateManager class that will manage the various codetools within the mod and make sure you are not trying to 
@@ -120,3 +117,6 @@ and pasting it onto another.
 the plot, the location of the plot, and the size of the plot, etc.. Additionally, added utilities for detecting whether the
 player is inside a support session, and what mode the player is in.
 - Added the `/rejoin` command.
+- Added a feature that improves code printing so that locations get properly transfered between plots. When copying, a 
+location item will be converted into a "location offset", then, when printing, that "location offset" will be applied to 
+the plot corner location. This means that locations will no longer break when being transferred between plots.
