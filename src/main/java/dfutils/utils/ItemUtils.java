@@ -11,8 +11,11 @@ public class ItemUtils {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
+    public static String getName(Item item) {
+        return Item.REGISTRY.getNameForObject(item).toString();
+    }
+    
     public static void setItemInHotbar(ItemStack itemStack, boolean selectSlot) {
-
         //If the players main hand is empty, set the item in the player's main hand.
         //Otherwise, find the next open slot and set the item in that slot.
         if (minecraft.player.getHeldItemMainhand().isEmpty()) {
