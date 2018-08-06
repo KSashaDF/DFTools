@@ -115,6 +115,7 @@ the front, and put the text into your chatbox.
 - Added the `/lore copy` and the `/lore paste [history index]` commands, these commands allow for copying lore from one item 
 and pasting it onto another.
 - Added a configuration option that allows you to disable having to type `/plot clear confirm` to clear a plot.
+- Added an override to the default command cooldown, this makes it so that sending another command while the default command cooldown has not finished does not reset the command cooldown.
 
 - Fixed a bug where the pitch and yaw arguments would not work for the `/loc move` command.
 - Fixed a crash where a missing opening piston could crash Minecraft.
