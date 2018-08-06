@@ -1,7 +1,6 @@
 package dfutils.utils.playerdata;
 
 public enum PlayerMode {
-    NULL(false),
     SPAWN(false),
     PLAY(false),
     BUILD(true),

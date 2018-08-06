@@ -34,15 +34,15 @@ public class ClientChatEvent {
         }
         
         if (event.getMessage().startsWith("/") && PlayerStateHandler.isOnDiamondFire) {
-            if (commandCooldown > minecraft.player.ticksExisted) {
-                MessageUtils.errorMessage("Please wait for the command cooldown to finish before executing another command!");
-                event.setCanceled(true);
-                return;
-            } else {
-                String commandName = MiscUtils.splitString(event.getMessage())[0].replace("/", "");
-                ICommand commandObject = ClientCommandHandler.instance.getCommands().get(commandName);
-                
-                if (!(commandObject instanceof IClientCommand)) {
+            String commandName = MiscUtils.splitString(event.getMessage())[0].replace("/", "");
+            ICommand commandObject = ClientCommandHandler.instance.getCommands().get(commandName);
+    
+            if (!(commandObject instanceof IClientCommand)) {
+                if (commandCooldown > minecraft.player.ticksExisted) {
+                    MessageUtils.errorMessage("Please wait for the command cooldown to finish before executing another command!");
+                    event.setCanceled(true);
+                    return;
+                } else {
                     commandCooldown = minecraft.player.ticksExisted + 40;
                 }
             }

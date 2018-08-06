@@ -2,6 +2,7 @@ package dfutils;
 
 import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.commands.codetools.CommandNumberRange;
+import dfutils.commands.codetools.CommandRejoin;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
 import dfutils.commands.codetools.locations.CommandLocBase;
@@ -76,6 +77,7 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandNumberRange());
         commandHandler.registerCommand(new CommandTextItem());
         commandHandler.registerCommand(new CommandVarItem());
+        commandHandler.registerCommand(new CommandRejoin());
 
 
         //Misc commands.

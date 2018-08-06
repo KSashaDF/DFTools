@@ -31,11 +31,7 @@ public class DiamondFireEvent {
     }
     
     
-    public static class EnterSessionEvent extends DiamondFireEvent {
+    public static class EnterSessionEvent extends DiamondFireEvent {}
     
-    }
-    
-    public static class ExitSessionEvent extends DiamondFireEvent {
-    
-    }
+    public static class ExitSessionEvent extends DiamondFireEvent {}
 }

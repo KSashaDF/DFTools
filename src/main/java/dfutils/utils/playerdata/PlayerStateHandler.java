@@ -193,7 +193,7 @@ public class PlayerStateHandler {
         }
     }
     
-    public static void diamondFireEventHandler(DiamondFireEvent event) {
+    static void diamondFireEventHandler(DiamondFireEvent event) {
         
         if (event instanceof DiamondFireEvent.JoinPlotEvent) {
             plotId = ((DiamondFireEvent.JoinPlotEvent) event).plotId;
@@ -210,10 +210,6 @@ public class PlayerStateHandler {
         if (event instanceof DiamondFireEvent.LeavePlotEvent) {
             playerMode = PlayerMode.SPAWN;
             
-            plotId = 0;
-            plotName = null;
-            plotOwner = null;
-            plotSize = null;
             findPlotSize = false;
             waitForCreative = false;
         }
