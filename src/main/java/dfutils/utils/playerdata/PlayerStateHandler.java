@@ -174,11 +174,11 @@ public class PlayerStateHandler {
                 BlockPos largePlotCheck = MathUtils.incrementPosition(plotCorner, new BlockPos(-1, 0, PlotSize.LARGE.size));
     
                 if (minecraft.world.isBlockLoaded(basicPlotCheck)) {
-                    if (BlockUtils.getBlockName(basicPlotCheck).equals("minecraft:stone")) {
+                    if (BlockUtils.getName(basicPlotCheck).equals("minecraft:stone")) {
                         plotSize = PlotSize.BASIC;
                         findPlotSize = false;
                     } else if (minecraft.world.isBlockLoaded(largePlotCheck)) {
-                        if (BlockUtils.getBlockName(largePlotCheck).equals("minecraft:stone")) {
+                        if (BlockUtils.getName(largePlotCheck).equals("minecraft:stone")) {
                             plotSize = PlotSize.LARGE;
                             findPlotSize = false;
                         } else {

@@ -19,6 +19,14 @@ public class ItemUtils {
         return Item.REGISTRY.getNameForObject(item).toString();
     }
     
+    public static ItemStack getItem(String itemName, int count, int metadata) {
+        if (Item.getByNameOrId(itemName) == null) {
+            return ItemStack.EMPTY;
+        } else {
+            return new ItemStack(Item.getByNameOrId(itemName), count, metadata);
+        }
+    }
+    
     public static void setItemInHotbar(ItemStack itemStack, boolean selectSlot) {
         //If the players main hand is empty, set the item in the player's main hand.
         //Otherwise, find the next open slot and set the item in that slot.

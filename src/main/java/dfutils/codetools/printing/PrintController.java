@@ -278,7 +278,7 @@ class PrintController {
                 //Tests if the item actually exists within the GUI.
                 if (itemSlot != -1) {
                     short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
                     functionPathPos++;
 
                     //If reached end of code function path, move onto next sign element or next code block.
@@ -311,7 +311,7 @@ class PrintController {
                 //Tests if the item actually exists within the GUI.
                 if (itemSlot != -1) {
                     short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
 
                     //Checks if the code block has the NOT tag, if not, continues onto the next code block.
                     if (printNbtHandler.selectedBlock.hasKey("ConditionalNot")) {

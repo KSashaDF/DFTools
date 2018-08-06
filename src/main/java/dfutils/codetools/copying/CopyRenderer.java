@@ -21,15 +21,15 @@ class CopyRenderer {
                 drawColor = ColorReference.DULL_COPY_CODE;
             }
             
-            if (BlockUtils.getName(renderPos).equals("Air"))
+            if (BlockUtils.getName(renderPos).equals("minecraft:air"))
                 renderPos = renderPos.south();
         
             GraphicsUtils.drawBlock(partialTicks, renderPos, drawColor);
         
-            if (BlockUtils.getName(renderPos.west()).equals("Sign"))
+            if (BlockUtils.getName(renderPos.west()).equals("minecraft:wall_sign"))
                 GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
         
-            if (BlockUtils.getName(renderPos.up()).equals("Chest"))
+            if (BlockUtils.getName(renderPos.up()).equals("minecraft:chest"))
                 GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
         
             renderPos = renderPos.south();

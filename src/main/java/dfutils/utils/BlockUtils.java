@@ -12,13 +12,7 @@ public class BlockUtils {
     
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    //NOTE: Use getBlockName(BlockPos blockPos) instead!
-    @Deprecated
     public static String getName(BlockPos blockPos) {
-        return minecraft.world.getBlockState(blockPos).getBlock().getLocalizedName();
-    }
-    
-    public static String getBlockName(BlockPos blockPos) {
         return Block.REGISTRY.getNameForObject(minecraft.world.getBlockState(blockPos).getBlock()).toString();
     }
     

@@ -34,15 +34,15 @@ public class SelectionController {
         
         do {
             
-            if (BlockUtils.getName(renderPos).equals("Air"))
+            if (BlockUtils.getName(renderPos).equals("minecraft:air"))
                 renderPos = renderPos.south();
     
             GraphicsUtils.drawBlock(partialTicks, renderPos, drawColor);
             
-            if (BlockUtils.getName(renderPos.west()).equals("Sign"))
+            if (BlockUtils.getName(renderPos.west()).equals("minecraft:wall_sign"))
                 GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
             
-            if (BlockUtils.getName(renderPos.up()).equals("Chest"))
+            if (BlockUtils.getName(renderPos.up()).equals("minecraft:chest"))
                 GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
             
             renderPos = renderPos.south();
@@ -101,14 +101,14 @@ public class SelectionController {
             if (CodeBlockUtils.isCodeBlock(checkPos)) {
                 
                 //Checks if piston is an opening piston, if so, the end of the local scope has been found.
-                if (BlockUtils.getName(checkPos).equals("Piston") || BlockUtils.getName(checkPos).equals("Sticky Piston")) {
+                if (BlockUtils.getName(checkPos).equals("minecraft:piston") || BlockUtils.getName(checkPos).equals("minecraft:sticky_piston")) {
                     if (BlockUtils.getFacing(checkPos).equals(EnumFacing.SOUTH))
                         break;
                 }
                 
                 checkPos = CodeBlockUtils.getBlockCore(checkPos);
                 
-            } else if (BlockUtils.getName(checkPos).equals("Air")) {
+            } else if (BlockUtils.getName(checkPos).equals("minecraft:air")) {
                 break;
             } else {
                 throw new CodeFormatException(checkPos);
@@ -126,21 +126,21 @@ public class SelectionController {
             if (CodeBlockUtils.isCodeBlock(checkPos)) {
             
                 //Checks if piston is an opening piston, if so, jump to closing piston.
-                if (BlockUtils.getName(checkPos).equals("Piston") || BlockUtils.getName(checkPos).equals("Sticky Piston")) {
+                if (BlockUtils.getName(checkPos).equals("minecraft:piston") || BlockUtils.getName(checkPos).equals("minecraft:sticky_piston")) {
                     if (BlockUtils.getFacing(checkPos).equals(EnumFacing.SOUTH))
                         checkPos = CodeBlockUtils.getOppositePiston(checkPos);
                 }
                 
                 //If there is air, it means either that it is the air block before a closing piston
                 //or it is the end of the code line.
-            } else if (BlockUtils.getName(checkPos).equals("Air")) {
+            } else if (BlockUtils.getName(checkPos).equals("minecraft:air")) {
                 break;
             } else {
                 throw new CodeFormatException(checkPos);
             }
         }
         
-        if (BlockUtils.getName(checkPos.north()).equals("Piston") || BlockUtils.getName(checkPos.north()).equals("Sticky Piston")) {
+        if (BlockUtils.getName(checkPos.north()).equals("minecraft:piston") || BlockUtils.getName(checkPos.north()).equals("minecraft:sticky_piston")) {
             edges[1] = checkPos.north();
         } else {
             edges[1] = CodeBlockUtils.getBlockCore(checkPos.north());
@@ -163,12 +163,12 @@ public class SelectionController {
                     break;
                 }
                 
-                if (BlockUtils.getName(checkPos).equals("Piston") || BlockUtils.getName(checkPos).equals("Sticky Piston")) {
+                if (BlockUtils.getName(checkPos).equals("minecraft:piston") || BlockUtils.getName(checkPos).equals("minecraft:sticky_piston")) {
                     if (BlockUtils.getFacing(checkPos) == EnumFacing.NORTH && CodeBlockUtils.hasOppositePiston(checkPos))
                         checkPos = CodeBlockUtils.getOppositePiston(checkPos);
                 }
                 
-            } else if (BlockUtils.getName(checkPos).equals("Air")) {
+            } else if (BlockUtils.getName(checkPos).equals("minecraft:air")) {
                 checkPos = checkPos.south();
                 break;
             } else {
@@ -186,8 +186,8 @@ public class SelectionController {
             checkPos = checkPos.south();
             if (!CodeBlockUtils.isCodeBlock(checkPos)) {
                 
-                if (BlockUtils.getName(checkPos).equals("Air")) {
-                    if (!(BlockUtils.getName(checkPos.south()).equals("Piston") || BlockUtils.getName(checkPos.south()).equals("Sticky Piston")))
+                if (BlockUtils.getName(checkPos).equals("minecraft:air")) {
+                    if (!(BlockUtils.getName(checkPos.south()).equals("minecraft:piston") || BlockUtils.getName(checkPos.south()).equals("minecraft:sticky_piston")))
                         break;
                 } else {
                     throw new CodeFormatException(checkPos);
@@ -195,7 +195,7 @@ public class SelectionController {
             }
         }
         
-        if (BlockUtils.getName(checkPos.north()).equals("Piston") || BlockUtils.getName(checkPos.north()).equals("Sticky Piston")) {
+        if (BlockUtils.getName(checkPos.north()).equals("minecraft:piston") || BlockUtils.getName(checkPos.north()).equals("minecraft:sticky_piston")) {
             edges[1] = checkPos.north();
         } else {
             edges[1] = CodeBlockUtils.getBlockCore(checkPos.north());

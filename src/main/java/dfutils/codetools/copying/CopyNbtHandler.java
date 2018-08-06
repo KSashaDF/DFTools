@@ -4,7 +4,6 @@ import dfutils.codehandler.utils.CodeBlockName;
 import dfutils.codehandler.utils.CodeItemUtils;
 import dfutils.utils.ItemUtils;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 

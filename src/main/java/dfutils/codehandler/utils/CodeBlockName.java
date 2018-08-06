@@ -1,27 +1,27 @@
 package dfutils.codehandler.utils;
 
 public enum CodeBlockName {
-    PLAYER_ACTION(true, false, "Stone", CodeBlockType.REGULAR),
-    GAME_ACTION(true, false, "Stone", CodeBlockType.REGULAR),
-    ENTITY_ACTION(true, false, "Stone", CodeBlockType.REGULAR),
-    SET_VARIABLE(true, false, "Stone", CodeBlockType.REGULAR),
-    SELECT_OBJECT(true, false, "Stone", CodeBlockType.REGULAR),
-    CALL_FUNCTION(false, false, "Stone", CodeBlockType.REGULAR),
-    CONTROL(false, false, "Stone", CodeBlockType.REGULAR),
+    PLAYER_ACTION(true, false, "minecraft:stone", CodeBlockType.REGULAR),
+    GAME_ACTION(true, false, "minecraft:stone", CodeBlockType.REGULAR),
+    ENTITY_ACTION(true, false, "minecraft:stone", CodeBlockType.REGULAR),
+    SET_VARIABLE(true, false, "minecraft:stone", CodeBlockType.REGULAR),
+    SELECT_OBJECT(true, false, "minecraft:stone", CodeBlockType.REGULAR),
+    CALL_FUNCTION(false, false, "minecraft:stone", CodeBlockType.REGULAR),
+    CONTROL(false, false, "minecraft:stone", CodeBlockType.REGULAR),
     
-    IF_PLAYER(true, true, "Piston", CodeBlockType.CONDITIONAL),
-    IF_GAME(true, true, "Piston", CodeBlockType.CONDITIONAL),
-    IF_ENTITY(true, true, "Piston", CodeBlockType.CONDITIONAL),
-    IF_VARIABLE(true, true, "Piston", CodeBlockType.CONDITIONAL),
-    ELSE(false, false, true, "Piston", CodeBlockType.SPECIAL),
-    REPEAT(true, true, "Sticky Piston", CodeBlockType.SPECIAL),
+    IF_PLAYER(true, true, "minecraft:piston", CodeBlockType.CONDITIONAL),
+    IF_GAME(true, true, "minecraft:piston", CodeBlockType.CONDITIONAL),
+    IF_ENTITY(true, true, "minecraft:piston", CodeBlockType.CONDITIONAL),
+    IF_VARIABLE(true, true, "minecraft:piston", CodeBlockType.CONDITIONAL),
+    ELSE(false, false, true, "minecraft:piston", CodeBlockType.SPECIAL),
+    REPEAT(true, true, "minecraft:sticky_piston", CodeBlockType.SPECIAL),
 
     END_BRACKET(),
     
-    PLAYER_EVENT(false, false, "Stone", CodeBlockType.EVENT),
-    ENTITY_EVENT(false, false, "Stone", CodeBlockType.EVENT),
-    FUNCTION(true, false, "Stone", CodeBlockType.EVENT),
-    LOOP(false, false, "Stone", CodeBlockType.EVENT);
+    PLAYER_EVENT(false, false, "minecraft:stone", CodeBlockType.EVENT),
+    ENTITY_EVENT(false, false, "minecraft:stone", CodeBlockType.EVENT),
+    FUNCTION(true, false, "minecraft:stone", CodeBlockType.EVENT),
+    LOOP(false, false, "minecraft:stone", CodeBlockType.EVENT);
     
     public final boolean hasCodeChest;
     public final boolean hasCodeSign;

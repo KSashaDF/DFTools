@@ -113,7 +113,7 @@ public class CodeQuickSelection {
     }
 
     public static void codeQuickSelectionRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("Chest")) {
+        if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("minecraft:chest")) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();
 
             if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("SelectionData")) {
@@ -247,7 +247,7 @@ public class CodeQuickSelection {
                         //Tests if the item actually exists within the GUI.
                         if (itemSlot != -1) {
                             short actionNumber = codeGui.getNextTransactionID(minecraft.player.inventory);
-                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
                             functionPathPos++;
 
                             //If reached end of code function path, move onto next sign element or next code block.
@@ -279,7 +279,7 @@ public class CodeQuickSelection {
                         //Tests if the item actually exists within the GUI.
                         if (itemSlot != -1) {
                             short actionNumber = codeGui.getNextTransactionID(minecraft.player.inventory);
-                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
 
                             //Checks if the code block has the NOT tag, if not, continues onto the next code block.
                             if (signData.hasKey("ConditionalNot")) {

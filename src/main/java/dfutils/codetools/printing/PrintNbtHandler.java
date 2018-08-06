@@ -9,9 +9,9 @@ import net.minecraft.nbt.NBTTagList;
 class PrintNbtHandler {
     boolean reachedCodeEnd;
     NBTTagList printData;
-    int[] printPositions;
-    NBTTagList[] printScopeStack;
-    int printScope;
+    private int[] printPositions;
+    private NBTTagList[] printScopeStack;
+    private int printScope;
     NBTTagCompound selectedBlock;
     
     void initializePrintData(NBTTagList codeData) {
