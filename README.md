@@ -51,19 +51,19 @@ location value inside it, the given location will be highlighted.
 	- When doing this, the code block will also be highlighted. Click the code block again to turn the highlighting off.
 
 	- If the selected code block is a setblock action, and if the setblock action has two locations inside it, the 
-	area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000` blocks 
-	the highlighting will turn orange.
+	area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000`
+	blocks the highlighting will turn orange.
 
 	- If the selected code block is an If Variable: Is Within Range code block, the region between the two specified 
 	locations will be highlighted.
 
-	- If the selected code block is a copyblocks action, the region that is being copied from will be a bluish color, and 
-	the region being copied to will be the default green color. **And** if the selected region is larger than `50,000` blocks 
-	the region being copied to will turn orange.
+	- If the selected code block is a copyblocks action, the region that is being copied from will be a bluish color,
+	and the region being copied to will be the default green color. **And** if the selected region is larger than
+	`50,000` blocks the region being copied to will turn orange.
 
 	**Note that this might not be easily possible to display with OpenGL and therefor might not be implemented.**
-	- If the selected code block has a range argument, a sphere will be drawn around the center location. **Note that the 
-	default range argument should be taken into account if a range is not specified.**
+	- If the selected code block has a range argument, a sphere will be drawn around the center location. **Note that
+	the default range argument should be taken into account if a range is not specified.**
 - Add keybinds for the selection stick, and the `/code copy` command. Also make them toggleable via the mod configuration.
 - Add a feature that makes it so that if a sign item has sign text NBT, the sign text is displayed within the lore 
 of that sign.
@@ -96,13 +96,9 @@ copy some code and print some other at code the same time.
 - Add a codelayer selection mode to the selection stick, and also most likely remove the local scope selection mode.
 - Add a `/code cancel` command. This command will cancel things such as code printing, code copying, piston highlighting, etc..
 - Add a configuration option to allow for quick item renaming to work with all items, not only number, text, and variable items.
-- Add internal utilities within the mod for detecting what the ID of the plot the player is currently on is, the owner of 
-the plot, the location of the plot, and the size of the plot. Additionally, add utilities for detecting whether the player 
-is inside a support session, and what mode the player is in.
 - Add a feature that detects whether the `/num` number range is under 9 numbers, if so, set the items in the players 
 hotbar **but** move any items that are in the players hotbar to the players inventory if there is space. **Note that this 
 will be the same as shift clicking the items.**
-- Add a `/rejoin` command.
 
 # Snapshot Changelog:
 
@@ -120,3 +116,7 @@ and pasting it onto another.
 - Fixed a bug where the pitch and yaw arguments would not work for the `/loc move` command.
 - Fixed a crash where a missing opening piston could crash Minecraft.
 - Fixed a bug where the code printer could put two items inside a code chest where there as supposed to be one.
+- Added internal utilities within the mod for detecting what the ID of the plot the player currently on is, the owner of 
+the plot, the location of the plot, and the size of the plot, etc.. Additionally, added utilities for detecting whether the
+player is inside a support session, and what mode the player is in.
+- Added the `/rejoin` command.
