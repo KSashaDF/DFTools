@@ -92,7 +92,6 @@ printed code, the printed code will roll over to the next line or codespace.
 copy some code and print some other at code the same time.
 - Add a codelayer selection mode to the selection stick, and also most likely remove the local scope selection mode.
 - Add a `/code cancel` command. This command will cancel things such as code printing, code copying, piston highlighting, etc..
-- Add a configuration option to allow for quick item renaming to work with all items, not only number, text, and variable items.
 - Add a feature that detects whether the `/num` number range is under 9 numbers, if so, set the items in the players 
 hotbar **but** move any items that are in the players hotbar to the players inventory if there is space. **Note that this 
 will be the same as shift clicking the items.**
@@ -120,3 +119,4 @@ player is inside a support session, and what mode the player is in.
 - Added a feature that improves code printing so that locations get properly transfered between plots. When copying, a 
 location item will be converted into a "location offset", then, when printing, that "location offset" will be applied to 
 the plot corner location. This means that locations will no longer break when being transferred between plots.
+- Added a configuration option to allow for quick item renaming to work with all items, not only number, text, and variable items.
