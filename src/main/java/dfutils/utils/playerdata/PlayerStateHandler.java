@@ -200,11 +200,6 @@ public class PlayerStateHandler {
             plotName = ((DiamondFireEvent.JoinPlotEvent) event).plotName;
             plotOwner = ((DiamondFireEvent.JoinPlotEvent) event).plotOwner;
             playerMode = ((DiamondFireEvent.JoinPlotEvent) event).playerMode;
-    
-            MessageUtils.infoMessage("Plot ID: " + plotId);
-            MessageUtils.infoMessage("Plot Name: " + plotName);
-            MessageUtils.infoMessage("Plot Owner: " + plotOwner);
-            MessageUtils.infoMessage("Player Mode: " + playerMode.name());
             
             if (playerMode == PlayerMode.DEV) {
                 plotCorner = MathUtils.incrementPosition(minecraft.player.getPosition(), DEV_SPAWN_OFFSET);
@@ -214,8 +209,6 @@ public class PlayerStateHandler {
         
         if (event instanceof DiamondFireEvent.LeavePlotEvent) {
             playerMode = PlayerMode.SPAWN;
-    
-            MessageUtils.infoMessage("Left plot!");
             
             plotId = 0;
             plotName = null;
@@ -227,9 +220,7 @@ public class PlayerStateHandler {
         
         if (event instanceof DiamondFireEvent.ChangeModeEvent) {
             playerMode = ((DiamondFireEvent.ChangeModeEvent) event).playerMode;
-    
-            MessageUtils.infoMessage("Changed mode! Mode: " + playerMode.name());
-    
+            
             if (playerMode == PlayerMode.DEV) {
                 plotCorner = MathUtils.incrementPosition(minecraft.player.getPosition(), DEV_SPAWN_OFFSET);
                 findPlotSize = true;
