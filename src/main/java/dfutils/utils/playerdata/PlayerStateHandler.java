@@ -110,9 +110,6 @@ public class PlayerStateHandler {
         if (messageRawText.equals("Your support session was terminated by the support staff.")) {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
-
-        // Update Discord Presence
-        PresenceHandler.updatePresence();
     }
     
     public static void playerStateHandlerChatSent(ClientChatEvent event) {
@@ -245,5 +242,8 @@ public class PlayerStateHandler {
         if (event instanceof DiamondFireEvent.ExitSessionEvent) {
             isInSupportSession = false;
         }
+    
+        // Update Discord Presence
+        PresenceHandler.updatePresence();
     }
 }

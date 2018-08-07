@@ -1,11 +1,5 @@
 package dfutils.utils.rpc;
 
-// -------------------------
-// Created by: Timeraa
-// Created at: 07.08.18
-// -------------------------
-
-
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
@@ -21,7 +15,9 @@ public class PresenceHandler {
     private static boolean wasInSession = false;
 
     public static void updatePresence() {
-        if(DiscordRPCSetup == false) createPresence();
+        if(!DiscordRPCSetup) {
+            createPresence();
+        }
 
         System.out.println("IN SESSION: " + PlayerStateHandler.isInSupportSession);
 
@@ -29,7 +25,7 @@ public class PresenceHandler {
             lib.Discord_ClearPresence();
             lastTimestamp = 0;
         } else {
-            if(wasInSession == true || lastMode != PlayerStateHandler.playerMode) {
+            if(wasInSession || lastMode != PlayerStateHandler.playerMode) {
                 lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
                 lastMode = PlayerStateHandler.playerMode;
                 wasInSession = false;
