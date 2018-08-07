@@ -1,5 +1,6 @@
 package dfutils.utils;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,10 +10,10 @@ import net.minecraft.util.text.ITextComponent;
 
 public class BlockUtils {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static String getName(BlockPos blockPos) {
-        return minecraft.world.getBlockState(blockPos).getBlock().getLocalizedName();
+        return Block.REGISTRY.getNameForObject(minecraft.world.getBlockState(blockPos).getBlock()).toString();
     }
     
     public static EnumFacing getFacing(BlockPos blockPos) {

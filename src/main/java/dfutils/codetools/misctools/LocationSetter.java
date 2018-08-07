@@ -6,12 +6,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class LocationSetter {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void locationSetterLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         
@@ -36,6 +34,9 @@ public class LocationSetter {
     
                         //Sends updated item to the server.
                         minecraft.playerController.sendSlotPacket(itemStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);
+
+                        //Cancels the left click event.
+                        event.setCanceled(true);
                     }
                     
                 } catch (NullPointerException exception) {

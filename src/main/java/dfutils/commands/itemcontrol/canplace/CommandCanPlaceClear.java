@@ -10,7 +10,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanPlaceClear {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeClearCanPlace(ICommandSender sender, String[] commandArgs) {
         

@@ -10,8 +10,8 @@ import static dfutils.utils.MessageUtils.errorMessage;
 import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreClear {
-    
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeClearLore(ICommandSender sender, String[] commandArgs) {
         

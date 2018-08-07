@@ -1,6 +1,6 @@
 package dfutils.codetools.printing;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.MathUtils;
@@ -40,7 +40,7 @@ class PrintController {
     private static NBTTagList functionPath;
     private static int functionPathPos;
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     
     //TODO - Finish print init and add proper checks
@@ -170,7 +170,7 @@ class PrintController {
                     if (codeSignStage == PrintSignStage.FUNCTION) {
 
                         //Tests if code function exists within code reference data.
-                        if (!CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
+                        if (!CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).hasKey(printNbtHandler.selectedBlock.getString("Function"))) {
                             MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
                             printState = PrintState.NULL;
                             nextCodeBlock();
@@ -180,12 +180,12 @@ class PrintController {
                         functionPathPos = 0;
 
                         if (printNbtHandler.selectedBlock.hasKey("SubFunction")) {
-                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                            functionPath = CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("SubFunction")).
                                     getTagList("path", 8);
                         } else {
-                            functionPath = CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                            functionPath = CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                     getCompoundTag(printNbtHandler.selectedBlock.getString("Function")).
                                     getTagList("path", 8);
                         }
@@ -238,21 +238,13 @@ class PrintController {
             switch (codeChestStage) {
                 case CREATE_ITEM:
                     minecraft.playerController.sendSlotPacket(printNbtHandler.getChestItem(codeChestSlot), minecraft.player.inventoryContainer.inventorySlots.size() - 10);
-                    codeChestStage = PrintChestStage.MOVE_ITEM;
-                    break;
-        
-                case MOVE_ITEM:
-    
-                    //If item was correctly placed in chest, continue on to next slot.
-                    if (codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {
-                        short actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
-                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, 54, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
-                        minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.PICKUP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
-                    }
-                    
+
+                    short actionNumber = codeChest.getNextTransactionID(minecraft.player.inventory);
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeChest.windowId, codeChestSlot, 0, ClickType.SWAP, printNbtHandler.getChestItem(codeChestSlot), actionNumber));
+
                     codeChestStage = PrintChestStage.CHECK_ITEM;
                     break;
-                    
+
                 case CHECK_ITEM:
                     //If item was correctly placed in chest, continue on to next slot.
                     if (!codeChest.getSlot(codeChestSlot).getStack().isEmpty()) {
@@ -286,7 +278,7 @@ class PrintController {
                 //Tests if the item actually exists within the GUI.
                 if (itemSlot != -1) {
                     short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
                     functionPathPos++;
 
                     //If reached end of code function path, move onto next sign element or next code block.
@@ -312,14 +304,14 @@ class PrintController {
             if (codeSignStage == PrintSignStage.TARGET) {
                 //Tries to find the specified item within the code GUI, returns item slot number.
                 int itemSlot = findContainerItem(codeGui,
-                        CodeData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
+                        CodeBlockData.codeReferenceData.getCompoundTag(printNbtHandler.selectedBlock.getString("Name")).
                                 getCompoundTag("CodeTarget").
                                 getString(printNbtHandler.selectedBlock.getString("Target")));
 
                 //Tests if the item actually exists within the GUI.
                 if (itemSlot != -1) {
                     short actionNumber =  codeGui.getNextTransactionID(minecraft.player.inventory);
-                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                    minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
 
                     //Checks if the code block has the NOT tag, if not, continues onto the next code block.
                     if (printNbtHandler.selectedBlock.hasKey("ConditionalNot")) {

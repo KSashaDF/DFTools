@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class PrintEventHandler {
     
     private static boolean skipGuiEvent = false;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void printEventHandlerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         

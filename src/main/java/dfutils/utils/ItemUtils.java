@@ -9,10 +9,25 @@ import net.minecraft.util.ResourceLocation;
 
 public class ItemUtils {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
-
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+    
+    public static String getName(ItemStack itemStack) {
+        return getName(itemStack.getItem());
+    }
+    
+    public static String getName(Item item) {
+        return Item.REGISTRY.getNameForObject(item).toString();
+    }
+    
+    public static ItemStack getItem(String itemName, int count, int metadata) {
+        if (Item.getByNameOrId(itemName) == null) {
+            return ItemStack.EMPTY;
+        } else {
+            return new ItemStack(Item.getByNameOrId(itemName), count, metadata);
+        }
+    }
+    
     public static void setItemInHotbar(ItemStack itemStack, boolean selectSlot) {
-
         //If the players main hand is empty, set the item in the player's main hand.
         //Otherwise, find the next open slot and set the item in that slot.
         if (minecraft.player.getHeldItemMainhand().isEmpty()) {
@@ -34,10 +49,7 @@ public class ItemUtils {
     }
 
     public static boolean areItemsStackable(ItemStack itemStack1, ItemStack itemStack2) {
-        itemStack1.setCount(1);
-        itemStack2.setCount(1);
-
-        return ItemStack.areItemStacksEqual(itemStack1, itemStack2);
+        return itemStack1.getItem() == itemStack2.getItem() && itemStack1.getMetadata() == itemStack2.getMetadata() && ItemStack.areItemStackShareTagsEqual(itemStack1, itemStack2);
     }
 
     //This method converts an item stack into NBT.

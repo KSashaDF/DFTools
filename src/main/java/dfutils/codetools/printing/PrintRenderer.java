@@ -1,6 +1,6 @@
 package dfutils.codetools.printing;
 
-import dfutils.ColorReference;
+import dfutils.utils.ColorReference;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.util.math.BlockPos;

@@ -3,8 +3,13 @@ package dfutils.utils;
 import net.minecraft.util.math.BlockPos;
 
 public class MathUtils {
+
     public static double distance(BlockPos pos1, BlockPos pos2) {
         return Math.hypot(Math.hypot(pos1.getX() - pos2.getX(), pos1.getZ() - pos2.getZ()), pos1.getY() - pos2.getY());
+    }
+    
+    public static BlockPos incrementPosition(BlockPos position1, BlockPos position2) {
+        return new BlockPos(position1.getX() + position2.getX(), position1.getY() + position2.getY(), position1.getZ() + position2.getZ());
     }
 
     public static boolean withinRange(int number, int min, int max) {

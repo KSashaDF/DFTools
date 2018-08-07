@@ -1,5 +1,6 @@
 package dfutils.codetools.printing;
 
+import dfutils.codehandler.utils.CodeItemUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,9 +9,9 @@ import net.minecraft.nbt.NBTTagList;
 class PrintNbtHandler {
     boolean reachedCodeEnd;
     NBTTagList printData;
-    int[] printPositions;
-    NBTTagList[] printScopeStack;
-    int printScope;
+    private int[] printPositions;
+    private NBTTagList[] printScopeStack;
+    private int printScope;
     NBTTagCompound selectedBlock;
     
     void initializePrintData(NBTTagList codeData) {
@@ -94,11 +95,11 @@ class PrintNbtHandler {
         NBTTagCompound itemNbt = selectedBlock.getTagList("ChestItems", 10).getCompoundTagAt(slot);
         
         if (itemNbt.hasKey("id")) {
-            ItemStack itemStack = new ItemStack(
-                    Item.getItemById(itemNbt.getInteger("id")),
-                    itemNbt.getByte("Count"),
-                    itemNbt.getShort("Damage"));
-            itemStack.setTagCompound(itemNbt.getCompoundTag("tag"));
+            ItemStack itemStack = new ItemStack(itemNbt);
+            
+            if (CodeItemUtils.isLocation(itemStack)) {
+                itemStack = CodeItemUtils.applyLocationOffset(itemStack);
+            }
             
             return itemStack;
         } else {

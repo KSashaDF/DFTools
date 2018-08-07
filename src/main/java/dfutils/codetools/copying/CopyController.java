@@ -1,7 +1,7 @@
 package dfutils.codetools.copying;
 
-import dfutils.codetools.utils.CodeBlockName;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.codetools.selection.SelectionController;
 import dfutils.codetools.selection.SelectionState;
 import dfutils.utils.BlockUtils;
@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -37,7 +36,7 @@ public class CopyController {
     static BlockPos[] copySelection = new BlockPos[2];
     private static int chestLoadTimer = 0;
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public static void initializeCopy() {
         if (SelectionController.selectionActive && SelectionController.selectionState != SelectionState.NULL) {
@@ -165,7 +164,7 @@ public class CopyController {
             copyPos = copyPos.south();
             if (!BlockUtils.isWithinRegion(copyPos, copySelection[0], copySelection[1]))
                 return;
-            if (BlockUtils.getName(copyPos).equals("Piston") || BlockUtils.getName(copyPos).equals("Sticky Piston")) {
+            if (BlockUtils.getName(copyPos).equals("minecraft:piston") || BlockUtils.getName(copyPos).equals("minecraft:sticky_piston")) {
                 if (BlockUtils.getFacing(copyPos) == EnumFacing.NORTH) {
                     CopyNbtHandler.exitCodeScope();
                 }
@@ -175,7 +174,7 @@ public class CopyController {
     
     private static void finishCodeCopy() {
         //Creates code template item.
-        ItemStack itemStack = new ItemStack(Item.getItemById(130), 1, 0);
+        ItemStack itemStack = ItemUtils.getItem("minecraft:ender_chest", 1, 0);
         itemStack.setTagCompound(new NBTTagCompound());
         itemStack.getTagCompound().setTag("CodeData", CopyNbtHandler.copyData);
         itemStack.getTagCompound().setTag("display", new NBTTagCompound());

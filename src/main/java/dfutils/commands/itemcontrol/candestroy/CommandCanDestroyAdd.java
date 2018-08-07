@@ -15,7 +15,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandCanDestroyAdd {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeAddCanDestroy(ICommandSender sender, String[] commandArgs) {
         

@@ -1,18 +1,15 @@
 package dfutils.codetools.misctools;
 
-import dfutils.ColorReference;
+import dfutils.utils.BlockUtils;
+import dfutils.utils.ColorReference;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PistonHighlighting {
     
@@ -31,15 +28,14 @@ public class PistonHighlighting {
         if (minecraft.player.isCreative() && minecraft.player.isSneaking() && minecraft.player.ticksExisted > highlightCooldown) {
     
             BlockPos blockPos = minecraft.objectMouseOver.getBlockPos();
-            IBlockState blockClicked = minecraft.world.getBlockState(blockPos);
-            String blockName = blockClicked.getBlock().getLocalizedName();
+            String blockName = BlockUtils.getName(blockPos);
             
-            if ((blockName.equals("Piston") || blockName.equals("Sticky Piston")) && CodeBlockUtils.isCodeBlock(blockPos) && CodeBlockUtils.hasOppositePiston(blockPos)) {
+            if ((blockName.equals("minecraft:piston") || blockName.equals("minecraft:stick_piston")) && CodeBlockUtils.isCodeBlock(blockPos) && CodeBlockUtils.hasOppositePiston(blockPos)) {
                 
                 highlightCooldown = minecraft.player.ticksExisted + 2;
                 event.setCanceled(true);
                 
-                if (blockClicked.getValue(PropertyDirection.create("facing")) == EnumFacing.SOUTH) {
+                if (BlockUtils.getFacing(blockPos) == EnumFacing.SOUTH) {
             
                     if (blockPos.equals(openingPistonPos)) {
                 
@@ -51,7 +47,7 @@ public class PistonHighlighting {
                         closingPistonPos = CodeBlockUtils.getOppositePiston(blockPos);
                     }
             
-                } else if (blockClicked.getValue(PropertyDirection.create("facing")) == EnumFacing.NORTH) {
+                } else if (BlockUtils.getFacing(blockPos) == EnumFacing.NORTH) {
             
                     if (blockPos.equals(closingPistonPos)) {
                 
@@ -89,15 +85,15 @@ public class PistonHighlighting {
                 return;
             }
             
-            if (!(minecraft.world.getBlockState(openingPistonPos).getBlock().getLocalizedName().equals("Piston") ||
-                    minecraft.world.getBlockState(openingPistonPos).getBlock().getLocalizedName().equals("Sticky Piston"))) {
+            if (!(BlockUtils.getName(openingPistonPos).equals("minecraft:piston") ||
+                    BlockUtils.getName(openingPistonPos).equals("minecraft:sticky_piston"))) {
     
                 clearHighlight();
                 return;
             }
     
-            if (!(minecraft.world.getBlockState(closingPistonPos).getBlock().getLocalizedName().equals("Piston") ||
-                    minecraft.world.getBlockState(closingPistonPos).getBlock().getLocalizedName().equals("Sticky Piston"))) {
+            if (!(BlockUtils.getName(closingPistonPos).equals("minecraft:piston") ||
+                    BlockUtils.getName(closingPistonPos).equals("minecraft:sticky_piston"))) {
                 
                 if (CodeBlockUtils.hasOppositePiston(openingPistonPos)) {
                     closingPistonPos = CodeBlockUtils.getOppositePiston(openingPistonPos);

@@ -16,7 +16,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandLoreInsert {
     
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     static void executeInsertLore(ICommandSender sender, String[] commandArgs) {
         

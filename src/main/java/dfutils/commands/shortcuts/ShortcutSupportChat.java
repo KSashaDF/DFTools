@@ -1,5 +1,6 @@
 package dfutils.commands.shortcuts;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 
 public class ShortcutSupportChat {
@@ -8,7 +9,9 @@ public class ShortcutSupportChat {
         
         //Support chat shortcut (/sb <message>)
         if (event.getMessage().startsWith("/sb ")) {
-            event.setMessage("/support b " + event.getMessage().substring(4));
+            event.setCanceled(true);
+            Minecraft.getMinecraft().ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
+            Minecraft.getMinecraft().player.sendChatMessage("/support b " + event.getMessage().substring(4));
         }
     }
 }

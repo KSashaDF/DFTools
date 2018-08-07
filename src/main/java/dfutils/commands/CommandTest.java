@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
@@ -20,7 +21,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class CommandTest extends CommandBase implements IClientCommand {
     
-    private final Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     public String getName() {
         return "test";
@@ -52,7 +53,7 @@ public class CommandTest extends CommandBase implements IClientCommand {
                 new TextComponentString(""),
                 new TextComponentString(""),
                 new TextComponentString("")};
-
+        
         //minecraft.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(minecraft.objectMouseOver.getBlockPos(), EnumFacing.WEST, EnumHand.MAIN_HAND, 0, 0, 0));
         //minecraft.playerController.sendSlotPacket(new ItemStack(Item.getItemById(1)), 0);
 

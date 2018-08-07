@@ -1746,11 +1746,53 @@
                     "§aIs Looking At Block"
                 ]
             },
+            "StandingOn": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PStandingOn",
+                    "EStandingOn"
+                ]
+            },
+            "PStandingOn": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "IsNear": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PIsNear",
+                    "EIsNear"
+                ]
+            },
+            "PIsNear": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§bIs Near Location"
+                ]
+            },
             "IsWearing": {
                 "path": [
                     "§eFilter Selection by Condition",
                     "§6If Player",
                     "§6Is Wearing Item"
+                ]
+            },
+            "NameEquals": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PNameEquals",
+                    "ENameEquals"
+                ]
+            },
+            "PNameEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§6If Player",
+                    "§aName Equals"
                 ]
             },
             "IsBlocking": {
@@ -1834,7 +1876,6 @@
                 ]
             },
 
-
             "=": {
                 "path": [
                     "§eFilter Selection by Condition",
@@ -1899,12 +1940,32 @@
                 ]
             },
 
-
             "IsType": {
                 "path": [
                     "§eFilter Selection by Condition",
                     "§2If Entity",
                     "§5Is Type"
+                ]
+            },
+            "ENameEquals": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§aName Equals"
+                ]
+            },
+            "EStandingOn": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "EIsNear": {
+                "path": [
+                    "§eFilter Selection by Condition",
+                    "§2If Entity",
+                    "§bIs Near Location"
                 ]
             },
             "IsMob": {
@@ -2253,11 +2314,53 @@
                     "§aIs Looking At Block"
                 ]
             },
+            "StandingOn": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PStandingOn",
+                    "EStandingOn"
+                ]
+            },
+            "PStandingOn": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "IsNear": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PIsNear",
+                    "EIsNear"
+                ]
+            },
+            "PIsNear": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§bIs Near Location"
+                ]
+            },
             "IsWearing": {
                 "path": [
                     "§6Repeat While Condition is True",
                     "§6If Player",
                     "§6Is Wearing Item"
+                ]
+            },
+            "NameEquals": {
+                "IsAmbiguous": true,
+                "AmbiguousFunctions": [
+                    "PNameEquals",
+                    "ENameEquals"
+                ]
+            },
+            "PNameEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§6If Player",
+                    "§aName Equals"
                 ]
             },
             "IsBlocking": {
@@ -2341,7 +2444,6 @@
                 ]
             },
 
-
             "=": {
                 "path": [
                     "§6Repeat While Condition is True",
@@ -2406,12 +2508,32 @@
                 ]
             },
 
-
             "IsType": {
                 "path": [
                     "§6Repeat While Condition is True",
                     "§2If Entity",
                     "§5Is Type"
+                ]
+            },
+            "ENameEquals": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§aName Equals"
+                ]
+            },
+            "EStandingOn": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§aIs Standing On Block"
+                ]
+            },
+            "EIsNear": {
+                "path": [
+                    "§6Repeat While Condition is True",
+                    "§2If Entity",
+                    "§bIs Near Location"
                 ]
             },
             "IsMob": {
@@ -2428,7 +2550,6 @@
                     "§9Is Projectile"
                 ]
             },
-
 
             "BlockEq": {
                 "path": [

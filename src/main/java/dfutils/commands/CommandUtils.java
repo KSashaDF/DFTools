@@ -39,6 +39,39 @@ public class CommandUtils {
         return text;
     }
     
+    public static String clearColorCodes(String text) {
+        
+        text = text.replace("§r", "");
+        text = text.replace("§0", "");
+        text = text.replace("§8", "");
+        text = text.replace("§7", "");
+        text = text.replace("§f", "");
+        
+        text = text.replace("§1", "");
+        text = text.replace("§9", "");
+        text = text.replace("§3", "");
+        text = text.replace("§b", "");
+        
+        text = text.replace("§2", "");
+        text = text.replace("§a", "");
+        
+        text = text.replace("§4", "");
+        text = text.replace("§c", "");
+        text = text.replace("§6", "");
+        text = text.replace("§e", "");
+        
+        text = text.replace("§5", "");
+        text = text.replace("§d", "");
+        
+        text = text.replace("§l", "");
+        text = text.replace("§o", "");
+        text = text.replace("§m", "");
+        text = text.replace("§n", "");
+        text = text.replace("§k", "");
+        
+        return text;
+    }
+    
     @Nullable
     public static EntityEquipmentSlot parseSlotText(String slotName) {
         switch(slotName) {

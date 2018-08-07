@@ -1,7 +1,8 @@
 package dfutils;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.commands.codetools.CommandNumberRange;
+import dfutils.commands.codetools.CommandRejoin;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
 import dfutils.commands.codetools.locations.CommandLocBase;
@@ -22,17 +23,21 @@ import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
-import dfutils.events.*;
+import dfutils.config.ConfigHandler;
+import dfutils.eventhandler.*;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS, updateJSON = "https://df.pocketclass.net/dfutils_update_log.json")
+@Mod(modid = Reference.MOD_ID,
+        name = Reference.NAME,
+        version = Reference.VERSION,
+        acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
+        updateJSON = "https://raw.githubusercontent.com/MCDiamondFire/DiamondFireUtilities/master/changelog.json",
+        guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
-    
-    @Mod.Instance
-    public static DiamondFireUtils instance;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -41,11 +46,11 @@ public class DiamondFireUtils {
         registerEvents();
         initializeData();
 
-        ConfigHandler.init(event);
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
     }
 
     private void registerCommands() {
-        ClientCommandHandler commandHandler = ClientCommandHandler.instance;
+        final ClientCommandHandler commandHandler = ClientCommandHandler.instance;
 
         //Item control command initialization.
         commandHandler.registerCommand(new CommandGive());
@@ -72,6 +77,7 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandNumberRange());
         commandHandler.registerCommand(new CommandTextItem());
         commandHandler.registerCommand(new CommandVarItem());
+        commandHandler.registerCommand(new CommandRejoin());
 
 
         //Misc commands.
@@ -83,20 +89,23 @@ public class DiamondFireUtils {
     }
 
     private void registerEvents() {
+        final EventBus eventBus = MinecraftForge.EVENT_BUS;
 
         //Registers all the event classes.
-        MinecraftForge.EVENT_BUS.register(new ClientChatEvent());
-        MinecraftForge.EVENT_BUS.register(new GuiContainerEvent());
-        MinecraftForge.EVENT_BUS.register(new InputEvent());
-        MinecraftForge.EVENT_BUS.register(new LeftClickBlockEvent());
-        MinecraftForge.EVENT_BUS.register(new LeftClickEmpty());
-        MinecraftForge.EVENT_BUS.register(new LivingUpdateEvent());
-        MinecraftForge.EVENT_BUS.register(new RenderWorldLastEvent());
-        MinecraftForge.EVENT_BUS.register(new RightClickBlockEvent());
+        eventBus.register(new PlayerJoinEvent());
+        eventBus.register(new ClientChatEvent());
+        eventBus.register(new ChatReceivedEvent());
+        eventBus.register(new GuiContainerEvent());
+        eventBus.register(new InputEvent());
+        eventBus.register(new LeftClickEmpty());
+        eventBus.register(new ClientTickEvent());
+        eventBus.register(new RenderWorldLastEvent());
+
+        eventBus.register(new ConfigHandler());
     }
 
     private void initializeData() {
-        new CodeData();
+        new CodeBlockData();
         InputHandler.initializeKeys();
     }
 }

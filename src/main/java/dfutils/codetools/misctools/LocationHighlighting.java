@@ -1,6 +1,6 @@
 package dfutils.codetools.misctools;
 
-import dfutils.ColorReference;
+import dfutils.utils.ColorReference;
 import dfutils.utils.GraphicsUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
@@ -11,12 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class LocationHighlighting {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void locationHighlightingRenderWorldLast(RenderWorldLastEvent event) {
 

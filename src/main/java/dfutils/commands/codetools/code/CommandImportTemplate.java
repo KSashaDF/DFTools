@@ -1,7 +1,7 @@
 package dfutils.commands.codetools.code;
 
-import dfutils.codetools.utils.CodeBlockName;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,7 @@ import static dfutils.utils.MessageUtils.infoMessage;
 
 class CommandImportTemplate {
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     static void executeImportTemplate(ICommandSender sender, String[] commandArgs) {
 

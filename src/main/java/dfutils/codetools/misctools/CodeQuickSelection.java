@@ -1,9 +1,9 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codetools.CodeData;
+import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
-import dfutils.codetools.utils.CodeBlockName;
-import dfutils.codetools.utils.CodeBlockType;
+import dfutils.codehandler.utils.CodeBlockName;
+import dfutils.codehandler.utils.CodeBlockType;
 import dfutils.codetools.printing.PrintSignStage;
 import dfutils.utils.BlockUtils;
 import dfutils.codehandler.utils.CodeBlockUtils;
@@ -47,7 +47,7 @@ public class CodeQuickSelection {
     private static NBTTagList functionPath;
     private static int functionPathPos;
 
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     public static void getSelectionItem() {
         if (minecraft.player.isCreative()) {
@@ -113,11 +113,13 @@ public class CodeQuickSelection {
     }
 
     public static void codeQuickSelectionRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("Chest")) {
+        if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("minecraft:chest")) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();
 
             if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("SelectionData")) {
                 if (itemStack.getSubCompound("SelectionData").getString("Name").equals(CodeBlockUtils.getBlockName(CodeBlockUtils.getBlockCore(minecraft.objectMouseOver.getBlockPos())).name())) {
+
+                    event.setCanceled(true);
 
                     isPrintingSign = true;
                     resetItem = false;
@@ -160,7 +162,7 @@ public class CodeQuickSelection {
                 if (signStage == PrintSignStage.FUNCTION) {
 
                     //Tests if code function exists within code reference data.
-                    if (!CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
+                    if (!CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
                         MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
                         isPrintingSign = false;
                         return;
@@ -169,12 +171,12 @@ public class CodeQuickSelection {
                     functionPathPos = 0;
 
                     if (signData.hasKey("SubFunction")) {
-                        functionPath = CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                        functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                 getCompoundTag(signData.getString("Function")).
                                 getCompoundTag(signData.getString("SubFunction")).
                                 getTagList("path", 8);
                     } else {
-                        functionPath = CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                        functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                 getCompoundTag(signData.getString("Function")).
                                 getTagList("path", 8);
                     }
@@ -245,7 +247,7 @@ public class CodeQuickSelection {
                         //Tests if the item actually exists within the GUI.
                         if (itemSlot != -1) {
                             short actionNumber = codeGui.getNextTransactionID(minecraft.player.inventory);
-                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
                             functionPathPos++;
 
                             //If reached end of code function path, move onto next sign element or next code block.
@@ -270,14 +272,14 @@ public class CodeQuickSelection {
                     if (signStage == PrintSignStage.TARGET) {
                         //Tries to find the specified item within the code GUI, returns item slot number.
                         int itemSlot = findContainerItem(codeGui,
-                                CodeData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+                                CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
                                         getCompoundTag("CodeTarget").
                                         getString(signData.getString("Target")));
 
                         //Tests if the item actually exists within the GUI.
                         if (itemSlot != -1) {
                             short actionNumber = codeGui.getNextTransactionID(minecraft.player.inventory);
-                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, new ItemStack(Item.getItemById(0)), actionNumber));
+                            minecraft.player.connection.sendPacket(new CPacketClickWindow(codeGui.windowId, itemSlot, 0, ClickType.PICKUP, ItemStack.EMPTY, actionNumber));
 
                             //Checks if the code block has the NOT tag, if not, continues onto the next code block.
                             if (signData.hasKey("ConditionalNot")) {

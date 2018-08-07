@@ -2,8 +2,6 @@ package dfutils.codetools.copying;
 
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CopyEventHandler {
 
