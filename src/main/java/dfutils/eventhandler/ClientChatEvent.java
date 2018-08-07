@@ -39,7 +39,7 @@ public class ClientChatEvent {
     
             if (!(commandObject instanceof IClientCommand)) {
                 if (commandCooldown > minecraft.player.ticksExisted) {
-                    MessageUtils.errorMessage("Please wait for the command cooldown to finish before executing another command!");
+                    MessageUtils.warnMessage("Please wait for the command cooldown to finish before executing another command!");
                     minecraft.ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
                     event.setCanceled(true);
                     return;

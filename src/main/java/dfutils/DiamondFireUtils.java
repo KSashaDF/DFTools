@@ -93,6 +93,7 @@ public class DiamondFireUtils {
 
         //Registers all the event classes.
         eventBus.register(new PlayerJoinEvent());
+        eventBus.register(new PlayerLeaveEvent());
         eventBus.register(new ClientChatEvent());
         eventBus.register(new ChatReceivedEvent());
         eventBus.register(new GuiContainerEvent());
