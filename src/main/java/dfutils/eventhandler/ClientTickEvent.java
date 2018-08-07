@@ -29,7 +29,6 @@ public class ClientTickEvent {
     
             //Makes it so the Discord rich presence updates every 15 seconds.
             if (minecraft.player != null && minecraft.player.ticksExisted % 300 == 0) {
-                MessageUtils.infoMessage("Updating presence...");
                 PresenceHandler.updatePresence();
             }
         }
