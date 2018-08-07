@@ -87,12 +87,14 @@ public class PlayerStateHandler {
         
         if (messageRawText.startsWith("You have entered a support session with player ")) {
             String[] messageWords = MiscUtils.splitString(messageRawText);
-            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTER));
+            nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTER);
+            waitForCreative = true;
         }
         
         if (messageRawText.startsWith("You have entered a support session! Your helper is ")) {
             String[] messageWords = MiscUtils.splitString(messageRawText);
-            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTEE));
+            nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTEE);
+            waitForCreative = true;
         }
         
         if (messageRawText.startsWith("Support session ended! (")) {
@@ -202,7 +204,7 @@ public class PlayerStateHandler {
         }
     }
     
-    static void diamondFireEventHandler(DiamondFireEvent event) {
+    private static void diamondFireEventHandler(DiamondFireEvent event) {
         
         if (event instanceof DiamondFireEvent.JoinPlotEvent) {
             plotId = ((DiamondFireEvent.JoinPlotEvent) event).plotId;
@@ -234,9 +236,10 @@ public class PlayerStateHandler {
         
         if (event instanceof DiamondFireEvent.EnterSessionEvent) {
             isInSupportSession = true;
-            playerMode = PlayerMode.DEV;
             supportPartner = ((DiamondFireEvent.EnterSessionEvent) event).supportPartner;
             supportSessionRole = ((DiamondFireEvent.EnterSessionEvent) event).supportSessionRole;
+            
+            playerMode = PlayerMode.DEV;
         }
         
         if (event instanceof DiamondFireEvent.ExitSessionEvent) {
