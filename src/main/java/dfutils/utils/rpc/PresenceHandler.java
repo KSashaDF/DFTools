@@ -18,15 +18,26 @@ public class PresenceHandler {
     private static PlayerMode lastMode;
     private static DiscordRPC lib = DiscordRPC.INSTANCE;
     private static boolean DiscordRPCSetup = false;
+    private static boolean wasInSession = false;
 
     public static void updatePresence() {
         if(DiscordRPCSetup == false) createPresence();
+
+        System.out.println("IN SESSION: " + PlayerStateHandler.isInSupportSession);
 
         if(!PlayerStateHandler.isOnDiamondFire) {
             lib.Discord_ClearPresence();
             lastTimestamp = 0;
         } else {
-            if(lastMode != PlayerStateHandler.playerMode) {
+            if(wasInSession == true || lastMode != PlayerStateHandler.playerMode) {
+                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                lastMode = PlayerStateHandler.playerMode;
+                wasInSession = false;
+
+                updatePresenceData();
+            } else if(PlayerStateHandler.isInSupportSession) {
+                wasInSession = true;
+
                 lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
                 lastMode = PlayerStateHandler.playerMode;
 
@@ -36,7 +47,46 @@ public class PresenceHandler {
     }
 
     private static void updatePresenceData() {
-        if(PlayerStateHandler.isInSupportSession) {
+        if(!PlayerStateHandler.isInSupportSession) {
+            if (PlayerStateHandler.playerMode == PlayerMode.SPAWN) {
+                DiscordRichPresence presence = new DiscordRichPresence();
+                presence.largeImageKey = "compass";
+                presence.smallImageKey = "dflogo";
+                presence.details = "At spawn";
+                presence.startTimestamp = lastTimestamp;
+                lib.Discord_UpdatePresence(presence);
+            } else if (PlayerStateHandler.playerMode == PlayerMode.PLAY) {
+                DiscordRichPresence presence = new DiscordRichPresence();
+                presence.largeImageKey = "ironsword";
+                presence.largeImageText = "Mode Play";
+                presence.smallImageKey = "dflogo";
+                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                presence.details = PlayerStateHandler.plotName;
+                presence.state = "By " + PlayerStateHandler.plotOwner;
+                presence.startTimestamp = lastTimestamp;
+                lib.Discord_UpdatePresence(presence);
+            } else if (PlayerStateHandler.playerMode == PlayerMode.DEV) {
+                DiscordRichPresence presence = new DiscordRichPresence();
+                presence.largeImageKey = "commandblock";
+                presence.largeImageText = "Mode Dev";
+                presence.smallImageKey = "dflogo";
+                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                presence.details = PlayerStateHandler.plotName;
+                presence.state = "By " + PlayerStateHandler.plotOwner;
+                presence.startTimestamp = lastTimestamp;
+                lib.Discord_UpdatePresence(presence);
+            } else if (PlayerStateHandler.playerMode == PlayerMode.BUILD) {
+                DiscordRichPresence presence = new DiscordRichPresence();
+                presence.largeImageKey = "anvil";
+                presence.largeImageText = "Mode Build";
+                presence.smallImageKey = "dflogo";
+                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                presence.details = PlayerStateHandler.plotName;
+                presence.state = "By " + PlayerStateHandler.plotOwner;
+                presence.startTimestamp = lastTimestamp;
+                lib.Discord_UpdatePresence(presence);
+            }
+        } else {
             if(PlayerStateHandler.supportSessionRole == SupportSessionRole.SUPPORTER) {
                 DiscordRichPresence presence = new DiscordRichPresence();
                 presence.largeImageKey = "commandblock";
@@ -58,43 +108,6 @@ public class PresenceHandler {
                 presence.startTimestamp = lastTimestamp;
                 lib.Discord_UpdatePresence(presence);
             }
-        } else if(PlayerStateHandler.playerMode == PlayerMode.SPAWN) {
-            DiscordRichPresence presence = new DiscordRichPresence();
-            presence.largeImageKey = "compass";
-            presence.smallImageKey = "dflogo";
-            presence.details = "At spawn";
-            presence.startTimestamp = lastTimestamp;
-            lib.Discord_UpdatePresence(presence);
-        } else if(PlayerStateHandler.playerMode == PlayerMode.PLAY) {
-            DiscordRichPresence presence = new DiscordRichPresence();
-            presence.largeImageKey = "ironsword";
-            presence.largeImageText = "Mode Play";
-            presence.smallImageKey = "dflogo";
-            presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-            presence.details = PlayerStateHandler.plotName;
-            presence.state = "By " + PlayerStateHandler.plotOwner;
-            presence.startTimestamp = lastTimestamp;
-            lib.Discord_UpdatePresence(presence);
-        } else if(PlayerStateHandler.playerMode == PlayerMode.DEV) {
-            DiscordRichPresence presence = new DiscordRichPresence();
-            presence.largeImageKey = "commandblock";
-            presence.largeImageText = "Mode Dev";
-            presence.smallImageKey = "dflogo";
-            presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-            presence.details = PlayerStateHandler.plotName;
-            presence.state = "By " + PlayerStateHandler.plotOwner;
-            presence.startTimestamp = lastTimestamp;
-            lib.Discord_UpdatePresence(presence);
-        } else if(PlayerStateHandler.playerMode == PlayerMode.BUILD) {
-            DiscordRichPresence presence = new DiscordRichPresence();
-            presence.largeImageKey = "anvil";
-            presence.largeImageText = "Mode Build";
-            presence.smallImageKey = "dflogo";
-            presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-            presence.details = PlayerStateHandler.plotName;
-            presence.state = "By " + PlayerStateHandler.plotOwner;
-            presence.startTimestamp = lastTimestamp;
-            lib.Discord_UpdatePresence(presence);
         }
     }
 
