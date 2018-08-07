@@ -23,13 +23,13 @@ public class PresenceHandler {
             lib.Discord_ClearPresence();
             lastTimestamp = 0;
         } else {
-            if(wasInSession || lastMode != PlayerStateHandler.playerMode) {
+            if(wasInSession && !PlayerStateHandler.isInSupportSession || lastMode != PlayerStateHandler.playerMode) {
                 lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
                 lastMode = PlayerStateHandler.playerMode;
                 wasInSession = false;
 
                 updatePresenceData();
-            } else if(PlayerStateHandler.isInSupportSession) {
+            } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
                 wasInSession = true;
 
                 lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
@@ -84,21 +84,19 @@ public class PresenceHandler {
             if(PlayerStateHandler.supportSessionRole == SupportSessionRole.SUPPORTER) {
                 DiscordRichPresence presence = new DiscordRichPresence();
                 presence.largeImageKey = "commandblock";
-                presence.largeImageText = "Supporting";
+                presence.largeImageText = "Supporting " + PlayerStateHandler.supportPartner;
                 presence.smallImageKey = "dflogo";
-                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = "Helping " + PlayerStateHandler.supportPartner;
-                presence.state = "on " + PlayerStateHandler.plotName;
+                presence.details = "Supporting " + PlayerStateHandler.supportPartner;
                 presence.startTimestamp = lastTimestamp;
                 lib.Discord_UpdatePresence(presence);
             } else {
                 DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "anvil";
-                presence.largeImageText = "Being supported";
+                presence.largeImageKey = "commandblock";
+                presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
                 presence.smallImageKey = "dflogo";
                 presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = "Being supported by:";
-                presence.state = PlayerStateHandler.supportPartner;
+                presence.details = "Being Supported";
+                presence.state = "by " + PlayerStateHandler.supportPartner;
                 presence.startTimestamp = lastTimestamp;
                 lib.Discord_UpdatePresence(presence);
             }
