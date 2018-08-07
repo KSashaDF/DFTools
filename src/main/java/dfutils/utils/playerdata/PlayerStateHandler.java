@@ -4,6 +4,7 @@ import dfutils.commands.CommandUtils;
 import dfutils.customevents.ClickItemEvent;
 import dfutils.customevents.DiamondFireEvent;
 import dfutils.utils.*;
+import dfutils.utils.rpc.PresenceHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
@@ -105,6 +106,9 @@ public class PlayerStateHandler {
         if (messageRawText.equals("Your support session was terminated by the support staff.")) {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
+
+        // Update Discord Presence
+        PresenceHandler.updatePresence();
     }
     
     public static void playerStateHandlerChatSent(ClientChatEvent event) {
