@@ -85,11 +85,13 @@ public class PlayerStateHandler {
         
         
         if (messageRawText.startsWith("You have entered a support session with player ")) {
-            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent("", SupportSessionRole.SUPPORTER));
+            String[] messageWords = MiscUtils.splitString(messageRawText);
+            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTER));
         }
         
         if (messageRawText.startsWith("You have entered a support session! Your helper is ")) {
-            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent("", SupportSessionRole.SUPPORTEE));
+            String[] messageWords = MiscUtils.splitString(messageRawText);
+            diamondFireEventHandler(new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTEE));
         }
         
         if (messageRawText.startsWith("Support session ended! (")) {
