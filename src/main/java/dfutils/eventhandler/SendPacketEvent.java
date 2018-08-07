@@ -11,7 +11,7 @@ public class SendPacketEvent {
     
     //Overrides the default packet encoder. (NettyPacketEncoder)
     static void initializeEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
-        Channel channel = event.getManager().channel;
+        Channel channel = event.getManager().channel();
         channel.pipeline().replace(channel.pipeline().get("encoder"), "encoder", new NetworkEncoderOverride(EnumPacketDirection.SERVERBOUND));
     }
     

@@ -42,6 +42,8 @@ public class PlayerStateHandler {
     
     
     public static boolean isInSupportSession = false;
+    public static String supportPartner;
+    public static SupportSessionRole supportSessionRole;
 
     public static void playerStateHandlerJoinEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         isOnDiamondFire = true;
