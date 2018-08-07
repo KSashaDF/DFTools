@@ -233,6 +233,7 @@ public class PlayerStateHandler {
         
         if (event instanceof DiamondFireEvent.EnterSessionEvent) {
             isInSupportSession = true;
+            playerMode = PlayerMode.DEV;
             supportPartner = ((DiamondFireEvent.EnterSessionEvent) event).supportPartner;
             supportSessionRole = ((DiamondFireEvent.EnterSessionEvent) event).supportSessionRole;
         }
