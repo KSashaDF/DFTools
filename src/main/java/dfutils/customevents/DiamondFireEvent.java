@@ -1,6 +1,7 @@
 package dfutils.customevents;
 
 import dfutils.utils.playerdata.PlayerMode;
+import dfutils.utils.playerdata.SupportSessionRole;
 
 public class DiamondFireEvent {
     
@@ -31,7 +32,16 @@ public class DiamondFireEvent {
     }
     
     
-    public static class EnterSessionEvent extends DiamondFireEvent {}
+    public static class EnterSessionEvent extends DiamondFireEvent {
+        
+        public String supportPartner;
+        public SupportSessionRole supportSessionRole;
+        
+        public EnterSessionEvent(String supportPartner, SupportSessionRole supportSessionRole) {
+            this.supportPartner = supportPartner;
+            this.supportSessionRole = supportSessionRole;
+        }
+    }
     
     public static class ExitSessionEvent extends DiamondFireEvent {}
 }

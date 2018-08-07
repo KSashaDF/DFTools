@@ -7,17 +7,22 @@ public class MessageUtils {
     
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    private static final String ERROR_PREFIX = "§4\u258E §cERROR §4» §c";
-    private static final String INFO_PREFIX = "§9\u258E §3INFO §9» §3";
-    private static final String ACTION_PREFIX = "§5\u258E §dACTION §5» §d";
+    private static final String INFO_PREFIX = "§3\u258E §bINFO §3§l>> §b";
+    private static final String WARN_PREFIX = "§c\u258E §6WARN §c§l>> §e";
+    private static final String ERROR_PREFIX = "§4\u258E §cERROR §4§l>> §6";
+    private static final String ACTION_PREFIX = "§5\u258E §dACTION §5§l>> §d";
     private static final String NOTE_PREFIX = "§6\u258E§4§k::§c NOTE §4§k::§6> §c§o";
-    
-    public static void errorMessage(String message) {
-        minecraft.player.sendMessage(new TextComponentString(ERROR_PREFIX + message));
-    }
     
     public static void infoMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(INFO_PREFIX + message));
+    }
+    
+    public static void warnMessage(String message) {
+        minecraft.player.sendMessage(new TextComponentString(WARN_PREFIX + message));
+    }
+    
+    public static void errorMessage(String message) {
+        minecraft.player.sendMessage(new TextComponentString(ERROR_PREFIX + message));
     }
     
     public static void actionMessage(String message) {

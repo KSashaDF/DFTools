@@ -12,13 +12,20 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 @Mod.EventBusSubscriber
 public class ClientTickEvent {
     
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+    
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (PlayerStateHandler.isOnDiamondFire && Minecraft.getMinecraft().player != null) {
+        if (PlayerStateHandler.isOnDiamondFire && minecraft.player != null) {
             PrintEventHandler.printEventHandlerTickEvent(event);
             CopyController.copyControllerTickEvent(event);
             CodeQuickSelection.codeQuickSelectionTickEvent(event);
             PlayerStateHandler.playerStateHandlerTickEvent(event);
+            
+            //Makes it so the Discord rich presence updates every 15 seconds.
+            if (minecraft.player.ticksExisted % 300 == 0) {
+            
+            }
         }
     }
 }
