@@ -49,10 +49,7 @@ public class ItemUtils {
     }
 
     public static boolean areItemsStackable(ItemStack itemStack1, ItemStack itemStack2) {
-        itemStack1.setCount(1);
-        itemStack2.setCount(1);
-
-        return ItemStack.areItemStacksEqual(itemStack1, itemStack2);
+        return itemStack1.getItem() == itemStack2.getItem() && itemStack1.getMetadata() == itemStack2.getMetadata() && ItemStack.areItemStackShareTagsEqual(itemStack1, itemStack2);
     }
 
     //This method converts an item stack into NBT.
