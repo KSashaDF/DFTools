@@ -99,7 +99,7 @@ public class PlayerStateHandler {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
     
-        if (messageRawText.startsWith("Support session terminated.")) {
+        if (messageRawText.equals("Support session terminated.")) {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
     

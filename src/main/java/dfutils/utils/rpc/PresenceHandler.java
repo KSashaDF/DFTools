@@ -18,9 +18,7 @@ public class PresenceHandler {
         if(!DiscordRPCSetup) {
             createPresence();
         }
-
-        System.out.println("IN SESSION: " + PlayerStateHandler.isInSupportSession);
-
+        
         if(!PlayerStateHandler.isOnDiamondFire) {
             lib.Discord_ClearPresence();
             lastTimestamp = 0;
