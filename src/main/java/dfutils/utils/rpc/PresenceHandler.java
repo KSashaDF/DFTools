@@ -16,10 +16,11 @@ import dfutils.utils.playerdata.SupportSessionRole;
 public class PresenceHandler {
     private static long lastTimestamp = 0;
     private static PlayerMode lastMode;
-    private static DiscordRPC lib;
+    private static DiscordRPC lib = DiscordRPC.INSTANCE;
+    private static boolean DiscordRPCSetup = false;
 
     public static void updatePresence() {
-        if(lib == null) createPresence();
+        if(DiscordRPCSetup == false) createPresence();
 
         if(!PlayerStateHandler.isOnDiamondFire) {
             lib.Discord_ClearPresence();
@@ -98,11 +99,11 @@ public class PresenceHandler {
     }
 
     private static void createPresence() {
-        DiscordRPC lib = DiscordRPC.INSTANCE;
         String applicationId = "476455349780611072";
         String steamId = "";
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         handlers.ready = (user) -> System.out.println("Discord RPC Ready!");
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
+        DiscordRPCSetup = true;
     }
 }
