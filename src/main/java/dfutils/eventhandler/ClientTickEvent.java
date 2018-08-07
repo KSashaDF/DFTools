@@ -3,9 +3,7 @@ package dfutils.eventhandler;
 import dfutils.codetools.copying.CopyController;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.printing.PrintEventHandler;
-import dfutils.utils.MessageUtils;
 import dfutils.utils.playerdata.PlayerStateHandler;
-import dfutils.utils.rpc.PresenceHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,11 +23,6 @@ public class ClientTickEvent {
                 CodeQuickSelection.codeQuickSelectionTickEvent(event);
                 PlayerStateHandler.playerStateHandlerTickEvent(event);
         
-            }
-    
-            //Makes it so the Discord rich presence updates every 15 seconds.
-            if (minecraft.player != null && minecraft.player.ticksExisted % 300 == 0) {
-                PresenceHandler.updatePresence();
             }
         }
     }
