@@ -99,6 +99,10 @@ public class PlayerStateHandler {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
     
+        if (messageRawText.startsWith("Support session terminated.")) {
+            diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
+        }
+    
         if (messageRawText.equals("Uh oh! Your helper disconnected. They may have experienced a connection issue.")) {
             diamondFireEventHandler(new DiamondFireEvent.ExitSessionEvent());
         }
@@ -190,7 +194,7 @@ public class PlayerStateHandler {
                             plotSize = PlotSize.LARGE;
                             findPlotSize = false;
                         } else {
-                            plotSize = PlotSize.MASSIVE;
+                            plotSize = PlotSize .MASSIVE;
                             findPlotSize = false;
                         }
                     }
