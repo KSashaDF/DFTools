@@ -33,8 +33,13 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
 dependencies {
-    compile files("java-discord-rpc-2.0.1-all.jar")
+    embed files("libs/discord-rpc-2.0.1-all.jar")
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
@@ -78,6 +83,7 @@ processResources {
 }
 
 jar {
+    from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
     manifest {
         attributes 'FMLAT': 'dfutils_at.cfg'
     }
