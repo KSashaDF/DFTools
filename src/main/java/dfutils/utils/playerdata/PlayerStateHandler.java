@@ -168,15 +168,15 @@ public class PlayerStateHandler {
     }
     
     public static void playerStateHandlerTickEvent(TickEvent.ClientTickEvent event) {
+    
+        if (waitForCreative && minecraft.player.isCreative()) {
+            diamondFireEventHandler(nextEvent);
+            waitForCreative = false;
+        }
         
         //If the player is not in creative mode, but is in build or dev mode, it means the player has probably left the plot.
         if (playerMode.isCreative && !minecraft.player.isCreative()) {
             diamondFireEventHandler(new DiamondFireEvent.LeavePlotEvent());
-        }
-        
-        if (waitForCreative && minecraft.player.isCreative()) {
-            diamondFireEventHandler(nextEvent);
-            waitForCreative = false;
         }
         
         if (findPlotSize) {
@@ -205,6 +205,8 @@ public class PlayerStateHandler {
     }
     
     private static void diamondFireEventHandler(DiamondFireEvent event) {
+        
+        MessageUtils.infoMessage(event.getClass().getName());
         
         if (event instanceof DiamondFireEvent.JoinPlotEvent) {
             plotId = ((DiamondFireEvent.JoinPlotEvent) event).plotId;
