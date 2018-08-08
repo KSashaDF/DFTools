@@ -21,7 +21,8 @@ public class PresenceHandler {
         }
 
         if(wasInSession && !PlayerStateHandler.isInSupportSession ||
-                lastMode != PlayerStateHandler.playerMode) {
+                lastMode != PlayerStateHandler.playerMode &&
+                        !PlayerStateHandler.isInSupportSession) {
             lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
             lastMode = PlayerStateHandler.playerMode;
             wasInSession = false;
