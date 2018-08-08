@@ -6,15 +6,21 @@ import dfutils.utils.BlockUtils;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import dfutils.utils.GraphicsUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 
 public class SelectionController {
     
     public static boolean selectionActive = false;
     static BlockPos selectionPos;
     public static SelectionState selectionState = SelectionState.NULL;
-    
+
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+
+
     static void renderSelection(float partialTicks) {
     
         BlockPos[] selectionEdges;
@@ -67,9 +73,10 @@ public class SelectionController {
     
     public static BlockPos[] getSelectionEdges() throws CodeFormatException {
         BlockPos[] edges = new BlockPos[2];
-        
+
         switch (selectionState) {
             case CODEBLOCK:
+                minecraft.player.sendStatusMessage(new TextComponentString("§eSelection Mode: §aCode Block"), true);
                 edges[0] = selectionPos;
                 
                 if (CodeBlockUtils.getBlockName(selectionPos).hasPistonBrackets) {
@@ -81,10 +88,13 @@ public class SelectionController {
                 break;
                 
             case LOCAL_SCOPE:
+                minecraft.player.sendStatusMessage(new TextComponentString("§eSelection Mode: §aLocal Scope"), true);
+
                 edges = getLocalScopeSelection();
                 break;
                 
             case CODE_LINE:
+                minecraft.player.sendStatusMessage(new TextComponentString("§eSelection Mode: §aCode Line"), true);
                 edges = getCodeLineSelection();
         }
         

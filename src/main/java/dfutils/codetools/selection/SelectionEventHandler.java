@@ -3,7 +3,9 @@ package dfutils.codetools.selection;
 import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -23,14 +25,16 @@ public class SelectionEventHandler {
                     rightClickCooldown = minecraft.player.ticksExisted + 2;
                     event.setCanceled(true);
                     BlockPos codeBlockPos = CodeBlockUtils.getBlockCore(minecraft.objectMouseOver.getBlockPos());
-                    
+
                     try {
+                        minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1, 2);
+
+                        System.out.println(SelectionController.selectionState);
                         if (!SelectionController.selectionActive || !SelectionController.isWithinSelection(codeBlockPos)) {
-    
+
                             SelectionController.selectionActive = true;
                             SelectionController.selectionPos = codeBlockPos;
                             SelectionController.selectionState = SelectionState.CODEBLOCK;
-                            
                         } else {
                             
                             SelectionController.selectionPos = codeBlockPos;
