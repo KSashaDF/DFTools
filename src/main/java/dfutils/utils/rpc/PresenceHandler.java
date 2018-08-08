@@ -19,26 +19,25 @@ public class PresenceHandler {
         if(!DiscordRPCSetup) {
             initPresence();
         }
-        
-        if(!PlayerStateHandler.isOnDiamondFire) {
-            lib.Discord_ClearPresence();
-            lastTimestamp = 0;
-        } else {
-            if(wasInSession && !PlayerStateHandler.isInSupportSession || lastMode != PlayerStateHandler.playerMode) {
-                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-                lastMode = PlayerStateHandler.playerMode;
-                wasInSession = false;
 
-                updatePresenceData();
-            } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
-                wasInSession = true;
+        if(wasInSession && !PlayerStateHandler.isInSupportSession ||
+                lastMode != PlayerStateHandler.playerMode) {
+            lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+            lastMode = PlayerStateHandler.playerMode;
+            wasInSession = false;
 
-                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-                lastMode = PlayerStateHandler.playerMode;
+            updatePresenceData();
+        } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
+            wasInSession = true;
 
-                updatePresenceData();
-            }
+            lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+            lastMode = PlayerStateHandler.playerMode;
+
+            updatePresenceData();
         }
+
+        System.out.println("wasInSession: " + wasInSession);
+        System.out.println("PlayerStateHandler: " + PlayerStateHandler.isInSupportSession);
     }
 
     private static void updatePresenceData() {
@@ -100,7 +99,6 @@ public class PresenceHandler {
         lastMode = null;
         DiscordRPCSetup = false;
         wasInSession = false;
-
     }
 
     private static void initPresence() {
