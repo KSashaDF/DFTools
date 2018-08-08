@@ -205,9 +205,6 @@ public class PlayerStateHandler {
     }
     
     private static void diamondFireEventHandler(DiamondFireEvent event) {
-        
-        MessageUtils.infoMessage(event.getClass().getName());
-        
         if (event instanceof DiamondFireEvent.JoinPlotEvent) {
             plotId = ((DiamondFireEvent.JoinPlotEvent) event).plotId;
             plotName = ((DiamondFireEvent.JoinPlotEvent) event).plotName;
