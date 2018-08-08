@@ -5,7 +5,6 @@ import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import dfutils.utils.playerdata.PlayerMode;
 import dfutils.utils.playerdata.PlayerStateHandler;
-import dfutils.utils.playerdata.SupportSessionRole;
 
 public class PresenceHandler {
     private static long lastTimestamp = 0;
@@ -14,9 +13,11 @@ public class PresenceHandler {
     private static boolean DiscordRPCSetup = false;
     private static boolean wasInSession = false;
 
+
+
     public static void updatePresence() {
         if(!DiscordRPCSetup) {
-            createPresence();
+            initPresence();
         }
         
         if(!PlayerStateHandler.isOnDiamondFire) {
@@ -41,69 +42,68 @@ public class PresenceHandler {
     }
 
     private static void updatePresenceData() {
+        DiscordRichPresence presence = new DiscordRichPresence();
+
+        presence.smallImageKey = "dflogo";
+        presence.startTimestamp = lastTimestamp;
+
         if(!PlayerStateHandler.isInSupportSession) {
-            if (PlayerStateHandler.playerMode == PlayerMode.SPAWN) {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "compass";
-                presence.smallImageKey = "dflogo";
-                presence.details = "At spawn";
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
-            } else if (PlayerStateHandler.playerMode == PlayerMode.PLAY) {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "ironsword";
-                presence.largeImageText = "Mode Play";
-                presence.smallImageKey = "dflogo";
-                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = PlayerStateHandler.plotName;
-                presence.state = "By " + PlayerStateHandler.plotOwner;
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
-            } else if (PlayerStateHandler.playerMode == PlayerMode.DEV) {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "commandblock";
-                presence.largeImageText = "Mode Dev";
-                presence.smallImageKey = "dflogo";
-                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = PlayerStateHandler.plotName;
-                presence.state = "By " + PlayerStateHandler.plotOwner;
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
-            } else if (PlayerStateHandler.playerMode == PlayerMode.BUILD) {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "anvil";
-                presence.largeImageText = "Mode Build";
-                presence.smallImageKey = "dflogo";
-                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = PlayerStateHandler.plotName;
-                presence.state = "By " + PlayerStateHandler.plotOwner;
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
+            switch(PlayerStateHandler.playerMode) {
+                case SPAWN:
+                    presence.largeImageKey = "compass";
+                    presence.details = "At spawn";
+                    break;
+                case DEV:
+                    presence.largeImageKey = "commandblock";
+                    presence.largeImageText = "Mode Dev";
+                    break;
+                case BUILD:
+                    presence.largeImageKey = "anvil";
+                    presence.largeImageText = "Mode Build";
+                    break;
+                case PLAY:
+                    presence.largeImageKey = "ironsword";
+                    presence.largeImageText = "Mode Play";
+                    break;
+            }
+
+            if(PlayerStateHandler.playerMode == PlayerMode.DEV ||
+                    PlayerStateHandler.playerMode == PlayerMode.BUILD ||
+                    PlayerStateHandler.playerMode == PlayerMode.PLAY) {
+                if(PlayerStateHandler.plotId != 0) presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                if(PlayerStateHandler.plotName != null) presence.details = PlayerStateHandler.plotName;
+                if(PlayerStateHandler.plotOwner != null) presence.state = "By " + PlayerStateHandler.plotOwner;
             }
         } else {
-            if(PlayerStateHandler.supportSessionRole == SupportSessionRole.SUPPORTER) {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "commandblock";
-                presence.largeImageText = "Supporting " + PlayerStateHandler.supportPartner;
-                presence.smallImageKey = "dflogo";
-                presence.details = "Supporting " + PlayerStateHandler.supportPartner;
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
-            } else {
-                DiscordRichPresence presence = new DiscordRichPresence();
-                presence.largeImageKey = "commandblock";
-                presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
-                presence.smallImageKey = "dflogo";
-                presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                presence.details = "Being Supported";
-                presence.state = "by " + PlayerStateHandler.supportPartner;
-                presence.startTimestamp = lastTimestamp;
-                lib.Discord_UpdatePresence(presence);
+
+            presence.largeImageKey = "commandblock";
+
+            switch (PlayerStateHandler.supportSessionRole) {
+                case SUPPORTER:
+                    presence.largeImageText = "Supporting " + PlayerStateHandler.supportPartner;
+                    presence.details = "Supporting " + PlayerStateHandler.supportPartner;
+                    break;
+                case SUPPORTEE:
+                    presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
+                    presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                    presence.details = "Being Supported";
+                    presence.state = "by " + PlayerStateHandler.supportPartner;
             }
         }
+
+        lib.Discord_UpdatePresence(presence);
     }
 
-    private static void createPresence() {
+    public static void destroyPresence() {
+        lib.Discord_Shutdown();
+        lastTimestamp = 0;
+        lastMode = null;
+        DiscordRPCSetup = false;
+        wasInSession = false;
+
+    }
+
+    private static void initPresence() {
         String applicationId = "476455349780611072";
         String steamId = "";
         DiscordEventHandlers handlers = new DiscordEventHandlers();
