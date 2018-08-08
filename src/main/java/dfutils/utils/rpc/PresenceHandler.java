@@ -6,6 +6,8 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import dfutils.utils.playerdata.PlayerMode;
 import dfutils.utils.playerdata.PlayerStateHandler;
 
+import static dfutils.config.ConfigHandler.DISCORD_RPC_ENABLED;
+
 public class PresenceHandler {
     private static long lastTimestamp = 0;
     private static PlayerMode lastMode;
@@ -16,29 +18,28 @@ public class PresenceHandler {
 
 
     public static void updatePresence() {
-        if(!DiscordRPCSetup) {
-            initPresence();
-        }
+        if(DISCORD_RPC_ENABLED) {
+            if(!DiscordRPCSetup) {
+                initPresence();
+            }
 
-        if(wasInSession && !PlayerStateHandler.isInSupportSession ||
-                lastMode != PlayerStateHandler.playerMode &&
-                        !PlayerStateHandler.isInSupportSession) {
-            lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-            lastMode = PlayerStateHandler.playerMode;
-            wasInSession = false;
+            if(wasInSession && !PlayerStateHandler.isInSupportSession ||
+                    lastMode != PlayerStateHandler.playerMode &&
+                            !PlayerStateHandler.isInSupportSession) {
+                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                lastMode = PlayerStateHandler.playerMode;
+                wasInSession = false;
 
-            updatePresenceData();
-        } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
-            wasInSession = true;
+                updatePresenceData();
+            } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
+                wasInSession = true;
 
-            lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-            lastMode = PlayerStateHandler.playerMode;
+                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                lastMode = PlayerStateHandler.playerMode;
 
-            updatePresenceData();
-        }
-
-        System.out.println("wasInSession: " + wasInSession);
-        System.out.println("PlayerStateHandler: " + PlayerStateHandler.isInSupportSession);
+                updatePresenceData();
+            }
+        } else destroyPresence();
     }
 
     private static void updatePresenceData() {
