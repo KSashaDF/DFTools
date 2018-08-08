@@ -29,7 +29,6 @@ public class SelectionEventHandler {
                     try {
                         minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1, 2);
 
-                        System.out.println(SelectionController.selectionState);
                         if (!SelectionController.selectionActive || !SelectionController.isWithinSelection(codeBlockPos)) {
 
                             SelectionController.selectionActive = true;
