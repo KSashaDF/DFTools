@@ -50,19 +50,19 @@ public class PresenceHandler {
         if(!PlayerStateHandler.isInSupportSession) {
             switch(PlayerStateHandler.playerMode) {
                 case SPAWN:
-                    presence.largeImageKey = "compass";
+                    presence.largeImageKey = "spawn";
                     presence.details = "At spawn";
                     break;
                 case DEV:
-                    presence.largeImageKey = "commandblock";
+                    presence.largeImageKey = "dev";
                     presence.largeImageText = "Mode Dev";
                     break;
                 case BUILD:
-                    presence.largeImageKey = "anvil";
+                    presence.largeImageKey = "build";
                     presence.largeImageText = "Mode Build";
                     break;
                 case PLAY:
-                    presence.largeImageKey = "ironsword";
+                    presence.largeImageKey = "play";
                     presence.largeImageText = "Mode Play";
                     break;
             }
@@ -75,15 +75,14 @@ public class PresenceHandler {
                 if(PlayerStateHandler.plotOwner != null) presence.state = "By " + PlayerStateHandler.plotOwner;
             }
         } else {
-
-            presence.largeImageKey = "commandblock";
-
             switch (PlayerStateHandler.supportSessionRole) {
                 case SUPPORTER:
+                    presence.largeImageKey = "supporter";
                     presence.largeImageText = "Supporting " + PlayerStateHandler.supportPartner;
                     presence.details = "Supporting " + PlayerStateHandler.supportPartner;
                     break;
                 case SUPPORTEE:
+                    presence.largeImageKey = "supportee";
                     presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
                     presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
                     presence.details = "Being Supported";
