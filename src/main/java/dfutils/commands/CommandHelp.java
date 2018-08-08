@@ -84,8 +84,50 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                         "§9> §7Similar to the default command.",
                         "§6> §e/itemdata",
                         "§9> §7Displays the NBT for the held item.",
+                        "§6> §e/attribute",
+                        "§9> §7No information specified.",
+                        "§6> §e/lore",
+                        "§9> §7No information specified.",
+                        "§6> §e/candestroy",
+                        "§9> §7No information specified.",
+                        "§6> §e/canplace",
+                        "§9> §7No information specified.",
                         "",
-                        "§7Page: §61§7/§64",
+                        "§7Page: §61§7/§63",
+                    };
+                    break;
+                case "2":
+                    helpMessage = new String[] {
+                        "§6§l<« §eCommands §6- §eItems §6§l»>",
+                        "§6> §e/breakable",
+                        "§9> §7No information specified.",
+                        "§6> §e/showflags",
+                        "§9> §7No information specified.",
+                        "§6> §e/setflags",
+                        "§9> §7No information specified.",
+                        "§6> §e/disenchant",
+                        "§9> §7Removes a specific enchantment of the held item.",
+                        "§6> §e/clearenchants",
+                        "§9> §7Removes all enchantments of the held item.",
+                        "",
+                        "§7Page: §62§7/§63",
+                    };
+                    break;
+                case "3":
+                    helpMessage = new String[] {
+                        "§6§l<« §eCommands §6- §eCode §6§l»>",
+                        "§6> §e/code",
+                        "§9> §7Code copying/pasting.",
+                        "§6> §e/num",
+                        "§9> §7Gives you the specified range of number items.",
+                        "§6> §e/txt",
+                        "§9> §7Gives you a text book item.",
+                        "§6> §e/var",
+                        "§9> §7Gives you a variable item.",
+                        "§6> §e/loc",
+                        "§9> §7Contains various location manipulation commands.",
+                        "",
+                        "§7Page: §62§7/§63",
                     };
                     break;
                 default:
@@ -123,7 +165,9 @@ public class CommandHelp extends CommandBase implements IClientCommand {
             helpMessage = new String[] {
                     "§6§m    §6[§eCommands§6]§m    ",
                     "",
-                    "§6> §71 §6- §7Item manipulation"
+                    "§6> §71 §6- §7Item manipulation",
+                    "§6> §72 §6- §7Item manipulation",
+                    "§6> §73 §6- §7Code tools"
             };
         }
 

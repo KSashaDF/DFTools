@@ -1,6 +1,7 @@
 package dfutils.utils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.text.TextComponentString;
 
 public class MessageUtils {
@@ -12,7 +13,7 @@ public class MessageUtils {
     private static final String ERROR_PREFIX = "§4\u258E §cERROR §4§l>> §6";
     private static final String ACTION_PREFIX = "§5\u258E §dACTION §5§l>> §d";
     private static final String NOTE_PREFIX = "§6\u258E§4§k::§c NOTE §4§k::§6> §c§o";
-    
+
     public static void infoMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(INFO_PREFIX + message));
     }
@@ -23,6 +24,7 @@ public class MessageUtils {
     
     public static void errorMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(ERROR_PREFIX + message));
+        minecraft.player.playSound(SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND, 1, 15);
     }
     
     public static void actionMessage(String message) {
