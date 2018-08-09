@@ -1,15 +1,7 @@
-package dfutils.commands;
-
-// -------------------------
-// Created by: Timeraa
-// Created at: 09.08.18
-// -------------------------
-
+package dfutils.commands.itemcontrol.item;
 
 import dfutils.utils.MessageUtils;
-import dfutils.utils.downloadItem;
-import dfutils.utils.listItems;
-import dfutils.utils.uploadItem;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -18,8 +10,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
 
-import java.net.URLEncoder;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class CommandItem extends CommandBase implements IClientCommand {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
@@ -56,6 +50,7 @@ public class CommandItem extends CommandBase implements IClientCommand {
                 minecraft.player.sendMessage(new TextComponentString("§e❱§6❱ §e/item list"));
                 minecraft.player.sendMessage(new TextComponentString(""));
                 minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1f, 0f);
+                
             } else if (commandArgs[0].equalsIgnoreCase("upload")) {
                 handleUploadItem(commandArgs);
             } else if (commandArgs[0].equalsIgnoreCase("download")) {
@@ -79,6 +74,7 @@ public class CommandItem extends CommandBase implements IClientCommand {
             minecraft.player.sendMessage(new TextComponentString("    §d❱§5❱ §7Only 20 characters long"));
             minecraft.player.sendMessage(new TextComponentString("    §d❱§5❱ §7(excluding color codes)\n"));
             minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1f, 0f);
+            
         } else if (minecraft.player.getHeldItemMainhand().isEmpty()) {
             minecraft.player.sendMessage(new TextComponentString("§c❱§4❱ §cYou need to hold an item to upload it."));
             minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
@@ -107,7 +103,7 @@ public class CommandItem extends CommandBase implements IClientCommand {
                     minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1f, 1f);
                 }
                 isUploading = true;
-                new Thread(new uploadItem()).start();
+                new Thread(new UploadItem()).start();
             } else {
                 minecraft.player.sendMessage(new TextComponentString("§c❱§4❱ §cName must not contain more than 20 characters."));
                 minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
@@ -131,26 +127,17 @@ public class CommandItem extends CommandBase implements IClientCommand {
         } else {
             if (!isDownloading) {
                 if (commandArgs.length >= 3) {
-                    itemID = "";
+                    itemID = CommandBase.buildString(commandArgs, 2);
                     ownerUUID = commandArgs[1];
-                    for (int i = 0; i < commandArgs.length; i++) {
-                        if (i > 1) {
-                            if (itemID.equals("")) {
-                                itemID = commandArgs[i];
-                            } else {
-                                itemID = itemID + " " + commandArgs[i];
-                            }
-                        }
-                    }
-                    System.out.println(URLEncoder.encode(itemID));
                 } else {
                     ownerUUID = null;
                     itemID = commandArgs[1];
                 }
+                
                 isDownloading = true;
                 minecraft.player.sendMessage(new TextComponentString("§b❱§3❱ §bDownloading item..."));
                 minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1f, 1f);
-                new Thread(new downloadItem()).start();
+                new Thread(new DownloadItem()).start();
             } else {
                 minecraft.player.sendMessage(new TextComponentString("§c❱§4❱ §cPlease wait until the current download is finished."));
                 minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
@@ -168,15 +155,18 @@ public class CommandItem extends CommandBase implements IClientCommand {
                     minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
                     return;
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException exception) {
                 page = 0;
                 minecraft.player.sendMessage(new TextComponentString("§c❱§4❱ §cPlease enter a valid page."));
                 minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
                 return;
             }
-        } else page = 0;
+        } else {
+            page = 0;
+        }
+        
         minecraft.player.sendMessage(new TextComponentString("§b❱§3❱ §bLoading items..."));
         minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1f, 1f);
-        new Thread(new listItems()).start();
+        new Thread(new ListItems()).start();
     }
 }

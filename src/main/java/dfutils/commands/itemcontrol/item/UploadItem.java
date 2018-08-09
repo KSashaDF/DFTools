@@ -1,13 +1,7 @@
-package dfutils.utils;
-
-// -------------------------
-// Created by: Timeraa
-// Created at: 09.08.18
-// -------------------------
-
+package dfutils.commands.itemcontrol.item;
 
 import com.google.common.base.Charsets;
-import dfutils.commands.CommandItem;
+import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.JsonToNBT;
@@ -25,11 +19,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class uploadItem implements Runnable {
+public class UploadItem implements Runnable {
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     private static String urlString = "";
-
     private static boolean overWriteItem = false;
 
     @Override
@@ -39,10 +32,10 @@ public class uploadItem implements Runnable {
             System.out.println(CommandItem.itemNameOld);
 
             if (CommandItem.itemName.equals(CommandItem.itemNameOld)) {
-                urlString = "https://df.pocketclass.net/api/uploadItem?overwrite=true&name=" + URLEncoder.encode(CommandItem.itemName) + "&ownerUUID=" + URLEncoder.encode(minecraft.player.getUniqueID().toString(), "UTF-8") + "&ownerName=" + URLEncoder.encode(minecraft.player.getName(), "UTF-8") + "&itemNBT=" + URLEncoder.encode(itemToUpload.toString(), "UTF-8");
+                urlString = "https://df.pocketclass.net/api/uploadItem?overwrite=true&name=" + URLEncoder.encode(CommandItem.itemName, "UTF-8") + "&ownerUUID=" + URLEncoder.encode(minecraft.player.getUniqueID().toString(), "UTF-8") + "&ownerName=" + URLEncoder.encode(minecraft.player.getName(), "UTF-8") + "&itemNBT=" + URLEncoder.encode(itemToUpload.toString(), "UTF-8");
                 overWriteItem = true;
             } else {
-                urlString = "https://df.pocketclass.net/api/uploadItem?name=" + URLEncoder.encode(CommandItem.itemName) + "&ownerUUID=" + URLEncoder.encode(minecraft.player.getUniqueID().toString(), "UTF-8") + "&ownerName=" + URLEncoder.encode(minecraft.player.getName(), "UTF-8") + "&itemNBT=" + URLEncoder.encode(itemToUpload.toString(), "UTF-8");
+                urlString = "https://df.pocketclass.net/api/uploadItem?name=" + URLEncoder.encode(CommandItem.itemName, "UTF-8") + "&ownerUUID=" + URLEncoder.encode(minecraft.player.getUniqueID().toString(), "UTF-8") + "&ownerName=" + URLEncoder.encode(minecraft.player.getName(), "UTF-8") + "&itemNBT=" + URLEncoder.encode(itemToUpload.toString(), "UTF-8");
                 overWriteItem = false;
             }
 
@@ -62,6 +55,7 @@ public class uploadItem implements Runnable {
                     } else {
                         minecraft.player.sendMessage(new TextComponentString("§a❱§2❱ §aItem uploaded! ID copied to your clipboard."));
                     }
+                    
                     minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1f, -2f);
                     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(response.getString("SUCCESS")), null);
                     CommandItem.itemNameOld = "";
@@ -71,9 +65,6 @@ public class uploadItem implements Runnable {
                 e.printStackTrace();
             }
         } catch (MalformedURLException exception) {
-
-        } catch (IOException exception) {
-
-        }
+        } catch (IOException exception) {}
     }
 }

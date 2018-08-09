@@ -1,13 +1,6 @@
-package dfutils.utils;
-
-// -------------------------
-// Created by: Timeraa
-// Created at: 09.08.18
-// -------------------------
-
+package dfutils.commands.itemcontrol.item;
 
 import com.google.common.base.Charsets;
-import dfutils.commands.CommandItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.JsonToNBT;
@@ -28,11 +21,13 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
-public class listItems implements Runnable {
+public class ListItems implements Runnable {
+    
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     @Override
     public void run() {
+        
         try {
             URL url;
             if (CommandItem.page != 0) {
@@ -45,6 +40,7 @@ public class listItems implements Runnable {
             try (InputStream inputStream = urlConnection.getInputStream()) {
                 NBTTagCompound response = JsonToNBT.getTagFromJson(IOUtils.toString(inputStream, Charsets.UTF_8));
                 ArrayList<String> uploadedItemNames = convertToStringArray(response.getCompoundTag("SUCCESS").getCompoundTag("names"));
+                
                 minecraft.player.sendMessage(new TextComponentString("§e§m          §6 [ §eYour Items §6] §e§m          \n"));
                 for (int i = 0; i < uploadedItemNames.size(); i++) {
                     //Creates the click and hover events for the message.
@@ -58,10 +54,12 @@ public class listItems implements Runnable {
                     } else if (CommandItem.page == 3) {
                         itemCount = itemCount + (16 * CommandItem.page);
                     }
+                    
                     TextComponentString name = new TextComponentString("§b❱§3❱ §e§l" + itemCount + "§b: §r" + uploadedItemNames.get(i));
                     name.setStyle(messageStyle);
                     minecraft.player.sendMessage(name);
                 }
+                
                 minecraft.player.sendMessage(new TextComponentString(""));
                 minecraft.player.sendMessage(new TextComponentString("§b❱§3❱ §bPage §3" + CommandItem.page));
                 minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1f, -2f);
@@ -69,16 +67,13 @@ public class listItems implements Runnable {
                 e.printStackTrace();
             }
         } catch (MalformedURLException exception) {
-
-        } catch (IOException exception) {
-
-        }
+        } catch (IOException exception) {}
     }
 
     private ArrayList<String> convertToStringArray(NBTTagCompound compoundTag) {
         boolean getArrayLength = true;
         int i = 1;
-        ArrayList<String> stringArray = new ArrayList<String>();
+        ArrayList<String> stringArray = new ArrayList<>();
         while (getArrayLength) {
             String text = compoundTag.getString(Integer.toString(i));
             if (!text.equals("")) {

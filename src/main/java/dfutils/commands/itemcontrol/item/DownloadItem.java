@@ -1,13 +1,7 @@
-package dfutils.utils;
-
-// -------------------------
-// Created by: Timeraa
-// Created at: 09.08.18
-// -------------------------
-
+package dfutils.commands.itemcontrol.item;
 
 import com.google.common.base.Charsets;
-import dfutils.commands.CommandItem;
+import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -25,7 +19,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 
-public class downloadItem implements Runnable {
+public class DownloadItem implements Runnable {
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     @Override

@@ -2,7 +2,7 @@ package dfutils;
 
 import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.commands.CommandHelp;
-import dfutils.commands.CommandItem;
+import dfutils.commands.itemcontrol.item.CommandItem;
 import dfutils.commands.CommandTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandRejoin;
