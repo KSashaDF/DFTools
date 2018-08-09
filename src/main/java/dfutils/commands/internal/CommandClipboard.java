@@ -38,8 +38,9 @@ public class CommandClipboard extends CommandBase implements IClientCommand {
         if (commandArgs.length > 1) {
 
             //If the show message argument is set to "true", send the action message.
-            if (commandArgs[0].equals("true"))
+            if (commandArgs[0].equals("true")) {
                 actionMessage("Copied message to your clipboard!");
+            }
 
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(CommandBase.buildString(commandArgs, 1)), null);
         }

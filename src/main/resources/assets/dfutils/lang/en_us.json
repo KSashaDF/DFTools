@@ -1,0 +1,33 @@
+{
+    "test": {
+        "text": "This is some test text.",
+        "colorText": {
+        	"isRichText": true,
+        	"text": {"text":"Some colorful text.","color":"green"}
+        },
+        "textList": [
+        	"Some more text.",
+        	"This is a text list!",
+        	"Much text."
+        ],
+        "colorTextList": [
+            {"text":"Even some special text!","color":"green"},
+            {"text":"This is a list of special text.","color":"blue"},
+            {"text":"Yes, this is even more special text.","color":"red"}
+        ],
+        "variableText": "Variable 1: %VAR%, variable 2: %VAR%, variable 3: %VAR%",
+        "variableColorText": {
+            "isRichText": true,
+            "text": {"text":"Variable 1: %VAR%, variable 2: %VAR%, variable 3: %VAR%","color":"red"}
+        },
+        "multiColorText": {
+            "isRichText": true,
+            "text": [{"text":"Some ","color":"green"},{"text":"colorful .","color":"blue"},{"text":"text.","color":"yellow"}]
+        },
+        "multiColorTextList": [
+            [{"text":"List ","color":"green"},{"text":"element .","color":"blue"},{"text":"1.","color":"yellow"}],
+            [{"text":"List ","color":"green"},{"text":"element .","color":"blue"},{"text":"2.","color":"yellow"}],
+            [{"text":"List ","color":"green"},{"text":"element .","color":"blue"},{"text":"3.","color":"yellow"}]
+        ]
+    }
+}
