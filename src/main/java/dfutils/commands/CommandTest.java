@@ -1,7 +1,6 @@
 package dfutils.commands;
 
-import dfutils.utils.MessageUtils;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import dfutils.utils.language.LanguageManager;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -35,7 +34,7 @@ public class CommandTest extends CommandBase implements IClientCommand {
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
         
-        try {
+        /*try {
             MessageUtils.infoMessage("Plot Name: " + PlayerStateHandler.plotName);
             MessageUtils.infoMessage("Plot Owner: " + PlayerStateHandler.plotOwner);
             MessageUtils.infoMessage("Plot ID: " + PlayerStateHandler.plotId);
@@ -48,6 +47,17 @@ public class CommandTest extends CommandBase implements IClientCommand {
             MessageUtils.infoMessage("Session Role: " + PlayerStateHandler.supportSessionRole.name());
         } catch (NullPointerException exception) {
         
-        }
+        }*/
+    
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.text"));
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.colorText"));
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.textList"));
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.colorTextList"));
+    
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.variableText", "String1", "String2"));
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.variableColorText", "String1", "String2"));
+    
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.multiColorText"));
+        minecraft.player.sendMessage(LanguageManager.getMessage("test.multiColorTextList"));
     }
 }
