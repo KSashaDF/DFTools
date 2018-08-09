@@ -11,9 +11,6 @@ import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
-
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class CommandHelp extends CommandBase implements IClientCommand {
@@ -37,7 +34,34 @@ public class CommandHelp extends CommandBase implements IClientCommand {
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
-        minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.75F, 2F);
+        String helpTitle = null;
+
+        if (commandArgs.length == 0) {
+            minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1F, 2F);
+            helpTitle = "§3§m          §3§l [§b DF Utilities§3§l ] §m          ";
+            String[] helpCommands = {
+                    "/dfutils codetools",
+                    "/dfutils items",
+                    "/dfutils shortcuts",
+                    "/dfutils credits"
+            };
+            String[] helpDescriptions = {
+                    "/dfutils codetools",
+                    "/dfutils items",
+                    "/dfutils shortcuts",
+                    "/dfutils credits"
+            };
+        } else {
+            minecraft.player.sendMessage(new TextComponentString("§4\u258E §cCategory \"§4" + commandArgs[0] + "§c\" not found."));
+            minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1F, 1F);
+        }
+
+        if (helpTitle != null)
+
+            minecraft.player.sendMessage(new TextComponentString(helpTitle + "\n"));
+
+
+        /*minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.75F, 2F);
 
         //Displays default help message.
         if (commandArgs.length == 0) {
@@ -70,7 +94,7 @@ public class CommandHelp extends CommandBase implements IClientCommand {
                 default:
                     errorMessage("Category \"" + commandArgs[0] + "\" not found.");
             }
-        }
+        } */
     }
 
     private void commandHelp(String[] commandArgs) {
