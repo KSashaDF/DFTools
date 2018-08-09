@@ -87,7 +87,7 @@ public class LanguageManager {
     
     
     private void loadLanguageFile(String languageName) {
-        try (InputStream inputStream = this.getClass().getResourceAsStream("/assets/dfutils/lang/" + languageName + ".lang")) {
+        try (InputStream inputStream = this.getClass().getResourceAsStream("/assets/dfutils/lang/" + languageName + ".json")) {
             languageData = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
             loadedLanguageName = languageName;
         } catch (IOException exception) {
