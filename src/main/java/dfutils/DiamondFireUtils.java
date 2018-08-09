@@ -1,16 +1,18 @@
 package dfutils;
 
 import dfutils.codehandler.utils.CodeBlockData;
+import dfutils.commands.CommandHelp;
+import dfutils.commands.CommandItem;
+import dfutils.commands.CommandTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandRejoin;
 import dfutils.commands.codetools.CommandTextItem;
 import dfutils.commands.codetools.CommandVarItem;
-import dfutils.commands.codetools.locations.CommandLocBase;
 import dfutils.commands.codetools.code.CommandCodeBase;
-import dfutils.commands.CommandHelp;
-import dfutils.commands.CommandTest;
+import dfutils.commands.codetools.locations.CommandLocBase;
 import dfutils.commands.internal.CommandClipboard;
 import dfutils.commands.itemcontrol.*;
+import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.candestroy.CommandCanDestroyBase;
 import dfutils.commands.itemcontrol.canplace.CommandCanPlaceBase;
 import dfutils.commands.itemcontrol.enchant.CommandClearEnch;
@@ -19,7 +21,6 @@ import dfutils.commands.itemcontrol.enchant.CommandEnchant;
 import dfutils.commands.itemcontrol.flags.CommandHideFlags;
 import dfutils.commands.itemcontrol.flags.CommandSetFlags;
 import dfutils.commands.itemcontrol.flags.CommandShowFlags;
-import dfutils.commands.itemcontrol.attributes.CommandAttributeBase;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
@@ -70,6 +71,8 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandEnchant());
         commandHandler.registerCommand(new CommandDisenchant());
         commandHandler.registerCommand(new CommandClearEnch());
+        // Item download/upload
+        commandHandler.registerCommand(new CommandItem());
 
         //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());
