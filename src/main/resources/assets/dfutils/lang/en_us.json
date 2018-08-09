@@ -29,5 +29,13 @@
             [{"text":"List ","color":"green"},{"text":"element .","color":"blue"},{"text":"2.","color":"yellow"}],
             [{"text":"List ","color":"green"},{"text":"element .","color":"blue"},{"text":"3.","color":"yellow"}]
         ]
+    },
+
+    "prefix": {
+        "info": "§3▎ §bINFO §3§l>> §b",
+        "action": "§5▎ §dACTION §5§l>> §d",
+        "warn": "§c▎ §6WARN §c§l>> §6",
+        "error": "§4▎ §cERROR §4§l>> §c",
+        "note": "§6▎§4§k::§c NOTE §4§k::§6> §c§o"
     }
 }
