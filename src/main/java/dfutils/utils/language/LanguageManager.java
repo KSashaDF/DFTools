@@ -13,6 +13,10 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * This class manages the loading of language files and
+ * also manages the getting of translation components.
+ */
 public class LanguageManager {
     
     private static String loadedLanguageName = "";
@@ -67,6 +71,10 @@ public class LanguageManager {
         }
     }
     
+    /**
+     * This method gets the specifies translation component,
+     * however this method also parses %VAR% variable codes.
+     */
     public static ITextComponent getMessage(String translationKey, @Nonnull String... variables) {
         ITextComponent translationTextComponent = getMessage(translationKey);
         String translationComponent;

@@ -1,6 +1,5 @@
 package dfutils.commands;
 
-import dfutils.utils.language.LanguageManager;
 import dfutils.utils.language.MessageHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
@@ -61,6 +60,8 @@ public class CommandTest extends CommandBase implements IClientCommand {
         minecraft.player.sendMessage(LanguageManager.getMessage("test.multiColorText"));
         minecraft.player.sendMessage(LanguageManager.getMessage("test.multiColorTextList"));*/
     
-        MessageHelper.infoMessage("test.text");
+        /*MessageHelper.errorMessage("test.text");
+        MessageHelper.infoMessage("test.multiColorText");
+        MessageHelper.infoMessage("test.multiColorTextList");*/
     }
 }
