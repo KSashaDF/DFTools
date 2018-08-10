@@ -29,11 +29,11 @@
   quick rename feature or the `/lore edit` command, and a `/sign swap <line 1> <line 2>` command, this command will swap
   the specified sign text lines.
 
-      **Summary:**
-      - `/sign copy`
-      - `/sign set <line> <text>`
-      - `/sign edit <line>`
-      - `/sign swap <line 1> <line 2>`
+    **Summary:**
+    - `/sign copy`
+    - `/sign set <line> <text>`
+    - `/sign edit <line>`
+    - `/sign swap <line 1> <line 2>`
 
 - Add the `/lock [text]` command, this command will add the locked NBT tag to the currently held item.
 - Add the `/setcolor <color code>` command, this command is used for setting the color of items like leather armor.
@@ -41,37 +41,37 @@
 
 - Add the `/messages` command, this command will open a GUI with some toggles for various messages inside DiamondFire.
 
-      	**Toggleable messages:**
-      	- Join and leave messages.
-      	- Support queue notifications. **Note that this toggle will only work inside sessions.**
-      	- Expert support session chat.
-      	- Plot CP messages.
+    **Toggleable messages:**
+    - Join and leave messages.
+    - Support queue notifications. **Note that this toggle will only work inside sessions.**
+    - Expert support session chat.
+    - Plot CP messages.
 
 - Change the location highlight color to most likely a green color. Also make it so if the highlighted location is
   outside the plot borders, the highlighted location's color becomes a red color.
 - Add a feature that allows you to shift + left click a code block, what this will do is if the code block has a
   location value inside it, the given location will be highlighted.
 
-      **Extra notes:**
-      - If there are multiple locations within the code block, all of them will be highlighted - except if multiple
-      locations are set to the same block. (this is so you do not get a highlighted block with an extreme opacity)
+    **Extra notes:**
+    - If there are multiple locations within the code block, all of them will be highlighted - except if multiple
+    locations are set to the same block. (this is so you do not get a highlighted block with an extreme opacity)
 
-      - When doing this, the code block will also be highlighted. Click the code block again to turn the highlighting off.
+    - When doing this, the code block will also be highlighted. Click the code block again to turn the highlighting off.
 
-      - If the selected code block is a setblock action, and if the setblock action has two locations inside it, the
-      area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000`
-      blocks the highlighting will turn orange.
+    - If the selected code block is a setblock action, and if the setblock action has two locations inside it, the
+    area between those two locations will be highlighted. **However**, if the selected area is larger than `5,000`
+    blocks the highlighting will turn orange.
 
-      - If the selected code block is an If Variable: Is Within Range code block, the region between the two specified
-      locations will be highlighted.
+    - If the selected code block is an If Variable: Is Within Range code block, the region between the two specified
+    locations will be highlighted.
 
-      - If the selected code block is a copyblocks action, the region that is being copied from will be a bluish color,
-      and the region being copied to will be the default green color. **And** if the selected region is larger than
-      `50,000` blocks the region being copied to will turn orange.
+    - If the selected code block is a copyblocks action, the region that is being copied from will be a bluish color,
+    and the region being copied to will be the default green color. **And** if the selected region is larger than
+    `50,000` blocks the region being copied to will turn orange.
 
-      **Note that this might not be easily possible to display with OpenGL and therefor might not be implemented.**
-      - If the selected code block has a range argument, a sphere will be drawn around the center location. **Note that
-      the default range argument should be taken into account if a range is not specified.**
+    **Note that this might not be easily possible to display with OpenGL and therefor might not be implemented.**
+    - If the selected code block has a range argument, a sphere will be drawn around the center location. **Note that
+    the default range argument should be taken into account if a range is not specified.**
 
 - Add keybinds for the selection stick, and the `/code copy` command. Also make them toggleable via the mod configuration.
 - Add a feature that makes it so that if a sign item has sign text NBT, the sign text is displayed within the lore
@@ -83,17 +83,17 @@
   default creative menu. In this menu you will be able to create new toolbar tabs and you will be able to easily set the
   items inside of these toolbar tabs.
 
-      **Controls:**
-      - Click the "Add Tab" tab icon to add another toolbar tab.
-      - When inside a toolbar tab, click the "Delete Tab" button to delete the toolbar tab.
-      - Set an item inside the toolbar tab icon slot to set the icon for that toolbar tab.
-      - Set the toolbar tab name by setting the name in the toolbar tab name text box.
-      - Open up the full player inventory by clicking the chest tab near the bottom of the toolbar menu.
+    **Controls:**
+    - Click the "Add Tab" tab icon to add another toolbar tab.
+    - When inside a toolbar tab, click the "Delete Tab" button to delete the toolbar tab.
+    - Set an item inside the toolbar tab icon slot to set the icon for that toolbar tab.
+    - Set the toolbar tab name by setting the name in the toolbar tab name text box.
+    - Open up the full player inventory by clicking the chest tab near the bottom of the toolbar menu.
 
-      - Add an item to a toolbar tab by clicking an empty slot with the item.
-      - Remove an item from a toolbar tab by shift + right clicking the item.
-      - Remove a row from a toolbar tab by clicking the remove row button to the left of the row.
-      - Insert a row in a toolbar tab by clicking the add row button to the left of the row.
+    - Add an item to a toolbar tab by clicking an empty slot with the item.
+    - Remove an item from a toolbar tab by shift + right clicking the item.
+    - Remove a row from a toolbar tab by clicking the remove row button to the left of the row.
+    - Insert a row in a toolbar tab by clicking the add row button to the left of the row.
 
 - Add a feature that improves code printing so that if there is not enough space on the current code line for the
   printed code, the printed code will roll over to the next line or codespace.
