@@ -5,7 +5,9 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.GuiScrollingList;
+import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 
@@ -19,14 +21,99 @@ public class MainExplorerGui extends GuiScreen {
     private final int SEARCH_TEXT_INPUT = 0;
     private boolean searchButtonSearching = false;
     private int searchButtonSearchingCount = 0;
+    String[] templateNames = {
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Rocket Jump",
+            "Simple W/E",
+            "Rocket Jump"
+    };
+    String[] templateAuthors = {
+            "Timeraa",
+            "K_Sasha",
+            "Timeraa",
+            "K_Sasha",
+            "Timeraa",
+            "Timeraa",
+            "K_Sasha",
+            "Timeraa",
+            "K_Sasha",
+            "Timeraa",
+            "Timeraa",
+            "K_Sasha",
+            "Timeraa",
+            "K_Sasha"
+    };
+    int centerX = (width / 2) - 256 / 2;
+    int centerY = (height / 2) - 256 / 2;
+    private boolean scrollingNeeded = false;
+    private boolean isScrolling = false;
+    private int currentScroll = 0;
 
 
     public MainExplorerGui() {
 
     }
 
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
+        if (scrollingNeeded) {
+            int i = Mouse.getEventDWheel();
+
+            i = MathHelper.clamp(i, -1, 1);
+            currentScroll += 25 / 4 * i;
+            currentScroll = MathHelper.clamp(currentScroll, -100, 0);
+        }
+    }
+
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+        if (isScrolling) isScrolling = false;
+        super.mouseReleased(mouseX, mouseY, state);
+    }
+
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if (mouseButton == 0) {
+            System.out.println(mouseX);
+            System.out.println(width / 2 + 60);
+            if (mouseX >= (width / 2) + 55 && mouseX <= (width / 2) + 60) {
+                if (mouseY >= Math.abs(currentScroll) + 75 && mouseY <= Math.abs(currentScroll) + 100) {
+                    isScrolling = true;
+                }
+            }
+        }
+
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (isScrolling) {
+            currentScroll = mouseY * -1 + 85;
+            currentScroll = MathHelper.clamp(currentScroll, -100, 0);
+            System.out.println(currentScroll);
+
+            /*if (currentScroll <= 35 * templateNames.length) {
+                if(currentScroll > -35/4*templateNames.length) {
+                    currentScroll = (mouseY)*-1 +85;
+                } else if(currentScroll >= 0 && mouseY == -35/4*templateNames.length) {
+                    currentScroll = (mouseY)*-1 +85;
+                }
+                System.out.println(mouseY);
+                System.out.println(currentScroll);
+            } */
+        }
+
+
         if(searchButtonSearching) {
             searchButton.enabled = false;
             searchField.setEnabled(false);
@@ -47,13 +134,33 @@ public class MainExplorerGui extends GuiScreen {
             searchField.setEnabled(true);
         }
 
-        int centerX = (width / 2) - 256 / 2;
-        int centerY = (height / 2) - 256 / 2;
-
         drawDefaultBackground();
-        drawString(fontRenderer, "Select Code Template", (width / 2) - fontRenderer.getStringWidth("Select Code Template") / 2, centerY + 15, 0xFFFFFF);
+        drawString(fontRenderer, "Select Code template", (width / 2) - fontRenderer.getStringWidth("Select Code Template") / 2, centerY + 15, 0xFFFFFF);
 
         searchField.drawTextBox();
+
+        int startX = (width / 2) - 100;
+
+        for (int i = 0; i < templateNames.length; i++) {
+            //TODO Fix wrong offset of titles if templateNames array increases in size
+            drawString(fontRenderer, templateNames[i], startX - 5, (currentScroll * templateNames.length) + 35 * i + 75, 0xFFFFFF);
+            if ((i * 35 + 75) + currentScroll >= 75 && i * 35 + 75 + currentScroll <= 200) {
+                System.out.println(currentScroll * templateNames.length);
+                drawString(fontRenderer, "By " + templateAuthors[i], startX - 5, (i * 35 + 85) + currentScroll, 0xAAAAAA);
+                if (i + 1 != templateNames.length)
+                    drawHorizontalLine(startX - 5, startX + 150, (i * 35 + 100) + currentScroll, 0xAAAAAAAA);
+            }
+        }
+
+        if (templateNames.length >= 5) {
+            scrollingNeeded = true;
+            drawRect(startX + 155, 75, startX + 160, 200, 0xCCCCCCFF);
+            drawRect(startX + 155, Math.abs(currentScroll) + 75, startX + 160, Math.abs(currentScroll) + 100, 0xFFFFFFFF);
+        } else {
+            scrollingNeeded = false;
+            currentScroll = 0;
+        }
+
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
