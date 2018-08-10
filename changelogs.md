@@ -3,9 +3,24 @@
 ## Developer builds
 
 <details>
+<summary>V1.1.4-DEVBUILD-4</summary>
+
+## Changelog &middot; 1.1.4-DEVBUILD-4
+
+Click [here]() to download.
+
+### What's new?
+
+### What changed?
+
+- Disabled `/item <upload|download|list>` until the release of the new website
+
+</details>
+
+<details>
 <summary>V1.1.4-DEVBUILD-3</summary>
 
-## Changelog &middot; 1.1.4-DEVBUILD-2
+## Changelog &middot; 1.1.4-DEVBUILD-3
 
 Click [here]() to download.
 
@@ -14,6 +29,7 @@ Click [here]() to download.
 - Added `/item <upload|download|list>`
 
 </details>
+
 <details>
 <summary>V1.1.4-DEVBUILD-2</summary>
 
@@ -24,7 +40,6 @@ Click [here]() to download.
 ### What's new?
 
 - Added Discord Rich Presence support
-- Added `/item <upload|download|list>`
 - Added Language files
 
 </details>

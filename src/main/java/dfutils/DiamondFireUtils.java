@@ -2,7 +2,6 @@ package dfutils;
 
 import dfutils.codehandler.utils.CodeBlockData;
 import dfutils.commands.CommandHelp;
-import dfutils.commands.itemcontrol.item.CommandItem;
 import dfutils.commands.CommandTest;
 import dfutils.commands.codetools.CommandNumberRange;
 import dfutils.commands.codetools.CommandRejoin;
@@ -21,11 +20,13 @@ import dfutils.commands.itemcontrol.enchant.CommandEnchant;
 import dfutils.commands.itemcontrol.flags.CommandHideFlags;
 import dfutils.commands.itemcontrol.flags.CommandSetFlags;
 import dfutils.commands.itemcontrol.flags.CommandShowFlags;
+import dfutils.commands.itemcontrol.item.CommandItem;
 import dfutils.commands.itemcontrol.lore.CommandLoreBase;
 import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
 import dfutils.config.ConfigHandler;
 import dfutils.eventhandler.*;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -39,9 +40,12 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         updateJSON = "https://raw.githubusercontent.com/MCDiamondFire/DiamondFireUtilities/master/changelog.json",
         guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
+    public static boolean devEnv = false;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        // Check if in developer Environment
+        devEnv = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
         registerCommands();
         registerEvents();
@@ -71,8 +75,6 @@ public class DiamondFireUtils {
         commandHandler.registerCommand(new CommandEnchant());
         commandHandler.registerCommand(new CommandDisenchant());
         commandHandler.registerCommand(new CommandClearEnch());
-        // Item download/upload
-        commandHandler.registerCommand(new CommandItem());
 
         //Code tools command initialization.
         commandHandler.registerCommand(new CommandCodeBase());
@@ -85,7 +87,12 @@ public class DiamondFireUtils {
 
         //Misc commands.
         commandHandler.registerCommand(new CommandHelp());
-        commandHandler.registerCommand(new CommandTest());
+
+        if (devEnv) {
+            commandHandler.registerCommand(new CommandTest());
+            // Item download/upload
+            commandHandler.registerCommand(new CommandItem());
+        }
 
         //Internal commands.
         commandHandler.registerCommand(new CommandClipboard());
