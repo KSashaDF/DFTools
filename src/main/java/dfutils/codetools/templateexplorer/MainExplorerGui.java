@@ -142,7 +142,7 @@ public class MainExplorerGui extends GuiScreen {
         searchField.drawTextBox();
 
         int startX = (width / 2) - 100;
-        int lerpedScroll = (int) MathUtils.lerp(currentScroll * -1, 0, 100, 0, templateNames.length * 35) * -1;
+        int lerpedScroll = (int) MathUtils.lerp(currentScroll, -100, 0, (templateNames.length * 35) * -1, 0);
 
         for (int i = 0; i < templateNames.length; i++) {
             int baseDrawY = i * 35;

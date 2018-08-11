@@ -68,9 +68,9 @@ public class MathUtils {
      */
     public static float lerp(float number, float oldRangeMin, float oldRangeMax, float newRangeMin, float newRangeMax) {
         
-        number = (number - oldRangeMin) / oldRangeMax;
+        number = (number - oldRangeMin) / (oldRangeMax - oldRangeMin);
         number = (newRangeMax - newRangeMin) * number;
         
-        return number;
+        return number + newRangeMin;
     }
 }
