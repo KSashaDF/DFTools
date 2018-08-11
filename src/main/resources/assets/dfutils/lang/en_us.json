@@ -90,5 +90,10 @@
         "warn": "§c▎ §6WARN §c§l❱§6❱ §e",
         "error": "§4▎ §cERROR §4§l❱§c❱ ",
         "note": "§6▎§4§k::§c NOTE §4§k::§6> §c§o"
+    },
+
+    "command": {
+        "commandCooldown": "§cPlease wait 1 second before your next command.",
+        "commandCooldownPlural": "§cPlease wait %VAR% seconds before your next command."
     }
 }

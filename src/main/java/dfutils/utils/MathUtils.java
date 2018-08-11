@@ -73,4 +73,12 @@ public class MathUtils {
         
         return number + newRangeMin;
     }
+    
+    public static int roundUpDivide(int number, int divisor) {
+        if (number % divisor != 0) {
+            number += divisor;
+        }
+        
+        return number / divisor;
+    }
 }

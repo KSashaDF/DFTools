@@ -6,8 +6,9 @@ import dfutils.commands.shortcuts.ShortcutPlotClear;
 import dfutils.commands.shortcuts.ShortcutSupportChat;
 import dfutils.commands.shortcuts.ShortcutVarpurge;
 import dfutils.config.ConfigHandler;
-import dfutils.utils.MessageUtils;
+import dfutils.utils.MathUtils;
 import dfutils.utils.MiscUtils;
+import dfutils.utils.language.MessageHelper;
 import dfutils.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommand;
@@ -39,7 +40,14 @@ public class ClientChatEvent {
     
             if (!(commandObject instanceof IClientCommand)) {
                 if (commandCooldown > minecraft.player.ticksExisted) {
-                    MessageUtils.warnMessage("Please wait for the command cooldown to finish before executing another command!");
+                    int secondsLeft = MathUtils.roundUpDivide(commandCooldown - minecraft.player.ticksExisted, 20);
+                    
+                    if (secondsLeft == 1) {
+                        MessageHelper.message("command.commandCooldown");
+                    } else {
+                        MessageHelper.message("command.commandCooldownPlural", Integer.toString(secondsLeft));
+                    }
+                    
                     minecraft.ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
                     event.setCanceled(true);
                     return;
