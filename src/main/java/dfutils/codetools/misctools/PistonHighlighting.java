@@ -1,11 +1,12 @@
 package dfutils.codetools.misctools;
 
+import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.BlockUtils;
 import dfutils.utils.ColorReference;
-import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -46,7 +47,8 @@ public class PistonHighlighting {
                         openingPistonPos = blockPos;
                         closingPistonPos = CodeBlockUtils.getOppositePiston(blockPos);
                     }
-            
+
+                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1f, 2f);
                 } else if (BlockUtils.getFacing(blockPos) == EnumFacing.NORTH) {
             
                     if (blockPos.equals(closingPistonPos)) {
@@ -58,7 +60,8 @@ public class PistonHighlighting {
                         closingPistonPos = blockPos;
                         openingPistonPos = CodeBlockUtils.getOppositePiston(blockPos);
                     }
-            
+
+                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1f, 2f);
                 }
             }
         }

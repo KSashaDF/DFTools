@@ -4,6 +4,7 @@ import dfutils.config.ConfigHandler;
 import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -56,6 +57,7 @@ public class QuickItemRename {
     
                 minecraft.displayGuiScreen(new GuiChat("/rename " + itemName));
             }
+            minecraft.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.5f, 1.5f);
         }
     }
 }
