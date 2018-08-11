@@ -15,8 +15,33 @@ public class PresenceHandler {
     private static boolean DiscordRPCSetup = false;
     private static boolean wasInSession = false;
 
+    private static PresenceState presenceState = PresenceState.NOTREADY;
 
+    /**
+     * Returns the current State
+     *
+     * @return PresenceState
+     */
+    public static PresenceState getState() {
+        if (!DISCORD_RPC_ENABLED) return PresenceState.DISABLED;
+        return presenceState;
+    }
 
+    /**
+     * Initializes Rich Presence.
+     */
+    public static void initPresence() {
+        String applicationId = "476455349780611072";
+        String steamId = "";
+        DiscordEventHandlers handlers = new DiscordEventHandlers();
+        handlers.ready = (user) -> presenceState = PresenceState.READY;
+        DiscordRPCSetup = true;
+        lib.Discord_Initialize(applicationId, handlers, true, steamId);
+    }
+
+    /**
+     * Updates the Rich Presence.
+     */
     public static void updatePresence() {
         if(DISCORD_RPC_ENABLED) {
             if(!DiscordRPCSetup) {
@@ -94,20 +119,14 @@ public class PresenceHandler {
         lib.Discord_UpdatePresence(presence);
     }
 
+    /**
+     * Destroys the Rich Presence Instance.
+     */
     public static void destroyPresence() {
         lib.Discord_Shutdown();
         lastTimestamp = 0;
         lastMode = null;
         DiscordRPCSetup = false;
         wasInSession = false;
-    }
-
-    private static void initPresence() {
-        String applicationId = "476455349780611072";
-        String steamId = "";
-        DiscordEventHandlers handlers = new DiscordEventHandlers();
-        handlers.ready = (user) -> System.out.println("Discord RPC Ready!");
-        lib.Discord_Initialize(applicationId, handlers, true, steamId);
-        DiscordRPCSetup = true;
     }
 }
