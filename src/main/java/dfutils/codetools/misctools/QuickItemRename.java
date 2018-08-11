@@ -44,7 +44,7 @@ public class QuickItemRename {
                 }
                 
                 minecraft.displayGuiScreen(new GuiChat(itemName));
-                
+                minecraft.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.5f, 1.5f);
             } else if (ConfigHandler.DO_QUICK_ITEM_RENAME) {
                 
                 //Gets the item's name and replaces all the color code symbols with &'s.
@@ -56,8 +56,8 @@ public class QuickItemRename {
                 }
     
                 minecraft.displayGuiScreen(new GuiChat("/rename " + itemName));
+                minecraft.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.5f, 1.5f);
             }
-            minecraft.player.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.5f, 1.5f);
         }
     }
 }

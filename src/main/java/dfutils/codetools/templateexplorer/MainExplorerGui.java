@@ -56,11 +56,29 @@ public class MainExplorerGui extends GuiScreen {
             "K_Sasha",
             "LAST"
     };
+    String[] templateVersion = {
+            "0.1.5",
+            "0.2",
+            "2.0",
+            "1.0",
+            "0.1",
+            "0.2",
+            "2.0",
+            "1.0",
+            "0.1",
+            "0.2",
+            "2.0",
+            "1.0",
+            "0.1",
+            "0.2",
+            "2.0"
+    };
     int centerX = (width / 2) - 256 / 2;
     int centerY = (height / 2) - 256 / 2;
     private boolean scrollingNeeded = false;
     private boolean isScrolling = false;
     private int currentScroll = 0;
+    int lerpedScroll = 0;
 
 
     public MainExplorerGui() {
@@ -73,7 +91,7 @@ public class MainExplorerGui extends GuiScreen {
             int i = Mouse.getEventDWheel();
 
             i = MathHelper.clamp(i, -1, 1);
-            currentScroll += 25 / 4 * i;
+            currentScroll += 2 * i;
             currentScroll = MathHelper.clamp(currentScroll, -100, 0);
         }
     }
@@ -85,10 +103,8 @@ public class MainExplorerGui extends GuiScreen {
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
-            System.out.println(mouseX);
-            System.out.println(width / 2 + 60);
             if (mouseX >= (width / 2) + 55 && mouseX <= (width / 2) + 60) {
-                if (mouseY >= Math.abs(currentScroll) + 75 && mouseY <= Math.abs(currentScroll) + 100) {
+                if (mouseY >= Math.abs(currentScroll) + (height / 2) - 55 && mouseY <= Math.abs(currentScroll - (height / 2) + 25)) {
                     isScrolling = true;
                 }
             }
@@ -100,19 +116,8 @@ public class MainExplorerGui extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (isScrolling) {
-            currentScroll = mouseY * -1 + 85;
+            currentScroll = mouseY * -1 + (height / 2) - 45;
             currentScroll = MathHelper.clamp(currentScroll, -100, 0);
-            System.out.println(currentScroll);
-
-            /*if (currentScroll <= 35 * templateNames.length) {
-                if(currentScroll > -35/4*templateNames.length) {
-                    currentScroll = (mouseY)*-1 +85;
-                } else if(currentScroll >= 0 && mouseY == -35/4*templateNames.length) {
-                    currentScroll = (mouseY)*-1 +85;
-                }
-                System.out.println(mouseY);
-                System.out.println(currentScroll);
-            } */
         }
 
 
@@ -142,25 +147,26 @@ public class MainExplorerGui extends GuiScreen {
         searchField.drawTextBox();
 
         int startX = (width / 2) - 100;
-        int lerpedScroll = (int) MathUtils.lerp(currentScroll * -1, 0, 100, 0, templateNames.length * 35) * -1;
+        lerpedScroll = (int) MathUtils.lerp(currentScroll * -1, 0, 100, 0, (templateNames.length - 4) * 35) * -1;
 
         for (int i = 0; i < templateNames.length; i++) {
             int baseDrawY = i * 35;
-            
-            //if (MathUtils.withinRange(baseDrawY + 75 + currentScroll, 75, 200)) {
-                drawString(fontRenderer, templateNames[i], startX - 5, baseDrawY + 75 + lerpedScroll, 0xFFFFFF); //Draws the template name.
-                drawString(fontRenderer, "By " + templateAuthors[i], startX - 5, baseDrawY + 85 + lerpedScroll, 0xAAAAAA); //Draws the template author.
-                
+
+            if (MathUtils.withinRange(baseDrawY + 75 + lerpedScroll, 75, 200)) {
+                drawString(fontRenderer, templateNames[i], startX - 5, baseDrawY + (height / 2) - 55 + lerpedScroll, 0xFFFFFF); //Draws the template name.
+                drawString(fontRenderer, "By " + templateAuthors[i], startX - 5, baseDrawY + (height / 2) - 45 + lerpedScroll, 0xAAAAAA); //Draws the template author.
+                drawString(fontRenderer, "V" + templateVersion[i], startX + 150 - fontRenderer.getStringWidth("V" + templateVersion[i]), baseDrawY + (height / 2) - 45 + lerpedScroll, 0xAAAAAA); //Draws the template version.
+
                 //If this is not the last element, draw a horizontal divider line.
                 if (i + 1 != templateNames.length)
-                    drawHorizontalLine(startX - 5, startX + 150, baseDrawY + 100 + lerpedScroll, 0xAAAAAAAA);
-            //}
+                    drawHorizontalLine(startX - 5, startX + 150, baseDrawY + (height / 2) - 30 + lerpedScroll, 0xAAAAAAAA);
+            }
         }
 
         if (templateNames.length >= 5) {
             scrollingNeeded = true;
-            drawRect(startX + 155, 75, startX + 160, 200, 0xCCCCCCFF);
-            drawRect(startX + 155, Math.abs(currentScroll) + 75, startX + 160, Math.abs(currentScroll) + 100, 0xFFFFFFFF);
+            drawRect(startX + 155, (height / 2) - 55, startX + 160, (height / 2) + 70, 0xCCCCCCFF);
+            drawRect(startX + 155, Math.abs(currentScroll) + (height / 2) - 55, startX + 160, Math.abs(currentScroll) + (height / 2) - 30, 0xFFFFFFFF);
         } else {
             scrollingNeeded = false;
             currentScroll = 0;
