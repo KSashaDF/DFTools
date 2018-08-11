@@ -54,10 +54,14 @@ public class ListItems implements Runnable {
                     } else if (CommandItem.page == 3) {
                         itemCount = itemCount + (16 * CommandItem.page);
                     }
-                    
-                    TextComponentString name = new TextComponentString("§b❱§3❱ §e§l" + itemCount + "§b: §r" + uploadedItemNames.get(i));
+
+                    TextComponentString name = new TextComponentString(itemCount + "§b: §r" + uploadedItemNames.get(i));
                     name.setStyle(messageStyle);
-                    minecraft.player.sendMessage(name);
+                    TextComponentString itemComponent = new TextComponentString("§cx");
+                    messageStyle = new Style();
+                    messageStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§c§oClick to delete.")));
+                    itemComponent.setStyle(messageStyle);
+                    minecraft.player.sendMessage(new TextComponentString("§b❱§3❱ §e§l").appendSibling(new TextComponentString("§b[").appendSibling(itemComponent.appendSibling(new TextComponentString("§b] ").appendSibling(name)))));
                 }
                 
                 minecraft.player.sendMessage(new TextComponentString(""));

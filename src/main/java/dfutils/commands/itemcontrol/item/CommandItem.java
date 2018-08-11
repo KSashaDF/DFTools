@@ -1,13 +1,15 @@
 package dfutils.commands.itemcontrol.item;
 
-import dfutils.utils.MessageUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -44,10 +46,20 @@ public class CommandItem extends CommandBase implements IClientCommand {
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
         if (minecraft.player.isCreative()) {
             if (commandArgs.length == 0) {
+                String[] commands = {
+                        "upload",
+                        "download",
+                        "list"
+                };
                 minecraft.player.sendMessage(new TextComponentString("§e§m          §6 [ §eItem §6] §e§m          \n"));
-                minecraft.player.sendMessage(new TextComponentString("§e❱§6❱ §e/item upload"));
-                minecraft.player.sendMessage(new TextComponentString("§e❱§6❱ §e/item download"));
-                minecraft.player.sendMessage(new TextComponentString("§e❱§6❱ §e/item list"));
+                for (String command : commands) {
+                    TextComponentString textComponent = new TextComponentString("§e/item " + command);
+                    Style textStyle = new Style();
+                    textStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§a§oClick to run.")));
+                    textStyle.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/item " + command));
+                    textComponent.setStyle(textStyle);
+                    minecraft.player.sendMessage(new TextComponentString("§e❱§6❱ ").appendSibling(textComponent));
+                }
                 minecraft.player.sendMessage(new TextComponentString(""));
                 minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1f, 0f);
                 
@@ -59,7 +71,8 @@ public class CommandItem extends CommandBase implements IClientCommand {
                 handleListItems(commandArgs);
             }
         } else {
-            MessageUtils.errorMessage("This command can only be used in Gamemode Creative!");
+            minecraft.player.sendMessage(new TextComponentString("§c❱§4❱ §cYou need to be in Gamemode Creative to use this command."));
+            minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
         }
     }
 
