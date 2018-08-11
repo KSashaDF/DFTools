@@ -62,4 +62,15 @@ public class MathUtils {
     public static boolean isOdd(int number) {
         return number % 2 == 1;
     }
+    
+    /**
+     * Also known as linearInterpolate, or linear interpolation.
+     */
+    public static float lerp(float number, float oldRangeMin, float oldRangeMax, float newRangeMin, float newRangeMax) {
+        
+        number = (number - oldRangeMin) / oldRangeMax;
+        number = (newRangeMax - newRangeMin) * number;
+        
+        return number;
+    }
 }

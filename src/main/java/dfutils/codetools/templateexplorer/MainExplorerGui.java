@@ -1,5 +1,6 @@
 package dfutils.codetools.templateexplorer;
 
+import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -22,7 +23,7 @@ public class MainExplorerGui extends GuiScreen {
     private boolean searchButtonSearching = false;
     private int searchButtonSearchingCount = 0;
     String[] templateNames = {
-            "Simple W/E",
+            "FIRST",
             "Rocket Jump",
             "Simple W/E",
             "Rocket Jump",
@@ -36,10 +37,10 @@ public class MainExplorerGui extends GuiScreen {
             "Simple W/E",
             "Rocket Jump",
             "Simple W/E",
-            "Rocket Jump"
+            "LAST"
     };
     String[] templateAuthors = {
-            "Timeraa",
+            "FIRST",
             "K_Sasha",
             "Timeraa",
             "K_Sasha",
@@ -52,7 +53,8 @@ public class MainExplorerGui extends GuiScreen {
             "Timeraa",
             "K_Sasha",
             "Timeraa",
-            "K_Sasha"
+            "K_Sasha",
+            "LAST"
     };
     int centerX = (width / 2) - 256 / 2;
     int centerY = (height / 2) - 256 / 2;
@@ -140,16 +142,19 @@ public class MainExplorerGui extends GuiScreen {
         searchField.drawTextBox();
 
         int startX = (width / 2) - 100;
+        int lerpedScroll = (int) MathUtils.lerp(currentScroll * -1, 0, 100, 0, templateNames.length * 35) * -1;
 
         for (int i = 0; i < templateNames.length; i++) {
-            //TODO Fix wrong offset of titles if templateNames array increases in size
-            drawString(fontRenderer, templateNames[i], startX - 5, (currentScroll * templateNames.length) + 35 * i + 75, 0xFFFFFF);
-            if ((i * 35 + 75) + currentScroll >= 75 && i * 35 + 75 + currentScroll <= 200) {
-                System.out.println(currentScroll * templateNames.length);
-                drawString(fontRenderer, "By " + templateAuthors[i], startX - 5, (i * 35 + 85) + currentScroll, 0xAAAAAA);
+            int baseDrawY = i * 35;
+            
+            //if (MathUtils.withinRange(baseDrawY + 75 + currentScroll, 75, 200)) {
+                drawString(fontRenderer, templateNames[i], startX - 5, baseDrawY + 75 + lerpedScroll, 0xFFFFFF); //Draws the template name.
+                drawString(fontRenderer, "By " + templateAuthors[i], startX - 5, baseDrawY + 85 + lerpedScroll, 0xAAAAAA); //Draws the template author.
+                
+                //If this is not the last element, draw a horizontal divider line.
                 if (i + 1 != templateNames.length)
-                    drawHorizontalLine(startX - 5, startX + 150, (i * 35 + 100) + currentScroll, 0xAAAAAAAA);
-            }
+                    drawHorizontalLine(startX - 5, startX + 150, baseDrawY + 100 + lerpedScroll, 0xAAAAAAAA);
+            //}
         }
 
         if (templateNames.length >= 5) {
