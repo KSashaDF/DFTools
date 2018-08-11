@@ -48,7 +48,7 @@ public class PistonHighlighting {
                         closingPistonPos = CodeBlockUtils.getOppositePiston(blockPos);
                     }
 
-                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1f, 2f);
+                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 0.3f, 1.0f);
                 } else if (BlockUtils.getFacing(blockPos) == EnumFacing.NORTH) {
             
                     if (blockPos.equals(closingPistonPos)) {
@@ -60,8 +60,8 @@ public class PistonHighlighting {
                         closingPistonPos = blockPos;
                         openingPistonPos = CodeBlockUtils.getOppositePiston(blockPos);
                     }
-
-                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1f, 2f);
+    
+                    minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 0.3f, 1.0f);
                 }
             }
         }

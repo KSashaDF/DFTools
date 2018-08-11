@@ -7,7 +7,6 @@ import dfutils.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
