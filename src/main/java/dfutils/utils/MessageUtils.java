@@ -13,6 +13,7 @@ public class MessageUtils {
     private static final String ERROR_PREFIX = "§c❱§4❱ §c";
     private static final String ACTION_PREFIX = "§d❱§5❱ §d";
     private static final String NOTE_PREFIX = "§6❱§b❱ §e";
+    private static final String SUCCESS_PREFIX = "§a❱§2❱ §a";
 
     public static void infoMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(INFO_PREFIX + message));
@@ -30,6 +31,15 @@ public class MessageUtils {
     public static void errorMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(ERROR_PREFIX + message));
         minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
+    }
+
+    public static void successMessage(String message) {
+        minecraft.player.sendMessage(new TextComponentString(SUCCESS_PREFIX + message));
+    }
+
+    public static void successMessage(String message, boolean playSound) {
+        minecraft.player.sendMessage(new TextComponentString(SUCCESS_PREFIX + message));
+        if (playSound) minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.75f, -2f);
     }
     
     public static void actionMessage(String message) {
