@@ -7,7 +7,7 @@ import dfutils.commands.shortcuts.ShortcutSupportChat;
 import dfutils.commands.shortcuts.ShortcutVarpurge;
 import dfutils.config.ConfigHandler;
 import dfutils.utils.MathUtils;
-import dfutils.utils.MiscUtils;
+import dfutils.utils.TextUtils;
 import dfutils.utils.language.MessageHelper;
 import dfutils.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
@@ -35,7 +35,7 @@ public class ClientChatEvent {
         }
         
         if (event.getMessage().startsWith("/") && PlayerStateHandler.isOnDiamondFire) {
-            String commandName = MiscUtils.splitString(event.getMessage())[0].replace("/", "");
+            String commandName = TextUtils.splitString(event.getMessage())[0].replace("/", "");
             ICommand commandObject = ClientCommandHandler.instance.getCommands().get(commandName);
     
             if (!(commandObject instanceof IClientCommand)) {

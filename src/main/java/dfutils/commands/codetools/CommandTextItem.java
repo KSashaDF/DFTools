@@ -1,8 +1,8 @@
 package dfutils.commands.codetools;
 
 import dfutils.codetools.CodeItems;
-import dfutils.commands.CommandUtils;
 import dfutils.utils.ItemUtils;
+import dfutils.utils.TextUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -51,6 +51,6 @@ public class CommandTextItem extends CommandBase implements IClientCommand {
         }
 
         //Sends item to the server.
-        ItemUtils.setItemInHotbar(CodeItems.getTextBook(CommandUtils.parseColorCodes(CommandBase.buildString(commandArgs, 0)), 1), false);
+        ItemUtils.setItemInHotbar(CodeItems.getTextBook(TextUtils.parseColorCodes(CommandBase.buildString(commandArgs, 0)), 1), false);
     }
 }

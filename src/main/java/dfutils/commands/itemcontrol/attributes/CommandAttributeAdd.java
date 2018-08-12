@@ -1,6 +1,6 @@
 package dfutils.commands.itemcontrol.attributes;
 
-import dfutils.commands.CommandUtils;
+import dfutils.utils.TextUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -43,7 +43,7 @@ class CommandAttributeAdd {
             //Applies attribute to item.
             if (commandArgs.length == 5) {
                 itemStack.addAttributeModifier(commandArgs[1],
-                        new AttributeModifier(commandArgs[1], CommandBase.parseDouble(commandArgs[2]), attributeOperation), CommandUtils.parseSlotText(commandArgs[4]));
+                        new AttributeModifier(commandArgs[1], CommandBase.parseDouble(commandArgs[2]), attributeOperation), TextUtils.parseSlotText(commandArgs[4]));
             } else {
                 itemStack.addAttributeModifier(commandArgs[1],
                         new AttributeModifier(commandArgs[1], CommandBase.parseDouble(commandArgs[2]), attributeOperation), null);
@@ -75,7 +75,7 @@ class CommandAttributeAdd {
             }
             
             if (commandArgs.length == 5) {
-                if (CommandUtils.parseSlotText(commandArgs[4]) == null) {
+                if (TextUtils.parseSlotText(commandArgs[4]) == null) {
                     errorMessage("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
                     return false;
                 }

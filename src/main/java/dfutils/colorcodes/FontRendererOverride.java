@@ -41,7 +41,9 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     private int colorCodeCount = 0;
     
     private int baseAlpha;
+    private int baseTextColor;
     
+    private boolean doColorBlending = false;
     private boolean doPreviewColor = false;
     
     private boolean randomStyle;
@@ -130,6 +132,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
         super.enableAlpha();
         resetStyles();
+        doColorBlending = false;
         int textXPos;
         
         if (dropShadow) {
@@ -155,9 +158,12 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         }
     }
     
-    /**
-     * Reset all style flag fields in the class to false; called at the start of string rendering
-     */
+    private void drawNewString() {
+        doColorBlending = false;
+        resetStyles();
+        resetColor();
+    }
+    
     private void resetStyles() {
         this.randomStyle = false;
         this.boldStyle = false;
@@ -193,6 +199,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     private void renderStringAtPos(String text, boolean textShadow) {
         
         boolean resetTextColor = true;
+        boolean ignoreColorCodes = false;
         
         for (int stringIndex = 0; stringIndex < text.length(); stringIndex++) {
             char stringChar = text.charAt(stringIndex);
@@ -200,66 +207,104 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
             //If the character is a color character and it is not the end of the text String,
             //set the text color.
             if (stringChar == 167 && stringIndex + 1 < text.length()) {
-                
-                int colorCodeId = "0123456789abcdefklmnor".indexOf(String.valueOf(text.charAt(stringIndex + 1)).toLowerCase(Locale.ROOT).charAt(0));
-                
-                if (colorCodeId < 16) {
-                    if (resetTextColor) {
-                        resetTextColor = false;
-                        resetColor();
+                if (!ignoreColorCodes) {
+    
+                    char colorCodeChar = String.valueOf(text.charAt(stringIndex + 1)).toLowerCase(Locale.ROOT).charAt(0);
+                    int colorCodeId = "0123456789abcdefklmnor".indexOf(colorCodeChar);
+    
+                    //Color code: &*
+                    if (colorCodeChar == '*') {
+                        //Toggles color code blending.
+                        doColorBlending = !doColorBlending;
+                        colorCodeId = -1;
                     }
-                    
-                    this.randomStyle = false;
-                    this.boldStyle = false;
-                    this.strikethroughStyle = false;
-                    this.underlineStyle = false;
-                    this.italicStyle = false;
-                    
-                    if (colorCodeId < 0) {
-                        colorCodeId = 15;
+    
+                    //Color code: &v
+                    if (colorCodeChar == 'v') {
+                        ignoreColorCodes = true;
+                        colorCodeId = -1;
                     }
-                    
-                    if (textShadow) {
-                        colorCodeId += 16;
+    
+                    if (colorCodeId != -1) {
+                        if (colorCodeId < 16) {
+                            if (resetTextColor) {
+                                resetTextColor = false;
+                                resetColor();
+                            }
+        
+                            this.randomStyle = false;
+                            this.boldStyle = false;
+                            this.strikethroughStyle = false;
+                            this.underlineStyle = false;
+                            this.italicStyle = false;
+        
+                            if (colorCodeId < 0) {
+                                colorCodeId = 15;
+                            }
+        
+                            if (textShadow) {
+                                colorCodeId += 16;
+                            }
+        
+                            int colorCodeColor = this.colorCode[colorCodeId];
+        
+                            //If color blending is not on, reset the text color.
+                            if (!doColorBlending) {
+                                resetColor();
+                            }
+        
+                            addColor(colorCodeColor >> 16, colorCodeColor >> 8 & 255, colorCodeColor & 255);
+                            updateColor();
+        
+                        } else {
+                            resetTextColor = true;
+        
+                            //Color Code: &k
+                            if (colorCodeId == 16) {
+                                this.randomStyle = true;
+            
+                                //Color Code: &l
+                            } else if (colorCodeId == 17) {
+                                this.boldStyle = true;
+            
+                                //Color Code: &m
+                            } else if (colorCodeId == 18) {
+                                this.strikethroughStyle = true;
+            
+                                //Color Code: &n
+                            } else if (colorCodeId == 19) {
+                                this.underlineStyle = true;
+            
+                                //Color Code: &o
+                            } else if (colorCodeId == 20) {
+                                this.italicStyle = true;
+            
+                                //Color Code: &r
+                            } else if (colorCodeId == 21) {
+                                this.randomStyle = false;
+                                this.boldStyle = false;
+                                this.strikethroughStyle = false;
+                                this.underlineStyle = false;
+                                this.italicStyle = false;
+                                
+                                resetColor();
+                                colorCodeCount = 1;
+                                totalRColor = baseTextColor >> 16 & 255;
+                                totalGColor = baseTextColor & 255;
+                                totalBColor = baseTextColor >> 8 & 255;
+                                alphaColor = 100;
+                                
+                                updateColor();
+                            }
+                        }
                     }
-                    
-                    int colorCodeColor = this.colorCode[colorCodeId];
-                    addColor(colorCodeColor >> 16, colorCodeColor >> 8 & 255, colorCodeColor & 255);
-                    updateColor();
-    
-                    //Color Code: &k
-                } else if (colorCodeId == 16) {
-                    this.randomStyle = true;
-    
-                    //Color Code: &l
-                } else if (colorCodeId == 17) {
-                    this.boldStyle = true;
-    
-                    //Color Code: &m
-                } else if (colorCodeId == 18) {
-                    this.strikethroughStyle = true;
-    
-                    //Color Code: &n
-                } else if (colorCodeId == 19) {
-                    this.underlineStyle = true;
-    
-                    //Color Code: &o
-                } else if (colorCodeId == 20) {
-                    this.italicStyle = true;
-                    
-                    //Color Code: &r
-                } else {
-                    this.randomStyle = false;
-                    this.boldStyle = false;
-                    this.strikethroughStyle = false;
-                    this.underlineStyle = false;
-                    this.italicStyle = false;
-                    updateColor();
                 }
                 
                 stringIndex++;
             } else {
                 resetTextColor = true;
+                ignoreColorCodes = false;
+                
                 int stringCharIndex = "\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".indexOf(stringChar);
                 
                 if (this.randomStyle && stringCharIndex != -1) {
@@ -383,9 +428,10 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         totalRColor = color >> 16 & 255;
         totalGColor = color & 255;
         totalBColor = color >> 8 & 255;
+        alphaColor = 100;
     
         baseAlpha = color >> 24 & 255;
-        alphaColor = 100;
+        baseTextColor = color;
     
         updateColor();
         super.posX = x;
@@ -410,7 +456,6 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
      */
     @Override
     public void drawSplitString(String text, int textX, int textY, int wrapWidth, int color) {
-        resetStyles();
         text = trimStringNewline(text);
         renderSplitString(text, textX, textY, wrapWidth, color);
     }
@@ -420,6 +465,8 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
      * set
      */
     private void renderSplitString(String text, int textX, int textY, int wrapWidth, int color) {
+        drawNewString();
+        
         for (String textLine : super.listFormattedStringToWidth(text, wrapWidth)) {
             renderStringAligned(textLine, textX, textY, wrapWidth, color);
             textY += super.FONT_HEIGHT;

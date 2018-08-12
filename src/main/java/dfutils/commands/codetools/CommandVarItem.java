@@ -1,8 +1,8 @@
 package dfutils.commands.codetools;
 
 import dfutils.codetools.CodeItems;
-import dfutils.commands.CommandUtils;
 import dfutils.utils.ItemUtils;
+import dfutils.utils.TextUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -53,9 +53,9 @@ public class CommandVarItem extends CommandBase implements IClientCommand {
         String variableName = CommandBase.buildString(commandArgs, 0);
         if (variableName.endsWith(" -s")) {
             variableName = variableName.substring(0, variableName.length() - 3);
-            ItemUtils.setItemInHotbar(CodeItems.getVarItem(CommandUtils.parseColorCodes(variableName), 1, true), false);
+            ItemUtils.setItemInHotbar(CodeItems.getVarItem(TextUtils.parseColorCodes(variableName), 1, true), false);
         } else {
-            ItemUtils.setItemInHotbar(CodeItems.getVarItem(CommandUtils.parseColorCodes(variableName), 1, false), false);
+            ItemUtils.setItemInHotbar(CodeItems.getVarItem(TextUtils.parseColorCodes(variableName), 1, false), false);
         }
     }
 }

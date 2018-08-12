@@ -1,6 +1,6 @@
 package dfutils.commands.itemcontrol.rename;
 
-import dfutils.commands.CommandUtils;
+import dfutils.utils.TextUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -52,7 +52,7 @@ public class CommandRename extends CommandBase implements IClientCommand {
         }
         
         commandArgs[0] = CommandBase.buildString(commandArgs, 0);
-        commandArgs[0] = CommandUtils.parseColorCodes(commandArgs[0]);
+        commandArgs[0] = TextUtils.parseColorCodes(commandArgs[0]);
         ItemStack itemStack = minecraft.player.getHeldItemMainhand();
         
         //Checks if item is not air.

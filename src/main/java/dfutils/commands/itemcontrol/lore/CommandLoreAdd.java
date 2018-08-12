@@ -1,6 +1,6 @@
 package dfutils.commands.itemcontrol.lore;
 
-import dfutils.commands.CommandUtils;
+import dfutils.utils.TextUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -48,7 +48,7 @@ class CommandLoreAdd {
             nbtTag.setTag("Lore", new NBTTagList());
         }
     
-        commandArgs[1] = CommandUtils.parseColorCodes(commandArgs[1]);
+        commandArgs[1] = TextUtils.parseColorCodes(commandArgs[1]);
         
         //Adds lore tag to item.
         nbtTag.getTagList("Lore", 8).appendTag(new NBTTagString(commandArgs[1]));

@@ -1,6 +1,6 @@
 package dfutils.commands.itemcontrol.lore;
 
-import dfutils.commands.CommandUtils;
+import dfutils.utils.TextUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -78,7 +78,7 @@ class CommandLoreInsert {
             loreList.set(i, loreList.get(i - 1));
         }
         
-        commandArgs[2] = CommandUtils.parseColorCodes(commandArgs[2]);
+        commandArgs[2] = TextUtils.parseColorCodes(commandArgs[2]);
         
         //Sets lore at specified line.
         loreList.set(lineNumber - 1, new NBTTagString(commandArgs[2]));

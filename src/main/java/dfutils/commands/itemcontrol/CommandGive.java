@@ -1,7 +1,7 @@
 package dfutils.commands.itemcontrol;
 
-import dfutils.commands.CommandUtils;
 import dfutils.utils.ItemUtils;
+import dfutils.utils.TextUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -74,7 +74,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
         if (commandArgs.length >= 4) {
             try {
                 String itemNbtString = buildString(commandArgs, 3);
-                itemNbtString = CommandUtils.parseColorCodes(itemNbtString);
+                itemNbtString = TextUtils.parseColorCodes(itemNbtString);
     
                 itemNbt = JsonToNBT.getTagFromJson(itemNbtString);
             } catch (NBTException exception) {

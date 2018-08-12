@@ -1,13 +1,12 @@
 package dfutils.utils.playerdata;
 
-import dfutils.commands.CommandUtils;
 import dfutils.config.ConfigHandler;
 import dfutils.customevents.ClickItemEvent;
 import dfutils.customevents.DiamondFireEvent;
 import dfutils.utils.BlockUtils;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
-import dfutils.utils.MiscUtils;
+import dfutils.utils.TextUtils;
 import dfutils.utils.rpc.PresenceHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -82,11 +81,11 @@ public class PlayerStateHandler {
         }
         
         if (messageRawText.startsWith("Joined game: ")) {
-            String[] messageWords = MiscUtils.splitString(messageRawText);
+            String[] messageWords = TextUtils.splitString(messageRawText);
             
             if (messageWords.length >= 5 && messageWords[messageWords.length - 2].equals("by")) {
                 DiamondFireEvent.JoinPlotEvent joinPlotEvent = new
-                        DiamondFireEvent.JoinPlotEvent(nextPlotJoinId, MiscUtils.buildString(messageWords, 2, messageWords.length - 3), messageWords[messageWords.length - 1], PlayerMode.PLAY);
+                        DiamondFireEvent.JoinPlotEvent(nextPlotJoinId, TextUtils.buildString(messageWords, 2, messageWords.length - 3), messageWords[messageWords.length - 1], PlayerMode.PLAY);
                 
                 diamondFireEventHandler(joinPlotEvent);
             }
@@ -94,13 +93,13 @@ public class PlayerStateHandler {
         
         
         if (messageRawText.startsWith("You have entered a support session with player ")) {
-            String[] messageWords = MiscUtils.splitString(messageRawText);
+            String[] messageWords = TextUtils.splitString(messageRawText);
             nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTER);
             waitForCreative = true;
         }
         
         if (messageRawText.startsWith("You have entered a support session! Your helper is ")) {
-            String[] messageWords = MiscUtils.splitString(messageRawText);
+            String[] messageWords = TextUtils.splitString(messageRawText);
             nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTEE);
             waitForCreative = true;
         }
@@ -131,7 +130,7 @@ public class PlayerStateHandler {
         
         if (messageText.startsWith("/join ") && playerMode == PlayerMode.SPAWN) {
             try {
-                nextPlotJoinId = CommandBase.parseInt(MiscUtils.splitString(messageText)[1]);
+                nextPlotJoinId = CommandBase.parseInt(TextUtils.splitString(messageText)[1]);
             } catch (NumberInvalidException exception) {
                 //Invalid number argument! Continue on, the server will output the error message.
             }
@@ -145,7 +144,7 @@ public class PlayerStateHandler {
             if (event.clickedItem.hasTagCompound() && event.clickedItem.getTagCompound().hasKey("HideFlags") && event.clickedItem.getTagCompound().getInteger("HideFlags") == 35) {
     
                 //Gets the name of the plot, also removes all color codes from the item name.
-                nextPlotJoinName = CommandUtils.clearColorCodes(event.clickedItem.getDisplayName());
+                nextPlotJoinName = TextUtils.clearColorCodes(event.clickedItem.getDisplayName());
                 
                 NBTTagList itemLore = event.clickedItem.getOrCreateSubCompound("display").getTagList("Lore", 8);
                 
