@@ -1,12 +1,10 @@
 package dfutils.commands;
 
-import dfutils.utils.playerdata.PlayerStateHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -35,7 +33,7 @@ public class CommandTest extends CommandBase implements IClientCommand {
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
 
-        try {
+        /* try {
             minecraft.player.sendMessage(new TextComponentString("Plot Name: " + PlayerStateHandler.plotName));
             minecraft.player.sendMessage(new TextComponentString("Plot Owner: " + PlayerStateHandler.plotOwner));
             minecraft.player.sendMessage(new TextComponentString("Plot ID: " + PlayerStateHandler.plotId));
@@ -48,7 +46,7 @@ public class CommandTest extends CommandBase implements IClientCommand {
             minecraft.player.sendMessage(new TextComponentString("Session Role: " + PlayerStateHandler.supportSessionRole.name()));
         } catch (NullPointerException exception) {
 
-        }
+        } */
     
         /*minecraft.player.sendMessage(LanguageManager.getMessage("test.text"));
         minecraft.player.sendMessage(LanguageManager.getMessage("test.variableText", "String1", "String2"));
