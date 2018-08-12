@@ -8,14 +8,19 @@ public class MessageUtils {
     
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
-    private static final String INFO_PREFIX = "§3\u258E §bINFO §3§l❱§b❱ ";
-    private static final String WARN_PREFIX = "§c\u258E §6WARN §c§l❱§6❱ §e";
-    private static final String ERROR_PREFIX = "§4\u258E §cERROR §4§l❱§c❱ ";
-    private static final String ACTION_PREFIX = "§5\u258E §dACTION §5§l❱§d❱ ";
-    private static final String NOTE_PREFIX = "§6\u258E§4§k::§c NOTE §4§k::§6> §c§o";
+    private static final String INFO_PREFIX = "§b❱§3❱ §b";
+    private static final String WARN_PREFIX = "§6❱§c❱ §e";
+    private static final String ERROR_PREFIX = "§c❱§4❱ §c";
+    private static final String ACTION_PREFIX = "§d❱§5❱ §d";
+    private static final String NOTE_PREFIX = "§6❱§b❱ §e";
 
     public static void infoMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(INFO_PREFIX + message));
+    }
+
+    public static void infoMessage(String message, boolean playSound) {
+        minecraft.player.sendMessage(new TextComponentString(INFO_PREFIX + message));
+        if (playSound) minecraft.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1f, 0f);
     }
     
     public static void warnMessage(String message) {
@@ -24,7 +29,7 @@ public class MessageUtils {
     
     public static void errorMessage(String message) {
         minecraft.player.sendMessage(new TextComponentString(ERROR_PREFIX + message));
-        minecraft.player.playSound(SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND, 1, 15);
+        minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1f, 1f);
     }
     
     public static void actionMessage(String message) {
