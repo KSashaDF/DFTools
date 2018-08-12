@@ -1,9 +1,13 @@
 package dfutils.utils.playerdata;
 
 import dfutils.commands.CommandUtils;
+import dfutils.config.ConfigHandler;
 import dfutils.customevents.ClickItemEvent;
 import dfutils.customevents.DiamondFireEvent;
-import dfutils.utils.*;
+import dfutils.utils.BlockUtils;
+import dfutils.utils.ItemUtils;
+import dfutils.utils.MathUtils;
+import dfutils.utils.MiscUtils;
 import dfutils.utils.rpc.PresenceHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -14,6 +18,8 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+
+import static dfutils.config.ConfigHandler.SUPPORT_END_AUTOMATIC_LEAVE;
 
 public class PlayerStateHandler {
 
@@ -45,6 +51,8 @@ public class PlayerStateHandler {
     public static boolean isInSupportSession = false;
     public static String supportPartner;
     public static SupportSessionRole supportSessionRole;
+
+    private static String supportMessage;
 
     public static void playerStateHandlerJoinEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         isOnDiamondFire = true;
@@ -203,49 +211,78 @@ public class PlayerStateHandler {
             }
         }
     }
-    
+
     private static void diamondFireEventHandler(DiamondFireEvent event) {
         if (event instanceof DiamondFireEvent.JoinPlotEvent) {
             plotId = ((DiamondFireEvent.JoinPlotEvent) event).plotId;
             plotName = ((DiamondFireEvent.JoinPlotEvent) event).plotName;
             plotOwner = ((DiamondFireEvent.JoinPlotEvent) event).plotOwner;
             playerMode = ((DiamondFireEvent.JoinPlotEvent) event).playerMode;
-            
+
             if (playerMode == PlayerMode.DEV) {
                 plotCorner = MathUtils.incrementPosition(minecraft.player.getPosition(), DEV_SPAWN_OFFSET);
                 findPlotSize = true;
             }
         }
-        
+
         if (event instanceof DiamondFireEvent.LeavePlotEvent) {
             playerMode = PlayerMode.SPAWN;
-            
+
             findPlotSize = false;
             waitForCreative = false;
         }
-        
+
         if (event instanceof DiamondFireEvent.ChangeModeEvent) {
             playerMode = ((DiamondFireEvent.ChangeModeEvent) event).playerMode;
-            
+
             if (playerMode == PlayerMode.DEV) {
                 plotCorner = MathUtils.incrementPosition(minecraft.player.getPosition(), DEV_SPAWN_OFFSET);
                 findPlotSize = true;
             }
         }
-        
+
         if (event instanceof DiamondFireEvent.EnterSessionEvent) {
             isInSupportSession = true;
             supportPartner = ((DiamondFireEvent.EnterSessionEvent) event).supportPartner;
             supportSessionRole = ((DiamondFireEvent.EnterSessionEvent) event).supportSessionRole;
-            
+
             playerMode = PlayerMode.DEV;
+
+            if (supportSessionRole == SupportSessionRole.SUPPORTER && !ConfigHandler.SUPPORT_START_MESSAGE.equals("")) {
+                ConfigHandler.SUPPORT_START_MESSAGE = ConfigHandler.SUPPORT_START_MESSAGE.replace("%player%", supportPartner);
+                supportMessage = ConfigHandler.SUPPORT_START_MESSAGE;
+                new Thread(new CommandWait()).start();
+            }
         }
-        
+
         if (event instanceof DiamondFireEvent.ExitSessionEvent) {
             isInSupportSession = false;
+            if (supportSessionRole == SupportSessionRole.SUPPORTER && SUPPORT_END_AUTOMATIC_LEAVE) {
+                minecraft.player.sendChatMessage("/spawn");
+            }
+            if (supportSessionRole == SupportSessionRole.SUPPORTER && !ConfigHandler.SUPPORT_END_MESSAGE.equals("")) {
+                ConfigHandler.SUPPORT_END_MESSAGE = ConfigHandler.SUPPORT_END_MESSAGE.replace("%player%", supportPartner);
+                supportMessage = ConfigHandler.SUPPORT_END_MESSAGE;
+                new Thread(new CommandWait()).start();
+            }
         }
-    
+
         // Update Discord Presence
         PresenceHandler.updatePresence();
+
+    }
+
+    static class CommandWait implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+                minecraft.player.sendChatMessage(supportMessage);
+            } catch (InterruptedException exception) {
+                //Uh oh! Thread wait interrupted, continue on.
+            }
+        }
     }
 }
+

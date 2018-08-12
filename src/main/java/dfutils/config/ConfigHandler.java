@@ -18,6 +18,9 @@ public class ConfigHandler {
     public static boolean DO_VARPURGE_CONFIRM = false;
     public static boolean DO_PLOTCLEAR_CONFIRM = true;
     public static boolean DISCORD_RPC_ENABLED = true;
+    public static boolean SUPPORT_END_AUTOMATIC_LEAVE = false;
+    public static String SUPPORT_START_MESSAGE = "";
+    public static String SUPPORT_END_MESSAGE = "";
 
     public static void init(File configFile) {
 
@@ -25,19 +28,27 @@ public class ConfigHandler {
         config = new Configuration(configFile);
 
         //Creates configuration categories.
-        config.addCustomCategoryComment("Settings", "Enable or disable various features here.");
+        config.addCustomCategoryComment("General", "Enable or disable various features here.");
+        config.addCustomCategoryComment("Discord RPC", "Enable or disable certain features from your Discord RPC.");
+        config.addCustomCategoryComment("Support", "Enable or disable certain features if you are a support member.");
 
-        //Creates configuration categories.
-        config.addCustomCategoryComment("Discord RPC", "Disable or enable certain features from your Discord RPC");
+        // Migrate old settings category
+        if (config.hasCategory("settings")) {
+            config.removeCategory(config.getCategory("settings"));
+        }
+
 
         reloadConfig();
     }
 
     private static void reloadConfig() {
-        DO_QUICK_ITEM_RENAME = config.getBoolean("Quick Item Rename", "Settings", false, "Enable this to make it so you can shift + left click any item to quickly rename it.");
-        DO_VARPURGE_CONFIRM = config.getBoolean("/plot varpurge confirm", "Settings", false, "Enable this to make it so you need to type an extra confirmation command to varpurge.");
-        DO_PLOTCLEAR_CONFIRM = config.getBoolean("/plot clear confirm", "Settings", true, "Disable this to make it so you do not need to type an extra confirmation command to clear a plot.");
+        DO_QUICK_ITEM_RENAME = config.getBoolean("Quick Item Rename", "General", false, "Enable this to make it so you can shift + left click any item to quickly rename it.");
+        DO_VARPURGE_CONFIRM = config.getBoolean("/plot varpurge confirm", "General", false, "Enable this to make it so you need to type an extra confirmation command to varpurge.");
+        DO_PLOTCLEAR_CONFIRM = config.getBoolean("/plot clear confirm", "General", true, "Disable this to make it so you do not need to type an extra confirmation command to clear a plot.");
         DISCORD_RPC_ENABLED = config.getBoolean("Enabled", "Discord RPC", true, "Enable or disable Discord RPC.");
+        SUPPORT_END_AUTOMATIC_LEAVE = config.getBoolean("/spawn after session", "Support", false, "Automatically return to spawn after you finished the current session.");
+        SUPPORT_START_MESSAGE = config.getString("Support accept message", "Support", "", "Automatically send a accept message after you accepted a session.\n\n§a%player% §7 - Current player name");
+        SUPPORT_END_MESSAGE = config.getString("Support ending message", "Support", "", "Automatically send an ending message after you finished the current session.\n\n§a%player% §7 - Current player name");
 
         if (config.hasChanged()) {
             config.save();
