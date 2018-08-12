@@ -1,6 +1,7 @@
 package dfutils;
 
 import dfutils.codehandler.utils.CodeBlockData;
+import dfutils.colorcodes.FontRendererOverride;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
 import dfutils.commands.codetools.CommandNumberRange;
@@ -26,10 +27,13 @@ import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
 import dfutils.config.ConfigHandler;
 import dfutils.eventhandler.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
@@ -40,7 +44,9 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         updateJSON = "https://raw.githubusercontent.com/MCDiamondFire/DiamondFireUtilities/master/changelog.json",
         guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
+    
     public static boolean devEnv = false;
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -52,6 +58,20 @@ public class DiamondFireUtils {
         initializeData();
 
         ConfigHandler.init(event.getSuggestedConfigurationFile());
+    }
+    
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+    
+        //Overrides the default font renderer.
+        FontRendererOverride fontRendererOverride = new FontRendererOverride(minecraft.gameSettings, new ResourceLocation("textures/font/ascii.png"), minecraft.getTextureManager(), false);
+    
+        if (minecraft.gameSettings.language != null) {
+            fontRendererOverride.setUnicodeFlag(minecraft.isUnicode());
+            fontRendererOverride.setBidiFlag(minecraft.getLanguageManager().isCurrentLanguageBidirectional());
+        }
+    
+        minecraft.fontRenderer = fontRendererOverride;
     }
 
     private void registerCommands() {

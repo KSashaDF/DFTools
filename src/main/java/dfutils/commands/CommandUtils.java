@@ -8,33 +8,41 @@ public class CommandUtils {
     
     public static String parseColorCodes(String text) {
         
-        text = text.replace("&r", "§r");
-        text = text.replace("&0", "§0");
-        text = text.replace("&8", "§8");
-        text = text.replace("&7", "§7");
-        text = text.replace("&f", "§f");
+        //Vanilla color codes.
+        text = text.replace("&r", "§r"); //Color and style reset code.
+        text = text.replace("&0", "§0"); //Black color.
+        text = text.replace("&8", "§8"); //Gray color.
+        text = text.replace("&7", "§7"); //Light gray color.
+        text = text.replace("&f", "§f"); //White color.
     
-        text = text.replace("&1", "§1");
-        text = text.replace("&9", "§9");
-        text = text.replace("&3", "§3");
-        text = text.replace("&b", "§b");
+        text = text.replace("&1", "§1"); //Dark blue color.
+        text = text.replace("&9", "§9"); //Blue color.
+        text = text.replace("&3", "§3"); //Cyan color.
+        text = text.replace("&b", "§b"); //Light blue color.
     
-        text = text.replace("&2", "§2");
-        text = text.replace("&a", "§a");
+        text = text.replace("&2", "§2"); //Green color.
+        text = text.replace("&a", "§a"); //Lime color.
     
-        text = text.replace("&4", "§4");
-        text = text.replace("&c", "§c");
-        text = text.replace("&6", "§6");
-        text = text.replace("&e", "§e");
+        text = text.replace("&4", "§4"); //Dark red color.
+        text = text.replace("&c", "§c"); //Red color.
+        text = text.replace("&6", "§6"); //Orange color.
+        text = text.replace("&e", "§e"); //Yellow color.
     
-        text = text.replace("&5", "§5");
-        text = text.replace("&d", "§d");
+        text = text.replace("&5", "§5"); //Purple color.
+        text = text.replace("&d", "§d"); //Magenta color.
     
-        text = text.replace("&l", "§l");
-        text = text.replace("&o", "§o");
-        text = text.replace("&m", "§m");
-        text = text.replace("&n", "§n");
-        text = text.replace("&k", "§k");
+        text = text.replace("&l", "§l"); //Bold style.
+        text = text.replace("&o", "§o"); //Italic style.
+        text = text.replace("&m", "§m"); //Strike through style.
+        text = text.replace("&n", "§n"); //Underline style.
+        text = text.replace("&k", "§k"); //Obfuscated style.
+    
+        //DFUtils color codes.
+        text = text.replace("&*", "§*"); //Color blending toggle.
+        text = text.replace("&v", "§v"); //Vanilla color code mode.
+        
+        //Color code text code.
+        text = text.replace("[color_code]", "§");
         
         return text;
     }
