@@ -285,6 +285,7 @@ public class PlayerStateHandler {
 
         // Update Discord Presence
         PresenceHandler.updatePresence(discordRPCForceReload);
+        discordRPCForceReload = false;
     }
 
     static class CommandWait implements Runnable {

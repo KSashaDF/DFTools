@@ -103,7 +103,7 @@ public class LanguageManager {
             suppressLanguage = languageName;
             
             if (!languageName.equals("en_us")) {
-                minecraft.player.sendMessage(new TextComponentString("§cUh oh! An error occurred while trying to load language data, defaulting to en_us."));
+                //minecraft.player.sendMessage(new TextComponentString("§cUh oh! An error occurred while trying to load language data, defaulting to en_us."));
                 loadLanguageFile("en_us");
             }
         } catch (NullPointerException exception) {
@@ -112,7 +112,7 @@ public class LanguageManager {
             suppressLanguage = languageName;
     
             if (!languageName.equals("en_us")) {
-                minecraft.player.sendMessage(new TextComponentString("§cUh oh! Could not find the specified language, defaulting to en_us."));
+                //minecraft.player.sendMessage(new TextComponentString("§cUh oh! Could not find the specified language, defaulting to en_us."));
                 loadLanguageFile("en_us");
             }
         }

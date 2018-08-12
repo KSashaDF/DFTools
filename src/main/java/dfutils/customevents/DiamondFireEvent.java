@@ -1,5 +1,6 @@
 package dfutils.customevents;
 
+import dfutils.utils.TextUtils;
 import dfutils.utils.playerdata.PlayerMode;
 import dfutils.utils.playerdata.SupportSessionRole;
 
@@ -14,7 +15,7 @@ public class DiamondFireEvent {
         
         public JoinPlotEvent(int plotId, String plotName, String plotOwner, PlayerMode playerMode) {
             this.plotId = plotId;
-            this.plotName = plotName;
+            this.plotName = TextUtils.clearColorCodes(plotName);
             this.plotOwner = plotOwner;
             this.playerMode = playerMode;
         }
