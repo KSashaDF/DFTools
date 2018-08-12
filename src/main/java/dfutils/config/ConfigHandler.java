@@ -65,7 +65,8 @@ public class ConfigHandler {
         if (event.getModID().equalsIgnoreCase(Reference.MOD_ID)) {
             reloadConfig();
 
-            if(DISCORD_RPC_ENABLED) PresenceHandler.updatePresence(); else PresenceHandler.destroyPresence();
+            if (DISCORD_RPC_ENABLED) PresenceHandler.updatePresence(false);
+            else PresenceHandler.destroyPresence();
         }
     }
 }

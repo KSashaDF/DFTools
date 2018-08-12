@@ -19,9 +19,12 @@ public class DiamondFireEvent {
             this.playerMode = playerMode;
         }
     }
-    
+
     public static class LeavePlotEvent extends DiamondFireEvent {}
-    
+
+    public static class RenamePlotEvent extends DiamondFireEvent {
+    }
+
     public static class ChangeModeEvent extends DiamondFireEvent {
         
         public PlayerMode playerMode;

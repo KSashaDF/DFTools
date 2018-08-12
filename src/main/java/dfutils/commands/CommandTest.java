@@ -1,10 +1,12 @@
 package dfutils.commands;
 
+import dfutils.utils.playerdata.PlayerStateHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -32,21 +34,21 @@ public class CommandTest extends CommandBase implements IClientCommand {
     }
     
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
-        
-        /*try {
-            MessageUtils.infoMessage("Plot Name: " + PlayerStateHandler.plotName);
-            MessageUtils.infoMessage("Plot Owner: " + PlayerStateHandler.plotOwner);
-            MessageUtils.infoMessage("Plot ID: " + PlayerStateHandler.plotId);
-            MessageUtils.infoMessage("Plot Size: " + PlayerStateHandler.plotSize.name());
-            MessageUtils.infoMessage("Plot Corner: " + PlayerStateHandler.plotCorner.toString());
-            MessageUtils.infoMessage("Player Mode: " + PlayerStateHandler.playerMode.name());
-            MessageUtils.infoMessage("");
-            MessageUtils.infoMessage("In Session: " + PlayerStateHandler.isInSupportSession);
-            MessageUtils.infoMessage("Session Partner: " + PlayerStateHandler.supportPartner);
-            MessageUtils.infoMessage("Session Role: " + PlayerStateHandler.supportSessionRole.name());
+
+        try {
+            minecraft.player.sendMessage(new TextComponentString("Plot Name: " + PlayerStateHandler.plotName));
+            minecraft.player.sendMessage(new TextComponentString("Plot Owner: " + PlayerStateHandler.plotOwner));
+            minecraft.player.sendMessage(new TextComponentString("Plot ID: " + PlayerStateHandler.plotId));
+            minecraft.player.sendMessage(new TextComponentString("Plot Size: " + PlayerStateHandler.plotSize.name()));
+            minecraft.player.sendMessage(new TextComponentString("Plot Corner: " + PlayerStateHandler.plotCorner.toString()));
+            minecraft.player.sendMessage(new TextComponentString("Player Mode: " + PlayerStateHandler.playerMode.name()));
+            minecraft.player.sendMessage(new TextComponentString(""));
+            minecraft.player.sendMessage(new TextComponentString("In Session: " + PlayerStateHandler.isInSupportSession));
+            minecraft.player.sendMessage(new TextComponentString("Session Partner: " + PlayerStateHandler.supportPartner));
+            minecraft.player.sendMessage(new TextComponentString("Session Role: " + PlayerStateHandler.supportSessionRole.name()));
         } catch (NullPointerException exception) {
-        
-        }*/
+
+        }
     
         /*minecraft.player.sendMessage(LanguageManager.getMessage("test.text"));
         minecraft.player.sendMessage(LanguageManager.getMessage("test.variableText", "String1", "String2"));

@@ -42,28 +42,30 @@ public class PresenceHandler {
     /**
      * Updates the Rich Presence.
      */
-    public static void updatePresence() {
+    public static void updatePresence(boolean forceReload) {
         if(DISCORD_RPC_ENABLED) {
             if(!DiscordRPCSetup) {
                 initPresence();
             }
 
-            if(wasInSession && !PlayerStateHandler.isInSupportSession ||
-                    lastMode != PlayerStateHandler.playerMode &&
-                            !PlayerStateHandler.isInSupportSession) {
-                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-                lastMode = PlayerStateHandler.playerMode;
-                wasInSession = false;
+            if (!forceReload) {
+                if (wasInSession && !PlayerStateHandler.isInSupportSession ||
+                        lastMode != PlayerStateHandler.playerMode &&
+                                !PlayerStateHandler.isInSupportSession) {
+                    lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                    lastMode = PlayerStateHandler.playerMode;
+                    wasInSession = false;
 
-                updatePresenceData();
-            } else if(!wasInSession && PlayerStateHandler.isInSupportSession) {
-                wasInSession = true;
+                    updatePresenceData();
+                } else if (!wasInSession && PlayerStateHandler.isInSupportSession) {
+                    wasInSession = true;
 
-                lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
-                lastMode = PlayerStateHandler.playerMode;
+                    lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                    lastMode = PlayerStateHandler.playerMode;
 
-                updatePresenceData();
-            }
+                    updatePresenceData();
+                }
+            } else updatePresenceData();
         } else destroyPresence();
     }
 

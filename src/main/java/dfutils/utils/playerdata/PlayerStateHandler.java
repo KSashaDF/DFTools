@@ -51,6 +51,8 @@ public class PlayerStateHandler {
     public static String supportPartner;
     public static SupportSessionRole supportSessionRole;
 
+    private static boolean discordRPCForceReload = false;
+
     private static String supportMessage;
 
     public static void playerStateHandlerJoinEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
@@ -89,6 +91,21 @@ public class PlayerStateHandler {
                 
                 diamondFireEventHandler(joinPlotEvent);
             }
+        }
+
+
+        if (messageRawText.startsWith("Your plot has now been renamed to: ")) {
+            String[] messageWords = TextUtils.splitString(messageRawText);
+            plotName = "";
+            for (int i = 1; i < messageWords.length - 6; i++) {
+                if (i == 1)
+                    plotName = messageWords[i + 6];
+                else
+                    plotName = plotName + " " + messageWords[i + 6];
+            }
+
+            discordRPCForceReload = true;
+            diamondFireEventHandler(new DiamondFireEvent.RenamePlotEvent());
         }
         
         
@@ -267,8 +284,7 @@ public class PlayerStateHandler {
         }
 
         // Update Discord Presence
-        PresenceHandler.updatePresence();
-
+        PresenceHandler.updatePresence(discordRPCForceReload);
     }
 
     static class CommandWait implements Runnable {

@@ -18,7 +18,7 @@ public class PlayerJoinEvent {
             PlayerStateHandler.playerStateHandlerJoinEvent(event);
 
             //* Set Discord Presence
-            PresenceHandler.updatePresence();
+            PresenceHandler.updatePresence(false);
         } else {
             PlayerStateHandler.isOnDiamondFire = false;
         }
