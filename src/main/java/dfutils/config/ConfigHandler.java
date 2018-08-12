@@ -34,7 +34,11 @@ public class ConfigHandler {
 
         // Migrate old settings category
         if (config.hasCategory("settings")) {
+            DO_QUICK_ITEM_RENAME = config.getBoolean("Quick Item Rename", "settings", false, "Enable this to make it so you can shift + left click any item to quickly rename it.");
+            DO_VARPURGE_CONFIRM = config.getBoolean("/plot varpurge confirm", "settings", false, "Enable this to make it so you need to type an extra confirmation command to varpurge.");
+            DO_PLOTCLEAR_CONFIRM = config.getBoolean("/plot clear confirm", "settings", true, "Disable this to make it so you do not need to type an extra confirmation command to clear a plot.");
             config.removeCategory(config.getCategory("settings"));
+            config.save();
         }
 
 
