@@ -15,15 +15,8 @@ public class TextUtils {
     
     public static String clearColorCodes(String text) {
         
-        while (text.contains("§")) {
-            int charPos = text.indexOf('§');
-            
-            if (charPos == text.length() - 1) {
-                text = text.replaceFirst("§", "");
-            } else {
-                text = text.replaceFirst(text.substring(charPos, charPos + 1), "");
-            }
-        }
+        text = text.replaceAll("\\u00A7.", "");
+        text = text.replaceAll("\\u00A7", "");
         
         return text;
     }

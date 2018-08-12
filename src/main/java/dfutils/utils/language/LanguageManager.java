@@ -70,17 +70,6 @@ public class LanguageManager {
             }
         }
     }
-
-    public static String getString(String translationKey, @Nonnull String... variables) {
-        String translation = getMessage(translationKey).getUnformattedText();
-        if (translation.contains(VARIABLE_CODE)) {
-            for (int i = 0; i < variables.length && translation.contains(VARIABLE_CODE); i++) {
-                translation = translation.replaceFirst(VARIABLE_CODE, variables[i]);
-            }
-        }
-
-        return translation;
-    }
     
     /**
      * This method gets the specifies translation component,
@@ -102,6 +91,14 @@ public class LanguageManager {
         }
         
         return ITextComponent.Serializer.jsonToComponent(translationComponent);
+    }
+    
+    public static String getString(String translationKey) {
+        return getMessage(translationKey).getUnformattedText();
+    }
+    
+    public static String getString(String translationKey, @Nonnull String... variables) {
+        return getMessage(translationKey, variables).getUnformattedText();
     }
     
     
