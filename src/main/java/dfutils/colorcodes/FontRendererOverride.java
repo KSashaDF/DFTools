@@ -131,14 +131,15 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     @Override
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
         super.enableAlpha();
-        resetStyles();
-        doColorBlending = false;
         int textXPos;
         
         if (dropShadow) {
+            drawNewString(color, true);
             textXPos = renderString(text, x + 1.0F, y + 1.0F, color, true);
+            drawNewString(color, false);
             textXPos = Math.max(textXPos, renderString(text, x, y, color, false));
         } else {
+            drawNewString(color, false);
             textXPos = renderString(text, x, y, color, false);
         }
         
@@ -158,10 +159,28 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         }
     }
     
-    private void drawNewString() {
+    private void drawNewString(int color, boolean applyShadow) {
+        
+        if ((color & -67108864) == 0) {
+            color |= -16777216;
+        }
+    
+        if (applyShadow) {
+            color = (color & 16579836) >> 2 | color & -16777216;
+        }
+        
         doColorBlending = false;
         resetStyles();
         resetColor();
+    
+        colorCodeCount = 1;
+        totalRColor = color >> 16 & 255;
+        totalBColor = color & 255;
+        totalGColor = color >> 8 & 255;
+        alphaColor = 100;
+    
+        baseAlpha = color >> 24 & 255;
+        baseTextColor = color;
     }
     
     private void resetStyles() {
@@ -416,23 +435,6 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
             text = bidirectionalReorder(text);
         }
     
-        if ((color & -67108864) == 0) {
-            color |= -16777216;
-        }
-    
-        if (dropShadow) {
-            color = (color & 16579836) >> 2 | color & -16777216;
-        }
-    
-        colorCodeCount = 1;
-        totalRColor = color >> 16 & 255;
-        totalGColor = color & 255;
-        totalBColor = color >> 8 & 255;
-        alphaColor = 100;
-    
-        baseAlpha = color >> 24 & 255;
-        baseTextColor = color;
-    
         updateColor();
         super.posX = x;
         super.posY = y;
@@ -465,7 +467,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
      * set
      */
     private void renderSplitString(String text, int textX, int textY, int wrapWidth, int color) {
-        drawNewString();
+        drawNewString(color, false);
         
         for (String textLine : super.listFormattedStringToWidth(text, wrapWidth)) {
             renderStringAligned(textLine, textX, textY, wrapWidth, color);
