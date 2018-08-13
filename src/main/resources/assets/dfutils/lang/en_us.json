@@ -1,4 +1,48 @@
 {
+  "gui": {
+    "templateExplorer": {
+      "searchCodeTemplates": "Search Code Template",
+      "search": "Search",
+      "searching": "Searching",
+      "by": "By"
+    }
+  },
+  "prefix": {
+    "info": "§b❱§3❱ §b",
+    "action": "§d❱§5❱ §d",
+    "warn": "§6❱§c❱ §e",
+    "error": "§c❱§4❱ §c",
+    "note": "§6❱§b❱ §e",
+    "success": "§a❱§2❱ §a"
+  },
+  "command": {
+    "commandCooldown": "§cPlease wait 1 second before your next command.",
+    "commandCooldownPlural": "§cPlease wait %VAR% seconds before your next command.",
+    "itemUpload": {
+      "header": {
+        "title": "Item",
+        "subTitle": "Upload",
+        "mainColor": "§e",
+        "subColor": "§6",
+        "paramColor": "§5",
+        "paramSubColor": "§d",
+        "descriptionColor": "§7",
+        "command": "item upload"
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "description": [
+            "Color codes allowed",
+            "Only 20 characters long",
+            "(excluding color codes)"
+          ]
+        }
+      ]
+    }
+  },
+
+
     "test": {
         "text": "This is some test text.",
         "colorText": {
@@ -82,18 +126,5 @@
                 ]
             }
         }
-    },
-
-    "prefix": {
-        "info": "§3▎ §bINFO §3§l❱§b❱ ",
-        "action": "§5▎ §dACTION §5§l❱§d❱ ",
-        "warn": "§c▎ §6WARN §c§l❱§6❱ §e",
-        "error": "§4▎ §cERROR §4§l❱§c❱ ",
-        "note": "§6▎§4§k::§c NOTE §4§k::§6> §c§o"
-    },
-
-    "command": {
-        "commandCooldown": "§cPlease wait 1 second before your next command.",
-        "commandCooldownPlural": "§cPlease wait %VAR% seconds before your next command."
     }
 }

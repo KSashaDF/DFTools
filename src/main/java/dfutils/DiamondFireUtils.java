@@ -41,7 +41,7 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         name = Reference.NAME,
         version = Reference.VERSION,
         acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS,
-        updateJSON = "https://raw.githubusercontent.com/MCDiamondFire/DiamondFireUtilities/master/changelog.json",
+        updateJSON = Reference.UPDATE_URL,
         guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
     
