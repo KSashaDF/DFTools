@@ -1,5 +1,6 @@
 package dfutils.utils.language;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -67,6 +68,40 @@ public class LanguageManager {
                 
             } else {
                 return MISSING_TRANSLATION;
+            }
+        }
+    }
+
+    public static JsonArray getArray(String translationKey) {
+        //If the currently selected language does not equal the loaded language, reload the language file.
+        //Also checks if the currently selected language is not suppressed.
+        if (!loadedLanguageName.equals(minecraft.getLanguageManager().getCurrentLanguage().getLanguageCode()) && !suppressLanguage.equals(minecraft.getLanguageManager().getCurrentLanguage().getLanguageCode())) {
+            instance.loadLanguageFile(minecraft.getLanguageManager().getCurrentLanguage().getLanguageCode());
+        }
+
+        String[] translationPath = translationKey.split("[.]");
+        int pathPosition = -1;
+        JsonObject searchData = languageData;
+
+        while (true) {
+            pathPosition++;
+            if (pathPosition >= translationPath.length) {
+                return null;
+            }
+
+            if (searchData.has(translationPath[pathPosition])) {
+                JsonElement nextNbtTag = searchData.get(translationPath[pathPosition]);
+
+                if (nextNbtTag.isJsonArray()) {
+                    return (JsonArray) nextNbtTag;
+                } else if (nextNbtTag.isJsonObject()) {
+                    searchData = (JsonObject) nextNbtTag;
+                } else {
+                    return null;
+                }
+
+            } else {
+                return null;
             }
         }
     }
