@@ -1,12 +1,18 @@
 package dfutils.commands;
 
+import com.google.gson.JsonArray;
+import dfutils.utils.language.LanguageManager;
+import dfutils.utils.language.MessageHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -37,28 +43,24 @@ public class CommandHelp extends CommandBase implements IClientCommand {
         String helpTitle = null;
 
         if (commandArgs.length == 0) {
+            minecraft.player.sendMessage(new TextComponentString("§3§m          §3§l [§b DF Utilities§3§l ] §m          " + "\n"));
             minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1F, 2F);
-            helpTitle = "§3§m          §3§l [§b DF Utilities§3§l ] §m          ";
-            String[] helpCommands = {
-                    "/dfutils codetools",
-                    "/dfutils items",
-                    "/dfutils shortcuts",
-                    "/dfutils credits"
-            };
-            String[] helpDescriptions = {
-                    "/dfutils codetools",
-                    "/dfutils items",
-                    "/dfutils shortcuts",
-                    "/dfutils credits"
-            };
+            JsonArray helpCategories = LanguageManager.getArray("command.help.categories");
+            for (int i = 0; i < helpCategories.size(); i++) {
+                TextComponentString category = new TextComponentString("§b❱§3❱ §b/dfutils " + helpCategories.get(i).getAsString());
+                Style categoryStyle = new Style();
+                categoryStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§a§o" + LanguageManager.getString("command.help.clickToRun"))));
+                categoryStyle.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dfutils " + helpCategories.get(i).getAsString()));
+                category.setStyle(categoryStyle);
+                minecraft.player.sendMessage(category);
+            }
+            minecraft.player.sendMessage(new TextComponentString(""));
+        } else if (commandArgs[0].equalsIgnoreCase("items")) {
+
         } else {
-            minecraft.player.sendMessage(new TextComponentString("§4\u258E §cCategory \"§4" + commandArgs[0] + "§c\" not found."));
-            minecraft.player.playSound(SoundEvents.ENTITY_CAT_HURT, 1F, 1F);
+            MessageHelper.errorMessage("command.help.categoryNotFound", commandArgs[0]);
         }
 
-        if (helpTitle != null)
-
-            minecraft.player.sendMessage(new TextComponentString(helpTitle + "\n"));
 
 
         /*minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 0.75F, 2F);
