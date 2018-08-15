@@ -27,7 +27,8 @@ public class LanguageManager {
     
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static final LanguageManager instance = new LanguageManager();
-    private static final String VARIABLE_CODE = "(%VAR%)";
+    private static final String VARIABLE_CODE = "%VAR%";
+    private static final String REGEX_VARIABLE_CODE = "(%VAR%)";
     private static final TextComponentString MISSING_FILE = new TextComponentString("MISSING LANGUAGE FILE");
     private static final TextComponentString MISSING_TRANSLATION = new TextComponentString("MISSING TRANSLATION");
     private static final TextComponentString INVALID_TRANSLATION = new TextComponentString("INVALID TRANSLATION");
@@ -123,9 +124,9 @@ public class LanguageManager {
                 JsonElement nextNbtTag = searchData.get(translationPath[pathPosition]);
 
                 if (nextNbtTag.isJsonArray()) {
-                    return (JsonArray) nextNbtTag;
+                    return nextNbtTag.getAsJsonArray();
                 } else if (nextNbtTag.isJsonObject()) {
-                    searchData = (JsonObject) nextNbtTag;
+                    searchData = nextNbtTag.getAsJsonObject();
                 } else {
                     return null;
                 }
@@ -141,20 +142,14 @@ public class LanguageManager {
      * however this method also parses %VAR% variable codes.
      */
     public static ITextComponent getMessage(String translationKey, @Nonnull String... variables) {
-        ITextComponent translationTextComponent = getMessage(translationKey);
-        String translationComponent;
-        if (translationTextComponent instanceof TextComponentString) {
-            translationComponent = "{\"text\":\"" + translationTextComponent.getUnformattedComponentText() + "\"}";
-        } else {
-            translationComponent = translationTextComponent.getUnformattedComponentText();
-        }
+        String translationComponent = ITextComponent.Serializer.componentToJson(getMessage(translationKey));
         
         if (translationComponent.contains(VARIABLE_CODE)) {
             for (int i = 0; i < variables.length && translationComponent.contains(VARIABLE_CODE); i++) {
-                translationComponent = translationComponent.replaceFirst(VARIABLE_CODE, variables[i]);
+                translationComponent = translationComponent.replaceFirst(REGEX_VARIABLE_CODE, variables[i]);
             }
         }
-        
+    
         return ITextComponent.Serializer.jsonToComponent(translationComponent);
     }
     
