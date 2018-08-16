@@ -31,12 +31,19 @@ public class PresenceHandler {
      * Initializes Rich Presence.
      */
     public static void initPresence() {
-        String applicationId = "476455349780611072";
-        String steamId = "";
         DiscordEventHandlers handlers = new DiscordEventHandlers();
-        handlers.ready = (user) -> presenceState = PresenceState.READY;
         DiscordRPCSetup = true;
-        lib.Discord_Initialize(applicationId, handlers, true, steamId);
+        lib.Discord_Initialize("476455349780611072", handlers, true, "");
+        // in a worker thread
+        new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                lib.Discord_RunCallbacks();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }, "RPC-Callback-Handler").start();
     }
 
     /**
@@ -107,7 +114,8 @@ public class PresenceHandler {
                 case SUPPORTER:
                     presence.largeImageKey = "supporter";
                     presence.largeImageText = "Supporting " + PlayerStateHandler.supportPartner;
-                    presence.details = "Supporting " + PlayerStateHandler.supportPartner;
+                    presence.details = "Supporting";
+                    presence.state = PlayerStateHandler.supportPartner;
                     break;
                 case SUPPORTEE:
                     presence.largeImageKey = "supportee";
@@ -115,6 +123,7 @@ public class PresenceHandler {
                     presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
                     presence.details = "Being Supported";
                     presence.state = "by " + PlayerStateHandler.supportPartner;
+                    break;
             }
         }
 
@@ -130,5 +139,6 @@ public class PresenceHandler {
         lastMode = null;
         DiscordRPCSetup = false;
         wasInSession = false;
+        presenceState = PresenceState.NOTREADY;
     }
 }
