@@ -47,7 +47,7 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
     
-    public static boolean devEnv = false;
+    static boolean devEnv = false;
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     @Mod.EventHandler
@@ -132,6 +132,7 @@ public class DiamondFireUtils {
         eventBus.register(new ClientChatEvent());
         eventBus.register(new ChatReceivedEvent());
         eventBus.register(new GuiContainerEvent());
+        eventBus.register(new GuiOpenEvent());
         eventBus.register(new InputEvent());
         eventBus.register(new LeftClickEmpty());
         eventBus.register(new ClientTickEvent());
