@@ -191,7 +191,6 @@ public class MessageHelper {
 
             parameterDescriptionsDone.add(parameterDescriptionsString);
         }
-        System.out.println(parametersDone);
 
         minecraft.player.sendMessage(new TextComponentString(mainColor + "❱" + subColor + "❱ " + mainColor + "/" + command + " " + parameterString));
         minecraft.player.sendMessage(new TextComponentString(""));

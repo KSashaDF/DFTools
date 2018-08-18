@@ -27,6 +27,8 @@ import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
 import dfutils.config.ConfigHandler;
 import dfutils.eventhandler.*;
+import dfutils.utils.analytics.AnalyticType;
+import dfutils.utils.analytics.AnalyticsHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ResourceLocation;
@@ -62,6 +64,9 @@ public class DiamondFireUtils {
     
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+
+        // Send Analytic
+        AnalyticsHandler.send(AnalyticType.GAMESTART);
     
         //Overrides the default font renderer.
         FontRendererOverride fontRendererOverride = new FontRendererOverride(minecraft.gameSettings, new ResourceLocation("textures/font/ascii.png"), minecraft.getTextureManager(), false);
