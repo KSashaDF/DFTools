@@ -1,81 +1,83 @@
 {
-  "gui": {
-    "templateExplorer": {
-      "searchCodeTemplates": "Search Code Template",
-      "search": "Search",
-      "searching": "Searching",
-      "by": "By"
-    }
-  },
-  "prefix": {
-    "info": "§b❱§3❱ §b",
-    "action": "§d❱§5❱ §d",
-    "warn": "§6❱§c❱ §e",
-    "error": "§c❱§4❱ §c",
-    "note": "§6❱§b❱ §e",
-    "success": "§a❱§2❱ §a"
-  },
-  "command": {
-    "commandCooldown": "§cPlease wait 1 second before your next command.",
-    "commandCooldownPlural": "§cPlease wait %VAR% seconds before your next command.",
-
-    "itemUpload": {
-      "header": {
-        "title": "Item",
-        "subTitle": "Upload",
-        "mainColor": "§e",
-        "subColor": "§6",
-        "paramColor": "§5",
-        "paramSubColor": "§d",
-        "descriptionColor": "§7",
-        "command": "item upload"
-      },
-      "parameters": [
-        {
-          "name": "name",
-          "description": [
-            "Color codes allowed",
-            "Only 20 characters long",
-            "(excluding color codes)"
-          ]
+    "gui": {
+        "templateExplorer": {
+            "searchCodeTemplates": "Search Code Template",
+            "search": "Search",
+            "searching": "Searching",
+            "by": "By"
         }
-      ]
     },
-    "help": {
-      "clickToRun": "Click to run",
-      "categoryNotFound": [
-        {
-          "text": "Category \"",
-          "color": "red"
+
+    "prefix": {
+        "info": "§b❱§3❱ §b",
+        "action": "§d❱§5❱ §d",
+        "warn": "§6❱§c❱ §e",
+        "error": "§c❱§4❱ §c",
+        "note": "§6❱§b❱ §e",
+        "success": "§a❱§2❱ §a"
+    },
+
+    "command": {
+        "commandCooldown": "§cPlease wait 1 second before your next command.",
+        "commandCooldownPlural": "§cPlease wait %VAR% seconds before your next command.",
+
+        "itemUpload": {
+            "header": {
+                "title": "Item",
+                "subTitle": "Upload",
+                "mainColor": "§e",
+                "subColor": "§6",
+                "paramColor": "§5",
+                "paramSubColor": "§d",
+                "descriptionColor": "§7",
+                "command": "item upload"
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "description": [
+                        "Color codes allowed",
+                        "Only 20 characters long",
+                        "(excluding color codes)"
+                    ]
+                }
+            ]
         },
-        {
-          "text": "%VAR%",
-          "color": "dark_red"
-        },
-        {
-          "text": "\" not found.",
-          "color": "red"
+        "help": {
+            "clickToRun": "Click to run",
+            "categoryNotFound": [
+                {
+                    "text": "Category \"",
+                    "color": "red"
+                },
+                {
+                    "text": "%VAR%",
+                    "color": "dark_red"
+                },
+                {
+                    "text": "\" not found.",
+                    "color": "red"
+                }
+            ],
+            "categories": [
+                "items",
+                "code",
+                "shortcuts"
+            ]
         }
-      ],
-      "categories": [
-        "items",
-        "code",
-        "shortcuts"
-      ]
-    }
-  },
+    },
 
 
     "test": {
         "text": "This is some test text.",
         "colorText": {
-        	"isRichText": true,
-        	"text": {"text":"Some colorful text.","color":"green"}
+            "isRichText": true,
+            "text": {"text":"Some colorful text.","color":"green"}
         },
         "textList": [
-        	"Some more text.",
-        	"This is a text list!",
-        	"Much text."
+            "Some more text.",
+            "This is a text list!",
+            "Much text."
         ],
         "colorTextList": [
             {"text":"Even some special text!","color":"green"},

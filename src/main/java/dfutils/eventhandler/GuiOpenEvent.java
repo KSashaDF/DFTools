@@ -1,6 +1,8 @@
 package dfutils.eventhandler;
 
 import dfutils.colorcodes.GuiChatOverride;
+import dfutils.utils.playerdata.PlayerStateHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,10 +17,9 @@ public class GuiOpenEvent {
     
     @SubscribeEvent
     public void onGuiOpen(net.minecraftforge.client.event.GuiOpenEvent event) {
-        
-        if (event.getGui() instanceof GuiChat) {
-            
-            //Overrides the default chat GUI with the subclassed chat GUI.
+    
+        //Overrides the default chat GUI with a subclassed chat GUI only if the player is on DiamondFire and is in creative mode.
+        if (event.getGui() instanceof GuiChat && PlayerStateHandler.isOnDiamondFire && Minecraft.getMinecraft().player.isCreative()) {
             try {
                 event.setGui(new GuiChatOverride((String) defaultChatTextField.get(event.getGui())));
             } catch (IllegalAccessException exception) {
