@@ -45,25 +45,16 @@
         },
         "help": {
             "clickToRun": "Click to run",
-            "categoryNotFound": [
-                {
-                    "text": "Category \"",
-                    "color": "red"
-                },
-                {
-                    "text": "%VAR%",
-                    "color": "dark_red"
-                },
-                {
-                    "text": "\" not found.",
-                    "color": "red"
-                }
-            ],
+          "categoryNotFound": "§cCategory \"§4%VAR%§c\" not found.",
             "categories": [
                 "items",
                 "code",
                 "shortcuts"
+            ],
+          "items": {
+            "commands": [
             ]
+          }
         }
     },
 

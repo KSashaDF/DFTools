@@ -56,7 +56,18 @@ public class CommandHelp extends CommandBase implements IClientCommand {
             }
             minecraft.player.sendMessage(new TextComponentString(""));
         } else if (commandArgs[0].equalsIgnoreCase("items")) {
-
+            minecraft.player.sendMessage(new TextComponentString("§6§m          §6§l [§e DF Utils§6 - §eItems§6§l ] §m          " + "\n"));
+            minecraft.player.playSound(SoundEvents.BLOCK_SHULKER_BOX_OPEN, 1F, 2F);
+            JsonArray helpItemCommands = LanguageManager.getArray("command.help.items.commands");
+            for (int i = 0; i < helpItemCommands.size(); i++) {
+                TextComponentString category = new TextComponentString("§e❱§6❱ §e/" + helpItemCommands.get(i).getAsString());
+                Style categoryStyle = new Style();
+                categoryStyle.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§a§o" + LanguageManager.getString("command.help.clickToRun"))));
+                categoryStyle.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + helpItemCommands.get(i).getAsString()));
+                category.setStyle(categoryStyle);
+                minecraft.player.sendMessage(category);
+            }
+            minecraft.player.sendMessage(new TextComponentString(""));
         } else {
             MessageHelper.errorMessage("command.help.categoryNotFound", commandArgs[0]);
         }
