@@ -68,7 +68,7 @@ public class DiamondFireUtils {
     public void postInit(FMLPostInitializationEvent event) {
 
         // Send Analytic
-        AnalyticsHandler.send(AnalyticType.GAMESTART);
+        AnalyticsHandler.send(AnalyticType.GAME_START);
 
         //Overrides the default font renderer.
         FontRendererOverride fontRendererOverride = new FontRendererOverride(minecraft.gameSettings, new ResourceLocation("textures/font/ascii.png"), minecraft.getTextureManager(), false);

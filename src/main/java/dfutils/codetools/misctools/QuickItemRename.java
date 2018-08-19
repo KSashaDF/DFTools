@@ -43,7 +43,7 @@ public class QuickItemRename {
                 }
                 
                 minecraft.displayGuiScreen(new GuiChat(itemName));
-            } else if (ConfigHandler.DO_QUICK_ITEM_RENAME) {
+            } else if (ConfigHandler.DO_QUICK_ITEM_RENAME && !itemStack.isEmpty()) {
                 
                 //Gets the item's name and replaces all the color code symbols with &'s.
                 String itemName = itemStack.getDisplayName();

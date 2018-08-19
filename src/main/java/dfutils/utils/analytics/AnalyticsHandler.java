@@ -1,11 +1,5 @@
 package dfutils.utils.analytics;
 
-// -------------------------
-// Created by: Timeraa
-// Created at: 16.08.18
-// -------------------------
-
-
 import com.google.common.base.Charsets;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -21,70 +15,69 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class AnalyticsHandler {
-    public static AnalyticType aType;
+    
+    static AnalyticType analyticType;
     public static String data;
 
-    public static void send(AnalyticType aType) {
-        sendData(aType);
+    public static void send(AnalyticType analyticType) {
+        sendData(analyticType);
     }
 
-    public static void send(AnalyticType aType, String data) {
-        sendData(aType, data);
+    public static void send(AnalyticType analyticType, String data) {
+        sendData(analyticType, data);
     }
 
     //TODO Finish stuffs
-    private static void sendData(AnalyticType atype) {
-        aType = atype;
-        new Thread(new sendData(), "AnalyticsHandler").start();
+    private static void sendData(AnalyticType analyticTypeIn) {
+        analyticType = analyticTypeIn;
+        new Thread(new SendAnalytic(), "AnalyticsHandler").start();
     }
 
-    private static void sendData(AnalyticType atype, String data1) {
-        aType = atype;
-        data = data1;
-        new Thread(new sendData1(), "AnalyticsHandler").start();
+    private static void sendData(AnalyticType analyticTypeIn, String dataIn) {
+        analyticType = analyticTypeIn;
+        data = dataIn;
+        new Thread(new SendDataAnalytic(), "AnalyticsHandler").start();
     }
-}
-
-class sendData implements Runnable {
-    private static final Minecraft minecraft = Minecraft.getMinecraft();
-
-    @Override
-    public void run() {
-        try {
-            URL url = new URL(Reference.HOSTURL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.aType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
-            URLConnection urlConnection = url.openConnection();
-            try (InputStream inputStream = urlConnection.getInputStream()) {
-                JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
-
-                if (result.has("ERROR")) {
-                    System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
-                }
-            } catch (FileNotFoundException ignored) {
-            }
-
-        } catch (IOException ignored) {
+    
+    static class SendAnalytic implements Runnable {
+        
+        private static final Minecraft minecraft = Minecraft.getMinecraft();
+        
+        @Override
+        public void run() {
+            try {
+                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
+                URLConnection urlConnection = url.openConnection();
+                try (InputStream inputStream = urlConnection.getInputStream()) {
+                    JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
+                    
+                    if (result.has("ERROR")) {
+                        System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
+                    }
+                } catch (FileNotFoundException ignored) {}
+                
+            } catch (IOException ignored) {}
         }
     }
-}
-
-class sendData1 implements Runnable {
-    private static final Minecraft minecraft = Minecraft.getMinecraft();
-
-    @Override
-    public void run() {
-        try {
-            URL url = new URL(Reference.HOSTURL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&data=" + URLEncoder.encode(AnalyticsHandler.data, "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.aType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
-            URLConnection urlConnection = url.openConnection();
-            try (InputStream inputStream = urlConnection.getInputStream()) {
-                JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
-
-                if (result.has("ERROR")) {
-                    System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
-                }
-            } catch (FileNotFoundException ignored) {
-            }
-
-        } catch (IOException ignored) {
+    
+    static class SendDataAnalytic implements Runnable {
+        
+        private static final Minecraft minecraft = Minecraft.getMinecraft();
+        
+        @Override
+        public void run() {
+            try {
+                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&data=" + URLEncoder.encode(AnalyticsHandler.data, "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
+                URLConnection urlConnection = url.openConnection();
+                try (InputStream inputStream = urlConnection.getInputStream()) {
+                    JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
+                    
+                    if (result.has("ERROR")) {
+                        System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
+                    }
+                } catch (FileNotFoundException ignored) {}
+                
+            } catch (IOException ignored) {}
         }
     }
 }
