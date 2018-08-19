@@ -192,7 +192,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     
     private void addColor(int r, int g, int b) {
         //If color blending is disabled, reset the text color.
-        if (!doColorBlending || !ConfigHandler.DO_CUSTOM_COLORS) {
+        if (!doColorBlending) {
             resetColor();
         }
         
@@ -248,18 +248,39 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                         if (text.substring(stringIndex + 2).contains("%")) {
                             //Decodes the color code color format.
                             String[] customColorArgs = text.replaceAll("[^\\d|]", "").split("[|]");
+    
+                            if (resetTextColor) {
+                                resetTextColor = false;
+                                resetColor();
+                            }
+    
+                            randomStyle = false;
+                            boldStyle = false;
+                            strikeThroughStyle = false;
+                            underlineStyle = false;
+                            italicStyle = false;
                             
                             if (customColorArgs.length == 1) {
                                 alphaColor = Integer.parseInt(customColorArgs[0]);
                             } else if (customColorArgs.length == 3 || customColorArgs.length == 4) {
-                                addColor(Integer.parseInt(customColorArgs[0]), Integer.parseInt(customColorArgs[1]), Integer.parseInt(customColorArgs[2]));
+    
+                                int complexColorR = Integer.parseInt(customColorArgs[0]);
+                                int complexColorG = Integer.parseInt(customColorArgs[1]);
+                                int complexColorB = Integer.parseInt(customColorArgs[2]);
+                                
+                                if (textShadow) {
+                                    addColor((int) (complexColorR * 0.24f), (int) (complexColorG * 0.24f), (int) (complexColorB * 0.24f));
+                                } else {
+                                    addColor(complexColorR, complexColorG, complexColorB);
+                                }
                                 
                                 if (customColorArgs.length == 4) {
                                     alphaColor = Integer.parseInt(customColorArgs[3]);
                                 }
                             }
     
-                            stringIndex = text.substring(stringIndex + 2).indexOf("%") - 1;
+                            updateColor();
+                            stringIndex += text.substring(stringIndex + 2).indexOf('%') + 1;
                         }
                         
                         colorCodeId = -1;
