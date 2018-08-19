@@ -3,10 +3,9 @@ package dfutils.colorcodes;
 import com.ibm.icu.text.ArabicShaping;
 import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
+import dfutils.config.ConfigHandler;
 import dfutils.utils.MathUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -44,13 +43,12 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     private int baseTextColor;
     
     private boolean doColorBlending = false;
-    private boolean doPreviewColor = false;
     
     private boolean randomStyle;
     private boolean boldStyle;
     private boolean italicStyle;
     private boolean underlineStyle;
-    private boolean strikethroughStyle;
+    private boolean strikeThroughStyle;
     
     public FontRendererOverride(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode) {
         super(gameSettingsIn, location,textureManagerIn, unicode);
@@ -107,14 +105,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
      */
     @Override
     public int drawStringWithShadow(String text, float x, float y, int color) {
-        if (Minecraft.getMinecraft().currentScreen instanceof GuiChat && color == 14737632) {
-            doPreviewColor = true;
-        }
-        
-        int returnInt = this.drawString(text, x, y, color, true);
-        doPreviewColor = false;
-        
-        return returnInt;
+        return this.drawString(text, x, y, color, true);
     }
     
     /**
@@ -135,12 +126,12 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         
         if (dropShadow) {
             drawNewString(color, true);
-            textXPos = renderString(text, x + 1.0F, y + 1.0F, color, true);
+            textXPos = renderString(text, x + 1.0F, y + 1.0F, true);
             drawNewString(color, false);
-            textXPos = Math.max(textXPos, renderString(text, x, y, color, false));
+            textXPos = Math.max(textXPos, renderString(text, x, y, false));
         } else {
             drawNewString(color, false);
-            textXPos = renderString(text, x, y, color, false);
+            textXPos = renderString(text, x, y, false);
         }
         
         return textXPos;
@@ -188,7 +179,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         this.boldStyle = false;
         this.italicStyle = false;
         this.underlineStyle = false;
-        this.strikethroughStyle = false;
+        this.strikeThroughStyle = false;
     }
     
     private void resetColor() {
@@ -200,6 +191,11 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     }
     
     private void addColor(int r, int g, int b) {
+        //If color blending is disabled, reset the text color.
+        if (!doColorBlending || !ConfigHandler.DO_CUSTOM_COLORS) {
+            resetColor();
+        }
+        
         colorCodeCount++;
         
         totalRColor += r;
@@ -235,12 +231,37 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                     if (colorCodeChar == '*') {
                         //Toggles color code blending.
                         doColorBlending = !doColorBlending;
+                        resetTextColor = true;
                         colorCodeId = -1;
                     }
     
                     //Color code: &v
                     if (colorCodeChar == 'v') {
                         ignoreColorCodes = true;
+                        colorCodeId = -1;
+                    }
+    
+                    //Color code: &% (custom color)
+                    if (colorCodeChar == '%' && stringIndex + 5 < text.length()) {
+                        
+                        //Checks if the given text contains a matching &% color code.
+                        if (text.substring(stringIndex + 2).contains("%")) {
+                            //Decodes the color code color format.
+                            String[] customColorArgs = text.replaceAll("[^\\d|]", "").split("[|]");
+                            
+                            if (customColorArgs.length == 1) {
+                                alphaColor = Integer.parseInt(customColorArgs[0]);
+                            } else if (customColorArgs.length == 3 || customColorArgs.length == 4) {
+                                addColor(Integer.parseInt(customColorArgs[0]), Integer.parseInt(customColorArgs[1]), Integer.parseInt(customColorArgs[2]));
+                                
+                                if (customColorArgs.length == 4) {
+                                    alphaColor = Integer.parseInt(customColorArgs[3]);
+                                }
+                            }
+    
+                            stringIndex = text.substring(stringIndex + 2).indexOf("%") - 1;
+                        }
+                        
                         colorCodeId = -1;
                     }
     
@@ -251,11 +272,11 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                                 resetColor();
                             }
         
-                            this.randomStyle = false;
-                            this.boldStyle = false;
-                            this.strikethroughStyle = false;
-                            this.underlineStyle = false;
-                            this.italicStyle = false;
+                            randomStyle = false;
+                            boldStyle = false;
+                            strikeThroughStyle = false;
+                            underlineStyle = false;
+                            italicStyle = false;
         
                             if (colorCodeId < 0) {
                                 colorCodeId = 15;
@@ -265,12 +286,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                                 colorCodeId += 16;
                             }
         
-                            int colorCodeColor = this.colorCode[colorCodeId];
-        
-                            //If color blending is not on, reset the text color.
-                            if (!doColorBlending) {
-                                resetColor();
-                            }
+                            int colorCodeColor = colorCode[colorCodeId];
         
                             addColor(colorCodeColor >> 16, colorCodeColor >> 8 & 255, colorCodeColor & 255);
                             updateColor();
@@ -280,31 +296,31 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         
                             //Color Code: &k
                             if (colorCodeId == 16) {
-                                this.randomStyle = true;
+                                randomStyle = true;
             
                                 //Color Code: &l
                             } else if (colorCodeId == 17) {
-                                this.boldStyle = true;
+                                boldStyle = true;
             
                                 //Color Code: &m
                             } else if (colorCodeId == 18) {
-                                this.strikethroughStyle = true;
+                                strikeThroughStyle = true;
             
                                 //Color Code: &n
                             } else if (colorCodeId == 19) {
-                                this.underlineStyle = true;
+                                underlineStyle = true;
             
                                 //Color Code: &o
                             } else if (colorCodeId == 20) {
-                                this.italicStyle = true;
+                                italicStyle = true;
             
                                 //Color Code: &r
                             } else if (colorCodeId == 21) {
-                                this.randomStyle = false;
-                                this.boldStyle = false;
-                                this.strikethroughStyle = false;
-                                this.underlineStyle = false;
-                                this.italicStyle = false;
+                                randomStyle = false;
+                                boldStyle = false;
+                                strikeThroughStyle = false;
+                                underlineStyle = false;
+                                italicStyle = false;
                                 
                                 resetColor();
                                 colorCodeCount = 1;
@@ -321,12 +337,13 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                 
                 stringIndex++;
             } else {
+    
                 resetTextColor = true;
                 ignoreColorCodes = false;
                 
                 int stringCharIndex = "\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".indexOf(stringChar);
                 
-                if (this.randomStyle && stringCharIndex != -1) {
+                if (randomStyle && stringCharIndex != -1) {
                     int stringCharWidth = this.getCharWidth(stringChar);
                     char randomChar;
                     
@@ -379,7 +396,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     
     @Override
     protected void doDraw(float renderOffset) {
-        if (strikethroughStyle) {
+        if (strikeThroughStyle) {
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferBuilder = tessellator.getBuffer();
             
@@ -418,19 +435,19 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     /**
      * Render string either left or right aligned depending on bidiFlag
      */
-    private void renderStringAligned(String text, int textX, int textY, int width, int color) {
+    private void renderStringAligned(String text, int textX, int textY, int width) {
         if (super.getBidiFlag()) {
             int stringWidth = super.getStringWidth(bidirectionalReorder(text));
             textX = textX + width - stringWidth;
         }
         
-        renderString(text, textX, textY, color, false);
+        renderString(text, textX, textY, false);
     }
     
     /**
      * Render single line string by setting GL color, current (posX,posY), and calling renderStringAtPos()
      */
-    private int renderString(String text, float x, float y, int color, boolean dropShadow) {
+    private int renderString(String text, float x, float y, boolean dropShadow) {
         if (super.getBidiFlag()) {
             text = bidirectionalReorder(text);
         }
@@ -470,7 +487,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         drawNewString(color, false);
         
         for (String textLine : super.listFormattedStringToWidth(text, wrapWidth)) {
-            renderStringAligned(textLine, textX, textY, wrapWidth, color);
+            renderStringAligned(textLine, textX, textY, wrapWidth);
             textY += super.FONT_HEIGHT;
         }
     }
