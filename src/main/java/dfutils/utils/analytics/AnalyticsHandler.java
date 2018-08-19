@@ -9,6 +9,7 @@ package dfutils.utils.analytics;
 import com.google.common.base.Charsets;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dfutils.Reference;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.io.IOUtils;
 
@@ -20,7 +21,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class AnalyticsHandler {
-    private static final Minecraft minecraft = Minecraft.getMinecraft();
+    public static AnalyticType aType;
+    public static String data;
 
     public static void send(AnalyticType aType) {
         sendData(aType);
@@ -31,28 +33,58 @@ public class AnalyticsHandler {
     }
 
     //TODO Finish stuffs
-    private static void sendData(AnalyticType aType) {
+    private static void sendData(AnalyticType atype) {
+        aType = atype;
+        new Thread(new sendData(), "AnalyticsHandler").start();
+    }
+
+    private static void sendData(AnalyticType atype, String data1) {
+        aType = atype;
+        data = data1;
+        new Thread(new sendData1(), "AnalyticsHandler").start();
+    }
+}
+
+class sendData implements Runnable {
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+
+    @Override
+    public void run() {
         try {
-            URL url = new URL("https://df.pocketclass.net/api/sendAnalytic?UUID=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&type=" + URLEncoder.encode(aType.name(), "UTF-8"));
+            URL url = new URL(Reference.HOSTURL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.aType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
             URLConnection urlConnection = url.openConnection();
             try (InputStream inputStream = urlConnection.getInputStream()) {
                 JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
 
-                System.out.println(result);
-            } catch (FileNotFoundException e) {
-                // Most likely offline user...
+                if (result.has("ERROR")) {
+                    System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
+                }
+            } catch (FileNotFoundException ignored) {
             }
 
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
+}
 
-    private static void sendData(AnalyticType aType, String data) {
+class sendData1 implements Runnable {
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
+
+    @Override
+    public void run() {
         try {
-            URL url = new URL("https://df.pocketclass.net/api/sendAnalytic?UUID=" + URLEncoder.encode(minecraft.player.getUniqueID().toString(), "UTF-8") + "&type=" + URLEncoder.encode(aType.name(), "UTF-8") + "&data=" + URLEncoder.encode(data, "UTF-8"));
+            URL url = new URL(Reference.HOSTURL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&data=" + URLEncoder.encode(AnalyticsHandler.data, "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.aType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
             URLConnection urlConnection = url.openConnection();
-        } catch (IOException e) {
-            System.out.println(e);
+            try (InputStream inputStream = urlConnection.getInputStream()) {
+                JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
+
+                if (result.has("ERROR")) {
+                    System.out.println("Error while sending analytic: " + result.get("ERROR").getAsString());
+                }
+            } catch (FileNotFoundException ignored) {
+            }
+
+        } catch (IOException ignored) {
         }
     }
 }

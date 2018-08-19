@@ -8,6 +8,7 @@ package dfutils.utils.analytics;
 
 public enum AnalyticType {
     GAMESTART,
+    GAMECRASH,
     COMMAND,
     SHORTCUT
 }
