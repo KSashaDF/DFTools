@@ -17,7 +17,7 @@ import java.nio.file.StandardOpenOption;
 public class ToolbarTabHandler {
 
     static ToolbarTab[] toolbarTabs;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     static File toolbarDataDir = new File(minecraft.mcDataDir, "toolbars");
     private static File toolbarDataFile = new File(minecraft.mcDataDir, "toolbars/ToolbarTabs.nbt");
 
@@ -122,12 +122,14 @@ public class ToolbarTabHandler {
         if (!toolbarDataFile.exists()) {
             try (OutputStream outputStream = Files.newOutputStream(toolbarDataFile.toPath(), StandardOpenOption.CREATE)) {
 
-                IOUtils.write("{ToolbarTabs:[]}", outputStream, Charsets.UTF_8);
+                //TODO - Fix this! This needs to initialize a new toolbar tab.
+                //IOUtils.write("{ToolbarTabs:[]}", outputStream, Charsets.UTF_8);
+                createToolbarTab();
                 lastReloadedDataTime = toolbarDataFile.lastModified();
                 return;
             }
         }
-
+    
         if (lastReloadedDataTime < toolbarDataFile.lastModified()) {
             NBTTagCompound toolbarTabNbt;
 
@@ -146,7 +148,7 @@ public class ToolbarTabHandler {
             for (int i = 0; i < toolbarTabNbtList.tagCount(); i++) {
                 toolbarTabs[i] = new ToolbarTab(toolbarTabNbtList.getCompoundTagAt(i));
             }
-
+    
             lastReloadedDataTime = toolbarDataFile.lastModified();
         }
     }
@@ -181,5 +183,7 @@ public class ToolbarTabHandler {
         } catch (IOException exception) {
             MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to save toolbar data.");
         }
+        
+        lastReloadedDataTime = toolbarDataFile.lastModified();
     }
 }

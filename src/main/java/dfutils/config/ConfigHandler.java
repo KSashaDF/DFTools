@@ -79,12 +79,14 @@ public class ConfigHandler {
 
     @SubscribeEvent
     public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
-
         if (event.getModID().equalsIgnoreCase(Reference.MOD_ID)) {
             reloadConfig();
 
-            if (DISCORD_RPC_ENABLED) PresenceHandler.updatePresence(false);
-            else PresenceHandler.destroyPresence();
+            if (DISCORD_RPC_ENABLED) {
+                PresenceHandler.updatePresence(false);
+            } else {
+                PresenceHandler.destroyPresence();
+            }
         }
     }
 }

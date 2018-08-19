@@ -27,7 +27,7 @@ class ToolbarTab {
     ItemStack tabIcon;
     private ItemStack[] tabItems;
     private File toolbarItemFile;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     //Determines whether the toolbar's item data file is currently being written to.
     private boolean isWriting = false;
@@ -84,8 +84,6 @@ class ToolbarTab {
     ItemStack[] getTabItems() {
         if (lastReloadedTabTime < toolbarItemFile.lastModified()) {
             if (!isWriting && toolbarItemFile.exists()) {
-                MessageUtils.infoMessage("Loading toolbar item data...");
-
                 String fileData;
                 NBTTagCompound fileNbt;
 

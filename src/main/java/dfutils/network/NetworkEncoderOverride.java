@@ -47,7 +47,7 @@ public class NetworkEncoderOverride extends MessageToByteEncoder <Packet<?>> {
         if (connectionState == null) {
             throw new RuntimeException("ConnectionProtocol unknown: " + packet.toString());
         } else {
-            Integer integer = connectionState.getPacketId(this.direction, packet);
+            Integer integer = connectionState.getPacketId(direction, packet);
             
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", handlerContext.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get(), integer, packet.getClass().getName());
