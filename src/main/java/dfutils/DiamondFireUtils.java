@@ -27,6 +27,7 @@ import dfutils.commands.itemcontrol.rename.CommandRename;
 import dfutils.commands.itemcontrol.rename.CommandRenameAnvil;
 import dfutils.config.ConfigHandler;
 import dfutils.eventhandler.*;
+import dfutils.utils.analytics.CrashHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ResourceLocation;
@@ -50,7 +51,7 @@ public class DiamondFireUtils {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        // Check if in developer Environment
+        //Checks if the mod is being run in a development environment.
         devEnv = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
         registerCommands();
@@ -58,6 +59,7 @@ public class DiamondFireUtils {
         initializeData();
 
         ConfigHandler.init(event.getSuggestedConfigurationFile());
+        Runtime.getRuntime().addShutdownHook(new Thread(new CrashHandler()));
     }
     
     @Mod.EventHandler
