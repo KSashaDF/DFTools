@@ -49,7 +49,20 @@ public class ItemUtils {
     }
 
     public static boolean areItemsStackable(ItemStack itemStack1, ItemStack itemStack2) {
-        return itemStack1.getItem() == itemStack2.getItem() && itemStack1.getMetadata() == itemStack2.getMetadata() && ItemStack.areItemStackShareTagsEqual(itemStack1, itemStack2);
+        return itemStack1.getItem() == itemStack2.getItem() &&
+                itemStack1.getMetadata() == itemStack2.getMetadata() &&
+                isItemNbtEqual(itemStack1, itemStack2);
+    }
+    
+    private static boolean isItemNbtEqual(ItemStack itemStack1, ItemStack itemStack2) {
+        NBTTagCompound nbtTag1 = itemStack1.getTagCompound();
+        NBTTagCompound nbtTag2 = itemStack2.getTagCompound();
+        
+        if (nbtTag1 == null || nbtTag1.hasNoTags()) {
+            return nbtTag2 == null || nbtTag2.hasNoTags();
+        } else {
+            return nbtTag1.equals(nbtTag2);
+        }
     }
 
     //This method converts an item stack into NBT.
@@ -71,5 +84,20 @@ public class ItemUtils {
         }
 
         return itemNbt;
+    }
+    
+    public static ItemStack incrementStackSize(ItemStack itemStack, int stackIncrement) {
+        
+        if (itemStack.getCount() + stackIncrement < 1) {
+            itemStack = ItemStack.EMPTY;
+        } else {
+            if (itemStack.getCount() + stackIncrement > itemStack.getMaxStackSize()) {
+                itemStack.setCount(itemStack.getMaxStackSize());
+            } else {
+                itemStack.setCount(itemStack.getCount() + stackIncrement);
+            }
+        }
+        
+        return itemStack;
     }
 }

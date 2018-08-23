@@ -1,8 +1,8 @@
 package dfutils.bettertoolbars;
 
+import dfutils.bettertoolbars.slots.SlotBase;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
-import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -123,8 +123,25 @@ public class MainToolbarGui extends GuiContainer {
         }
 
         InventoryPlayer playerInventory = minecraft.player.inventory;
+        
+        if (slot == null) {
+            if (clickType == ClickType.PICKUP) {
+                //If the slot index is -999, it means the player clicked outside the GUI.
+                //The following code handles clicking outside the GUI. Normally clicking outside the GUI would
+                //drop the dragged item. (here it simply deletes it)
+                if (slotIndex == -999) {
+                    if (mouseButton == 0) {
+                        playerInventory.setItemStack(ItemStack.EMPTY);
+                    } else if (mouseButton == 1) {
+                        playerInventory.getItemStack().shrink(1);
+                    }
+                }
+            }
+        } else if (slot instanceof SlotBase){
+            ((SlotBase) slot).onSlotClick(mouseButton, clickType);
+        }
 
-        switch (clickType) {
+        /*switch (clickType) {
             case PICKUP:
 
                 //If the slot index is -999, it means the player clicked outside the GUI.
@@ -147,24 +164,25 @@ public class MainToolbarGui extends GuiContainer {
                             slot.putStack(itemStack);
                         }
                     } else if (isToolbarSlot(slotIndex)) {
-
-                        if (mouseButton == 0 || playerInventory.getItemStack().isEmpty()) {
-                            if (slot.getHasStack()) {
-                                if (ItemUtils.areItemsStackable(slot.getStack(), playerInventory.getItemStack())) {
-                                    playerInventory.setItemStack(incrementStackSize(playerInventory.getItemStack(), slot.getStack().getCount()));
-                                } else {
-                                    if (mouseButton == 0) {
-                                        playerInventory.setItemStack(slot.getStack().copy());
-                                    } else if (mouseButton == 1) {
-                                        playerInventory.setItemStack(slot.getStack().copy().splitStack(MathUtils.roundUpDivide(slot.getStack().getCount(), 2)));
-                                    }
-                                }
+                        
+                        if (mouseButton == 0) {
+                            if (playerInventory.getItemStack().isEmpty()) {
+                                playerInventory.setItemStack(slot.getStack().copy());
                             } else {
-                                playerInventory.setItemStack(ItemStack.EMPTY);
+                                if (ItemUtils.areItemsStackable(slot.getStack(), playerInventory.getItemStack())) {
+                                    playerInventory.setItemStack(ItemUtils.incrementStackSize(playerInventory.getItemStack(), slot.getStack().getCount()));
+                                } else {
+                                    playerInventory.setItemStack(ItemStack.EMPTY);
+                                }
                             }
-                        } else {
-                            playerInventory.getItemStack().shrink(1);
+                        } else if (mouseButton == 1) {
+                            if (playerInventory.getItemStack().isEmpty()) {
+                                playerInventory.setItemStack(slot.getStack().copy().splitStack(MathUtils.roundUpDivide(slot.getStack().getCount(), 2)));
+                            } else {
+                                playerInventory.getItemStack().shrink(1);
+                            }
                         }
+                        
                     } else if (isHotbarSlot(slotIndex)) {
                         if (slot.getHasStack()) {
                             //CONDITION BRANCH: The following actions are for when the slot HAS an item and
@@ -282,7 +300,7 @@ public class MainToolbarGui extends GuiContainer {
                         playerInventory.setItemStack(newDraggedItem);
                     }
                 } else {
-                    playerInventory.setItemStack(incrementStackSize(playerInventory.getItemStack(), 1));
+                    playerInventory.setItemStack(ItemUtils.incrementStackSize(playerInventory.getItemStack(), 1));
                 }
                 break;
 
@@ -295,14 +313,14 @@ public class MainToolbarGui extends GuiContainer {
                 if (isHotbarSlot(slotIndex) || isIconSlot(slotIndex)) {
                     if (slot != null) {
                         if (mouseButton == 0) {
-                            slot.putStack(incrementStackSize(slot.getStack(), -1));
+                            slot.putStack(ItemUtils.incrementStackSize(slot.getStack(), -1));
                         } else if (mouseButton == 1) {
                             slot.putStack(ItemStack.EMPTY);
                         }
                     }
                 }
                 break;
-        }
+        }*/
 
         //Syncs the players hotbar with the hotbar in the toolbar menu.
         detectAndSendHotbarChanges();
@@ -327,21 +345,6 @@ public class MainToolbarGui extends GuiContainer {
                 minecraft.playerController.sendSlotPacket(hotbarStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + slotIndex);
             }
         }
-    }
-
-    private ItemStack incrementStackSize(ItemStack itemStack, int stackIncrement) {
-
-        if (itemStack.getCount() + stackIncrement < 1) {
-            itemStack = ItemStack.EMPTY;
-        } else {
-            if (itemStack.getCount() + stackIncrement > itemStack.getMaxStackSize()) {
-                itemStack.setCount(itemStack.getMaxStackSize());
-            } else {
-                itemStack.setCount(itemStack.getCount() + stackIncrement);
-            }
-        }
-
-        return itemStack;
     }
 
     private boolean isIconSlot(int slotIndex) {
