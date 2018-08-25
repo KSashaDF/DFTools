@@ -56,7 +56,10 @@ public class CommandTest extends CommandBase implements IClientCommand {
         MessageHelper.infoMessage("test.multiColorText");
         MessageHelper.infoMessage("test.multiColorTextList");*/
     
-        MessageUtils.infoMessage("&".codePointAt(0) + "");
-        MessageUtils.infoMessage("§".codePointAt(0) + "");
+        /*MessageUtils.infoMessage("&".codePointAt(0) + "");
+        MessageUtils.infoMessage("§".codePointAt(0) + "");*/
+    
+        MessageUtils.infoMessage("\uAB3F".codePointAt(0) + ""); //OFFSET: 43776
+        MessageUtils.infoMessage("\uAB40".codePointAt(0) + "");
     }
 }

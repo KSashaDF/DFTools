@@ -1,18 +1,19 @@
 package dfutils.eventhandler;
 
 import dfutils.customevents.ClickItemEvent;
-import dfutils.network.NetworkEncoderOverride;
+import dfutils.network.InboundPacketHandler;
+import dfutils.network.OutboundPacketHandler;
 import io.netty.channel.Channel;
-import net.minecraft.network.EnumPacketDirection;
 import net.minecraft.network.play.client.CPacketClickWindow;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 public class SendPacketEvent {
     
-    //Overrides the default packet encoder. (NettyPacketEncoder)
+    //Adds the inbound and outbound packet handlers.
     static void initializeEvent(FMLNetworkEvent.ClientConnectedToServerEvent event) {
         Channel channel = event.getManager().channel();
-        channel.pipeline().replace(channel.pipeline().get("encoder"), "encoder", new NetworkEncoderOverride(EnumPacketDirection.SERVERBOUND));
+        channel.pipeline().addBefore("packet_handler", "dfutils_inbound_handler", new InboundPacketHandler());
+        channel.pipeline().addBefore("packet_handler", "dfUtils_outbound_handler", new OutboundPacketHandler());
     }
     
     //This method is called whenever a packet is about to be sent.
