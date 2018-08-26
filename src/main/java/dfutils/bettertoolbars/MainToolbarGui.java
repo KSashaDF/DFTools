@@ -94,11 +94,12 @@ public class MainToolbarGui extends GuiContainer {
             //Detects whether the hovered slot is the tab icon slot, if so, don't draw the item tooltip.
             if (getSlotUnderMouse() == null || !isIconSlot(getSlotUnderMouse().slotNumber)) {
                 renderHoveredToolTip(mouseX, mouseY);
-                RenderHelper.disableStandardItemLighting();
             }
         } catch (NullPointerException exception) {
             //Uh oh! An NPE happened for some reason, continue on.
         }
+        
+        RenderHelper.disableStandardItemLighting();
     
         //Draws the delete tab button.
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -125,6 +126,7 @@ public class MainToolbarGui extends GuiContainer {
         }
         
         //Draws scroll bar.
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
         super.drawTexturedModalRect(super.guiLeft + 175, (super.guiTop + 29) + (int) (95 * scrollPosition), 232 + (needsScrollBar() ? 0 : 12), 0, 12, 15);
     }
