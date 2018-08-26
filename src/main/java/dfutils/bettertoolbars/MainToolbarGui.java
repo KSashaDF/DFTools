@@ -1,11 +1,12 @@
 package dfutils.bettertoolbars;
 
 import dfutils.bettertoolbars.slots.SlotBase;
-import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Slot;
@@ -13,15 +14,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.io.IOException;
 
 @ParametersAreNonnullByDefault
 public class MainToolbarGui extends GuiContainer {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
-
+    
+    private static final ResourceLocation GUI_TAB_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab_icons.png");
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab.png");
+    
+    private GuiTextField tabNameField;
     private int selectedTabIndex = 0;
-    private int scrollPosition = 0;
+    private int selectedTabPage = 0;
+    private float scrollPosition = 0.0f;
     private boolean startOfItemDrag = false;
 
     public MainToolbarGui() {
@@ -31,10 +37,21 @@ public class MainToolbarGui extends GuiContainer {
         if (ToolbarTabHandler.toolbarTabs == null) {
             ToolbarTabHandler.createToolbarTab();
         }
-
-        updateToolbarSlots();
     }
-
+    
+    @Override
+    public void initGui() {
+        super.initGui();
+    
+        updateToolbarSlots();
+    
+        tabNameField = new GuiTextField(0, super.fontRenderer, super.guiLeft + 32, super.guiTop + 12, 112, super.fontRenderer.FONT_HEIGHT);
+        tabNameField.setMaxStringLength(50);
+        tabNameField.setEnableBackgroundDrawing(false);
+        tabNameField.setText(ToolbarTabHandler.toolbarTabs[selectedTabIndex].tabName);
+        tabNameField.setCanLoseFocus(true);
+    }
+    
     private void updateToolbarSlots() {
         dragSplitting = false;
         
@@ -42,31 +59,30 @@ public class MainToolbarGui extends GuiContainer {
             ItemStack[] tabItems = ToolbarTabHandler.toolbarTabs[selectedTabIndex].getTabItems();
 
             for (int slotIndex = 1; slotIndex < 46; slotIndex++) {
-                int tabSlotIndex = (scrollPosition * 9) + (slotIndex - 1);
+                int tabSlotIndex = (getScrollRow() * 9) + (slotIndex - 1);
 
                 //If tabSlotIndex is outside the bounds of the tabItems array,
                 //just put an air item into the selected toolbar slot.
                 if (tabSlotIndex < tabItems.length) {
-                    inventorySlots.getSlot(slotIndex).putStack(tabItems[tabSlotIndex]);
+                    super.inventorySlots.getSlot(slotIndex).putStack(tabItems[tabSlotIndex]);
                 } else {
-                    inventorySlots.getSlot(slotIndex).putStack(ItemStack.EMPTY);
+                    super.inventorySlots.getSlot(slotIndex).putStack(ItemStack.EMPTY);
                 }
             }
 
             //Sets the icon slot to the tabs icon slot item.
-            inventorySlots.getSlot(0).putStack(ToolbarTabHandler.toolbarTabs[selectedTabIndex].tabIcon);
+            super.inventorySlots.getSlot(0).putStack(ToolbarTabHandler.toolbarTabs[selectedTabIndex].tabIcon);
         } catch (NullPointerException exception) {
             //Uh oh! An NPE, continue on.
         }
     }
-
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        minecraft.getTextureManager().bindTexture(GUI_TEXTURE);
-
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, 195, 147);
+    
+    @Override
+    public void updateScreen() {
+        tabNameField.updateCursorCounter();
+        super.updateScreen();
     }
-
+    
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
@@ -77,13 +93,74 @@ public class MainToolbarGui extends GuiContainer {
         try {
             //Detects whether the hovered slot is the tab icon slot, if so, don't draw the item tooltip.
             if (getSlotUnderMouse() == null || !isIconSlot(getSlotUnderMouse().slotNumber)) {
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                GlStateManager.disableLighting();
                 renderHoveredToolTip(mouseX, mouseY);
+                RenderHelper.disableStandardItemLighting();
             }
         } catch (NullPointerException exception) {
             //Uh oh! An NPE happened for some reason, continue on.
         }
+    
+        //Draws the delete tab button.
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        if (MathUtils.withinRange(mouseX, super.guiLeft + 176, super.guiLeft + 185) && MathUtils.withinRange(mouseY, super.guiTop + 11, super.guiTop + 20)) {
+            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 247, 34, 9, 9);
+            super.drawHoveringText("§cDelete Tab", mouseX, mouseY);
+        } else {
+            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 238, 34, 9, 9);
+        }
+    }
+    
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        minecraft.getTextureManager().bindTexture(GUI_TEXTURE);
+        
+        super.drawTexturedModalRect(super.guiLeft, super.guiTop, 0, 0, 195, 147);
+        RenderHelper.enableGUIStandardItemLighting();
+        tabNameField.drawTextBox();
+        
+        if (!needsScrollBar()) {
+            scrollPosition = 0.0f;
+        }
+        
+        //Draws scroll bar.
+        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        super.drawTexturedModalRect(super.guiLeft + 175, (super.guiTop + 29) + (int) (95 * scrollPosition), 232 + (needsScrollBar() ? 0 : 12), 0, 12, 15);
+    }
+    
+    private void drawTab(int tabIndex) {
+        
+        boolean isSelectedTab = tabIndex == selectedTabIndex;
+        ToolbarTab toolbarTab = ToolbarTabHandler.toolbarTabs[tabIndex];
+        
+        int tabColumn = tabIndex % 6;
+        int textureX = tabColumn * 28;
+        int textureY = 0;
+        int tabX = (super.guiLeft + 28 * tabColumn) + tabColumn;
+        int tabY = super.guiTop - 28;
+        
+        if (isSelectedTab) {
+            textureY += 32;
+        }
+        
+        GlStateManager.disableLighting();
+        GlStateManager.color(1F, 1F, 1F);
+        GlStateManager.enableBlend();
+        //Draws tab texture.
+        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        super.drawTexturedModalRect(tabX, tabY, textureX, textureY, 28, 32);
+        super.zLevel = 100.0F;
+        super.itemRender.zLevel = 100.0F;
+        GlStateManager.enableLighting();
+        GlStateManager.enableRescaleNormal();
+        
+        //Draws tab icon item.
+        super.itemRender.renderItemAndEffectIntoGUI(toolbarTab.tabIcon, tabX + 6, tabY + 9);
+        super.itemRender.renderItemOverlays(super.fontRenderer, toolbarTab.tabIcon, tabX + 6, tabY + 9);
+        GlStateManager.disableLighting();
+        super.itemRender.zLevel = 0.0F;
+        super.zLevel = 0.0F;
     }
 
     //This method overrides the default Minecraft item manipulation behaviour,
@@ -141,189 +218,34 @@ public class MainToolbarGui extends GuiContainer {
             ((SlotBase) slot).onSlotClick(mouseButton, clickType);
         }
 
-        /*switch (clickType) {
-            case PICKUP:
-
-                //If the slot index is -999, it means the player clicked outside the GUI.
-                //The following code handles clicking outside the GUI. Normally clicking outside the GUI would
-                //drop the dragged item. (here it simply deletes it)
-                if (slotIndex == -999) {
-                    if (mouseButton == 0) {
-                        playerInventory.setItemStack(ItemStack.EMPTY);
-                    } else if (mouseButton == 1) {
-                        playerInventory.getItemStack().shrink(1);
-                    }
-                } else if (slot != null) {
-                    //Sets the icon slot to the currently dragged item.
-                    if (isIconSlot(slotIndex)) {
-                        if (mouseButton == 0) {
-                            slot.putStack(playerInventory.getItemStack().copy());
-                        } else if (mouseButton == 1) {
-                            ItemStack itemStack = playerInventory.getItemStack().copy();
-                            itemStack.setCount(1);
-                            slot.putStack(itemStack);
-                        }
-                    } else if (isToolbarSlot(slotIndex)) {
-                        
-                        if (mouseButton == 0) {
-                            if (playerInventory.getItemStack().isEmpty()) {
-                                playerInventory.setItemStack(slot.getStack().copy());
-                            } else {
-                                if (ItemUtils.areItemsStackable(slot.getStack(), playerInventory.getItemStack())) {
-                                    playerInventory.setItemStack(ItemUtils.incrementStackSize(playerInventory.getItemStack(), slot.getStack().getCount()));
-                                } else {
-                                    playerInventory.setItemStack(ItemStack.EMPTY);
-                                }
-                            }
-                        } else if (mouseButton == 1) {
-                            if (playerInventory.getItemStack().isEmpty()) {
-                                playerInventory.setItemStack(slot.getStack().copy().splitStack(MathUtils.roundUpDivide(slot.getStack().getCount(), 2)));
-                            } else {
-                                playerInventory.getItemStack().shrink(1);
-                            }
-                        }
-                        
-                    } else if (isHotbarSlot(slotIndex)) {
-                        if (slot.getHasStack()) {
-                            //CONDITION BRANCH: The following actions are for when the slot HAS an item and
-                            //when there is NO dragged item.
-                            if (playerInventory.getItemStack().isEmpty()) {
-                                if (mouseButton == 0) {
-                                    playerInventory.setItemStack(slot.getStack());
-                                    slot.putStack(ItemStack.EMPTY);
-                                } else if (mouseButton == 1) {
-                                    playerInventory.setItemStack(slot.getStack().splitStack(MathUtils.roundUpDivide(slot.getStack().getCount(), 2)));
-                                }
-                                
-                                //CONDITION BRANCH: The following actions are for when the slot HAS an item and
-                                //when there IS a dragged item.
-                            } else {
-                                if (ItemUtils.areItemsStackable(slot.getStack(), playerInventory.getItemStack())) {
-                                    if (mouseButton == 0) {
-                                        int stackSpaceLeft = slot.getStack().getMaxStackSize() - slot.getStack().getCount();
-                                        
-                                        if (stackSpaceLeft > 0) {
-                                            if (stackSpaceLeft >= playerInventory.getItemStack().getCount()) {
-                                                slot.getStack().grow(playerInventory.getItemStack().getCount());
-                                                playerInventory.setItemStack(ItemStack.EMPTY);
-                                            } else {
-                                                slot.getStack().setCount(slot.getStack().getMaxStackSize());
-                                                playerInventory.getItemStack().shrink(stackSpaceLeft);
-                                            }
-                                        }
-                                    } else if (mouseButton == 1) {
-                                        if (slot.getStack().getCount() < slot.getStack().getMaxStackSize()) {
-                                            slot.getStack().grow(1);
-                                            playerInventory.getItemStack().shrink(1);
-                                        }
-                                    }
-                                } else {
-                                    //Swaps the dragged item and the slot item.
-                                    ItemStack tempItemStack = slot.getStack();
-                                    slot.putStack(playerInventory.getItemStack());
-                                    playerInventory.setItemStack(tempItemStack);
-                                }
-                            }
-                        } else {
-                            //CONDITION BRANCH: The following actions are for when the slot is EMPTY and
-                            //when there IS a dragged item.
-                            if (!playerInventory.getItemStack().isEmpty()) {
-                                if (mouseButton == 0) {
-                                    slot.putStack(playerInventory.getItemStack());
-                                    playerInventory.setItemStack(ItemStack.EMPTY);
-                                } else if (mouseButton == 1) {
-                                    slot.putStack(playerInventory.getItemStack().splitStack(1));
-                                }
-                            }
-                        }
-                    }
-                }
-                break;
-
-            case QUICK_MOVE:
-                if (slot != null) {
-                    if (isToolbarSlot(slotIndex)) {
-                        if (mouseButton == 0) {
-                            if (slot.getHasStack()) {
-                                playerInventory.setItemStack(slot.getStack().copy());
-                                playerInventory.getItemStack().setCount(playerInventory.getItemStack().getMaxStackSize());
-                            } else {
-                                slot.putStack(playerInventory.getItemStack());
-                                playerInventory.setItemStack(ItemStack.EMPTY);
-                            }
-                        } else if (mouseButton == 1) {
-                            slot.putStack(ItemStack.EMPTY);
-                        }
-                    } else {
-                        if (slot.getHasStack()) {
-                            if (mouseButton == 0) {
-                                slot.putStack(ItemStack.EMPTY);
-                            } else if (mouseButton == 1) {
-                                slot.getStack().shrink(1);
-                            }
-                        }
-                    }
-                }
-                break;
-
-            case SWAP:
-                if (slot != null) {
-                    if (isIconSlot(slotIndex)) {
-                        slot.putStack(inventorySlots.getSlot(inventorySlots.inventorySlots.size() - 9 + mouseButton).getStack().copy());
-                    } else if (isToolbarSlot(slotIndex)) {
-                        ItemStack swapStack =  slot.getStack().copy();
-                        if (swapStack.getCount() < swapStack.getMaxStackSize()) {
-                            swapStack.setCount(swapStack.getMaxStackSize());
-                        }
-                        
-                        inventorySlots.getSlot(inventorySlots.inventorySlots.size() - 9 + mouseButton).putStack(swapStack);
-                    } else if (isHotbarSlot(slotIndex)) {
-                        Slot hotbarSlot = inventorySlots.getSlot(inventorySlots.inventorySlots.size() - 9 + mouseButton);
-                        ItemStack tempItemStack = hotbarSlot.getStack();
-                        hotbarSlot.putStack(slot.getStack());
-                        slot.putStack(tempItemStack);
-                    }
-                }
-                break;
-
-            case CLONE:
-                //If the player is not dragging an item, and is hovering over another item,
-                //set their dragged item to the one being hovered over with their cursor.
-                //Otherwise, if the player already has an item on their cursor, increment that item's
-                //stack size.
-
-                if (playerInventory.getItemStack().isEmpty() || (slot != null && slot.getHasStack() && !ItemUtils.areItemsStackable(playerInventory.getItemStack(), slot.getStack()))) {
-                    if (slot != null && slot.getHasStack()) {
-                        ItemStack newDraggedItem = slot.getStack().copy();
-                        newDraggedItem.setCount(newDraggedItem.getMaxStackSize());
-
-                        playerInventory.setItemStack(newDraggedItem);
-                    }
-                } else {
-                    playerInventory.setItemStack(ItemUtils.incrementStackSize(playerInventory.getItemStack(), 1));
-                }
-                break;
-
-            case THROW:
-                //If the player presses Q while hovering over a hotbar item, or the icon item,
-                //decrease the item's stack size by 1. If the player presses
-                //Q while hovering over a hotbar item/icon item AND while holding down control,
-                //remove the entire item stack.
-
-                if (isHotbarSlot(slotIndex) || isIconSlot(slotIndex)) {
-                    if (slot != null) {
-                        if (mouseButton == 0) {
-                            slot.putStack(ItemUtils.incrementStackSize(slot.getStack(), -1));
-                        } else if (mouseButton == 1) {
-                            slot.putStack(ItemStack.EMPTY);
-                        }
-                    }
-                }
-                break;
-        }*/
-
         //Syncs the players hotbar with the hotbar in the toolbar menu.
         detectAndSendHotbarChanges();
+    }
+    
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        
+        int guiLeft = super.guiLeft;
+        int guiTop = super.guiTop;
+        
+        //Checks if the player clicks the tab name text field.
+        if (MathUtils.withinRange(mouseX, guiLeft + 31, guiLeft + 151) && MathUtils.withinRange(mouseY, guiTop + 11, guiTop + 21)) {
+            tabNameField.setFocused(true);
+        } else {
+            tabNameField.setFocused(false);
+        }
+        
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+    }
+    
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        
+        if (!super.checkHotbarKeys(keyCode)) {
+            if (!tabNameField.textboxKeyTyped(typedChar, keyCode)) {
+                super.keyTyped(typedChar, keyCode);
+            }
+        }
     }
 
     @Override
@@ -338,13 +260,21 @@ public class MainToolbarGui extends GuiContainer {
     private void detectAndSendHotbarChanges() {
 
         for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
-            ItemStack hotbarStack = inventorySlots.getSlot(slotIndex + 46).getStack();
+            ItemStack hotbarStack = super.inventorySlots.getSlot(slotIndex + 46).getStack();
             ItemStack playerInvItem = minecraft.player.inventory.getStackInSlot(slotIndex);
 
             if (!ItemStack.areItemStackShareTagsEqual(hotbarStack, playerInvItem) || hotbarStack.getCount() != playerInvItem.getCount()) {
                 minecraft.playerController.sendSlotPacket(hotbarStack, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + slotIndex);
             }
         }
+    }
+    
+    private boolean needsScrollBar() {
+        return ToolbarTabHandler.toolbarTabs[selectedTabIndex].getTabItems().length / 9 > 5;
+    }
+    
+    private int getScrollRow() {
+        return (int) ((ToolbarTabHandler.toolbarTabs[selectedTabIndex].getTabItems().length / 9) * scrollPosition);
     }
 
     private boolean isIconSlot(int slotIndex) {
@@ -356,6 +286,6 @@ public class MainToolbarGui extends GuiContainer {
     }
 
     private boolean isHotbarSlot(int slotIndex) {
-        return slotIndex >= inventorySlots.inventorySlots.size() - 9 && slotIndex < inventorySlots.inventorySlots.size();
+        return slotIndex >= super.inventorySlots.inventorySlots.size() - 9 && slotIndex < super.inventorySlots.inventorySlots.size();
     }
 }
