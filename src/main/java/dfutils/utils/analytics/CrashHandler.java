@@ -15,7 +15,7 @@ public class CrashHandler implements Runnable {
     
     @Override
     public void run() {
-        File crashDirectory = new File(Minecraft.getMinecraft().mcDataDir, "crash-reports");
+        File crashDirectory = new File(Minecraft.getMinecraft().gameDir, "crash-reports");
         File crashReport = new File(crashDirectory, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
         
         if (crashReport.exists()) {

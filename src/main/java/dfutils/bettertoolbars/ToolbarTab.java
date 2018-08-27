@@ -23,6 +23,7 @@ class ToolbarTab {
 
     String tabName;
     String fileName;
+    String newFileName = "";
     String originalName;
     ItemStack tabIcon;
     private ItemStack[] tabItems;
@@ -33,7 +34,7 @@ class ToolbarTab {
     private boolean isWriting = false;
 
     //Determines whether the tab's item data needs to be saved.
-    private boolean isModified = false;
+    boolean isModified = false;
 
     //Stores the last time that the toolbar tab file was reloaded, used to determine if
     //the toolbar tab file needs to be reloaded.
@@ -44,6 +45,7 @@ class ToolbarTab {
         try {
             tabName = tabNbt.getString("Name");
             fileName = tabNbt.getString("FileName");
+            newFileName = fileName;
             originalName = tabNbt.getString("OriginalName");
             tabIcon = new ItemStack(tabNbt.getCompoundTag("IconItem"));
 
@@ -64,11 +66,11 @@ class ToolbarTab {
         try {
             isModified = true;
 
-            if (toolbarItemFile.exists() && toolbarItemFile.createNewFile()) {
+            if ((!toolbarItemFile.exists() || tabItems == null) && toolbarItemFile.createNewFile()) {
                 tabItems = new ItemStack[(parentRow + 1) * 9];
 
                 for (int i = 0; i < tabItems.length; i++) {
-                    tabItems[i] = new ItemStack(Item.getItemById(0));
+                    tabItems[i] = ItemStack.EMPTY;
                 }
 
                 saveTab();
@@ -83,38 +85,49 @@ class ToolbarTab {
 
     ItemStack[] getTabItems() {
         if (lastReloadedTabTime < toolbarItemFile.lastModified()) {
-            if (!isWriting && toolbarItemFile.exists()) {
-                String fileData;
-                NBTTagCompound fileNbt;
-
-                //Reads from the tab's item list file and converts the output into ItemStack objects.
-                try (InputStream inputStream = Files.newInputStream(toolbarItemFile.toPath())) {
-
-                    fileData = IOUtils.toString(inputStream, Charsets.UTF_8);
-
-                    //Makes sure that the file isn't empty.
-                    if (!fileData.equals("")) {
-                        fileNbt = JsonToNBT.getTagFromJson(fileData);
-
-                        //Converts the item NBT read from the file into actual ItemStack objects.
-                        if (fileNbt.hasKey("Items")) {
-                            NBTTagList itemList = fileNbt.getTagList("Items", 10);
-                            tabItems = new ItemStack[itemList.tagCount()];
-
-                            for (int i = 0; i < itemList.tagCount(); i++) {
-                                tabItems[i] = new ItemStack(itemList.getCompoundTagAt(i));
+            if (!isWriting) {
+                if (toolbarItemFile.exists()) {
+                    String fileData;
+                    NBTTagCompound fileNbt;
+    
+                    //Reads from the tab's item list file and converts the output into ItemStack objects.
+                    try (InputStream inputStream = Files.newInputStream(toolbarItemFile.toPath())) {
+        
+                        fileData = IOUtils.toString(inputStream, Charsets.UTF_8);
+        
+                        //Makes sure that the file isn't empty.
+                        if (!fileData.equals("")) {
+                            fileNbt = JsonToNBT.getTagFromJson(fileData);
+            
+                            //Converts the item NBT read from the file into actual ItemStack objects.
+                            if (fileNbt.hasKey("Items")) {
+                                NBTTagList itemList = fileNbt.getTagList("Items", 10);
+                                tabItems = new ItemStack[itemList.tagCount()];
+                
+                                for (int i = 0; i < itemList.tagCount(); i++) {
+                                    tabItems[i] = new ItemStack(itemList.getCompoundTagAt(i));
+                                }
                             }
+            
+                            lastReloadedTabTime = toolbarItemFile.lastModified();
                         }
-
-                        lastReloadedTabTime = toolbarItemFile.lastModified();
+                    } catch (IOException exception) {
+                        minecraft.player.closeScreen();
+                        MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to load toolbar item data.");
+                    } catch (NBTException exception) {
+                        minecraft.player.closeScreen();
+                        MessageUtils.errorMessage("Uh oh! Invalid toolbar item NBT format.");
                     }
-                } catch (IOException exception) {
-                    minecraft.player.closeScreen();
-                    MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to load toolbar item data.");
-                } catch (NBTException exception) {
-                    minecraft.player.closeScreen();
-                    MessageUtils.errorMessage("Uh oh! Invalid toolbar item NBT format.");
+                    
+                    if (tabItems == null) {
+                        addRow(4);
+                    }
+                    
+                } else {
+                    addRow(4);
                 }
+            } else {
+                return null;
             }
         }
 
@@ -124,7 +137,15 @@ class ToolbarTab {
     //Saves the tab's items to the tab's item file.
     void saveTab() {
         if (isModified) {
-            MessageUtils.actionMessage("Saving tab...");
+            
+            //Checks if the name of the toolbar item file should be renamed, if so, renames the file.
+            if (!fileName.equals(newFileName) && toolbarItemFile.exists()) {
+                if (toolbarItemFile.delete()) {
+                    toolbarItemFile = new File(ToolbarTabHandler.toolbarDataDir, newFileName + ".toolbar");
+                    fileName = newFileName;
+                }
+            }
+            
             new Thread(new ToolbarTabWriter()).start();
         }
     }
@@ -149,10 +170,7 @@ class ToolbarTab {
 
                 //Writes to the tab's item list file, also creates a new file if an item data file does not already exist.
                 try (OutputStream outputStream = Files.newOutputStream(toolbarItemFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-
-                    MessageUtils.infoMessage(tabItemNbt.toString());
                     IOUtils.write(tabItemNbt.toString(), outputStream, Charsets.UTF_8);
-
                 } catch (IOException exception) {
                     MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to save toolbar item data.");
                     isWriting = false;

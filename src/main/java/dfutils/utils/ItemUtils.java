@@ -58,8 +58,8 @@ public class ItemUtils {
         NBTTagCompound nbtTag1 = itemStack1.getTagCompound();
         NBTTagCompound nbtTag2 = itemStack2.getTagCompound();
         
-        if (nbtTag1 == null || nbtTag1.hasNoTags()) {
-            return nbtTag2 == null || nbtTag2.hasNoTags();
+        if (nbtTag1 == null || nbtTag1.isEmpty()) {
+            return nbtTag2 == null || nbtTag2.isEmpty();
         } else {
             return nbtTag1.equals(nbtTag2);
         }

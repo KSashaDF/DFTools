@@ -1,5 +1,6 @@
 package dfutils.bettertoolbars.slots;
 
+import dfutils.bettertoolbars.MainToolbarGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -46,5 +47,7 @@ public class IconSlot extends SlotBase {
                 super.onSlotClick(mouseButton, clickType);
                 break;
         }
+        
+        ((MainToolbarGui) minecraft.currentScreen).modifySlot(super.getSlotIndex());
     }
 }

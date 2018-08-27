@@ -28,7 +28,7 @@ class CommandLoadTemplate {
             return;
         }
 
-        File codeDataFile = new File(minecraft.mcDataDir, "codedata.nbt");
+        File codeDataFile = new File(minecraft.gameDir, "codedata.nbt");
 
         try {
             //Checks if the file exists and if the file isn't empty.

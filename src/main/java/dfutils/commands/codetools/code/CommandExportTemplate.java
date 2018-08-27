@@ -27,7 +27,7 @@ class CommandExportTemplate {
         }
 
         ItemStack itemStack = minecraft.player.getHeldItemMainhand();
-        File codeTemplateDirectory = new File(minecraft.mcDataDir, "codetemplates");
+        File codeTemplateDirectory = new File(minecraft.gameDir, "codetemplates");
         File codeTemplateFile = new File(codeTemplateDirectory, commandArgs[1] + ".dfcode");
 
         if (itemStack.isEmpty()) {

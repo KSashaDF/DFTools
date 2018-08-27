@@ -18,8 +18,8 @@ public class ToolbarTabHandler {
 
     static ToolbarTab[] toolbarTabs;
     private static final Minecraft minecraft = Minecraft.getMinecraft();
-    static File toolbarDataDir = new File(minecraft.mcDataDir, "toolbars");
-    private static File toolbarDataFile = new File(minecraft.mcDataDir, "toolbars/ToolbarTabs.nbt");
+    static File toolbarDataDir = new File(minecraft.gameDir, "toolbars");
+    private static File toolbarDataFile = new File(minecraft.gameDir, "toolbars/ToolbarTabs.nbt");
 
     //Stores the last time that the toolbar tab data file was reloaded, used to determine if
     //the toolbar tab data file needs to be reloaded.
@@ -73,6 +73,10 @@ public class ToolbarTabHandler {
         toolbarTab.tabName = modifiedName;
 
         //Replaces illegal file name characters and also makes sure the file name is unique.
+        if (modifiedName.equals("")) {
+            modifiedName = "BLANK";
+        }
+        
         modifiedName = modifiedName.replace(" ", "_");
         modifiedName = modifiedName.replace("/", ":");
         for (int i = 0; i < toolbarTabs.length; i++) {
@@ -82,7 +86,8 @@ public class ToolbarTabHandler {
             }
         }
 
-        toolbarTab.fileName = modifiedName;
+        toolbarTab.newFileName = modifiedName;
+        toolbarTab.isModified = true;
     }
 
     private static String recursiveTabNameFinder(String tabName, int tabNameSuffix, int tabIndex) {
@@ -121,9 +126,7 @@ public class ToolbarTabHandler {
         //If the toolbar data file does not exist, create one.
         if (!toolbarDataFile.exists()) {
             try (OutputStream outputStream = Files.newOutputStream(toolbarDataFile.toPath(), StandardOpenOption.CREATE)) {
-
-                //TODO - Fix this! This needs to initialize a new toolbar tab.
-                //IOUtils.write("{ToolbarTabs:[]}", outputStream, Charsets.UTF_8);
+                
                 createToolbarTab();
                 lastReloadedDataTime = toolbarDataFile.lastModified();
                 return;

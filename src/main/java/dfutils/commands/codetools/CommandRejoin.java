@@ -37,23 +37,27 @@ public class CommandRejoin extends CommandBase implements IClientCommand {
     public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
         
         if (PlayerStateHandler.isOnDiamondFire && PlayerStateHandler.playerMode != PlayerMode.SPAWN) {
-            MessageUtils.actionMessage("Rejoining...");
-            
-            switch (PlayerStateHandler.playerMode) {
-                case PLAY:
-                    minecraft.player.sendChatMessage("/spawn");
-                    break;
-                    
-                case BUILD:
-                    minecraft.player.sendChatMessage("/play");
-                    break;
-                    
-                case DEV:
-                    minecraft.player.sendChatMessage("/play");
-                    break;
+            if (PlayerStateHandler.isInSupportSession) {
+                MessageUtils.errorMessage("This command is disabled while inside a session!");
+            } else {
+                MessageUtils.actionMessage("Rejoining...");
+    
+                switch (PlayerStateHandler.playerMode) {
+                    case PLAY:
+                        minecraft.player.sendChatMessage("/spawn");
+                        break;
+        
+                    case BUILD:
+                        minecraft.player.sendChatMessage("/play");
+                        break;
+        
+                    case DEV:
+                        minecraft.player.sendChatMessage("/play");
+                        break;
+                }
+    
+                new Thread(new CommandWait(PlayerStateHandler.playerMode)).start();
             }
-            
-            new Thread(new CommandWait(PlayerStateHandler.playerMode)).start();
         }
     }
     

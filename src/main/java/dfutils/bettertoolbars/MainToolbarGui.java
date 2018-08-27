@@ -8,10 +8,12 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class MainToolbarGui extends GuiContainer {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    private static final ResourceLocation GUI_TAB_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab_icons.png");
+    private static final ResourceLocation GUI_TAB_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_icons.png");
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab.png");
     
     private GuiTextField tabNameField;
@@ -98,18 +100,6 @@ public class MainToolbarGui extends GuiContainer {
         } catch (NullPointerException exception) {
             //Uh oh! An NPE happened for some reason, continue on.
         }
-        
-        RenderHelper.disableStandardItemLighting();
-    
-        //Draws the delete tab button.
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
-        if (MathUtils.withinRange(mouseX, super.guiLeft + 176, super.guiLeft + 185) && MathUtils.withinRange(mouseY, super.guiTop + 11, super.guiTop + 20)) {
-            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 247, 34, 9, 9);
-            super.drawHoveringText("§cDelete Tab", mouseX, mouseY);
-        } else {
-            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 238, 34, 9, 9);
-        }
     }
     
     @Override
@@ -129,6 +119,24 @@ public class MainToolbarGui extends GuiContainer {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
         super.drawTexturedModalRect(super.guiLeft + 175, (super.guiTop + 29) + (int) (95 * scrollPosition), 232 + (needsScrollBar() ? 0 : 12), 0, 12, 15);
+    
+        //Draws the delete tab button.
+        if (MathUtils.withinRange(mouseX, super.guiLeft + 176, super.guiLeft + 185) && MathUtils.withinRange(mouseY, super.guiTop + 11, super.guiTop + 20) && minecraft.player.inventory.getItemStack().isEmpty()) {
+            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 247, 34, 9, 9);
+            super.drawHoveringText("§cDelete Tab", mouseX, mouseY);
+        } else {
+            super.drawTexturedModalRect(super.guiLeft + 176, super.guiTop + 11, 238, 34, 9, 9);
+        }
+    
+        //Draws the settings button.
+        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.disableLighting();
+        if (MathUtils.withinRange(mouseX, 0, 29) && MathUtils.withinRange(mouseY, 0, 29)) {
+            super.drawTexturedModalRect(0, 0, 149, 128, 29, 29);
+        } else {
+            super.drawTexturedModalRect(0, 0, 120, 128, 29, 29);
+        }
     }
     
     private void drawTab(int tabIndex) {
@@ -235,6 +243,12 @@ public class MainToolbarGui extends GuiContainer {
             tabNameField.setFocused(true);
         } else {
             tabNameField.setFocused(false);
+            tabNameField.setSelectionPos(tabNameField.getCursorPosition());
+        }
+        
+        //Checks if the player clicks the settings button.
+        if (MathUtils.withinRange(mouseX, 0, 29) && MathUtils.withinRange(mouseY, 0, 29)) {
+            minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 1.0F, 1.0F);
         }
         
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -244,8 +258,23 @@ public class MainToolbarGui extends GuiContainer {
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         
         if (!super.checkHotbarKeys(keyCode)) {
-            if (!tabNameField.textboxKeyTyped(typedChar, keyCode)) {
-                super.keyTyped(typedChar, keyCode);
+            if (keyCode == Keyboard.KEY_RETURN) {
+                tabNameField.setFocused(false);
+                tabNameField.setSelectionPos(tabNameField.getCursorPosition());
+            } else {
+    
+                String oldText = tabNameField.getText();
+    
+                if (!tabNameField.textboxKeyTyped(typedChar, keyCode)) {
+                    super.keyTyped(typedChar, keyCode);
+                }
+    
+                //If the given text is too long, remove the added character.
+                if (minecraft.fontRenderer.getStringWidth(tabNameField.getText()) > 118) {
+                    tabNameField.setText(oldText);
+                }
+    
+                ToolbarTabHandler.renameToolbarTab(tabNameField.getText(), selectedTabIndex);
             }
         }
     }
@@ -257,6 +286,14 @@ public class MainToolbarGui extends GuiContainer {
         }
 
         ToolbarTabHandler.saveTabs();
+    }
+    
+    public void modifySlot(int slotIndex) {
+        if (isIconSlot(slotIndex)) {
+            ToolbarTabHandler.toolbarTabs[selectedTabIndex].tabIcon = super.inventorySlots.getSlot(slotIndex).getStack();
+        } else if (isToolbarSlot(slotIndex)) {
+            ToolbarTabHandler.toolbarTabs[selectedTabIndex].setTabItem(super.inventorySlots.getSlot(slotIndex).getStack(), getScrollRow() + slotIndex - 1);
+        }
     }
 
     private void detectAndSendHotbarChanges() {

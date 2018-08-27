@@ -1,5 +1,6 @@
 package dfutils.bettertoolbars.slots;
 
+import dfutils.bettertoolbars.MainToolbarGui;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
@@ -50,9 +51,11 @@ public class ToolbarSlot extends SlotBase {
                     } else {
                         super.putStack(playerInventory.getItemStack());
                         playerInventory.setItemStack(ItemStack.EMPTY);
+                        ((MainToolbarGui) minecraft.currentScreen).modifySlot(super.getSlotIndex());
                     }
                 } else if (mouseButton == 1) {
                     super.putStack(ItemStack.EMPTY);
+                    ((MainToolbarGui) minecraft.currentScreen).modifySlot(super.getSlotIndex());
                 }
                 break;
             

@@ -31,7 +31,7 @@ class CommandImportTemplate {
             return;
         }
 
-        File codeTemplateDirectory = new File(minecraft.mcDataDir, "codetemplates");
+        File codeTemplateDirectory = new File(minecraft.gameDir, "codetemplates");
         File codeTemplateFile = new File(codeTemplateDirectory, commandArgs[1] + ".dfcode");
 
         try {
