@@ -3,7 +3,6 @@ package dfutils.colorcodes;
 import com.ibm.icu.text.ArabicShaping;
 import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
-import dfutils.config.ConfigHandler;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -14,6 +13,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Locale;
@@ -36,7 +36,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     private int totalRColor = 0;
     private int totalBColor = 0;
     private int totalGColor = 0;
-    private int alphaColor = 0;
+    private int totalAlphaColor = 0;
     private int colorCodeCount = 0;
     
     private int baseAlpha;
@@ -101,22 +101,6 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     }
     
     /**
-     * Draws the specified string with a shadow.
-     */
-    @Override
-    public int drawStringWithShadow(String text, float x, float y, int color) {
-        return this.drawString(text, x, y, color, true);
-    }
-    
-    /**
-     * Draws the specified string.
-     */
-    @Override
-    public int drawString(String text, int x, int y, int color) {
-        return this.drawString(text, x, y, color, false);
-    }
-    
-    /**
      * Draws the specified string.
      */
     @Override
@@ -168,9 +152,10 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         totalRColor = color >> 16 & 255;
         totalBColor = color & 255;
         totalGColor = color >> 8 & 255;
-        alphaColor = 100;
+        totalAlphaColor = 100;
     
         baseAlpha = color >> 24 & 255;
+        baseAlpha = MathHelper.clamp(baseAlpha, 1, 255);
         baseTextColor = color;
     }
     
@@ -188,6 +173,8 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         totalRColor = 0;
         totalGColor = 0;
         totalBColor = 0;
+        
+        totalAlphaColor = 100;
     }
     
     private void addColor(int r, int g, int b) {
@@ -205,7 +192,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
     
     private void updateColor() {
         setColor(((float) totalRColor / colorCodeCount) / 255.0f, ((float) totalGColor / colorCodeCount) / 255.0f, ((float) totalBColor / colorCodeCount) / 255.0f,
-                MathUtils.lerp(alphaColor, 0, 100, 0, baseAlpha) / 255.0f);
+                MathUtils.lerp(totalAlphaColor, 0, 100, 0, baseAlpha) / 255.0f);
     }
     
     /**
@@ -218,74 +205,153 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
         
         for (int stringIndex = 0; stringIndex < text.length(); stringIndex++) {
             char stringChar = text.charAt(stringIndex);
-            
-            //If the character is a color character and it is not the end of the text String,
+    
+            //If the character is a CUSTOM color character and it is not the end of the text String,
             //set the text color.
-            if (stringChar == 167 && stringIndex + 1 < text.length()) {
+            if (stringChar == '\uAB60' && stringIndex + 1 < text.length()) {
                 if (!ignoreColorCodes) {
     
-                    char colorCodeChar = String.valueOf(text.charAt(stringIndex + 1)).toLowerCase(Locale.ROOT).charAt(0);
-                    int colorCodeId = "0123456789abcdefklmnor".indexOf(colorCodeChar);
+                    char colorCodeChar = String.valueOf(text.charAt(stringIndex + 1)).charAt(0);
     
                     //Color code: &*
-                    if (colorCodeChar == '*') {
+                    if (colorCodeChar == '\uAB46') {
                         //Toggles color code blending.
                         doColorBlending = !doColorBlending;
                         resetTextColor = true;
-                        colorCodeId = -1;
-                    }
     
-                    //Color code: &v
-                    if (colorCodeChar == 'v') {
+                        //Color code: &v
+                    } else if (colorCodeChar == '\uAB47') {
                         ignoreColorCodes = true;
-                        colorCodeId = -1;
-                    }
-    
-                    //Color code: &% (custom color)
-                    if (colorCodeChar == '%' && stringIndex + 5 < text.length()) {
                         
+                        //Color code: &() (custom color)
+                    } else if (colorCodeChar == '\uAB48' && stringIndex + 5 < text.length()) {
+        
                         //Checks if the given text contains a matching &% color code.
-                        if (text.substring(stringIndex + 2).contains("%")) {
-                            //Decodes the color code color format.
-                            String[] customColorArgs = text.replaceAll("[^\\d|]", "").split("[|]");
-    
-                            if (resetTextColor) {
-                                resetTextColor = false;
-                                resetColor();
+                        if (text.substring(stringIndex + 2).contains("\uAB48")) {
+                            //Splits the given custom color code character sequence into its different arguments.
+                            String colorCodeString = text.substring(stringIndex + 2, text.indexOf('\uAB48', stringIndex + 2));
+            
+                            char[] colorCodeChars = colorCodeString.toCharArray();
+                            StringBuilder convertedColorCodeString = new StringBuilder();
+                            for (char convertChar : colorCodeChars) {
+                                if (convertChar >= 43824 && convertChar <= 43833) {
+                                    convertedColorCodeString.append((char) (convertChar - 43776));
+                                } else if (convertChar == '\uAB49') {
+                                    convertedColorCodeString.append('\uAB49');
+                                }
                             }
-    
-                            randomStyle = false;
-                            boldStyle = false;
-                            strikeThroughStyle = false;
-                            underlineStyle = false;
-                            italicStyle = false;
-                            
+            
+                            colorCodeString = convertedColorCodeString.toString();
+                            String[] customColorArgs = colorCodeString.split("[\uAB49]");
+            
                             if (customColorArgs.length == 1) {
-                                alphaColor = Integer.parseInt(customColorArgs[0]);
+                                totalAlphaColor = Integer.parseInt(customColorArgs[0]);
                             } else if (customColorArgs.length == 3 || customColorArgs.length == 4) {
-    
+                
+                                if (resetTextColor) {
+                                    resetTextColor = false;
+                                    resetColor();
+                                }
+                
+                                randomStyle = false;
+                                boldStyle = false;
+                                strikeThroughStyle = false;
+                                underlineStyle = false;
+                                italicStyle = false;
+                
                                 int complexColorR = Integer.parseInt(customColorArgs[0]);
                                 int complexColorG = Integer.parseInt(customColorArgs[1]);
                                 int complexColorB = Integer.parseInt(customColorArgs[2]);
-                                
+                
                                 if (textShadow) {
                                     addColor((int) (complexColorR * 0.24f), (int) (complexColorG * 0.24f), (int) (complexColorB * 0.24f));
                                 } else {
                                     addColor(complexColorR, complexColorG, complexColorB);
                                 }
-                                
+                
                                 if (customColorArgs.length == 4) {
-                                    alphaColor = Integer.parseInt(customColorArgs[3]);
+                                    totalAlphaColor = Integer.parseInt(customColorArgs[3]);
                                 }
                             }
-    
+            
                             updateColor();
-                            stringIndex += text.substring(stringIndex + 2).indexOf('%') + 1;
+                            stringIndex += text.substring(stringIndex + 2).indexOf('\uAB48') + 1;
                         }
-                        
-                        colorCodeId = -1;
+                    } else {
+                        if (colorCodeChar >= 43824 && colorCodeChar <= 43839) {
+                            if (resetTextColor) {
+                                resetTextColor = false;
+                                resetColor();
+                            }
+            
+                            randomStyle = false;
+                            boldStyle = false;
+                            strikeThroughStyle = false;
+                            underlineStyle = false;
+                            italicStyle = false;
+            
+                            if (textShadow) {
+                                colorCodeChar += 16;
+                            }
+            
+                            int colorCodeColor = colorCode[colorCodeChar - 43776];
+            
+                            addColor(colorCodeColor >> 16, colorCodeColor >> 8 & 255, colorCodeColor & 255);
+                            updateColor();
+            
+                        } else {
+                            resetTextColor = true;
+            
+                            //Color Code: &k
+                            if (colorCodeChar == '\uAB40') {
+                                randomStyle = true;
+                
+                                //Color Code: &l
+                            } else if (colorCodeChar == '\uAB41') {
+                                boldStyle = true;
+                
+                                //Color Code: &m
+                            } else if (colorCodeChar == '\uAB42') {
+                                strikeThroughStyle = true;
+                
+                                //Color Code: &n
+                            } else if (colorCodeChar == '\uAB43') {
+                                underlineStyle = true;
+                
+                                //Color Code: &o
+                            } else if (colorCodeChar == '\uAB44') {
+                                italicStyle = true;
+                
+                                //Color Code: &r
+                            } else if (colorCodeChar == '\uAB45') {
+                                randomStyle = false;
+                                boldStyle = false;
+                                strikeThroughStyle = false;
+                                underlineStyle = false;
+                                italicStyle = false;
+                
+                                resetColor();
+                                colorCodeCount = 1;
+                                totalRColor = baseTextColor >> 16 & 255;
+                                totalGColor = baseTextColor & 255;
+                                totalBColor = baseTextColor >> 8 & 255;
+                                totalAlphaColor = 100;
+                
+                                updateColor();
+                            }
+                        }
                     }
+                }
     
+                stringIndex++;
+                
+                //If the character is a color character and it is not the end of the text String,
+                //set the text color.
+            } else if (stringChar == 167 && stringIndex + 1 < text.length()) {
+                if (!ignoreColorCodes) {
+    
+                    int colorCodeId = "0123456789abcdefklmnor".indexOf(String.valueOf(text.charAt(stringIndex + 1)).toLowerCase(Locale.ROOT).charAt(0));
+                    
                     if (colorCodeId != -1) {
                         if (colorCodeId < 16) {
                             if (resetTextColor) {
@@ -348,7 +414,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                                 totalRColor = baseTextColor >> 16 & 255;
                                 totalGColor = baseTextColor & 255;
                                 totalBColor = baseTextColor >> 8 & 255;
-                                alphaColor = 100;
+                                totalAlphaColor = 100;
                                 
                                 updateColor();
                             }
@@ -400,7 +466,7 @@ public class FontRendererOverride extends FontRenderer implements IResourceManag
                         super.posY -= charShadowOffset;
                     }
                     
-                    this.renderChar(stringChar, italicStyle);
+                    renderChar(stringChar, italicStyle);
                     super.posX -= charShadowOffset;
                     
                     if (doCharShadow) {

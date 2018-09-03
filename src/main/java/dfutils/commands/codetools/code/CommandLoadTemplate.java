@@ -1,8 +1,8 @@
 package dfutils.commands.codetools.code;
 
-import dfutils.codehandler.utils.CodeBlockName;
-import dfutils.codehandler.utils.CodeBlockType;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockName;
+import dfutils.codetools.codehandler.utils.CodeBlockType;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;

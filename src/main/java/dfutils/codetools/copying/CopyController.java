@@ -1,11 +1,11 @@
 package dfutils.codetools.copying;
 
-import dfutils.codehandler.utils.CodeBlockName;
-import dfutils.codehandler.utils.CodeBlockType;
+import dfutils.codetools.codehandler.utils.CodeBlockName;
+import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.codetools.selection.SelectionController;
 import dfutils.codetools.selection.SelectionState;
 import dfutils.utils.BlockUtils;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;

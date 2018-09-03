@@ -1,8 +1,8 @@
 package dfutils.eventhandler;
 
-import dfutils.customevents.ClickItemEvent;
-import dfutils.network.InboundPacketHandler;
-import dfutils.network.OutboundPacketHandler;
+import dfutils.eventhandler.customevents.ClickItemEvent;
+import dfutils.eventhandler.network.InboundPacketHandler;
+import dfutils.eventhandler.network.OutboundPacketHandler;
 import io.netty.channel.Channel;
 import net.minecraft.network.play.client.CPacketClickWindow;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
@@ -17,7 +17,7 @@ public class SendPacketEvent {
     }
     
     //This method is called whenever a packet is about to be sent.
-    public static void onSendPacketEvent(dfutils.customevents.SendPacketEvent event) {
+    public static void onSendPacketEvent(dfutils.eventhandler.customevents.SendPacketEvent event) {
         
         //If the packet is a ClickWindow packet, call the ClickItem event.
         if (event.packet instanceof CPacketClickWindow) {

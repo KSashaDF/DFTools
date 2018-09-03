@@ -1,12 +1,12 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codehandler.utils.CodeBlockData;
+import dfutils.codetools.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
-import dfutils.codehandler.utils.CodeBlockName;
-import dfutils.codehandler.utils.CodeBlockType;
+import dfutils.codetools.codehandler.utils.CodeBlockName;
+import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.codetools.printing.PrintSignStage;
 import dfutils.utils.BlockUtils;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import dfutils.utils.MessageUtils;

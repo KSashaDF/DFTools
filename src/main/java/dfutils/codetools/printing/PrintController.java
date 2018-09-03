@@ -1,8 +1,8 @@
 package dfutils.codetools.printing;
 
-import dfutils.codehandler.utils.CodeBlockData;
+import dfutils.codetools.codehandler.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.MathUtils;
 import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;

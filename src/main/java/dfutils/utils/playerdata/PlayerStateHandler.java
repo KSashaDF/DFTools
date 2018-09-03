@@ -1,8 +1,8 @@
 package dfutils.utils.playerdata;
 
 import dfutils.config.ConfigHandler;
-import dfutils.customevents.ClickItemEvent;
-import dfutils.customevents.DiamondFireEvent;
+import dfutils.eventhandler.customevents.ClickItemEvent;
+import dfutils.eventhandler.customevents.DiamondFireEvent;
 import dfutils.utils.BlockUtils;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
@@ -246,6 +246,9 @@ public class PlayerStateHandler {
 
             findPlotSize = false;
             waitForCreative = false;
+            
+            //NOTE: Move this to a separate event class when that gets made!
+            minecraft.player.clearActivePotions();
         }
 
         if (event instanceof DiamondFireEvent.ChangeModeEvent) {

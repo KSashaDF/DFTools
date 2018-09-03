@@ -1,9 +1,9 @@
 package dfutils.codetools.selection;
 
 import dfutils.utils.ColorReference;
-import dfutils.codehandler.utils.CodeBlockType;
+import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.utils.BlockUtils;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.client.Minecraft;

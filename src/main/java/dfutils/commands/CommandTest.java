@@ -59,7 +59,9 @@ public class CommandTest extends CommandBase implements IClientCommand {
         /*MessageUtils.infoMessage("&".codePointAt(0) + "");
         MessageUtils.infoMessage("§".codePointAt(0) + "");*/
     
-        MessageUtils.infoMessage("\uAB3F".codePointAt(0) + ""); //OFFSET: 43776
-        MessageUtils.infoMessage("\uAB40".codePointAt(0) + "");
+        MessageUtils.infoMessage("\uAB49".codePointAt(0) + ""); //OFFSET: 43776
+        MessageUtils.infoMessage("\uAB3F".codePointAt(0) + "");
+        
+        minecraft.entityRenderer.displayItemActivation(minecraft.player.getHeldItemMainhand());
     }
 }

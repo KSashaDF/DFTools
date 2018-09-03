@@ -2,7 +2,7 @@ package dfutils.codetools.copying;
 
 import dfutils.utils.ColorReference;
 import dfutils.utils.BlockUtils;
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.GraphicsUtils;
 import net.minecraft.util.math.BlockPos;
 

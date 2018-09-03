@@ -3,10 +3,9 @@ package dfutils.utils.rpc;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import dfutils.config.ConfigHandler;
 import dfutils.utils.playerdata.PlayerMode;
 import dfutils.utils.playerdata.PlayerStateHandler;
-
-import static dfutils.config.ConfigHandler.DISCORD_RPC_ENABLED;
 
 public class PresenceHandler {
     private static long lastTimestamp = 0;
@@ -23,25 +22,27 @@ public class PresenceHandler {
      * @return PresenceState
      */
     public static PresenceState getState() {
-        if (!DISCORD_RPC_ENABLED) return PresenceState.DISABLED;
-        return presenceState;
+        if (!ConfigHandler.DISCORD_RPC_ENABLED) {
+            return PresenceState.DISABLED;
+        } else {
+            return presenceState;
+        }
     }
 
     /**
      * Initializes Rich Presence.
      */
-    public static void initPresence() {
+    private static void initPresence() {
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         DiscordRPCSetup = true;
         lib.Discord_Initialize("476455349780611072", handlers, true, "");
-        // in a worker thread
+        
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 lib.Discord_RunCallbacks();
                 try {
                     Thread.sleep(2000);
-                } catch (InterruptedException ignored) {
-                }
+                } catch (InterruptedException ignored) {}
             }
         }, "RPC-Callback-Handler").start();
     }
@@ -50,7 +51,7 @@ public class PresenceHandler {
      * Updates the Rich Presence.
      */
     public static void updatePresence(boolean forceReload) {
-        if(DISCORD_RPC_ENABLED) {
+        if(ConfigHandler.DISCORD_RPC_ENABLED) {
             if(!DiscordRPCSetup) {
                 initPresence();
             }
@@ -59,6 +60,7 @@ public class PresenceHandler {
                 if (wasInSession && !PlayerStateHandler.isInSupportSession ||
                         lastMode != PlayerStateHandler.playerMode &&
                                 !PlayerStateHandler.isInSupportSession) {
+                    
                     lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
                     lastMode = PlayerStateHandler.playerMode;
                     wasInSession = false;
@@ -72,8 +74,12 @@ public class PresenceHandler {
 
                     updatePresenceData();
                 }
-            } else updatePresenceData();
-        } else destroyPresence();
+            } else {
+                updatePresenceData();
+            }
+        } else {
+            destroyPresence();
+        }
     }
 
     private static void updatePresenceData() {
@@ -88,26 +94,36 @@ public class PresenceHandler {
                     presence.largeImageKey = "spawn";
                     presence.details = "At spawn";
                     break;
+                    
                 case DEV:
                     presence.largeImageKey = "dev";
                     presence.largeImageText = "Mode Dev";
                     break;
+                    
                 case BUILD:
                     presence.largeImageKey = "build";
                     presence.largeImageText = "Mode Build";
                     break;
+                    
                 case PLAY:
                     presence.largeImageKey = "play";
                     presence.largeImageText = "Mode Play";
                     break;
             }
 
-            if(PlayerStateHandler.playerMode == PlayerMode.DEV ||
+            if (PlayerStateHandler.playerMode == PlayerMode.DEV ||
                     PlayerStateHandler.playerMode == PlayerMode.BUILD ||
                     PlayerStateHandler.playerMode == PlayerMode.PLAY) {
-                if(PlayerStateHandler.plotId != 0) presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                if(PlayerStateHandler.plotName != null) presence.details = PlayerStateHandler.plotName;
-                if(PlayerStateHandler.plotOwner != null) presence.state = "By " + PlayerStateHandler.plotOwner;
+                
+                if (PlayerStateHandler.plotId != 0) {
+                    presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
+                }
+                if(PlayerStateHandler.plotName != null) {
+                    presence.details = PlayerStateHandler.plotName;
+                }
+                if(PlayerStateHandler.plotOwner != null) {
+                    presence.state = "By " + PlayerStateHandler.plotOwner;
+                }
             }
         } else {
             switch (PlayerStateHandler.supportSessionRole) {
@@ -117,6 +133,7 @@ public class PresenceHandler {
                     presence.details = "Supporting";
                     presence.state = PlayerStateHandler.supportPartner;
                     break;
+                    
                 case SUPPORTEE:
                     presence.largeImageKey = "supportee";
                     presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
@@ -134,11 +151,13 @@ public class PresenceHandler {
      * Destroys the Rich Presence Instance.
      */
     public static void destroyPresence() {
-        lib.Discord_Shutdown();
-        lastTimestamp = 0;
-        lastMode = null;
-        DiscordRPCSetup = false;
-        wasInSession = false;
-        presenceState = PresenceState.NOTREADY;
+        if (DiscordRPCSetup) {
+            lib.Discord_Shutdown();
+            lastTimestamp = 0;
+            lastMode = null;
+            DiscordRPCSetup = false;
+            wasInSession = false;
+            presenceState = PresenceState.NOTREADY;
+        }
     }
 }

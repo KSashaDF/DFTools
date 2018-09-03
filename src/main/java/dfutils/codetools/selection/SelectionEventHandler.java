@@ -1,6 +1,6 @@
 package dfutils.codetools.selection;
 
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;

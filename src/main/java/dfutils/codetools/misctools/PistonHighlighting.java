@@ -1,6 +1,6 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.BlockUtils;
 import dfutils.utils.ColorReference;
 import dfutils.utils.GraphicsUtils;

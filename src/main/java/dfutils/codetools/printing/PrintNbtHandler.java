@@ -1,6 +1,6 @@
 package dfutils.codetools.printing;
 
-import dfutils.codehandler.utils.CodeItemUtils;
+import dfutils.codetools.codehandler.utils.CodeItemUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -44,24 +44,24 @@ public class TextUtils {
                             //Checks if the given color is a hexadecimal color.
                             if (customColorString.startsWith("#")) {
                                 Color hexColor = hexadecimalToRgb(customColorString);
-                                colorString = hexColor.getRed() + "|" + hexColor.getGreen() + "|" + hexColor.getBlue();
+                                colorString = hexColor.getRed() + "\uAB49" + hexColor.getGreen() + "\uAB49" + hexColor.getBlue();
                             } else {
-                                int[] colorChannels = parseNumberList(customColorString);
+                                String[] colorChannels = customColorString.split("[,]");
                                 
                                 //Checks if the given color format is either RGB, RGBA, or A (opacity)
                                 if (colorChannels.length == 3) {
                                     colorString =
-                                            MathHelper.clamp(colorChannels[0], 0, 255) + "|" +
-                                            MathHelper.clamp(colorChannels[1], 0, 255) + "|" +
-                                            MathHelper.clamp(colorChannels[2], 0, 255);
+                                            (colorChannels[0] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[0]), 0, 255) : "") + "|" +
+                                            (colorChannels[1] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[1]), 0, 255) : "") + "|" +
+                                            (colorChannels[2] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[2]), 0, 255) : "");
                                 } else if (colorChannels.length == 4) {
                                     colorString =
-                                            MathHelper.clamp(colorChannels[0], 0, 255) + "|" +
-                                            MathHelper.clamp(colorChannels[1], 0, 255) + "|" +
-                                            MathHelper.clamp(colorChannels[2], 0, 255) + "|" +
-                                            MathHelper.clamp(colorChannels[3], 0, 100);
+                                            (colorChannels[0] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[0]), 0, 255) : "") + "|" +
+                                            (colorChannels[1] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[1]), 0, 255) : "") + "|" +
+                                            (colorChannels[2] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[2]), 0, 255) : "") + "|" +
+                                            (colorChannels[3] != null ? MathHelper.clamp(Integer.parseInt(colorChannels[3]), 0, 100) : "");
                                 } else if (colorChannels.length == 1) {
-                                    colorString = Integer.toString(MathHelper.clamp(colorChannels[0], 0, 100));
+                                    colorString = Integer.toString(MathHelper.clamp(Integer.parseInt(colorChannels[0]), 0, 100));
                                 } else {
                                     invalidColorFormat = true;
                                 }
@@ -73,7 +73,7 @@ public class TextUtils {
                         if (invalidColorFormat) {
                             text = text.replace(text.substring(colorCodeIndex, endParenthesiseIndex + 1), "");
                         } else {
-                            text = text.replace(text.substring(colorCodeIndex, endParenthesiseIndex + 1), "\u00A7%" + textToColorCodeText(colorString) + "\u00A7%");
+                            text = text.replace(text.substring(colorCodeIndex, endParenthesiseIndex + 1), "\uAB60\uAB48" + textToInvisColorText(colorString) + "\uAB48");
                         }
     
                         //Single char color codes.
@@ -154,7 +154,7 @@ public class TextUtils {
         return stringBuilder.toString();
     }
     
-    public static Color hexadecimalToRgb(String hexadecimalColor) {
+    private static Color hexadecimalToRgb(String hexadecimalColor) {
         hexadecimalColor = hexadecimalColor.toLowerCase();
         hexadecimalColor = hexadecimalColor.replaceAll("[^0123456789abcdef]", "");
         
@@ -165,25 +165,53 @@ public class TextUtils {
         return new Color(redChannel, greenChannel, blueChannel);
     }
     
-    private static int[] parseNumberList(String text) {
-        String[] numberListText = text.split("[,]");
-        int[] numberList = new int[numberListText.length];
-        
-        for (int index = 0; index < numberList.length; index++) {
-            numberList[index] = Integer.parseInt(numberListText[index]);
-        }
-        
-        return numberList;
-    }
-    
     private static String textToColorCodeText(String text) {
         StringBuilder stringBuilder = new StringBuilder(text.length() * 2);
         
         for (int index = 0; index < text.length(); index++) {
-            stringBuilder.append('\u00A7');
-            stringBuilder.append(text.charAt(index));
+            char colorChar = text.charAt(index);
+            
+            if (colorChar == '*' || colorChar == 'v') {
+                if (colorChar == '*') {
+                    stringBuilder.append("\uAB60\uAB46");
+                }
+                if (colorChar == 'v') {
+                    stringBuilder.append("\uAB60\uAB47");
+                }
+            } else {
+                stringBuilder.append('\u00A7');
+                stringBuilder.append(colorChar);
+            }
         }
         
+        return stringBuilder.toString();
+    }
+    
+    private static String textToInvisColorText(String text) {
+        StringBuilder stringBuilder = new StringBuilder(text.length() * 2);
+    
+        for (int index = 0; index < text.length(); index++) {
+            char colorChar = text.charAt(index);
+            
+            if (colorChar >= '0' && colorChar <= 'f') {
+                stringBuilder.append((char) (colorChar + 43776));
+            } else if (colorChar == 'k') {
+                stringBuilder.append('\uAB40');
+            } else if (colorChar == 'l') {
+                stringBuilder.append('\uAB41');
+            } else if (colorChar == 'm') {
+                stringBuilder.append('\uAB42');
+            } else if (colorChar == 'n') {
+                stringBuilder.append('\uAB43');
+            } else if (colorChar == 'o') {
+                stringBuilder.append('\uAB44');
+            } else if (colorChar == 'r') {
+                stringBuilder.append('\uAB45');
+            } else if (colorChar == '|') {
+                stringBuilder.append('\uAB49');
+            }
+        }
+    
         return stringBuilder.toString();
     }
 }

@@ -1,6 +1,6 @@
 package dfutils;
 
-import dfutils.codehandler.utils.CodeBlockData;
+import dfutils.codetools.codehandler.utils.CodeBlockData;
 import dfutils.colorcodes.FontRendererOverride;
 import dfutils.commands.CommandHelp;
 import dfutils.commands.CommandTest;
@@ -48,13 +48,13 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
         guiFactory = Reference.GUI_FACTORY)
 public class DiamondFireUtils {
     
-    static boolean devEnv = false;
+    static boolean devEnvironment = false;
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         //Checks if the mod is being run in a development environment.
-        devEnv = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+        devEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
         registerCommands();
         registerEvents();
@@ -115,7 +115,7 @@ public class DiamondFireUtils {
         //Misc commands.
         commandHandler.registerCommand(new CommandHelp());
 
-        if (devEnv) {
+        if (devEnvironment) {
             commandHandler.registerCommand(new CommandTest());
             // Item download/upload
             commandHandler.registerCommand(new CommandItem());
