@@ -22,11 +22,7 @@ public class PresenceHandler {
      * @return PresenceState
      */
     public static PresenceState getState() {
-        if (!ConfigHandler.DISCORD_RPC_ENABLED) {
-            return PresenceState.DISABLED;
-        } else {
-            return presenceState;
-        }
+        return (ConfigHandler.DISCORD_RPC_ENABLED ? presenceState : PresenceState.DISABLED);
     }
 
     /**
@@ -97,17 +93,17 @@ public class PresenceHandler {
                     
                 case DEV:
                     presence.largeImageKey = "dev";
-                    presence.largeImageText = "Mode Dev";
+                    presence.largeImageText = "Developing";
                     break;
                     
                 case BUILD:
                     presence.largeImageKey = "build";
-                    presence.largeImageText = "Mode Build";
+                    presence.largeImageText = "Building";
                     break;
                     
                 case PLAY:
                     presence.largeImageKey = "play";
-                    presence.largeImageText = "Mode Play";
+                    presence.largeImageText = "Playing";
                     break;
             }
 
@@ -138,7 +134,7 @@ public class PresenceHandler {
                     presence.largeImageKey = "supportee";
                     presence.largeImageText = "Supported by " + PlayerStateHandler.supportPartner;
                     presence.smallImageText = "Plot ID: " + PlayerStateHandler.plotId;
-                    presence.details = "Being Supported";
+                    presence.details = "Being supported";
                     presence.state = "by " + PlayerStateHandler.supportPartner;
                     break;
             }
