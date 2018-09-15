@@ -1,4 +1,4 @@
-package dfutils.itemtools.bettertoolbars;
+package itemcontrol.bettertoolbars;
 
 public class StateHandler {
     public static int selectedTabIndex = 0;
@@ -6,7 +6,11 @@ public class StateHandler {
     public static float scrollPosition = 0.0f;
     
     public static boolean needsScrollBar() {
-        return ToolbarTabManager.getTabItems().length / 9 > 5;
+        try {
+            return ToolbarTabManager.getTabItems().length / 9 > 5;
+        } catch (NullPointerException exception) {
+            return false;
+        }
     }
     
     public static int getScrollRow() {

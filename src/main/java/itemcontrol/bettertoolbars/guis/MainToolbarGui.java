@@ -1,8 +1,8 @@
-package dfutils.itemtools.bettertoolbars.guis;
+package itemcontrol.bettertoolbars.guis;
 
-import dfutils.itemtools.bettertoolbars.StateHandler;
-import dfutils.itemtools.bettertoolbars.ToolbarTabManager;
-import dfutils.itemtools.bettertoolbars.slots.SlotBase;
+import itemcontrol.bettertoolbars.StateHandler;
+import itemcontrol.bettertoolbars.ToolbarTabManager;
+import itemcontrol.bettertoolbars.slots.SlotBase;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
@@ -26,7 +26,7 @@ public class MainToolbarGui extends GuiContainer {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    private static final ResourceLocation GUI_TAB_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_icons.png");
+    private static final ResourceLocation GUI_ICON_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_icons.png");
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("dfutils:textures/gui/toolbar_tab.png");
     
     private GuiTextField tabNameField;
@@ -92,13 +92,41 @@ public class MainToolbarGui extends GuiContainer {
         if (super.getSlotUnderMouse() != null && !isIconSlot(super.getSlotUnderMouse().slotNumber)) {
             super.renderHoveredToolTip(mouseX, mouseY);
         }
+    
+        //Draws the insert and remove row buttons.
+        if (minecraft.player.inventory.getItemStack().isEmpty()) {
+            minecraft.getTextureManager().bindTexture(GUI_ICON_TEXTURE);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderHelper.enableGUIStandardItemLighting();
+            
+            if (super.getSlotUnderMouse() != null && isToolbarSlot(super.getSlotUnderMouse().slotNumber) && Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
+                super.drawTexturedModalRect(super.guiLeft - 3, ((super.getSlotUnderMouse().slotNumber - 1) / 9 * 18) + super.guiTop + 28, 220, 15, 12, 19);
+            
+                areRowButtonsDrawn = true;
+                rowButtonRow = (super.getSlotUnderMouse().slotNumber - 1) / 9;
+            } else if (areRowButtonsDrawn) {
+                int rowButtonY = (rowButtonRow * 18) + 28 + super.guiTop;
+            
+                if (MathUtils.withinRange(mouseX, super.guiLeft - 3, super.guiLeft + 8) && MathUtils.withinRange(mouseY, rowButtonY, rowButtonY + 18)) {
+                    if (MathUtils.withinRange(mouseX, super.guiLeft - 3, super.guiLeft + 8) && MathUtils.withinRange(mouseY, rowButtonY, rowButtonY + 9)) {
+                        super.drawTexturedModalRect(super.guiLeft - 3, rowButtonY, 244, 15, 12, 19);
+                        super.drawHoveringText("Remove toolbar row.", mouseX, mouseY);
+                    } else {
+                        super.drawTexturedModalRect(super.guiLeft - 3, rowButtonY, 232, 15, 12, 19);
+                        super.drawHoveringText("Insert toolbar row.", mouseX, mouseY);
+                    }
+                } else {
+                    areRowButtonsDrawn = false;
+                }
+            }
+        } else {
+            areRowButtonsDrawn = false;
+        }
     }
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         
-        //Draws all the tabs except for the currently select tab, that tab needs to be drawn after the GUI background is drawn.
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
         for (int tabIndex = StateHandler.selectedTabPage * 6; tabIndex < ToolbarTabManager.getTabCount() + 1 && tabIndex < (StateHandler.selectedTabPage * 6) + 6; tabIndex++) {
             if (tabIndex != StateHandler.selectedTabIndex) {
@@ -106,27 +134,25 @@ public class MainToolbarGui extends GuiContainer {
             }
         }
         
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         minecraft.getTextureManager().bindTexture(GUI_TEXTURE);
         super.drawTexturedModalRect(super.guiLeft, super.guiTop, 0, 0, 195, 147);
+        
+        //Draws the text box.
+        tabNameField.drawTextBox();
     
         //Draws the currently selected tab.
         if (MathUtils.withinRange(StateHandler.selectedTabIndex, StateHandler.selectedTabPage * 6, (StateHandler.selectedTabPage * 6) + 6)) {
-            GlStateManager.enableLighting();
             drawTab(StateHandler.selectedTabIndex);
         }
-        
-        //Draws the text box.
-        GlStateManager.disableLighting();
-        tabNameField.drawTextBox();
-        
+    
+    
         if (!StateHandler.needsScrollBar()) {
             StateHandler.scrollPosition = 0.0f;
         }
         
         //Draws scroll bar.
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        minecraft.getTextureManager().bindTexture(GUI_ICON_TEXTURE);
         super.drawTexturedModalRect(super.guiLeft + 175, (super.guiTop + 29) + (int) (95 * StateHandler.scrollPosition), 232 + (StateHandler.needsScrollBar() ? 0 : 12), 0, 12, 15);
     
         //Draws the delete tab button.
@@ -146,20 +172,14 @@ public class MainToolbarGui extends GuiContainer {
             }
         }
         
-        //Draws the insert and remove row buttons.
-        if (minecraft.player.inventory.getItemStack().isEmpty()) {
-            if (super.getSlotUnderMouse() != null && isToolbarSlot(super.getSlotUnderMouse().slotNumber) && Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
-                super.drawTexturedModalRect(super.guiLeft - 3, ((super.getSlotUnderMouse().slotNumber - 1) / 9 * 18) + super.guiTop + 28, 220, 15, 12, 19);
-                
-                areRowButtonsDrawn = true;
-                rowButtonRow = (super.getSlotUnderMouse().slotNumber - 1) / 9;
-            } else if ((areRowButtonsDrawn && MathUtils.withinRange(mouseX, super.guiLeft - 3, super.guiLeft + 7) && MathUtils.withinRange(mouseY, (rowButtonRow * 18) + 28 + super.guiTop, (rowButtonRow * 18) + 47 + super.guiTop))) {
-                super.drawTexturedModalRect(super.guiLeft - 3, (rowButtonRow * 18) + super.guiTop + 28, 220, 15, 12, 19);
-            } else {
-                areRowButtonsDrawn = false;
-            }
+        //Draws the toolbar mode button.
+        minecraft.getTextureManager().bindTexture(GUI_ICON_TEXTURE);
+        RenderHelper.enableGUIStandardItemLighting();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        if (MathUtils.withinRange(mouseX, super.guiLeft + 159, super.guiLeft + 167) && MathUtils.withinRange(mouseY, super.guiTop + 11, super.guiTop + 20) && minecraft.player.inventory.getItemStack().isEmpty()) {
+            super.drawTexturedModalRect(super.guiLeft + 159, super.guiTop + 11, 247, 43, 9, 9);
         } else {
-            areRowButtonsDrawn = false;
+            super.drawTexturedModalRect(super.guiLeft + 159, super.guiTop + 11, 238, 43, 9, 9);
         }
     
         //Draws the toolbar tab name hover text if you are hovering over a toolbar tab.
@@ -175,7 +195,7 @@ public class MainToolbarGui extends GuiContainer {
         }
         
         //Draws the settings button.
-        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        minecraft.getTextureManager().bindTexture(GUI_ICON_TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         if (MathUtils.withinRange(mouseX, 0, 29) && MathUtils.withinRange(mouseY, 0, 29)) {
@@ -203,9 +223,7 @@ public class MainToolbarGui extends GuiContainer {
         }
         
         //Draws tab texture.
-        GlStateManager.disableLighting();
-        GlStateManager.enableBlend();
-        minecraft.getTextureManager().bindTexture(GUI_TAB_TEXTURE);
+        minecraft.getTextureManager().bindTexture(GUI_ICON_TEXTURE);
         super.drawTexturedModalRect(tabX, tabY, textureX, textureY, 28, 32);
         
         //Draws tab icon item.
@@ -312,6 +330,22 @@ public class MainToolbarGui extends GuiContainer {
                 switchToolbarTab(tabIndex + (StateHandler.selectedTabPage * 6));
                 ignoreMouseUp = true;
                 return;
+            }
+        }
+        
+        //Checks if the player clicks one of the row buttons. (remove toolbar row or insert toolbar row)
+        if (areRowButtonsDrawn) {
+            int rowButtonY = (rowButtonRow * 18) + 28 + super.guiTop;
+    
+            if (MathUtils.withinRange(mouseX, super.guiLeft - 3, super.guiLeft + 8) && MathUtils.withinRange(mouseY, rowButtonY, rowButtonY + 18)) {
+                if (MathUtils.withinRange(mouseX, super.guiLeft - 3, super.guiLeft + 8) && MathUtils.withinRange(mouseY, rowButtonY, rowButtonY + 9)) {
+                    ToolbarTabManager.removeTabRow(rowButtonRow);
+                } else {
+                    ToolbarTabManager.insertTabRow(rowButtonRow);
+                }
+                
+                updateToolbarSlots();
+                minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK, 0.25F, 1.0F);
             }
         }
         

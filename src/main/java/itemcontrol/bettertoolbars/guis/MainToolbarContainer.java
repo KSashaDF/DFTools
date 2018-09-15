@@ -1,8 +1,8 @@
-package dfutils.itemtools.bettertoolbars.guis;
+package itemcontrol.bettertoolbars.guis;
 
-import dfutils.itemtools.bettertoolbars.slots.IconSlot;
-import dfutils.itemtools.bettertoolbars.slots.InventorySlot;
-import dfutils.itemtools.bettertoolbars.slots.ToolbarSlot;
+import itemcontrol.bettertoolbars.slots.IconSlot;
+import itemcontrol.bettertoolbars.slots.InventorySlot;
+import itemcontrol.bettertoolbars.slots.ToolbarSlot;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

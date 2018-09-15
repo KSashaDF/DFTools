@@ -1,4 +1,4 @@
-package dfutils.itemtools.bettertoolbars.slots;
+package itemcontrol.bettertoolbars.slots;
 
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;

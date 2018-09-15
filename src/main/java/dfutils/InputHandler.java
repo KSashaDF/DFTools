@@ -1,10 +1,10 @@
 package dfutils;
 
-import dfutils.itemtools.bettertoolbars.guis.MainToolbarGui;
-import dfutils.itemtools.bettertoolbars.ToolbarTabManager;
+import itemcontrol.bettertoolbars.guis.MainToolbarGui;
+import itemcontrol.bettertoolbars.ToolbarTabManager;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.templateexplorer.MainExplorerGui;
-import dfutils.itemtools.itemeditor.ItemEditorGui;
+import itemcontrol.itemeditor.ItemEditorGui;
 import dfutils.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;

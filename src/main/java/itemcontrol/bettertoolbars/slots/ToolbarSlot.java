@@ -1,7 +1,7 @@
-package dfutils.itemtools.bettertoolbars.slots;
+package itemcontrol.bettertoolbars.slots;
 
-import dfutils.itemtools.bettertoolbars.StateHandler;
-import dfutils.itemtools.bettertoolbars.ToolbarTabManager;
+import itemcontrol.bettertoolbars.StateHandler;
+import itemcontrol.bettertoolbars.ToolbarTabManager;
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MathUtils;
 import net.minecraft.client.Minecraft;
@@ -52,11 +52,12 @@ public class ToolbarSlot extends SlotBase {
                     } else {
                         super.putStack(playerInventory.getItemStack());
                         playerInventory.setItemStack(ItemStack.EMPTY);
-                        ToolbarTabManager.setTabItem(super.getStack(), StateHandler.getScrollRow() + super.getSlotIndex() - 1);
+                        ToolbarTabManager.setTabItem(StateHandler.getScrollRow() + super.getSlotIndex() - 1, super.getStack());
                     }
                 } else if (mouseButton == 1) {
+                    playerInventory.setItemStack(super.getStack());
                     super.putStack(ItemStack.EMPTY);
-                    ToolbarTabManager.setTabItem(super.getStack(), StateHandler.getScrollRow() + super.getSlotIndex() - 1);
+                    ToolbarTabManager.setTabItem(StateHandler.getScrollRow() + super.getSlotIndex() - 1, ItemStack.EMPTY);
                 }
                 break;
             

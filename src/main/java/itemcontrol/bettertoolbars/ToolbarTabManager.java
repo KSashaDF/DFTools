@@ -1,4 +1,4 @@
-package dfutils.itemtools.bettertoolbars;
+package itemcontrol.bettertoolbars;
 
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MessageUtils;
@@ -193,12 +193,28 @@ public class ToolbarTabManager {
         toolbarTabs.get(StateHandler.selectedTabIndex).tabIcon = tabIcon;
     }
     
-    public static void setTabItem(ItemStack tabItem, int itemIndex) {
+    public static void setTabItem(int itemIndex, ItemStack tabItem) {
         if (StateHandler.selectedTabIndex == toolbarTabs.size()) {
             createToolbarTab();
         }
         
-        toolbarTabs.get(StateHandler.selectedTabIndex).setTabItem(tabItem, itemIndex);
+        toolbarTabs.get(StateHandler.selectedTabIndex).setTabItem(itemIndex, tabItem);
+    }
+    
+    public static void insertTabRow(int parentRow) {
+        if (StateHandler.selectedTabIndex == toolbarTabs.size()) {
+            createToolbarTab();
+        }
+    
+        toolbarTabs.get(StateHandler.selectedTabIndex).addRow(parentRow);
+    }
+    
+    public static void removeTabRow(int row) {
+        if (StateHandler.selectedTabIndex == toolbarTabs.size()) {
+            createToolbarTab();
+        }
+    
+        toolbarTabs.get(StateHandler.selectedTabIndex).removeRow(row);
     }
     
     public static boolean isNotNewTab() {

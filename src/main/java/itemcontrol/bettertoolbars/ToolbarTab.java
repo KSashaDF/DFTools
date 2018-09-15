@@ -1,4 +1,4 @@
-package dfutils.itemtools.bettertoolbars;
+package itemcontrol.bettertoolbars;
 
 import dfutils.utils.ItemUtils;
 import dfutils.utils.MessageUtils;
@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 
 class ToolbarTab {
     
@@ -25,7 +26,7 @@ class ToolbarTab {
     String newFileName;
     String originalName;
     ItemStack tabIcon;
-    private ItemStack[] tabItems;
+    private ArrayList<ItemStack> tabItems = new ArrayList<>();
     File toolbarItemFile;
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
@@ -54,29 +55,37 @@ class ToolbarTab {
         lastReloadedTabTime = toolbarItemFile.lastModified() - 1;
     }
 
-    void setTabItem(ItemStack tabItem, int itemIndex) {
+    void setTabItem(int itemIndex, ItemStack tabItem) {
         isModified = true;
-        tabItems[itemIndex] = tabItem;
+        tabItems.set(itemIndex, tabItem);
     }
-
+    
     void addRow(int parentRow) {
-        try {
-            isModified = true;
-
-            if ((!toolbarItemFile.exists() || tabItems == null) && toolbarItemFile.createNewFile()) {
-                tabItems = new ItemStack[(parentRow + 1) * 9];
-
-                for (int i = 0; i < tabItems.length; i++) {
-                    tabItems[i] = ItemStack.EMPTY;
-                }
-
-                saveTab();
-            } else {
-
+        isModified = true;
+        
+        if (!toolbarItemFile.exists() || tabItems.isEmpty()) {
+            
+            for (int i = 0; i < (parentRow + 1) * 9; i++) {
+                tabItems.add(ItemStack.EMPTY);
             }
-        } catch (IOException exception) {
-            minecraft.player.closeScreen();
-            MessageUtils.errorMessage("Uh oh! Encountered an IO Exception while trying to add toolbar row.");
+        } else {
+            for (int i = (parentRow + 1) * 9; i < (parentRow + 2) * 9; i++ ) {
+                tabItems.add(i, ItemStack.EMPTY);
+            }
+        }
+    }
+    
+    void removeRow(int row) {
+        isModified = true;
+        
+        for (int i = 0; i < 9; i++) {
+            tabItems.remove(row * 9);
+        }
+        
+        if (tabItems.size() < 45) {
+            while (tabItems.size() < 45) {
+                tabItems.add(ItemStack.EMPTY);
+            }
         }
     }
 
@@ -99,10 +108,10 @@ class ToolbarTab {
                             //Converts the item NBT read from the file into actual ItemStack objects.
                             if (fileNbt.hasKey("Items")) {
                                 NBTTagList itemList = fileNbt.getTagList("Items", 10);
-                                tabItems = new ItemStack[itemList.tagCount()];
+                                tabItems.clear();
                 
                                 for (int i = 0; i < itemList.tagCount(); i++) {
-                                    tabItems[i] = new ItemStack(itemList.getCompoundTagAt(i));
+                                    tabItems.add(new ItemStack(itemList.getCompoundTagAt(i)));
                                 }
                             }
             
@@ -128,7 +137,7 @@ class ToolbarTab {
             }
         }
 
-        return tabItems.clone();
+        return tabItems.toArray(new ItemStack[0]);
     }
 
     //Saves the tab's items to the tab's item file.

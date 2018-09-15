@@ -1,6 +1,6 @@
-package dfutils.itemtools.bettertoolbars.slots;
+package itemcontrol.bettertoolbars.slots;
 
-import dfutils.itemtools.bettertoolbars.ToolbarTabManager;
+import itemcontrol.bettertoolbars.ToolbarTabManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;

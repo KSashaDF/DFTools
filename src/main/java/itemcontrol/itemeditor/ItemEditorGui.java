@@ -1,4 +1,4 @@
-package dfutils.itemtools.itemeditor;
+package itemcontrol.itemeditor;
 
 import net.minecraft.client.gui.GuiScreen;
 
