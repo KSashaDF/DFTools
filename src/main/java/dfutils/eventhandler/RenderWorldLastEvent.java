@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class RenderWorldLastEvent {
 
     @SubscribeEvent
-    public void onRenderWorldLast(net.minecraftforge.client.event.RenderWorldLastEvent event) {
+    public static void onRenderWorldLast(net.minecraftforge.client.event.RenderWorldLastEvent event) {
         SelectionEventHandler.selectionEventHandlerRenderWorldLastEvent(event);
         PrintEventHandler.printEventHandlerRenderWorldLast(event);
         CopyEventHandler.copyEventHandlerRenderWorldLast(event);

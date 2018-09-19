@@ -1,7 +1,7 @@
 package dfutils.codetools.misctools;
 
 import dfutils.config.ConfigHandler;
-import dfutils.utils.ItemUtils;
+import diamondcore.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.item.ItemStack;

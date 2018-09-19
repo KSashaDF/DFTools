@@ -1,9 +1,9 @@
 package dfutils.codetools.printing;
 
+import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PrintEventHandler {
@@ -11,7 +11,7 @@ public class PrintEventHandler {
     private static boolean skipGuiEvent = false;
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
-    public static void printEventHandlerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void printEventHandlerRightClickBlock(CustomRightClickBlockEvent event) {
         
         if (minecraft.player.isCreative()) {
             if (minecraft.player.getHeldItemMainhand().hasTagCompound()) {

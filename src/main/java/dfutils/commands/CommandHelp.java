@@ -1,8 +1,8 @@
 package dfutils.commands;
 
 import com.google.gson.JsonArray;
-import dfutils.utils.language.LanguageManager;
-import dfutils.utils.language.MessageHelper;
+import diamondcore.utils.language.LanguageManager;
+import diamondcore.utils.language.MessageHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

@@ -1,11 +1,11 @@
 package dfutils.codetools.selection;
 
-import dfutils.utils.ColorReference;
+import diamondcore.utils.ColorReference;
 import dfutils.codetools.codehandler.utils.CodeBlockType;
-import dfutils.utils.BlockUtils;
+import diamondcore.utils.BlockUtils;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
-import dfutils.utils.GraphicsUtils;
+import diamondcore.utils.GraphicsUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

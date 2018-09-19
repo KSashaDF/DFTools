@@ -3,8 +3,8 @@ package dfutils.commands.shortcuts;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
 
 public class ShortcutVarpurge {
 

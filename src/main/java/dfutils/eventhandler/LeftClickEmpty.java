@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class LeftClickEmpty {
 
     @SubscribeEvent
-    public void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+    public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         QuickItemRename.quickItemRenameLeftClickEmpty(event);
     }
 }

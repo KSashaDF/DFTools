@@ -3,7 +3,7 @@ package dfutils.commands.shortcuts;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 
-import static dfutils.utils.MessageUtils.actionMessage;
+import static diamondcore.utils.MessageUtils.actionMessage;
 
 public class ShortcutPlotClear {
 

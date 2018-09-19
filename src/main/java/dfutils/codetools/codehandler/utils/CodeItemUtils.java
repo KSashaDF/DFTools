@@ -1,7 +1,7 @@
 package dfutils.codetools.codehandler.utils;
 
-import dfutils.utils.ItemUtils;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.item.ItemStack;

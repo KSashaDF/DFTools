@@ -1,8 +1,8 @@
 package dfutils.commands.codetools;
 
 import dfutils.codetools.CodeItems;
-import dfutils.utils.ItemUtils;
-import dfutils.utils.TextUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.TextUtils;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -12,8 +12,8 @@ import net.minecraftforge.client.IClientCommand;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault

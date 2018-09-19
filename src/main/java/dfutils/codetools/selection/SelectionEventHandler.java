@@ -2,18 +2,18 @@ package dfutils.codetools.selection;
 
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
+import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class SelectionEventHandler {
     
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static int rightClickCooldown = 0;
     
-    public static void selectionEventRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void selectionEventRightClickBlock(CustomRightClickBlockEvent event) {
 
         if (rightClickCooldown - 3 > minecraft.player.ticksExisted) rightClickCooldown = 0;
         

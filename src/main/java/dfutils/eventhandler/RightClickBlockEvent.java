@@ -3,12 +3,15 @@ package dfutils.eventhandler;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.printing.PrintEventHandler;
 import dfutils.codetools.selection.SelectionEventHandler;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-//NOTE: This event is called from the InputEvent, this is so the event can be cancelled.
+@Mod.EventBusSubscriber
 class RightClickBlockEvent {
 
-    void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    @SubscribeEvent
+    public static void onRightClickBlock(CustomRightClickBlockEvent event) {
         SelectionEventHandler.selectionEventRightClickBlock(event);
         PrintEventHandler.printEventHandlerRightClickBlock(event);
         CodeQuickSelection.codeQuickSelectionRightClickBlock(event);

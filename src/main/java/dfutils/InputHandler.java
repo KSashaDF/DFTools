@@ -1,19 +1,23 @@
 package dfutils;
 
+import diamondcore.DiamondCore;
 import itemcontrol.bettertoolbars.guis.MainToolbarGui;
 import itemcontrol.bettertoolbars.ToolbarTabManager;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.templateexplorer.MainExplorerGui;
 import itemcontrol.itemeditor.ItemEditorGui;
-import dfutils.utils.MessageUtils;
+import diamondcore.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 
+@Mod.EventBusSubscriber
 public class InputHandler {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
@@ -27,12 +31,13 @@ public class InputHandler {
 
         ClientRegistry.registerKeyBinding(BETTER_TOOLBARS_MENU);
         ClientRegistry.registerKeyBinding(ITEM_EDITOR_MENU);
-        if (DiamondFireUtils.devEnvironment) {
+        if (DiamondCore.devEnvironment) {
             ClientRegistry.registerKeyBinding(TEMPLATE_EXPLORER);
         }
         ClientRegistry.registerKeyBinding(CODE_QUICK_SELECT);
     }
 
+    @SubscribeEvent
     public static void inputHandlerKeyInput(InputEvent event) {
 
         //Makes sure there is no GUI currently open.

@@ -3,7 +3,7 @@ package dfutils.codetools.codehandler.codeobjects;
 import dfutils.codetools.codehandler.utils.CodeBlockData;
 import dfutils.codetools.codehandler.utils.CodeBlockName;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
-import dfutils.utils.ItemUtils;
+import diamondcore.utils.ItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

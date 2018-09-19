@@ -1,7 +1,7 @@
 package itemcontrol.bettertoolbars;
 
-import dfutils.utils.ItemUtils;
-import dfutils.utils.MessageUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;

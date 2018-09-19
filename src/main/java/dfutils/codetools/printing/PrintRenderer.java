@@ -1,8 +1,8 @@
 package dfutils.codetools.printing;
 
-import dfutils.utils.ColorReference;
+import diamondcore.utils.ColorReference;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
-import dfutils.utils.GraphicsUtils;
+import diamondcore.utils.GraphicsUtils;
 import net.minecraft.util.math.BlockPos;
 
 class PrintRenderer {

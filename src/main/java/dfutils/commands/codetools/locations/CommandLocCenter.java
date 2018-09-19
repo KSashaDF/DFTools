@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
 
 class CommandLocCenter {
 

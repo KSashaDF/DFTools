@@ -1,7 +1,7 @@
 package itemcontrol.bettertoolbars.slots;
 
-import dfutils.utils.ItemUtils;
-import dfutils.utils.MathUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -32,7 +32,7 @@ public class InventorySlot extends SlotBase {
                             playerInventory.setItemStack(super.getStack());
                             super.putStack(ItemStack.EMPTY);
                         } else if (mouseButton == 1) {
-                            playerInventory.setItemStack(super.getStack().splitStack(MathUtils.roundUpDivide(super.getStack().getCount(), 2)));
+                            playerInventory.setItemStack(super.getStack().splitStack(MathUtils.ceilingDivide(super.getStack().getCount(), 2)));
                         }
             
                         //CONDITION BRANCH: The following actions are for when the slot HAS an item and

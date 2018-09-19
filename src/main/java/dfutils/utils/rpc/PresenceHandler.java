@@ -4,38 +4,28 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import dfutils.config.ConfigHandler;
-import dfutils.utils.playerdata.PlayerMode;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import diamondcore.utils.playerdata.PlayerMode;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 
 public class PresenceHandler {
+    
     private static long lastTimestamp = 0;
     private static PlayerMode lastMode;
-    private static DiscordRPC lib = DiscordRPC.INSTANCE;
+    private static DiscordRPC discordRPC = DiscordRPC.INSTANCE;
     private static boolean DiscordRPCSetup = false;
     private static boolean wasInSession = false;
-
-    private static PresenceState presenceState = PresenceState.NOTREADY;
-
-    /**
-     * Returns the current State
-     *
-     * @return PresenceState
-     */
-    public static PresenceState getState() {
-        return (ConfigHandler.DISCORD_RPC_ENABLED ? presenceState : PresenceState.DISABLED);
-    }
-
+    
     /**
      * Initializes Rich Presence.
      */
     private static void initPresence() {
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         DiscordRPCSetup = true;
-        lib.Discord_Initialize("476455349780611072", handlers, true, "");
+        discordRPC.Discord_Initialize("476455349780611072", handlers, true, "");
         
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
-                lib.Discord_RunCallbacks();
+                discordRPC.Discord_RunCallbacks();
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ignored) {}
@@ -57,7 +47,7 @@ public class PresenceHandler {
                         lastMode != PlayerStateHandler.playerMode &&
                                 !PlayerStateHandler.isInSupportSession) {
                     
-                    lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                    lastTimestamp = System.currentTimeMillis() / 1000;
                     lastMode = PlayerStateHandler.playerMode;
                     wasInSession = false;
 
@@ -65,7 +55,7 @@ public class PresenceHandler {
                 } else if (!wasInSession && PlayerStateHandler.isInSupportSession) {
                     wasInSession = true;
 
-                    lastTimestamp = System.currentTimeMillis() / 1000; // epoch second
+                    lastTimestamp = System.currentTimeMillis() / 1000;
                     lastMode = PlayerStateHandler.playerMode;
 
                     updatePresenceData();
@@ -140,7 +130,7 @@ public class PresenceHandler {
             }
         }
 
-        lib.Discord_UpdatePresence(presence);
+        discordRPC.Discord_UpdatePresence(presence);
     }
 
     /**
@@ -148,12 +138,11 @@ public class PresenceHandler {
      */
     public static void destroyPresence() {
         if (DiscordRPCSetup) {
-            lib.Discord_Shutdown();
+            discordRPC.Discord_Shutdown();
             lastTimestamp = 0;
             lastMode = null;
             DiscordRPCSetup = false;
             wasInSession = false;
-            presenceState = PresenceState.NOTREADY;
         }
     }
 }

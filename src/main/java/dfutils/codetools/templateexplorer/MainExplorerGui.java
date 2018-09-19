@@ -1,7 +1,7 @@
 package dfutils.codetools.templateexplorer;
 
-import dfutils.utils.MathUtils;
-import dfutils.utils.language.LanguageManager;
+import diamondcore.utils.MathUtils;
+import diamondcore.utils.language.LanguageManager;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;

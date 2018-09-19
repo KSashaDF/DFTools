@@ -2,7 +2,7 @@ package dfutils.codetools.copying;
 
 import dfutils.codetools.codehandler.utils.CodeBlockName;
 import dfutils.codetools.codehandler.utils.CodeItemUtils;
-import dfutils.utils.ItemUtils;
+import diamondcore.utils.ItemUtils;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;

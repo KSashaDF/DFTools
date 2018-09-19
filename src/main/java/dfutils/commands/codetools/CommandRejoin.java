@@ -1,8 +1,8 @@
 package dfutils.commands.codetools;
 
-import dfutils.utils.MessageUtils;
-import dfutils.utils.playerdata.PlayerMode;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import diamondcore.utils.MessageUtils;
+import diamondcore.utils.playerdata.PlayerMode;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

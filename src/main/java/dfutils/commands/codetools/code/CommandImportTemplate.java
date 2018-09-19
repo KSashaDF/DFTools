@@ -3,7 +3,7 @@ package dfutils.commands.codetools.code;
 import dfutils.codetools.codehandler.utils.CodeBlockName;
 import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
-import dfutils.utils.ItemUtils;
+import diamondcore.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.init.SoundEvents;
@@ -17,8 +17,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
 
 class CommandImportTemplate {
 

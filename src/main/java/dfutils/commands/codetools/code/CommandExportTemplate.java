@@ -11,9 +11,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static dfutils.utils.MessageUtils.actionMessage;
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.actionMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
 
 class CommandExportTemplate {
 

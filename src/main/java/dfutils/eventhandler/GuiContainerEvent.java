@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class GuiContainerEvent {
 
     @SubscribeEvent
-    public void onPlayerContainerEvent(net.minecraftforge.client.event.GuiContainerEvent event) {
+    public static void onPlayerContainerEvent(net.minecraftforge.client.event.GuiContainerEvent event) {
         PrintEventHandler.printEventHandlerPlayerContainerEvent(event);
         CopyEventHandler.copyEventHandlerPlayerContainerEvent(event);
         CodeQuickSelection.codeQuickSelectionPlayerContainerEvent(event);

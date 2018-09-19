@@ -3,7 +3,7 @@ package itemcontrol.bettertoolbars.guis;
 import itemcontrol.bettertoolbars.StateHandler;
 import itemcontrol.bettertoolbars.ToolbarTabManager;
 import itemcontrol.bettertoolbars.slots.SlotBase;
-import dfutils.utils.MathUtils;
+import diamondcore.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;

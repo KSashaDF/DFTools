@@ -1,15 +1,15 @@
 package dfutils.eventhandler;
 
-import dfutils.commands.itemcontrol.CommandGive;
+import itemcontrol.commands.itemcontrol.CommandGive;
 import dfutils.commands.shortcuts.ShortcutLastMsg;
 import dfutils.commands.shortcuts.ShortcutPlotClear;
 import dfutils.commands.shortcuts.ShortcutSupportChat;
 import dfutils.commands.shortcuts.ShortcutVarpurge;
 import dfutils.config.ConfigHandler;
-import dfutils.utils.MathUtils;
-import dfutils.utils.TextUtils;
-import dfutils.utils.language.MessageHelper;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import diamondcore.utils.MathUtils;
+import diamondcore.utils.TextUtils;
+import diamondcore.utils.language.MessageHelper;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -24,7 +24,7 @@ public class ClientChatEvent {
     private static int commandCooldown = 0;
     
     @SubscribeEvent
-    public void onClientSendMessage(final net.minecraftforge.client.event.ClientChatEvent event) {
+    public static void onClientSendMessage(final net.minecraftforge.client.event.ClientChatEvent event) {
         
         //The following section of code overrides the default DiamondFire command cooldown.
         //This is done to prevent the rest of the send message event code from being executed and
@@ -40,7 +40,7 @@ public class ClientChatEvent {
     
             if (!(commandObject instanceof IClientCommand)) {
                 if (commandCooldown > minecraft.player.ticksExisted) {
-                    int secondsLeft = MathUtils.roundUpDivide(commandCooldown - minecraft.player.ticksExisted, 20);
+                    int secondsLeft = MathUtils.ceilingDivide(commandCooldown - minecraft.player.ticksExisted, 20);
                     
                     if (secondsLeft == 1) {
                         MessageHelper.message("command.commandCooldown");

@@ -2,8 +2,8 @@ package itemcontrol.bettertoolbars.slots;
 
 import itemcontrol.bettertoolbars.StateHandler;
 import itemcontrol.bettertoolbars.ToolbarTabManager;
-import dfutils.utils.ItemUtils;
-import dfutils.utils.MathUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -37,7 +37,7 @@ public class ToolbarSlot extends SlotBase {
                     }
                 } else if (mouseButton == 1) {
                     if (playerInventory.getItemStack().isEmpty()) {
-                        playerInventory.setItemStack(super.getStack().copy().splitStack(MathUtils.roundUpDivide(super.getStack().getCount(), 2)));
+                        playerInventory.setItemStack(super.getStack().copy().splitStack(MathUtils.ceilingDivide(super.getStack().getCount(), 2)));
                     } else {
                         playerInventory.getItemStack().shrink(1);
                     }

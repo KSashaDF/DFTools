@@ -1,6 +1,6 @@
 package dfutils.codetools.codehandler.utils;
 
-import dfutils.utils.BlockUtils;
+import diamondcore.utils.BlockUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 

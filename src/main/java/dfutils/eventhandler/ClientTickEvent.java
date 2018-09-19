@@ -3,7 +3,7 @@ package dfutils.eventhandler;
 import dfutils.codetools.copying.CopyController;
 import dfutils.codetools.misctools.CodeQuickSelection;
 import dfutils.codetools.printing.PrintEventHandler;
-import dfutils.utils.playerdata.PlayerStateHandler;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -15,7 +15,7 @@ public class ClientTickEvent {
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             if (PlayerStateHandler.isOnDiamondFire && minecraft.player != null) {
                 PrintEventHandler.printEventHandlerTickEvent(event);

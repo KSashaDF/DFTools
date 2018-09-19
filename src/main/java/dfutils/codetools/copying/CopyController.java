@@ -4,11 +4,11 @@ import dfutils.codetools.codehandler.utils.CodeBlockName;
 import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.codetools.selection.SelectionController;
 import dfutils.codetools.selection.SelectionState;
-import dfutils.utils.BlockUtils;
+import diamondcore.utils.BlockUtils;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
-import dfutils.utils.ItemUtils;
-import dfutils.utils.MathUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
@@ -23,10 +23,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import static dfutils.utils.MessageUtils.actionMessage;
-import static dfutils.utils.MessageUtils.errorMessage;
-import static dfutils.utils.MessageUtils.infoMessage;
-import static dfutils.utils.MessageUtils.noteMessage;
+import static diamondcore.utils.MessageUtils.actionMessage;
+import static diamondcore.utils.MessageUtils.errorMessage;
+import static diamondcore.utils.MessageUtils.infoMessage;
+import static diamondcore.utils.MessageUtils.noteMessage;
 
 public class CopyController {
     

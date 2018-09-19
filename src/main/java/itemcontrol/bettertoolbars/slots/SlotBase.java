@@ -1,6 +1,6 @@
 package itemcontrol.bettertoolbars.slots;
 
-import dfutils.utils.ItemUtils;
+import diamondcore.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;

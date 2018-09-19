@@ -3,11 +3,14 @@ package dfutils.eventhandler;
 import dfutils.codetools.misctools.LocationSetter;
 import dfutils.codetools.misctools.PistonHighlighting;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-//NOTE: This event is called from the InputEvent, this is so the event can be cancelled.
-class LeftClickBlockEvent {
+@Mod.EventBusSubscriber
+public class LeftClickBlockEvent {
 
-    void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+    @SubscribeEvent
+    public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         PistonHighlighting.pistonHighlightingLeftClickBlock(event);
 
         //Ensures that the currently held location is NOT set if the piston highlighting has been toggled.

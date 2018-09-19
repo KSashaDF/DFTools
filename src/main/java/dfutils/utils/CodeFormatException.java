@@ -1,5 +1,6 @@
 package dfutils.utils;
 
+import diamondcore.utils.MessageUtils;
 import net.minecraft.util.math.BlockPos;
 
 public class CodeFormatException extends Exception {

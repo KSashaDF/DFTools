@@ -5,7 +5,7 @@
         "description": "",
         "version": "1.0.0",
         "mcversion": "1.12.2",
-        "url": "https://github.com/MCDiamondFire/DiamondFireUtilities/",
+        "url": "https://github.com/MCDiamondFire/DFTools/",
         "authorList": ["K_Sasha", "Timeraa"],
         "screenshots": [],
         "dependencies": []
@@ -16,32 +16,32 @@
         "description": "",
         "version": "1.0.0",
         "mcversion": "1.12.2",
-        "url": "https://github.com/MCDiamondFire/DiamondFireUtilities/",
+        "url": "https://github.com/MCDiamondFire/DFTools/",
         "authorList": ["K_Sasha", "Timeraa"],
         "screenshots": [],
-        "dependencies": []
+        "dependencies": ["diamondcore@[1.0.0,)"]
     },
     {
         "modid": "dfutils",
         "name": "DiamondFire Utilities",
-        "description": "DiamondFire Utils adds a lot of new features to use on DiamondFire. The biggest one being code copying and pasting. Use /dfutils to show the help menu.",
+        "description": "DiamondFire Utilities focuses on adding lots of quality of life improvements to DiamondFire. One example of this is DiamondFire Utilities's code copy/pasting system, for more information do /dfutils.",
         "version": "1.0.0",
         "mcversion": "1.12.2",
-        "url": "https://github.com/MCDiamondFire/DiamondFireUtilities/",
+        "url": "https://github.com/MCDiamondFire/DFTools/",
         "authorList": ["K_Sasha", "Timeraa"],
         "logoFile": "assets/dfutils/logo.png",
         "screenshots": [],
-        "dependencies": []
+        "dependencies": ["diamondcore@[1.0.0,)"]
     },
     {
         "modid": "dfaddons",
         "name": "DiamondFire Addons",
-        "description": "",
+        "description": "DiamondFire Addons focuses",
         "version": "1.0.0",
         "mcversion": "1.12.2",
-        "url": "https://github.com/MCDiamondFire/DiamondFireUtilities/",
+        "url": "https://github.com/MCDiamondFire/DFTools/",
         "authorList": ["K_Sasha", "Timeraa"],
         "screenshots": [],
-        "dependencies": []
+        "dependencies": ["diamondcore@[1.0.0,)"]
     }
 ]

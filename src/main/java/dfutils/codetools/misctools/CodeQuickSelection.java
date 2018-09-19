@@ -5,11 +5,12 @@ import dfutils.codetools.CodeItems;
 import dfutils.codetools.codehandler.utils.CodeBlockName;
 import dfutils.codetools.codehandler.utils.CodeBlockType;
 import dfutils.codetools.printing.PrintSignStage;
-import dfutils.utils.BlockUtils;
+import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
+import diamondcore.utils.BlockUtils;
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
-import dfutils.utils.ItemUtils;
-import dfutils.utils.MathUtils;
-import dfutils.utils.MessageUtils;
+import diamondcore.utils.ItemUtils;
+import diamondcore.utils.MathUtils;
+import diamondcore.utils.MessageUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
@@ -27,7 +28,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.GuiContainerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CodeQuickSelection {
@@ -112,7 +112,7 @@ public class CodeQuickSelection {
         }
     }
 
-    public static void codeQuickSelectionRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void codeQuickSelectionRightClickBlock(CustomRightClickBlockEvent event) {
         if (minecraft.player.isCreative() && CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos()) && !BlockUtils.getName(minecraft.objectMouseOver.getBlockPos()).equals("minecraft:chest")) {
             ItemStack itemStack = minecraft.player.getHeldItemMainhand();
 

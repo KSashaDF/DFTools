@@ -1,8 +1,8 @@
 package dfutils.codetools.misctools;
 
-import dfutils.utils.ColorReference;
-import dfutils.utils.GraphicsUtils;
-import dfutils.utils.MathUtils;
+import diamondcore.utils.ColorReference;
+import diamondcore.utils.GraphicsUtils;
+import diamondcore.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.command.CommandBase;

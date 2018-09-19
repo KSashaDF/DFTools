@@ -78,7 +78,7 @@ public class ConfigHandler {
     }
 
     @SubscribeEvent
-    public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
+    public static void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equalsIgnoreCase(Reference.MOD_ID)) {
             reloadConfig();
 

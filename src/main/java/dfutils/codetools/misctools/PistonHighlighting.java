@@ -1,9 +1,9 @@
 package dfutils.codetools.misctools;
 
 import dfutils.codetools.codehandler.utils.CodeBlockUtils;
-import dfutils.utils.BlockUtils;
-import dfutils.utils.ColorReference;
-import dfutils.utils.GraphicsUtils;
+import diamondcore.utils.BlockUtils;
+import diamondcore.utils.ColorReference;
+import diamondcore.utils.GraphicsUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
