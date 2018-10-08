@@ -1,8 +1,10 @@
 package diamondcore.utils.chunk;
 
 import diamondcore.utils.MathUtils;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ChunkProviderClient;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
@@ -123,5 +125,13 @@ public class ChunkCache {
 		}
 		
 		return true;
+	}
+	
+	public IBlockState getBlockState(BlockPos blockPos) {
+		return chunkCache[(blockPos.getX() / 16) - startX][(blockPos.getZ() / 16) - startZ].getBlockState(blockPos.getX() % 16, blockPos.getY(), blockPos.getZ() % 16);
+	}
+	
+	public TileEntity getTileEntity(BlockPos blockPos) {
+		return chunkCache[(blockPos.getX() / 16) - startX][(blockPos.getZ() / 16) - startZ].getTileEntity(new BlockPos(blockPos.getX() % 16, blockPos.getY(), blockPos.getZ() % 16), Chunk.EnumCreateEntityType.IMMEDIATE);
 	}
 }
