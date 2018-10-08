@@ -4,12 +4,12 @@ import com.google.common.base.Charsets;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dfutils.Reference;
-import net.minecraft.client.Minecraft;
 import org.apache.commons.io.IOUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -41,12 +41,10 @@ public class AnalyticsHandler {
     
     static class SendAnalytic implements Runnable {
         
-        private static final Minecraft minecraft = Minecraft.getMinecraft();
-        
         @Override
         public void run() {
             try {
-                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
+                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
                 URLConnection urlConnection = url.openConnection();
                 try (InputStream inputStream = urlConnection.getInputStream()) {
                     JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
@@ -62,13 +60,16 @@ public class AnalyticsHandler {
     
     static class SendDataAnalytic implements Runnable {
         
-        private static final Minecraft minecraft = Minecraft.getMinecraft();
-        
         @Override
         public void run() {
             try {
-                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?uuid=" + URLEncoder.encode(minecraft.getSession().getProfile().getId().toString(), "UTF-8") + "&data=" + URLEncoder.encode(AnalyticsHandler.data, "UTF-8") + "&type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
+                URL url = new URL(Reference.HOST_URL + "api/sendAnalytic?type=" + URLEncoder.encode(AnalyticsHandler.analyticType.name(), "UTF-8") + "&version=" + URLEncoder.encode(Reference.VERSION, "UTF-8"));
                 URLConnection urlConnection = url.openConnection();
+                
+                try (OutputStream outputStream = urlConnection.getOutputStream()) {
+                    IOUtils.write(data, outputStream, org.apache.commons.compress.utils.Charsets.UTF_8);
+                }
+                
                 try (InputStream inputStream = urlConnection.getInputStream()) {
                     JsonObject result = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
                     

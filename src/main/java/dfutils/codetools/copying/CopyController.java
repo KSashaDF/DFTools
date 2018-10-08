@@ -169,7 +169,7 @@ public class CopyController {
                     CopyNbtHandler.exitCodeScope();
                 }
             }
-        } while (!CodeBlockUtils.isValidCore(copyPos));
+        } while (CodeBlockUtils.isInvalidCore(copyPos));
     }
     
     private static void finishCodeCopy() {

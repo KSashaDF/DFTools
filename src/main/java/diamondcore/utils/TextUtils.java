@@ -97,7 +97,7 @@ public class TextUtils {
         return text;
     }
     
-    public static String clearColorCodes(String text) {
+    public static String stripColorCodes(String text) {
         
         text = text.replaceAll("\\u00A7.", "");
         text = text.replaceAll("\\u00A7", "");

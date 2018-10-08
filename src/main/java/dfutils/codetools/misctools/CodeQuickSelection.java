@@ -226,7 +226,7 @@ public class CodeQuickSelection {
             }
         } else {
 
-            //Sets the player's mainhand item back to what it was when they started printing the sign.
+            //Sets the player's main hand item back to what it was when they started printing the sign.
             if (resetItem) {
                 resetItem = false;
                 minecraft.playerController.sendSlotPacket(oldHeldItem, minecraft.player.inventoryContainer.inventorySlots.size() - 10 + minecraft.player.inventory.currentItem);

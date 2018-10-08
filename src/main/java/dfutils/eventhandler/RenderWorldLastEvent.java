@@ -1,5 +1,6 @@
 package dfutils.eventhandler;
 
+import dfutils.Reference;
 import dfutils.codetools.copying.CopyEventHandler;
 import dfutils.codetools.misctools.LocationHighlighting;
 import dfutils.codetools.misctools.PistonHighlighting;
@@ -8,15 +9,16 @@ import dfutils.codetools.selection.SelectionEventHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class RenderWorldLastEvent {
-
-    @SubscribeEvent
-    public static void onRenderWorldLast(net.minecraftforge.client.event.RenderWorldLastEvent event) {
-        SelectionEventHandler.selectionEventHandlerRenderWorldLastEvent(event);
-        PrintEventHandler.printEventHandlerRenderWorldLast(event);
-        CopyEventHandler.copyEventHandlerRenderWorldLast(event);
-        PistonHighlighting.pistonHighlightingRenderWorldLast(event);
-        LocationHighlighting.locationHighlightingRenderWorldLast(event);
-    }
+	
+	@SuppressWarnings("unused")
+	@SubscribeEvent
+	public static void onRenderWorldLast(net.minecraftforge.client.event.RenderWorldLastEvent event) {
+		SelectionEventHandler.selectionEventHandlerRenderWorldLastEvent(event);
+		PrintEventHandler.printEventHandlerRenderWorldLast(event);
+		CopyEventHandler.copyEventHandlerRenderWorldLast(event);
+		PistonHighlighting.pistonHighlightingRenderWorldLast(event);
+		LocationHighlighting.locationHighlightingRenderWorldLast(event);
+	}
 }

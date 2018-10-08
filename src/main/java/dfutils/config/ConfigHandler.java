@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class ConfigHandler {
 
     static Configuration config;

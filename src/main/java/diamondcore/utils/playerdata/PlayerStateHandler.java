@@ -150,7 +150,7 @@ public class PlayerStateHandler {
             if (event.clickedItem.hasTagCompound() && event.clickedItem.getTagCompound().hasKey("HideFlags") && event.clickedItem.getTagCompound().getInteger("HideFlags") == 35) {
     
                 //Gets the name of the plot, also removes all color codes from the item name.
-                nextPlotJoinName = TextUtils.clearColorCodes(event.clickedItem.getDisplayName());
+                nextPlotJoinName = TextUtils.stripColorCodes(event.clickedItem.getDisplayName());
                 
                 NBTTagList itemLore = event.clickedItem.getOrCreateSubCompound("display").getTagList("Lore", 8);
                 
@@ -158,10 +158,8 @@ public class PlayerStateHandler {
                 nextPlotJoinOwner = itemLore.getStringTagAt(0).replace("§7By ", "");
                 
                 //Gets the line of item lore that contains the plot ID.
-                String plotIdLore = itemLore.getStringTagAt(1);
-                plotIdLore = plotIdLore.replace("§8ID:", "");
-                
-                nextPlotJoinId = Integer.getInteger(plotIdLore);
+                String plotIdLore = itemLore.getStringTagAt(1).replace("§8ID:", "");
+                nextPlotJoinId = Integer.parseInt(plotIdLore);
                 
             } else if (ItemUtils.getName(event.clickedItem.getItem()).equals("minecraft:anvil") && event.clickedItem.getDisplayName().equals("§e§lBuild")) {
     

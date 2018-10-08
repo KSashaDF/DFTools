@@ -163,7 +163,7 @@ public class LanguageManager {
     
     
     private void loadDefaultLanguageFile() {
-        try (InputStream inputStream = this.getClass().getResourceAsStream("/dfutils/lang/en_us.json")) {
+        try (InputStream inputStream = this.getClass().getResourceAsStream("/assets/dfutils/lang/en_us.json")) {
             defaultLanguageData = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
         } catch (Exception exception) {
             //If an Exception has occurred, it most likely means that the en_us language file has an incorrect JSON format.
@@ -172,7 +172,7 @@ public class LanguageManager {
     }
     
     private void loadLanguageFile(String languageName) {
-        try (InputStream inputStream = this.getClass().getResourceAsStream("/dfutils/lang/" + languageName + ".json")) {
+        try (InputStream inputStream = this.getClass().getResourceAsStream("/assets/dfutils/lang/" + languageName + ".json")) {
             languageData = new JsonParser().parse(IOUtils.toString(inputStream, Charsets.UTF_8)).getAsJsonObject();
             loadedLanguageName = languageName;
         } catch (Exception exception) {

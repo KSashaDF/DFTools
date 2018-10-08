@@ -17,7 +17,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class InputHandler {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
