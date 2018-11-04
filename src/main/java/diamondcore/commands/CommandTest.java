@@ -1,7 +1,9 @@
 package diamondcore.commands;
 
 import diamondcore.utils.MessageUtils;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -13,26 +15,26 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class CommandTest extends CommandBase implements IClientCommand {
-    
-    private static final Minecraft minecraft = Minecraft.getMinecraft();
-    
-    public String getName() {
-        return "test";
-    }
-    
-    public String getUsage(ICommandSender sender) {
-        return "§c/test";
-    }
-    
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return true;
-    }
-    
-    public boolean allowUsageWithoutPrefix(ICommandSender sender, String message) {
-        return false;
-    }
-    
-    public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
+	
+	private static final Minecraft minecraft = Minecraft.getMinecraft();
+	
+	public String getName() {
+		return "test";
+	}
+	
+	public String getUsage(ICommandSender sender) {
+		return "§c/test";
+	}
+	
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return true;
+	}
+	
+	public boolean allowUsageWithoutPrefix(ICommandSender sender, String message) {
+		return false;
+	}
+	
+	public void execute(MinecraftServer server, ICommandSender sender, String[] commandArgs) {
 
         /* try {
             minecraft.player.sendMessage(new TextComponentString("Plot Name: " + PlayerStateHandler.plotName));
@@ -58,10 +60,8 @@ public class CommandTest extends CommandBase implements IClientCommand {
     
         /*MessageUtils.infoMessage("&".codePointAt(0) + "");
         MessageUtils.infoMessage("§".codePointAt(0) + "");*/
-    
-        MessageUtils.infoMessage("\uAB49".codePointAt(0) + ""); //OFFSET: 43776
-        MessageUtils.infoMessage("\uAB3F".codePointAt(0) + "");
-        
-        minecraft.entityRenderer.displayItemActivation(minecraft.player.getHeldItemMainhand());
-    }
+		
+		MessageUtils.infoMessage(Block.REGISTRY.getNameForObject(PlayerStateHandler.devSpaceCache.getBlockState(minecraft.objectMouseOver.getBlockPos()).getBlock()).toString());
+		MessageUtils.infoMessage(PlayerStateHandler.devSpaceCache.areAllChunksLoaded() + "");
+	}
 }

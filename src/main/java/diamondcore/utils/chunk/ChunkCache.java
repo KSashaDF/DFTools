@@ -4,6 +4,7 @@ import diamondcore.utils.MathUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ChunkProviderClient;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
@@ -22,6 +23,11 @@ public class ChunkCache {
 	
 	public ChunkCache(int startChunkX, int startChunkZ, int endChunkX, int endChunkZ) {
 		
+		startChunkX = startChunkX / 16;
+		startChunkZ = startChunkZ / 16;
+		endChunkX = endChunkX / 16;
+		endChunkZ = endChunkZ / 16;
+		
 		// Registers this cache object with Forge's event bus.
 		MinecraftForge.EVENT_BUS.register(this);
 		
@@ -31,6 +37,11 @@ public class ChunkCache {
 		startZ = Math.min(startChunkZ, endChunkZ);
 		endX = Math.max(startChunkX, endChunkX);
 		endZ = Math.max(startChunkZ, endChunkZ);
+		
+		if (startX < 0) startX -= 1;
+		if (startZ < 0) startZ -= 1;
+		if (endX < 0) endX -= 1;
+		if (endZ < 0) endZ -= 1;
 		
 		ChunkProviderClient chunkProvider = Minecraft.getMinecraft().world.getChunkProvider();
 		
@@ -50,7 +61,7 @@ public class ChunkCache {
 	 * <strong>This method should be called when the ChunkCache
 	 * is no longer needed and should be deleted!</strong>
 	 */
-	public void unregiser() {
+	public void unregister() {
 		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 	
@@ -128,10 +139,14 @@ public class ChunkCache {
 	}
 	
 	public IBlockState getBlockState(BlockPos blockPos) {
-		return chunkCache[(blockPos.getX() / 16) - startX][(blockPos.getZ() / 16) - startZ].getBlockState(blockPos.getX() % 16, blockPos.getY(), blockPos.getZ() % 16);
+		try {
+			return chunkCache[((blockPos.getX() + 1) / 16) - startX - 1][((blockPos.getZ() + 1) / 16) - startZ - 1].getBlockState(blockPos);
+		} catch (Throwable exception) {
+			return Blocks.AIR.getDefaultState();
+		}
 	}
 	
 	public TileEntity getTileEntity(BlockPos blockPos) {
-		return chunkCache[(blockPos.getX() / 16) - startX][(blockPos.getZ() / 16) - startZ].getTileEntity(new BlockPos(blockPos.getX() % 16, blockPos.getY(), blockPos.getZ() % 16), Chunk.EnumCreateEntityType.IMMEDIATE);
+		return chunkCache[((blockPos.getX() + 1) / 16) - startX - 1][((blockPos.getZ() + 1) / 16) - startZ - 1].getTileEntity(MathUtils.getLocalChunkCord(blockPos), Chunk.EnumCreateEntityType.IMMEDIATE);
 	}
 }

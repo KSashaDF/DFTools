@@ -31,7 +31,7 @@ public class PistonHighlighting {
             BlockPos blockPos = minecraft.objectMouseOver.getBlockPos();
             String blockName = BlockUtils.getName(blockPos);
             
-            if ((blockName.equals("minecraft:piston") || blockName.equals("minecraft:stick_piston")) && CodeBlockUtils.isCodeBlock(blockPos) && CodeBlockUtils.hasOppositePiston(blockPos)) {
+            if ((blockName.equals("minecraft:piston") || blockName.equals("minecraft:sticky_piston")) && CodeBlockUtils.isCodeBlock(blockPos) && CodeBlockUtils.hasOppositePiston(blockPos)) {
                 
                 highlightCooldown = minecraft.player.ticksExisted + 2;
                 event.setCanceled(true);

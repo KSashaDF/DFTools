@@ -1,13 +1,15 @@
 package dfutils.codetools.codehandler.utils;
 
 import diamondcore.utils.BlockUtils;
+import diamondcore.utils.chunk.ChunkCache;
+import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class CodeBlockUtils {
 	
 	public static CodeBlockName getBlockName(BlockPos corePos) {
-		String blockName = BlockUtils.getName(corePos);
+		String blockName = BlockUtils.getName(corePos, PlayerStateHandler.devSpaceCache);
 		
 		switch (blockName) {
 			case "minecraft:cobblestone": return CodeBlockName.PLAYER_ACTION;
@@ -62,7 +64,7 @@ public class CodeBlockUtils {
 	
 	public static boolean isInvalidCore(BlockPos corePos) {
 		
-		String blockName = BlockUtils.getName(corePos);
+		String blockName = BlockUtils.getName(corePos, PlayerStateHandler.devSpaceCache);
 		
 		return !blockName.equals("minecraft:cobblestone") &&
 				!blockName.equals("minecraft:netherrack") &&
@@ -89,24 +91,25 @@ public class CodeBlockUtils {
 	public static boolean isCodeBlock(BlockPos blockPos) {
 		blockPos = getBlockCore(blockPos);
 		CodeBlockName codeBlockName = getBlockName(blockPos);
+		ChunkCache devSpaceCache = PlayerStateHandler.devSpaceCache;
 		
 		//Checks if the code block has a valid core.
 		if (isInvalidCore(blockPos))
 			return false;
 		
 		//Checks if the code block has a valid connector.
-		if (!BlockUtils.getName(blockPos.south()).equals(codeBlockName.connectorBlockName))
+		if (!BlockUtils.getName(blockPos.south(), devSpaceCache).equals(codeBlockName.connectorBlockName))
 			return false;
 		
 		//Checks if the code block has a sign.
 		if (codeBlockName.hasCodeSign) {
-			if (!BlockUtils.getName(blockPos.west()).equals("minecraft:wall_sign"))
+			if (!BlockUtils.getName(blockPos.west(), devSpaceCache).equals("minecraft:wall_sign"))
 				return false;
 		}
 		
 		//Checks if the code block has a chest.
 		if (codeBlockName.hasCodeChest) {
-			if (!BlockUtils.getName(blockPos.up()).equals("minecraft:chest")) {
+			if (!BlockUtils.getName(blockPos.up(), devSpaceCache).equals("minecraft:chest")) {
 				return false;
 			}
 		}
@@ -116,18 +119,15 @@ public class CodeBlockUtils {
 	
 	public static BlockPos getBlockCore(BlockPos blockPos) {
 		
-		String blockName = BlockUtils.getName(blockPos);
+		ChunkCache devSpaceCache = PlayerStateHandler.devSpaceCache;
+		String blockName = BlockUtils.getName(blockPos, devSpaceCache);
 		
-		if (blockName.equals("minecraft:stone"))
-			blockPos = blockPos.north();
-		if (blockName.equals("minecraft:wall_sign"))
-			blockPos = blockPos.east();
-		if (blockName.equals("minecraft:chest"))
-			blockPos = blockPos.down();
+		if (blockName.equals("minecraft:stone")) blockPos = blockPos.north();
+		if (blockName.equals("minecraft:wall_sign")) blockPos = blockPos.east();
+		if (blockName.equals("minecraft:chest")) blockPos = blockPos.down();
 		
 		if (blockName.equals("minecraft:piston") || blockName.equals("minecraft:sticky_piston")) {
-			
-			EnumFacing pistonDirection = BlockUtils.getFacing(blockPos);
+			EnumFacing pistonDirection = BlockUtils.getFacing(blockPos, devSpaceCache);
 			
 			//Checks if piston is a closing or an opening piston.
 			if (pistonDirection == EnumFacing.NORTH) {
@@ -148,7 +148,7 @@ public class CodeBlockUtils {
 	
 	public static boolean hasOppositePiston(BlockPos pistonPos) {
 		try {
-			EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos);
+			EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos, PlayerStateHandler.devSpaceCache);
 			BlockPos oppositePistonPos = pistonPos;
 			
 			if (pistonDirection == EnumFacing.SOUTH) {
@@ -167,7 +167,7 @@ public class CodeBlockUtils {
 	
 	public static BlockPos getOppositePiston(BlockPos pistonPos) {
 		try {
-			EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos);
+			EnumFacing pistonDirection = BlockUtils.getFacing(pistonPos, PlayerStateHandler.devSpaceCache);
 			
 			if (pistonDirection == EnumFacing.SOUTH) {
 				pistonPos = getClosingPiston(pistonPos);
@@ -185,8 +185,9 @@ public class CodeBlockUtils {
 		int scopeLevel = 0;
 		int iterations = 0;
 		BlockPos checkPos = pistonPos;
+		ChunkCache devSpaceCache = PlayerStateHandler.devSpaceCache;
 		
-		String pistonVariant = BlockUtils.getName(pistonPos);
+		String pistonVariant = BlockUtils.getName(pistonPos, devSpaceCache);
 		
 		do {
 			iterations++;
@@ -195,10 +196,10 @@ public class CodeBlockUtils {
 			
 			checkPos = checkPos.north();
 			
-			if (BlockUtils.getName(checkPos).equals(pistonVariant)) {
-				if (BlockUtils.getFacing(checkPos) == EnumFacing.SOUTH) {
+			if (BlockUtils.getName(checkPos, devSpaceCache).equals(pistonVariant)) {
+				if (BlockUtils.getFacing(checkPos, devSpaceCache) == EnumFacing.SOUTH) {
 					scopeLevel--;
-				} else if (BlockUtils.getFacing(checkPos) == EnumFacing.NORTH) {
+				} else if (BlockUtils.getFacing(checkPos, devSpaceCache) == EnumFacing.NORTH) {
 					scopeLevel++;
 				}
 			}
@@ -212,8 +213,9 @@ public class CodeBlockUtils {
 		int scopeLevel = 0;
 		int iterations = 0;
 		BlockPos checkPos = pistonPos;
+		ChunkCache devSpaceCache = PlayerStateHandler.devSpaceCache;
 		
-		String pistonVariant = BlockUtils.getName(pistonPos);
+		String pistonVariant = BlockUtils.getName(pistonPos, devSpaceCache);
 		
 		do {
 			iterations++;
@@ -222,10 +224,10 @@ public class CodeBlockUtils {
 			
 			checkPos = checkPos.south();
 			
-			if (BlockUtils.getName(checkPos).equals(pistonVariant)) {
-				if (BlockUtils.getFacing(checkPos) == EnumFacing.NORTH) {
+			if (BlockUtils.getName(checkPos, devSpaceCache).equals(pistonVariant)) {
+				if (BlockUtils.getFacing(checkPos, devSpaceCache) == EnumFacing.NORTH) {
 					scopeLevel--;
-				} else if (BlockUtils.getFacing(checkPos) == EnumFacing.SOUTH) {
+				} else if (BlockUtils.getFacing(checkPos, devSpaceCache) == EnumFacing.SOUTH) {
 					scopeLevel++;
 				}
 			}

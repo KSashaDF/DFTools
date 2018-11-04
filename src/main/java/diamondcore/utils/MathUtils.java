@@ -28,6 +28,10 @@ public class MathUtils {
 		return (posX / 16 == chunkX) && (posZ / 16 == chunkZ);
 	}
 	
+	public static BlockPos getLocalChunkCord(BlockPos blockPos) {
+		return new BlockPos((blockPos.getX() + 16 + (Math.abs(blockPos.getX() / 16) * 16)) % 16, blockPos.getY(), (blockPos.getZ() + 16 + (Math.abs(blockPos.getZ() / 16) * 16)) % 16);
+	}
+	
 	public static double clamp(double number, double min, double max) {
 		
 		// If min is larger than max, swap the values.
@@ -44,6 +48,14 @@ public class MathUtils {
 			number = max;
 		
 		return number;
+	}
+	
+	public static int copySignIncrement(int number) {
+		if (number >= 0) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 	
 	public static BlockPos[] getCorners(BlockPos corner1, BlockPos corner2) {

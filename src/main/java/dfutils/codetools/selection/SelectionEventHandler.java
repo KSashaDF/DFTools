@@ -38,7 +38,7 @@ public class SelectionEventHandler {
                             SelectionController.selectionPos = codeBlockPos;
                             incrementState();
                         }
-                    } catch (CodeFormatException exception) {}
+                    } catch (CodeFormatException ignored) {}
                 }
             }
         }

@@ -31,42 +31,19 @@ public class BlockUtils {
 	}
 	
 	public static String[] getSignText(BlockPos signPos) {
-		String[] signText = new String[4];
-		TileEntity tileEntity = minecraft.world.getTileEntity(signPos);
-		
-		if (!(tileEntity instanceof TileEntitySign)) {
-			return null;
-		}
-		
-		ITextComponent[] signTextComponents = ((TileEntitySign) tileEntity).signText;
-		
-		signText[0] = signTextComponents[0].getUnformattedText();
-		if (signText[0].equals(""))
-			signText[0] = null;
-		
-		signText[1] = signTextComponents[1].getUnformattedText();
-		if (signText[1].equals(""))
-			signText[1] = null;
-		
-		signText[2] = signTextComponents[2].getUnformattedText();
-		if (signText[2].equals(""))
-			signText[2] = null;
-		
-		signText[3] = signTextComponents[3].getUnformattedText();
-		if (signText[3].equals(""))
-			signText[3] = null;
-		
-		return signText;
+		return getSignText(minecraft.world.getTileEntity(signPos));
 	}
 	
 	public static String[] getSignText(BlockPos signPos, ChunkCache chunkCache) {
-		String[] signText = new String[4];
-		TileEntity tileEntity = chunkCache.getTileEntity(signPos);
-		
+		return getSignText(chunkCache.getTileEntity(signPos));
+	}
+	
+	private static String[] getSignText(TileEntity tileEntity) {
 		if (!(tileEntity instanceof TileEntitySign)) {
-			return null;
+			return new String[]{"", "", "", ""};
 		}
 		
+		String[] signText = new String[4];
 		ITextComponent[] signTextComponents = ((TileEntitySign) tileEntity).signText;
 		
 		signText[0] = signTextComponents[0].getUnformattedText();
