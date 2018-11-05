@@ -10,18 +10,18 @@ import org.apache.logging.log4j.LogManager;
 import java.io.IOException;
 
 public class CodeBlockData {
-    
-    public static NBTTagCompound codeReferenceData;
-    
-    public CodeBlockData() {
-
-        try {
-            //Reads codeData.json and converts it into an NBT tag.
-            codeReferenceData = JsonToNBT.getTagFromJson(IOUtils.toString(this.getClass().getResourceAsStream("/assets/dfutils/codeData.json"), Charsets.UTF_8));
-        } catch (IOException exception) {
-            LogManager.getLogger().error("Uh oh! Encountered IO Exception while loading code reference data...");
-        } catch (NBTException exception) {
-            LogManager.getLogger().error("Uh oh, looks like the mod author messed up the code reference data NBT format. :/");
-        }
-    }
+	
+	public static NBTTagCompound codeReferenceData;
+	
+	public CodeBlockData() {
+		
+		try {
+			//Reads codeData.json and converts it into an NBT tag.
+			codeReferenceData = JsonToNBT.getTagFromJson(IOUtils.toString(this.getClass().getResourceAsStream("/assets/dfutils/codeData.json"), Charsets.UTF_8));
+		} catch (IOException exception) {
+			LogManager.getLogger().error("Uh oh! Encountered IO Exception while loading code reference data...");
+		} catch (NBTException exception) {
+			LogManager.getLogger().error("Uh oh, looks like the mod author messed up the code reference data NBT format. :/");
+		}
+	}
 }

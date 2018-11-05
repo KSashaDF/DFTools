@@ -8,16 +8,16 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 @Cancelable
 public class ClickItemEvent extends Event {
-    
-    public ItemStack clickedItem;
-    public ClickType clickType;
-    public int clickedSlot;
-    public int windowId;
-
-    public ClickItemEvent(CPacketClickWindow clickItemPacket) {
-        clickedItem = clickItemPacket.getClickedItem();
-        clickType = clickItemPacket.getClickType();
-        clickedSlot = clickItemPacket.getSlotId();
-        windowId = clickItemPacket.getWindowId();
-    }
+	
+	public ItemStack clickedItem;
+	public ClickType clickType;
+	public int clickedSlot;
+	public int windowId;
+	
+	public ClickItemEvent(CPacketClickWindow clickItemPacket) {
+		clickedItem = clickItemPacket.getClickedItem();
+		clickType = clickItemPacket.getClickType();
+		clickedSlot = clickItemPacket.getSlotId();
+		windowId = clickItemPacket.getWindowId();
+	}
 }

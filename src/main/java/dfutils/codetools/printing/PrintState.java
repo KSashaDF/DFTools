@@ -1,8 +1,8 @@
 package dfutils.codetools.printing;
 
 public enum PrintState {
-    NULL,
-    CORE,
-    SIGN,
-    CHEST
+	NULL,
+	CORE,
+	SIGN,
+	CHEST
 }
