@@ -17,23 +17,18 @@ public class PistonHighlighting {
     private static final Minecraft minecraft = Minecraft.getMinecraft();
     
     private static boolean doPistonHighlight = false;
-    private static int highlightCooldown = 0;
     
     private static BlockPos openingPistonPos;
     private static BlockPos closingPistonPos;
     
     public static void pistonHighlightingLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-        
-        if (highlightCooldown - 3 > minecraft.player.ticksExisted) highlightCooldown = 0;
-        
-        if (minecraft.player.isCreative() && minecraft.player.isSneaking() && minecraft.player.ticksExisted > highlightCooldown) {
+        if (minecraft.player.isCreative() && minecraft.player.isSneaking()) {
     
             BlockPos blockPos = minecraft.objectMouseOver.getBlockPos();
             String blockName = BlockUtils.getName(blockPos);
             
             if ((blockName.equals("minecraft:piston") || blockName.equals("minecraft:sticky_piston")) && CodeBlockUtils.isCodeBlock(blockPos) && CodeBlockUtils.hasOppositePiston(blockPos)) {
                 
-                highlightCooldown = minecraft.player.ticksExisted + 2;
                 event.setCanceled(true);
                 
                 if (BlockUtils.getFacing(blockPos) == EnumFacing.SOUTH) {

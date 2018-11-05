@@ -31,8 +31,6 @@ public class ChunkCache {
 		// Registers this cache object with Forge's event bus.
 		MinecraftForge.EVENT_BUS.register(this);
 		
-		chunkCache = new Chunk[Math.abs(startChunkX - endChunkX) + 1][Math.abs(startChunkZ - endChunkZ) + 1];
-		
 		startX = Math.min(startChunkX, endChunkX);
 		startZ = Math.min(startChunkZ, endChunkZ);
 		endX = Math.max(startChunkX, endChunkX);
@@ -42,6 +40,8 @@ public class ChunkCache {
 		if (startZ < 0) startZ -= 1;
 		if (endX < 0) endX -= 1;
 		if (endZ < 0) endZ -= 1;
+		
+		chunkCache = new Chunk[endChunkX - startChunkX + 1][endChunkZ - startChunkZ + 1];
 		
 		ChunkProviderClient chunkProvider = Minecraft.getMinecraft().world.getChunkProvider();
 		
@@ -82,7 +82,7 @@ public class ChunkCache {
 	 */
 	public boolean isBlockLoaded(BlockPos blockPos) {
 		try {
-			return chunkCache[(blockPos.getX() / 16) - startX][(blockPos.getZ() / 16) - startZ] != null;
+			return chunkCache[(blockPos.getX() >> 4) - startX][(blockPos.getZ() >> 4) - startZ] != null;
 		} catch (ArrayIndexOutOfBoundsException exception) {
 			return false;
 		}
@@ -140,13 +140,13 @@ public class ChunkCache {
 	
 	public IBlockState getBlockState(BlockPos blockPos) {
 		try {
-			return chunkCache[((blockPos.getX() + 1) / 16) - startX - 1][((blockPos.getZ() + 1) / 16) - startZ - 1].getBlockState(blockPos);
+			return chunkCache[(blockPos.getX() >> 4) - startX][(blockPos.getZ() >> 4) - startZ].getBlockState(blockPos);
 		} catch (Throwable exception) {
 			return Blocks.AIR.getDefaultState();
 		}
 	}
 	
 	public TileEntity getTileEntity(BlockPos blockPos) {
-		return chunkCache[((blockPos.getX() + 1) / 16) - startX - 1][((blockPos.getZ() + 1) / 16) - startZ - 1].getTileEntity(MathUtils.getLocalChunkCord(blockPos), Chunk.EnumCreateEntityType.IMMEDIATE);
+		return chunkCache[(blockPos.getX() >> 4) - startX][(blockPos.getZ() >> 4) - startZ].getTileEntity(blockPos, Chunk.EnumCreateEntityType.IMMEDIATE);
 	}
 }
