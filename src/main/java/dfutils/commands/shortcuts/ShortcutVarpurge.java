@@ -11,7 +11,7 @@ public class ShortcutVarpurge {
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
 	private static long commandTypedTime = 0;
 	
-	public static void shortcutVarpurgeClientSendMessage(ClientChatEvent event) {
+	public static void shortcutVarpurgeSendMessage(ClientChatEvent event) {
 		
 		//Small fail safe in case the player relogs.
 		if (commandTypedTime - 200 > minecraft.player.ticksExisted)

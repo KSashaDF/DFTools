@@ -126,7 +126,7 @@ public class PlayerStateHandler {
 		}
 	}
 	
-	public static void playerStateHandlerChatSent(ClientChatEvent event) {
+	public static void playerStateHandlerSendMessage(ClientChatEvent event) {
 		String messageText = event.getMessage();
 		
 		if (messageText.equals("/spawn") || messageText.equals("/leave")) {

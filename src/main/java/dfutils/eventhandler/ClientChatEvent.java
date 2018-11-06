@@ -1,11 +1,8 @@
 package dfutils.eventhandler;
 
 import dfutils.Reference;
+import dfutils.commands.shortcuts.*;
 import itemcontrol.commands.CommandGive;
-import dfutils.commands.shortcuts.ShortcutLastMsg;
-import dfutils.commands.shortcuts.ShortcutPlotClear;
-import dfutils.commands.shortcuts.ShortcutSupportChat;
-import dfutils.commands.shortcuts.ShortcutVarpurge;
 import dfutils.config.ConfigHandler;
 import diamondcore.utils.MathUtils;
 import diamondcore.utils.TextUtils;
@@ -28,14 +25,15 @@ public class ClientChatEvent {
 	@SubscribeEvent
 	public static void onClientSendMessage(final net.minecraftforge.client.event.ClientChatEvent event) {
 		
-		//The following section of code overrides the default DiamondFire command cooldown.
-		//This is done to prevent the rest of the send message event code from being executed and
-		//to make it so the command cooldown does not reset if you execute a command while the
-		//cooldown is still active.
+		// The following section of code overrides the default DiamondFire command cooldown.
+		// This is done to prevent the rest of the send message event code from being executed and
+		// to make it so the command cooldown does not reset if you execute a command while the
+		// cooldown is still active.
 		if (commandCooldown - 40 > minecraft.player.ticksExisted) {
 			commandCooldown = 0;
 		}
 		
+		// TODO - Clean this mess up!
 		if (event.getMessage().startsWith("/") && PlayerStateHandler.isOnDiamondFire) {
 			String commandName = TextUtils.splitString(event.getMessage())[0].replace("/", "");
 			ICommand commandObject = ClientCommandHandler.instance.getCommands().get(commandName);
@@ -59,20 +57,22 @@ public class ClientChatEvent {
 			}
 		}
 		
-		CommandGive.commandGiveClientSendMessage(event);
-		ShortcutLastMsg.shortcutLastMsgClientSendMessage(event);
+		CommandGive.commandGiveSendMessage(event);
+		ShortcutLastMsg.shortcutLastMsgSendMessage(event);
 		
 		if (PlayerStateHandler.isOnDiamondFire) {
-			ShortcutSupportChat.shortcutSupportChatClientSendMessage(event);
-			PlayerStateHandler.playerStateHandlerChatSent(event);
+			ShortcutPlotAdd.shortcutPlotAddSendMessage(event);
+			ShortcutPlotRemove.shortcutPlotRemoveSendMessage(event);
+			ShortcutSupportChat.shortcutSupportChatSendMessage(event);
+			PlayerStateHandler.playerStateHandlerSendMessage(event);
 			
-			//If the /plot varpurge confirm config option is enabled, execute the varpurge confirm code.
+			// If the /plot varpurge confirm config option is enabled, execute the varpurge confirm code.
 			if (ConfigHandler.DO_VARPURGE_CONFIRM) {
-				ShortcutVarpurge.shortcutVarpurgeClientSendMessage(event);
+				ShortcutVarpurge.shortcutVarpurgeSendMessage(event);
 			}
-			//If the /plot clear confirm config option is disabled, execute the plot clear shortcut code.
+			// If the /plot clear confirm config option is disabled, execute the plot clear shortcut code.
 			if (!ConfigHandler.DO_PLOTCLEAR_CONFIRM) {
-				ShortcutPlotClear.shortcutPlotClearClientSendMessage(event);
+				ShortcutPlotClear.shortcutPlotClearSendMessage(event);
 			}
 		}
 	}

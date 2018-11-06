@@ -7,7 +7,7 @@ public class ShortcutLastMsg {
 	
 	private static String lastPersonMessaged = "";
 	
-	public static void shortcutLastMsgClientSendMessage(ClientChatEvent event) {
+	public static void shortcutLastMsgSendMessage(ClientChatEvent event) {
 		
 		//Stores the last person messaged.
 		//Tests if the sent chat message is the /msg command, and tests if the message contains at least 2 spaces.

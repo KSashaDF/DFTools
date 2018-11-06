@@ -131,7 +131,7 @@ public class CommandGive extends CommandBase implements IClientCommand {
 	
 	//This code is used for making sure this command only works if
 	//the player does not have permission to use the regular /give command.
-	public static void commandGiveClientSendMessage(ClientChatEvent event) {
+	public static void commandGiveSendMessage(ClientChatEvent event) {
 		
 		if (!(minecraft.player.getPermissionLevel() >= new net.minecraft.command.CommandGive().getRequiredPermissionLevel())) {
 			if (event.getMessage().startsWith("/give ")) {
