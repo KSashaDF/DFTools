@@ -57,7 +57,7 @@ processResources {
 }
 
 jar {
-    version = "1.12.2-${Calendar.getInstance().get(Calendar.YEAR)}.${Calendar.getInstance().get(Calendar.MONTH) + 1}.${Calendar.getInstance().get(Calendar.DATE)}"
+    version = "1.12.2-${Calendar.getInstance().get(Calendar.YEAR)}.${Calendar.getInstance().get(Calendar.MONTH) < 9 ? "0" + (Calendar.getInstance().get(Calendar.MONTH) + 1) : Calendar.getInstance().get(Calendar.MONTH) + 1}.${Calendar.getInstance().get(Calendar.DATE) < 10 ? "0" + Calendar.getInstance().get(Calendar.DATE) : Calendar.getInstance().get(Calendar.DATE)}"
     archiveName "dfTools-${version}.jar"
 
     from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
