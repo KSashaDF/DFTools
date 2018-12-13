@@ -42,19 +42,6 @@
                     ]
                 }
             ]
-        },
-        "help": {
-            "clickToRun": "Click to run",
-          "categoryNotFound": "§cCategory \"§4%VAR%§c\" not found.",
-            "categories": [
-                "items",
-                "code",
-                "shortcuts"
-            ],
-          "items": {
-            "commands": [
-            ]
-          }
         }
     },
 

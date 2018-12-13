@@ -16,14 +16,17 @@ public class ItemUtils {
 	}
 	
 	public static String getName(Item item) {
-		return Item.REGISTRY.getNameForObject(item).toString();
+		ResourceLocation itemObj = Item.REGISTRY.getNameForObject(item);
+		return itemObj == null ? "minecraft:air" : itemObj.toString();
 	}
 	
 	public static ItemStack getItem(String itemName, int count, int metadata) {
-		if (Item.getByNameOrId(itemName) == null) {
+		Item item = Item.getByNameOrId(itemName);
+		
+		if (item == null) {
 			return ItemStack.EMPTY;
 		} else {
-			return new ItemStack(Item.getByNameOrId(itemName), count, metadata);
+			return new ItemStack(item, count, metadata);
 		}
 	}
 	
@@ -99,5 +102,15 @@ public class ItemUtils {
 		}
 		
 		return itemStack;
+	}
+	
+	public static ItemStack[] copyStackArray(ItemStack[] stackArray) {
+		ItemStack[] newStackArray = new ItemStack[stackArray.length];
+		
+		for (int i = 0; i < stackArray.length; i++) {
+			newStackArray[i] = stackArray[i].copy();
+		}
+		
+		return newStackArray;
 	}
 }

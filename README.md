@@ -13,7 +13,3 @@ DiamondFire Tools is a collection of Minecraft mods focused on adding improvemen
 - ### DiamondFire Utilities
   
   This mod focuses on adding various client-side improvements to DiamondFire, such as a full code copy/paster.
-  
-- ### DiamondFire Addons
-  
-  This mod focuses on adding improvements to the DiamondFire game system, several examples being custom code actions, a custom color code system, and other related things.

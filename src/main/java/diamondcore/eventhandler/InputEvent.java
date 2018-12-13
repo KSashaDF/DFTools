@@ -22,37 +22,35 @@ public class InputEvent {
 	public static void onKeyInput(net.minecraftforge.fml.common.gameevent.InputEvent event) {
 		
 		try {
-			//Determines whether the leftClickBlock event should be fired.
+			// Determines whether the leftClickBlock event should be fired.
 			if (gameSettings.keyBindAttack.isKeyDown() && minecraft.objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK)) {
 				
-				//Creates the event object.
+				// Creates the event object.
 				CustomLeftClickBlockEvent leftClickBlockEvent = new CustomLeftClickBlockEvent(minecraft.objectMouseOver.sideHit, minecraft.objectMouseOver.getBlockPos());
 				
-				//Sends the event to the event handler class.
+				// Sends the event to the event handler class.
 				MinecraftForge.EVENT_BUS.post(leftClickBlockEvent);
 				
-				//If the event cancel flag is set to true, cancel the event.
+				// If the event cancel flag is set to true, cancel the event.
 				if (leftClickBlockEvent.isCanceled()) {
 					EventUtils.cancelLeftClick(true);
 				}
 			}
 			
-			//Determines whether the rightClickBlock event should be fired.
+			// Determines whether the rightClickBlock event should be fired.
 			if (gameSettings.keyBindUseItem.isKeyDown() && minecraft.objectMouseOver.typeOfHit.equals(RayTraceResult.Type.BLOCK)) {
 				
-				//Creates the event object.
+				// Creates the event object.
 				CustomRightClickBlockEvent rightClickBlockEvent = new CustomRightClickBlockEvent(minecraft.objectMouseOver.sideHit, minecraft.objectMouseOver.getBlockPos());
 				
-				//Sends the event to the event handler class.
+				// Sends the event to the event handler class.
 				MinecraftForge.EVENT_BUS.post(rightClickBlockEvent);
 				
-				//If the event cancel flag is set to true, cancel the event.
+				// If the event cancel flag is set to true, cancel the event.
 				if (rightClickBlockEvent.isCanceled()) {
 					EventUtils.cancelRightClick();
 				}
 			}
-		} catch (NullPointerException exception) {
-			//Hmm... an NPE occurred for whatever reason, continue on.
-		}
+		} catch (NullPointerException ignored) {}
 	}
 }

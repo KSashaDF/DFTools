@@ -21,6 +21,8 @@ public class ChunkCache {
 	private int endX;
 	private int endZ;
 	
+	private boolean areAllChunksLoaded = false;
+	
 	public ChunkCache(int startChunkX, int startChunkZ, int endChunkX, int endChunkZ) {
 		
 		startChunkX = startChunkX / 16;
@@ -55,14 +57,6 @@ public class ChunkCache {
 				}
 			}
 		}
-	}
-	
-	/**
-	 * <strong>This method should be called when the ChunkCache
-	 * is no longer needed and should be deleted!</strong>
-	 */
-	public void unregister() {
-		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 	
 	@SuppressWarnings("unused")
@@ -127,14 +121,19 @@ public class ChunkCache {
 	 * are loaded.
 	 */
 	public boolean areAllChunksLoaded() {
-		for (Chunk[] chunks : chunkCache) {
-			for (Chunk chunk : chunks) {
-				if (chunk == null) {
-					return false;
+		if (areAllChunksLoaded) {
+			return true;
+		} else {
+			for (Chunk[] chunks : chunkCache) {
+				for (Chunk chunk : chunks) {
+					if (chunk == null) {
+						return false;
+					}
 				}
 			}
 		}
 		
+		areAllChunksLoaded = true;
 		return true;
 	}
 	

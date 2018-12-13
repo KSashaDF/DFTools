@@ -4,6 +4,7 @@ import diamondcore.utils.chunk.ChunkCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumFacing;
@@ -13,6 +14,16 @@ import net.minecraft.util.text.ITextComponent;
 public class BlockUtils {
 	
 	private static final Minecraft minecraft = Minecraft.getMinecraft();
+	
+	public static Block getBlock(String blockName) {
+		Block block = Block.getBlockFromName(blockName);
+		
+		if (block == null) {
+			return Blocks.AIR;
+		} else {
+			return block;
+		}
+	}
 	
 	public static String getName(BlockPos blockPos) {
 		return Block.REGISTRY.getNameForObject(minecraft.world.getBlockState(blockPos).getBlock()).toString();

@@ -29,6 +29,7 @@ public class PrintEventHandler {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public static void printEventHandlerTickEvent(TickEvent.ClientTickEvent event) {
 		if (PrintController.isPrinting) {
 			if (minecraft.player.isCreative()) {

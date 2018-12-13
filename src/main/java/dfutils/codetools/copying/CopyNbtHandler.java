@@ -1,7 +1,7 @@
 package dfutils.codetools.copying;
 
-import dfutils.codetools.codehandler.utils.CodeBlockName;
-import dfutils.codetools.codehandler.utils.CodeItemUtils;
+import dfutils.codesystem.objects.CodeBlockType;
+import dfutils.codetools.utils.CodeItemUtils;
 import diamondcore.utils.ItemUtils;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -32,7 +32,7 @@ class CopyNbtHandler {
 		}
 	}
 	
-	static void nextCodeBlock(CodeBlockName blockName) {
+	static void nextCodeBlock(CodeBlockType blockName) {
 		
 		NBTTagList searchList = copyData;
 		if (scopeLevel > 0) {

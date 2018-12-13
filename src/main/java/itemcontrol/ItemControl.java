@@ -1,6 +1,5 @@
 package itemcontrol;
 
-import diamondcore.DiamondCore;
 import itemcontrol.commands.*;
 import itemcontrol.commands.attributes.CommandAttributeBase;
 import itemcontrol.commands.candestroy.CommandCanDestroyBase;
@@ -11,7 +10,6 @@ import itemcontrol.commands.enchant.CommandEnchant;
 import itemcontrol.commands.flags.CommandHideFlags;
 import itemcontrol.commands.flags.CommandSetFlags;
 import itemcontrol.commands.flags.CommandShowFlags;
-import itemcontrol.commands.item.CommandItem;
 import itemcontrol.commands.lore.CommandLoreBase;
 import itemcontrol.commands.rename.CommandRename;
 import itemcontrol.commands.rename.CommandRenameAnvil;
@@ -25,19 +23,16 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 		acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 public class ItemControl {
 	
+	@SuppressWarnings("unused")
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		DiamondCore.itemControlInstalled = true;
-		
 		registerCommands();
-		
-		/*ConfigHandler.init(event.getSuggestedConfigurationFile());*/
 	}
 	
 	private void registerCommands() {
 		ClientCommandHandler commandHandler = ClientCommandHandler.instance;
 		
-		//Item control command initialization.
+		// Item control command initialization.
 		commandHandler.registerCommand(new CommandGive());
 		commandHandler.registerCommand(new CommandItemData());
 		commandHandler.registerCommand(new CommandAttributeBase());
@@ -55,10 +50,5 @@ public class ItemControl {
 		commandHandler.registerCommand(new CommandEnchant());
 		commandHandler.registerCommand(new CommandDisenchant());
 		commandHandler.registerCommand(new CommandClearEnch());
-		
-		if (DiamondCore.devEnvironment) {
-			// Item download/upload
-			commandHandler.registerCommand(new CommandItem());
-		}
 	}
 }

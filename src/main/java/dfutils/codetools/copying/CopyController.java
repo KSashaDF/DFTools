@@ -1,14 +1,15 @@
 package dfutils.codetools.copying;
 
-import dfutils.codetools.codehandler.utils.CodeBlockName;
-import dfutils.codetools.codehandler.utils.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockGroup;
 import dfutils.codetools.selection.SelectionController;
 import dfutils.codetools.selection.SelectionState;
 import diamondcore.utils.BlockUtils;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import diamondcore.utils.ItemUtils;
 import diamondcore.utils.MathUtils;
+import diamondcore.utils.MessageUtils;
 import diamondcore.utils.chunk.ChunkCache;
 import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
@@ -24,11 +25,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import static diamondcore.utils.MessageUtils.actionMessage;
-import static diamondcore.utils.MessageUtils.errorMessage;
-import static diamondcore.utils.MessageUtils.infoMessage;
-import static diamondcore.utils.MessageUtils.noteMessage;
 
 public class CopyController {
 	
@@ -49,7 +45,7 @@ public class CopyController {
 				copySelection = SelectionController.getSelectionEdges();
 				copyPos = copySelection[0];
 				
-				actionMessage("Starting code copy...");
+				MessageUtils.actionMessage("Starting code copy...");
 				SelectionController.resetSelection();
 				
 			} catch (CodeFormatException exception) {
@@ -58,7 +54,7 @@ public class CopyController {
 			}
 			
 		} else {
-			errorMessage("Please make a code selection first!");
+			MessageUtils.errorMessage("Please make a code selection first!");
 		}
 	}
 	
@@ -76,7 +72,7 @@ public class CopyController {
 		if (isCopying) {
 			if (!minecraft.player.isCreative()) {
 				resetCopy();
-				errorMessage("Cancelled copying! You are no longer in dev mode.");
+				MessageUtils.errorMessage("Cancelled copying! You are no longer in dev mode.");
 				return;
 			}
 			
@@ -87,14 +83,14 @@ public class CopyController {
 					return;
 				}
 				
-				CodeBlockName blockName = CodeBlockUtils.getBlockName(copyPos);
+				CodeBlockType blockName = CodeBlockUtils.getBlockName(copyPos);
 				CopyNbtHandler.nextCodeBlock(blockName);
 				
-				if (blockName.hasCodeSign) {
+				if (blockName.hasSign) {
 					
 					String[] signText = BlockUtils.getSignText(copyPos.west(), PlayerStateHandler.devSpaceCache);
 					
-					if (blockName == CodeBlockName.FUNCTION || blockName == CodeBlockName.CALL_FUNCTION || blockName == CodeBlockName.LOOP) {
+					if (blockName == CodeBlockType.FUNCTION || blockName == CodeBlockType.CALL_FUNCTION || blockName == CodeBlockType.LOOP) {
 						if (signText[1] != null) {
 							CopyNbtHandler.setDynamicCodeFunction(signText[1]);
 						}
@@ -103,7 +99,7 @@ public class CopyController {
 							CopyNbtHandler.setCodeFunction(signText[1]);
 						}
 						
-						if (blockName == CodeBlockName.SELECT_OBJECT || blockName == CodeBlockName.REPEAT) {
+						if (blockName == CodeBlockType.SELECT_OBJECT || blockName == CodeBlockType.REPEAT) {
 							if (signText[2] != null) {
 								CopyNbtHandler.setCodeSubFunction(signText[2]);
 							}
@@ -114,13 +110,13 @@ public class CopyController {
 						}
 					}
 					
-					if (blockName.codeBlockType == CodeBlockType.CONDITIONAL) {
+					if (blockName.blockGroup == CodeBlockGroup.CONDITIONAL) {
 						if (signText[3] != null && signText[3].equals("NOT")) {
 							CopyNbtHandler.setConditionalNot();
 						}
 					}
 					
-					if (blockName == CodeBlockName.PLAYER_ACTION || blockName == CodeBlockName.IF_PLAYER || blockName == CodeBlockName.ENTITY_ACTION) {
+					if (blockName == CodeBlockType.PLAYER_ACTION || blockName == CodeBlockType.IF_PLAYER || blockName == CodeBlockType.ENTITY_ACTION) {
 						if (signText[2] != null) {
 							CopyNbtHandler.setCodeTarget(signText[2]);
 						}
@@ -131,17 +127,13 @@ public class CopyController {
 				} else {
 					// Automatic movement to next code block
 					minecraft.player.move(MoverType.SELF, 0, 0, 5);
-					noteMessage("No code Sign");
 				}
 				
-				if (blockName.hasCodeChest) {
+				if (blockName.hasChest) {
 					copyState = CopyState.MOVEMENT_WAIT;
 				} else {
-					if (CodeBlockUtils.getBlockName(copyPos).hasPistonBrackets) {
+					if (CodeBlockUtils.getBlockName(copyPos).hasBrackets) {
 						CopyNbtHandler.addCodeScope();
-						// Automatic movement to next code block
-						noteMessage("Found brackets");
-						//minecraft.player.move(MoverType.SELF, 0, 0, 2);
 					}
 					getNextBlock();
 				}
@@ -184,15 +176,15 @@ public class CopyController {
 		itemStack.getTagCompound().setTag("display", new NBTTagCompound());
 		
 		//The following code sets the code template item name.
-		CodeBlockName codeLineHeader = CodeBlockUtils.stringToBlock(CopyNbtHandler.copyData.getCompoundTagAt(0).getString("Name"));
+		CodeBlockType codeLineHeader = CodeBlockUtils.stringToBlock(CopyNbtHandler.copyData.getCompoundTagAt(0).getString("Name"));
 		
-		if (codeLineHeader.codeBlockType == CodeBlockType.EVENT &&
+		if (codeLineHeader.blockGroup == CodeBlockGroup.EVENT &&
 				(CopyNbtHandler.copyData.getCompoundTagAt(0).hasKey("Function") || CopyNbtHandler.copyData.getCompoundTagAt(0).hasKey("DynamicFunction"))) {
 			
-			if (codeLineHeader == CodeBlockName.PLAYER_EVENT || codeLineHeader == CodeBlockName.ENTITY_EVENT) {
+			if (codeLineHeader == CodeBlockType.PLAYER_EVENT || codeLineHeader == CodeBlockType.ENTITY_EVENT) {
 				itemStack.getTagCompound().getCompoundTag("display").
 						setTag("Name", new NBTTagString("§3§l[ §bEvent §3| §b" + CopyNbtHandler.copyData.getCompoundTagAt(0).getString("Function") + " §3§l]"));
-			} else if (codeLineHeader == CodeBlockName.LOOP) {
+			} else if (codeLineHeader == CodeBlockType.LOOP) {
 				itemStack.getTagCompound().getCompoundTag("display").
 						setTag("Name", new NBTTagString("§3§l[ §bEvent §3| §bLoop §3§l]"));
 			} else {
@@ -224,8 +216,8 @@ public class CopyController {
 		ItemUtils.setItemInHotbar(itemStack, true);
 		
 		minecraft.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-		infoMessage("Finished code copying! Place the template to paste the copied code.");
-		noteMessage("Code data is stored on the template item itself!");
+		MessageUtils.infoMessage("Finished code copying! Place the template to paste the copied code.");
+		MessageUtils.noteMessage("Code data is stored on the template item itself!");
 		resetCopy();
 	}
 	
@@ -243,7 +235,7 @@ public class CopyController {
 			
 			minecraft.player.closeScreen();
 			
-			if (CodeBlockUtils.getBlockName(copyPos).hasPistonBrackets)
+			if (CodeBlockUtils.getBlockName(copyPos).hasBrackets)
 				CopyNbtHandler.addCodeScope();
 			
 			copyState = CopyState.TICK_WAIT;

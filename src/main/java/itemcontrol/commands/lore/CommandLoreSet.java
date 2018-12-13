@@ -1,6 +1,6 @@
 package itemcontrol.commands.lore;
 
-import diamondcore.utils.TextUtils;
+import diamondcore.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -68,7 +68,7 @@ class CommandLoreSet {
 			}
 		}
 		
-		commandArgs[2] = TextUtils.parseColorCodes(commandArgs[2]);
+		commandArgs[2] = StringUtils.parseColorCodes(commandArgs[2]);
 		
 		//Sets lore at specified line.
 		loreList.set(lineNumber - 1, new NBTTagString(commandArgs[2]));

@@ -5,7 +5,7 @@ import dfutils.commands.shortcuts.*;
 import itemcontrol.commands.CommandGive;
 import dfutils.config.ConfigHandler;
 import diamondcore.utils.MathUtils;
-import diamondcore.utils.TextUtils;
+import diamondcore.utils.StringUtils;
 import diamondcore.utils.language.MessageHelper;
 import diamondcore.utils.playerdata.PlayerStateHandler;
 import net.minecraft.client.Minecraft;
@@ -35,7 +35,7 @@ public class ClientChatEvent {
 		
 		// TODO - Clean this mess up!
 		if (event.getMessage().startsWith("/") && PlayerStateHandler.isOnDiamondFire) {
-			String commandName = TextUtils.splitString(event.getMessage())[0].replace("/", "");
+			String commandName = StringUtils.splitString(event.getMessage())[0].replace("/", "");
 			ICommand commandObject = ClientCommandHandler.instance.getCommands().get(commandName);
 			
 			if (!(commandObject instanceof IClientCommand)) {

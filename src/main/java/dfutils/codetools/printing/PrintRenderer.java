@@ -1,7 +1,7 @@
 package dfutils.codetools.printing;
 
 import diamondcore.utils.ColorReference;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import diamondcore.utils.GraphicsUtils;
 import net.minecraft.util.math.BlockPos;
 
@@ -28,15 +28,15 @@ class PrintRenderer {
 			GraphicsUtils.drawBlock(partialTicks, renderPos.south(), drawColor);
 			
 			//Draws code block sign.
-			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasCodeSign)
+			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasSign)
 				GraphicsUtils.drawSign(partialTicks, renderPos.west(), drawColor);
 			
 			//Draws code chest.
-			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasCodeChest)
+			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasChest)
 				GraphicsUtils.drawChest(partialTicks, renderPos.up(), drawColor);
 			
 			//Draws opposite piston. (the closing piston)
-			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasPistonBrackets)
+			if (CodeBlockUtils.stringToBlock(renderNbtReader.selectedBlock.getString("Name")).hasBrackets)
 				GraphicsUtils.drawBlock(partialTicks,
 						renderPos.south(PrintController.getCodeLength(renderNbtReader.selectedBlock.getTagList("CodeData", 10)) + 3), drawColor);
 			

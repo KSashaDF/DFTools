@@ -2,7 +2,7 @@ package dfutils.codetools.copying;
 
 import diamondcore.utils.ColorReference;
 import diamondcore.utils.BlockUtils;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import diamondcore.utils.GraphicsUtils;
 import diamondcore.utils.chunk.ChunkCache;
 import diamondcore.utils.playerdata.PlayerStateHandler;

@@ -77,11 +77,11 @@ public class PlayerStateHandler {
 		}
 		
 		if (messageRawText.startsWith("Joined game: ")) {
-			String[] messageWords = TextUtils.splitString(messageRawText);
+			String[] messageWords = StringUtils.splitString(messageRawText);
 			
 			if (messageWords.length >= 5 && messageWords[messageWords.length - 2].equals("by")) {
 				DiamondFireEvent.JoinPlotEvent joinPlotEvent = new
-						DiamondFireEvent.JoinPlotEvent(nextPlotJoinId, TextUtils.buildString(messageWords, 2, messageWords.length - 3), messageWords[messageWords.length - 1], PlayerMode.PLAY);
+						DiamondFireEvent.JoinPlotEvent(nextPlotJoinId, StringUtils.buildString(messageWords, 2, messageWords.length - 3), messageWords[messageWords.length - 1], PlayerMode.PLAY);
 				
 				MinecraftForge.EVENT_BUS.post(joinPlotEvent);
 			}
@@ -89,8 +89,8 @@ public class PlayerStateHandler {
 		
 		
 		if (messageRawText.startsWith("Your plot has now been renamed to: ")) {
-			String[] messageWords = TextUtils.splitString(messageRawText);
-			plotName = TextUtils.buildString(messageWords, 7);
+			String[] messageWords = StringUtils.splitString(messageRawText);
+			plotName = StringUtils.buildString(messageWords, 7);
 			
 			discordRPCForceReload = true;
 			MinecraftForge.EVENT_BUS.post(new DiamondFireEvent.RenamePlotEvent());
@@ -98,13 +98,13 @@ public class PlayerStateHandler {
 		
 		
 		if (messageRawText.startsWith("You have entered a support session with player ")) {
-			String[] messageWords = TextUtils.splitString(messageRawText);
+			String[] messageWords = StringUtils.splitString(messageRawText);
 			nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTER);
 			waitForCreative = true;
 		}
 		
 		if (messageRawText.startsWith("You have entered a support session! Your helper is ")) {
-			String[] messageWords = TextUtils.splitString(messageRawText);
+			String[] messageWords = StringUtils.splitString(messageRawText);
 			nextEvent = new DiamondFireEvent.EnterSessionEvent(messageWords[messageWords.length - 1], SupportSessionRole.SUPPORTEE);
 			waitForCreative = true;
 		}
@@ -135,7 +135,7 @@ public class PlayerStateHandler {
 		
 		if (messageText.startsWith("/join ") && playerMode == PlayerMode.SPAWN) {
 			try {
-				nextPlotJoinId = CommandBase.parseInt(TextUtils.splitString(messageText)[1]);
+				nextPlotJoinId = CommandBase.parseInt(StringUtils.splitString(messageText)[1]);
 			} catch (NumberInvalidException exception) {
 				//Invalid number argument! Continue on, the server will output the error message.
 			}
@@ -149,7 +149,7 @@ public class PlayerStateHandler {
 			if (event.clickedItem.hasTagCompound() && event.clickedItem.getTagCompound().hasKey("HideFlags") && event.clickedItem.getTagCompound().getInteger("HideFlags") == 35) {
 				
 				//Gets the name of the plot, also removes all color codes from the item name.
-				nextPlotJoinName = TextUtils.stripColorCodes(event.clickedItem.getDisplayName());
+				nextPlotJoinName = StringUtils.stripColorCodes(event.clickedItem.getDisplayName());
 				
 				NBTTagList itemLore = event.clickedItem.getOrCreateSubCompound("display").getTagList("Lore", 8);
 				
@@ -258,7 +258,6 @@ public class PlayerStateHandler {
 		}
 		
 		if (playerMode == PlayerMode.DEV && devSpaceCache != null) {
-			devSpaceCache.unregister();
 			devSpaceCache = null;
 		}
 	}

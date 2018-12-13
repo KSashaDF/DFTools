@@ -1,8 +1,8 @@
 package dfutils.commands.codetools.code;
 
-import dfutils.codetools.codehandler.utils.CodeBlockName;
-import dfutils.codetools.codehandler.utils.CodeBlockType;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codesystem.objects.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockGroup;
+import dfutils.codetools.utils.CodeBlockUtils;
 import diamondcore.utils.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
@@ -51,15 +51,15 @@ class CommandImportTemplate {
                 itemStack.getTagCompound().setTag("display", new NBTTagCompound());
 
                 //The following code sets the code template item name.
-                CodeBlockName codeLineHeader = CodeBlockUtils.stringToBlock(codeTemplate.getCompoundTagAt(0).getString("Name"));
+                CodeBlockType codeLineHeader = CodeBlockUtils.stringToBlock(codeTemplate.getCompoundTagAt(0).getString("Name"));
 
-                if (codeLineHeader.codeBlockType == CodeBlockType.EVENT &&
+                if (codeLineHeader.blockGroup == CodeBlockGroup.EVENT &&
                         (codeTemplate.getCompoundTagAt(0).hasKey("Function") || codeTemplate.getCompoundTagAt(0).hasKey("DynamicFunction"))) {
 
-                    if (codeLineHeader == CodeBlockName.PLAYER_EVENT || codeLineHeader == CodeBlockName.ENTITY_EVENT) {
+                    if (codeLineHeader == CodeBlockType.PLAYER_EVENT || codeLineHeader == CodeBlockType.ENTITY_EVENT) {
                         itemStack.getTagCompound().getCompoundTag("display").
                                 setTag("Name", new NBTTagString("§5§l[ §dEvent §5| §d" + codeTemplate.getCompoundTagAt(0).getString("Function") + " §5§l]"));
-                    } else if (codeLineHeader == CodeBlockName.LOOP) {
+                    } else if (codeLineHeader == CodeBlockType.LOOP) {
                         itemStack.getTagCompound().getCompoundTag("display").
                                 setTag("Name", new NBTTagString("§5§l[ §dEvent §5| §dLoop §5§l]"));
                     } else {

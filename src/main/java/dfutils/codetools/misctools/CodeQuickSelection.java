@@ -1,13 +1,13 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codetools.codehandler.utils.CodeBlockData;
+import dfutils.codetools.utils.CodeBlockData;
 import dfutils.codetools.CodeItems;
-import dfutils.codetools.codehandler.utils.CodeBlockName;
-import dfutils.codetools.codehandler.utils.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockGroup;
 import dfutils.codetools.printing.PrintSignStage;
 import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
 import diamondcore.utils.BlockUtils;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import diamondcore.utils.ItemUtils;
 import diamondcore.utils.MathUtils;
 import diamondcore.utils.MessageUtils;
@@ -54,14 +54,14 @@ public class CodeQuickSelection {
 			if (CodeBlockUtils.isCodeBlock(minecraft.objectMouseOver.getBlockPos())) {
 				
 				BlockPos blockPos = CodeBlockUtils.getBlockCore(minecraft.objectMouseOver.getBlockPos());
-				CodeBlockName blockName = CodeBlockUtils.getBlockName(blockPos);
+				CodeBlockType blockName = CodeBlockUtils.getBlockName(blockPos);
 				NBTTagCompound signData = new NBTTagCompound();
 				signData.setString("Name", blockName.name());
 				
-				if (blockName.hasCodeSign) {
+				if (blockName.hasSign) {
 					String[] signText = BlockUtils.getSignText(blockPos.west());
 					
-					if (blockName == CodeBlockName.FUNCTION || blockName == CodeBlockName.CALL_FUNCTION || blockName == CodeBlockName.LOOP) {
+					if (blockName == CodeBlockType.FUNCTION || blockName == CodeBlockType.CALL_FUNCTION || blockName == CodeBlockType.LOOP) {
 						if (signText[1] != null) {
 							signData.setString("DynamicFunction", signText[1]);
 						}
@@ -70,7 +70,7 @@ public class CodeQuickSelection {
 							signData.setString("Function", signText[1]);
 						}
 						
-						if (blockName == CodeBlockName.SELECT_OBJECT || blockName == CodeBlockName.REPEAT) {
+						if (blockName == CodeBlockType.SELECT_OBJECT || blockName == CodeBlockType.REPEAT) {
 							if (signText[2] != null) {
 								signData.setString("SubFunction", signText[2]);
 							}
@@ -81,13 +81,13 @@ public class CodeQuickSelection {
 						}
 					}
 					
-					if (blockName.codeBlockType == CodeBlockType.CONDITIONAL) {
+					if (blockName.blockGroup == CodeBlockGroup.CONDITIONAL) {
 						if (signText[3] != null && signText[3].equals("NOT")) {
 							signData.setByte("ConditionalNot", (byte) 1);
 						}
 					}
 					
-					if (blockName == CodeBlockName.PLAYER_ACTION || blockName == CodeBlockName.IF_PLAYER || blockName == CodeBlockName.ENTITY_ACTION) {
+					if (blockName == CodeBlockType.PLAYER_ACTION || blockName == CodeBlockType.IF_PLAYER || blockName == CodeBlockType.ENTITY_ACTION) {
 						if (signText[2] != null) {
 							signData.setString("Target", signText[2]);
 						}
@@ -164,7 +164,7 @@ public class CodeQuickSelection {
 				if (signStage == PrintSignStage.FUNCTION) {
 					
 					//Tests if code function exists within code reference data.
-					if (!CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
+					if (!CodeBlockData.codeData.getCompoundTag(signData.getString("Name")).hasKey(signData.getString("Function"))) {
 						MessageUtils.errorMessage("Unable to identify code function! Moving onto next code block.");
 						isPrintingSign = false;
 						return;
@@ -173,12 +173,12 @@ public class CodeQuickSelection {
 					functionPathPos = 0;
 					
 					if (signData.hasKey("SubFunction")) {
-						functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+						functionPath = CodeBlockData.codeData.getCompoundTag(signData.getString("Name")).
 								getCompoundTag(signData.getString("Function")).
 								getCompoundTag(signData.getString("SubFunction")).
 								getTagList("path", 8);
 					} else {
-						functionPath = CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+						functionPath = CodeBlockData.codeData.getCompoundTag(signData.getString("Name")).
 								getCompoundTag(signData.getString("Function")).
 								getTagList("path", 8);
 					}
@@ -274,7 +274,7 @@ public class CodeQuickSelection {
 					if (signStage == PrintSignStage.TARGET) {
 						//Tries to find the specified item within the code GUI, returns item slot number.
 						int itemSlot = findContainerItem(codeGui,
-								CodeBlockData.codeReferenceData.getCompoundTag(signData.getString("Name")).
+								CodeBlockData.codeData.getCompoundTag(signData.getString("Name")).
 										getCompoundTag("CodeTarget").
 										getString(signData.getString("Target")));
 						

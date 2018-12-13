@@ -13,6 +13,12 @@
         },
 
         "GiveItems": {
+            "arguments": [
+                {
+                    "type": "item",
+                    "acceptsMultiple": true
+                }
+            ],
             "path": [
                 "§6Item Management",
                 "§6Give Items"

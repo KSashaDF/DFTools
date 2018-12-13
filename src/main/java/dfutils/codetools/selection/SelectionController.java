@@ -1,9 +1,9 @@
 package dfutils.codetools.selection;
 
 import diamondcore.utils.ColorReference;
-import dfutils.codetools.codehandler.utils.CodeBlockType;
+import dfutils.codesystem.objects.CodeBlockGroup;
 import diamondcore.utils.BlockUtils;
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import diamondcore.utils.GraphicsUtils;
 import diamondcore.utils.chunk.ChunkCache;
@@ -83,7 +83,7 @@ public class SelectionController {
 				minecraft.player.sendStatusMessage(new TextComponentString("§eSelection Mode: §aCode Block"), true);
 				edges[0] = selectionPos;
 				
-				if (CodeBlockUtils.getBlockName(selectionPos).hasPistonBrackets) {
+				if (CodeBlockUtils.getBlockName(selectionPos).hasBrackets) {
 					edges[1] = CodeBlockUtils.getOppositePiston(selectionPos.south());
 				} else {
 					edges[1] = selectionPos;
@@ -174,7 +174,7 @@ public class SelectionController {
 			checkPos = checkPos.north();
 			if (CodeBlockUtils.isCodeBlock(checkPos)) {
 				
-				if (CodeBlockUtils.getBlockName(CodeBlockUtils.getBlockCore(checkPos)).codeBlockType.equals(CodeBlockType.EVENT)) {
+				if (CodeBlockUtils.getBlockName(CodeBlockUtils.getBlockCore(checkPos)).blockGroup.equals(CodeBlockGroup.EVENT)) {
 					checkPos = CodeBlockUtils.getBlockCore(checkPos);
 					break;
 				}

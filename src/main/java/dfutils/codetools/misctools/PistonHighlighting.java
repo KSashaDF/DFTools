@@ -1,6 +1,6 @@
 package dfutils.codetools.misctools;
 
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import diamondcore.utils.BlockUtils;
 import diamondcore.utils.ColorReference;
 import diamondcore.utils.GraphicsUtils;

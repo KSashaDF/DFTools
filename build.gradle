@@ -57,15 +57,14 @@ processResources {
 }
 
 jar {
-    version = "1.12.2-${Calendar.getInstance().get(Calendar.YEAR)}.${Calendar.getInstance().get(Calendar.MONTH) < 9 ? "0" + (Calendar.getInstance().get(Calendar.MONTH) + 1) : Calendar.getInstance().get(Calendar.MONTH) + 1}.${Calendar.getInstance().get(Calendar.DATE) < 10 ? "0" + Calendar.getInstance().get(Calendar.DATE) : Calendar.getInstance().get(Calendar.DATE)}"
+    // version = "1.12.2-${Calendar.getInstance().get(Calendar.YEAR)}.${Calendar.getInstance().get(Calendar.MONTH) < 9 ? "0" + (Calendar.getInstance().get(Calendar.MONTH) + 1) : Calendar.getInstance().get(Calendar.MONTH) + 1}.${Calendar.getInstance().get(Calendar.DATE) < 10 ? "0" + Calendar.getInstance().get(Calendar.DATE) : Calendar.getInstance().get(Calendar.DATE)}"
+    version = "1.12.2-1.2.0"
     archiveName "dfTools-${version}.jar"
 
     from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest {
-        //attributes 'FMLAT': 'dfutils_at.cfg'
-    }
 }
 
+/*
 task buildDiamondCore(type: Jar, dependsOn: reobfJar) {
 
     version = "1.12.2-1.0.0"
@@ -126,30 +125,9 @@ task buildDFUtils(type: Jar, dependsOn: reobfJar) {
     }
 }
 
-task buildDFAddons(type: Jar, dependsOn: reobfJar) {
-
-    version = "1.12.2-1.0.0"
-    archiveName "dfAddons-${version}.jar"
-
-    from ("build/classes/main") {
-        include 'dfaddons/**'
-    }
-
-    from ("build/resources/main") {
-        include '**.**'
-        include 'assets/dfaddons/**'
-    }
-
-    from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest {
-        //attributes 'FMLAT': 'dfutils_at.cfg'
-    }
-}
-
 artifacts {
     //The dfTools build task is included by default.
     archives buildDiamondCore
     archives buildItemControl
     archives buildDFUtils
-    archives buildDFAddons
-}
+}*/

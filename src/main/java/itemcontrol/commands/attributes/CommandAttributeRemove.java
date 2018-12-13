@@ -1,6 +1,6 @@
 package itemcontrol.commands.attributes;
 
-import diamondcore.utils.TextUtils;
+import diamondcore.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
@@ -55,7 +55,7 @@ class CommandAttributeRemove {
 			if (checkAttribute.getTag("Name").toString().equals("\"" + commandArgs[1] + "\"")) {
 				if (commandArgs.length == 3) {
 					try {
-						if (checkAttribute.getTag("Slot").toString().equals("\"" + TextUtils.parseSlotText(commandArgs[2]).getName() + "\"")) {
+						if (checkAttribute.getTag("Slot").toString().equals("\"" + StringUtils.parseSlotText(commandArgs[2]).getName() + "\"")) {
 							
 							nbtTagList.removeTag(i);
 							
@@ -88,7 +88,7 @@ class CommandAttributeRemove {
 		if (commandArgs.length >= 2 && commandArgs.length <= 3) {
 			
 			if (commandArgs.length == 3) {
-				if (TextUtils.parseSlotText(commandArgs[2]) == null) {
+				if (StringUtils.parseSlotText(commandArgs[2]) == null) {
 					errorMessage("Invalid slot name! Valid slot names: main_hand, off_hand, helmet, chest, leggings, or boots.");
 					return false;
 				}

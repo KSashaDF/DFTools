@@ -1,6 +1,6 @@
 package dfutils.codetools.selection;
 
-import dfutils.codetools.codehandler.utils.CodeBlockUtils;
+import dfutils.codetools.utils.CodeBlockUtils;
 import dfutils.utils.CodeFormatException;
 import diamondcore.eventhandler.customevents.CustomRightClickBlockEvent;
 import net.minecraft.client.Minecraft;
